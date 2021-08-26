@@ -10,51 +10,51 @@ class DBHelper {
     return sql.openDatabase(path.join(dbPath, 'score.db'),
         onCreate: (db, version) {
       db.execute("PRAGMA foreign_keys = ON");
-      return db.execute(
+      db.execute(
           '''CREATE TABLE app_settings(
             id INTEGER PRIMARY KEY, 
             setting TEXT, 
             active INTEGER
             )''');
-      // db.execute(
-      //     '''CREATE TABLE players(
-      //       id INTEGER PRIMARY KEY, 
-      //       firstname TEXT,
-      //       lastname TEXT, 
-      //       wins INTEGER
-      //       )''');
-      // db.execute(
-      //     '''CREATE TABLE teams(
-      //       id INTEGER PRIMARY KEY, 
-      //       name TEXT,
-      //       wins INTEGER
-      //       )''');
-      // db.execute(
-      //     '''CREATE TABLE games(
-      //       id INTEGER PRIMARY KEY, 
-      //       name TEXT,
-      //       description TEXT, 
-      //       endscore INTEGER, 
-      //       lowscore INTEGER,
-      //       )''');
-      // db.execute(
-      //     '''CREATE TABLE indv_matches(
-      //       game_id INTEGER,
-      //       player1_id INTEGER,
-      //       player2_id INTEGER,   
-      //       FOREIGN KEY(game_id) REFERENCES games(id),
-      //       FOREIGN KEY(player1_id) REFERENCES players(id),
-      //       FOREIGN KEY(player2_id) REFERENCES players(id),
-      //       )''');
-      // db.execute(
-      //     '''CREATE TABLE team_matches(
-      //       game_id INTEGER,
-      //       team1_id INTEGER,
-      //       team2_id INTEGER,   
-      //       FOREIGN KEY(game_id) REFERENCES games(id),
-      //       FOREIGN KEY(team1_id) REFERENCES teams(id),
-      //       FOREIGN KEY(team2_id) REFERENCES teams(id),
-      //       )''');
+      db.execute(
+          '''CREATE TABLE players(
+            id INTEGER PRIMARY KEY, 
+            firstname TEXT,
+            lastname TEXT, 
+            wins INTEGER
+            )''');
+      db.execute(
+          '''CREATE TABLE teams(
+            id INTEGER PRIMARY KEY, 
+            name TEXT,
+            wins INTEGER
+            )''');
+      db.execute(
+          '''CREATE TABLE games(
+            id INTEGER PRIMARY KEY, 
+            name TEXT,
+            description TEXT, 
+            endscore INTEGER, 
+            lowscore INTEGER,
+            )''');
+      db.execute(
+          '''CREATE TABLE indv_matches(
+            game_id INTEGER,
+            player1_id INTEGER,
+            player2_id INTEGER,   
+            FOREIGN KEY(game_id) REFERENCES games(id),
+            FOREIGN KEY(player1_id) REFERENCES players(id),
+            FOREIGN KEY(player2_id) REFERENCES players(id),
+            )''');
+      db.execute(
+          '''CREATE TABLE team_matches(
+            game_id INTEGER,
+            team1_id INTEGER,
+            team2_id INTEGER,   
+            FOREIGN KEY(game_id) REFERENCES games(id),
+            FOREIGN KEY(team1_id) REFERENCES teams(id),
+            FOREIGN KEY(team2_id) REFERENCES teams(id),
+            )''');
     }, version: 1);
   }
 

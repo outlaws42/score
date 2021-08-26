@@ -7,6 +7,7 @@ import './providers/game_provider.dart';
 import './helpers/theme_config.dart';
 import './screens/main_screen.dart';
 import 'screens/settings.dart';
+import 'screens/player_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
           themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
            routes: {
              Settings.routeName: (ctx) => Settings(),
+             PlayersScreen.routeName: (ctx) => PlayersScreen(),
+
                         },
         );
       },

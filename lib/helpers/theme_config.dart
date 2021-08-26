@@ -7,7 +7,8 @@ class ThemeConfig {
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
-      color: Colors.black54,
+      backgroundColor: Colors.black54,
+      foregroundColor: Colors.white,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -69,7 +70,8 @@ class ThemeConfig {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Color.fromRGBO(35, 38, 37, 1),//Color(0xFF464646), // 0xFF3D3D3D
     appBarTheme: AppBarTheme(
-      color: Colors.teal,//Color(0xFF464646),
+      backgroundColor: Colors.teal,//Color(0xFF464646),
+      foregroundColor: Colors.white,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
