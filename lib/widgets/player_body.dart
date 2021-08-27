@@ -7,13 +7,13 @@ class PlayerBody extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(2),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          child: Text(
-            '${play.player[index].id.toString()}',
-            style: Theme.of(context).textTheme.headline3,
-          ),
-        ),
+        // leading: CircleAvatar(
+        //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        //   child: Text(
+        //     '${play.player[index].id.toString()}',
+        //     style: Theme.of(context).textTheme.headline3,
+        //   ),
+        // ),
         // leading: Text(
         //   '${play.player[index].id.toString()}',
         //   style: Theme.of(context).textTheme.headline6,
@@ -27,6 +27,18 @@ class PlayerBody extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
+    );
+  }
+
+  Widget header(context) {
+    return ListTile(
+      // leading: Container(
+      //   width: 30,
+      //   alignment: Alignment.center,
+      //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
+      // ),
+      title: Text('Name', style: Theme.of(context).textTheme.headline5),
+      trailing: Text('Wins', style: Theme.of(context).textTheme.headline5),
     );
   }
 
@@ -44,15 +56,28 @@ class PlayerBody extends StatelessWidget {
               : Consumer<PlayerProvider>(
                   builder: (cont, play, ch) => ListView.separated(
                       separatorBuilder: (context, index) => Divider(
-                            height: 20,
-                            thickness: 5,
+                            height: 0,
+                            thickness: 1,
                             indent: 0,
                             endIndent: 0,
                           ),
                       itemCount: play.player.length,
                       itemBuilder: (ctx, index) {
-                        if (index == 0) {}
-                        return _listItem(index, play, context);
+                        if (index == 0) {
+                          return Column(
+                            children: [
+                              header(context),
+                              Divider(
+                                height: 0,
+                                thickness: 4,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                              _listItem(index, play, context)
+                            ],
+                          );
+                        } else
+                          return _listItem(index, play, context);
                       }),
                 ),
     );

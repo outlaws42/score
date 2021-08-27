@@ -47,13 +47,13 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
-        color: Colors.red,
-        fontSize: 25.0,
+        color: Colors.black87,
+        fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
         color: Colors.black87,
-        fontSize: 20.0,
+        fontSize: 14.0,
         fontWeight: FontWeight.normal,
       ),
     ),
@@ -110,14 +110,14 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
-        color: Colors.red,
-        fontSize: 25.0,
+        color: Colors.white70,
+        fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
         color: Color.fromRGBO(255, 255, 255, .85), // white
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 14.0,
+        fontWeight: FontWeight.normal,
       ),
     ),
     buttonTheme: ButtonThemeData(
