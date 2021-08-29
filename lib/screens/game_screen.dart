@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:score/providers/player_provider.dart';
-import '../widgets/player_body.dart';
 import 'package:provider/provider.dart';
+import '../providers/player_provider.dart';
+import '../providers/game_provider.dart';
+import '../widgets/game_body.dart';
+
 import '../screens/settings.dart';
+import '../screens/player_screen.dart';
 
 enum FilterOptions {
   Players,
@@ -15,8 +18,8 @@ enum FilterOptions {
   
 }
 
-class PlayersScreen extends StatelessWidget {
-  static const routeName = 'players_screen';
+class GameScreen extends StatelessWidget {
+  static const routeName = 'game_screen';
   
   void selectSettings(BuildContext ctx, value) {
 
@@ -29,6 +32,9 @@ class PlayersScreen extends StatelessWidget {
     }
      else if (value == FilterOptions.AddPlayer) {
       Provider.of<PlayerProvider>(ctx, listen: false).addPlayer(1);
+
+    } else if (value == FilterOptions.AddGame) {
+      Provider.of<GameProvider>(ctx, listen: false).addGame();
     }
     
   }
@@ -37,7 +43,7 @@ class PlayersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
      return Scaffold(
       appBar: AppBar(
-        title: Text("Players", style: Theme.of(context).textTheme.headline3,),
+        title: Text("Games", style: Theme.of(context).textTheme.headline3,),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
@@ -50,12 +56,16 @@ class PlayersScreen extends StatelessWidget {
               PopupMenuItem(
                   child: Text("Settings"), value: FilterOptions.Settings),
               PopupMenuItem(
-                  child: Text("Add Player"), value: FilterOptions.AddPlayer)
+                  child: Text("Players"), value: FilterOptions.Players),
+              PopupMenuItem(
+                  child: Text("Add Player"), value: FilterOptions.AddPlayer),
+              PopupMenuItem(
+                  child: Text("Add Game"), value: FilterOptions.AddGame)
             ],
           ),
         ],
       ),
-      body: PlayerBody(),
+      body: GameBody(),
     );
   }
 }

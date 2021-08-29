@@ -35,7 +35,7 @@ class DBHelper {
             name TEXT,
             description TEXT, 
             endscore INTEGER, 
-            lowscore INTEGER,
+            lowscore INTEGER
             )''');
       db.execute(
           '''CREATE TABLE indv_matches(
@@ -44,7 +44,7 @@ class DBHelper {
             player2_id INTEGER,   
             FOREIGN KEY(game_id) REFERENCES games(id),
             FOREIGN KEY(player1_id) REFERENCES players(id),
-            FOREIGN KEY(player2_id) REFERENCES players(id),
+            FOREIGN KEY(player2_id) REFERENCES players(id)
             )''');
       db.execute(
           '''CREATE TABLE team_matches(
@@ -53,7 +53,7 @@ class DBHelper {
             team2_id INTEGER,   
             FOREIGN KEY(game_id) REFERENCES games(id),
             FOREIGN KEY(team1_id) REFERENCES teams(id),
-            FOREIGN KEY(team2_id) REFERENCES teams(id),
+            FOREIGN KEY(team2_id) REFERENCES teams(id)
             )''');
     }, version: 1);
   }

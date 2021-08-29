@@ -10,6 +10,10 @@ class PlayerProvider extends ChangeNotifier {
     return [..._players];
   }
 
+  // List<String> get players {
+  //   return [..._players];
+  // }
+
   // Temp function for testing
   // PlayerModel findById(int id) {
   //   return _players.firstWhere((player) => player.id == id);

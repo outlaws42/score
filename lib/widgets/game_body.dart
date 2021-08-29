@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../providers/player_provider.dart';
+import '../providers/game_provider.dart';
 
-class PlayerBody extends StatelessWidget {
-  Widget _listItem(index, play, context) {
+class GameBody extends StatelessWidget {
+  Widget _listItem(index, game, context) {
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -23,8 +23,12 @@ class PlayerBody extends StatelessWidget {
           //   style: Theme.of(context).textTheme.headline6,
           // ),
           title: Text(
-            '${play.player[index].firstName.toString()} ${play.player[index].lastName.toString()}',
+            '${game.games[index].name.toString()}',
             style: Theme.of(context).textTheme.headline6,
+          ),
+          subtitle:Text(
+            '${game.games[index].description.toString()}',
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: Container(
             alignment: Alignment.center,
@@ -40,7 +44,7 @@ class PlayerBody extends StatelessWidget {
                       blurRadius: 8.0),
                 ]),
             child: Text(
-              '${play.player[index].wins.toString()}',
+              '${game.games[index].endScore.toString()}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -59,8 +63,8 @@ class PlayerBody extends StatelessWidget {
         //   alignment: Alignment.center,
         //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
         // ),
-        title: Text('Name', style: Theme.of(context).textTheme.headline3),
-        trailing: Text('Wins', style: Theme.of(context).textTheme.headline3),
+        title: Text('Game', style: Theme.of(context).textTheme.headline3),
+        trailing: Text('Wining Score', style: Theme.of(context).textTheme.headline3),
       ),
     );
   }
@@ -70,21 +74,21 @@ class PlayerBody extends StatelessWidget {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
 
     return FutureBuilder(
-      future: Provider.of<PlayerProvider>(context, listen: false).fetchPlayer(),
+      future: Provider.of<GameProvider>(context, listen: false).fetchGame(),
       builder: (ctx, snapshot) =>
           snapshot.connectionState == ConnectionState.waiting
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : Consumer<PlayerProvider>(
-                  builder: (cont, play, ch) => ListView.builder(
+              : Consumer<GameProvider>(
+                  builder: (cont, game, ch) => ListView.builder(
                       // separatorBuilder: (context, index) => Divider(
                       //       height: 0,
                       //       thickness: 1,
                       //       indent: 0,
                       //       endIndent: 0,
                       //     ),
-                      itemCount: play.player.length,
+                      itemCount: game.games.length,
                       itemBuilder: (ctx, index) {
                         if (index == 0) {
                           return Column(
@@ -96,11 +100,11 @@ class PlayerBody extends StatelessWidget {
                               //   indent: 0,
                               //   endIndent: 0,
                               // ),
-                              _listItem(index, play, context)
+                              _listItem(index, game, context)
                             ],
                           );
                         } else
-                          return _listItem(index, play, context);
+                          return _listItem(index, game, context);
                       }),
                 ),
     );

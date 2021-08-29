@@ -8,6 +8,8 @@ import './helpers/theme_config.dart';
 import './screens/main_screen.dart';
 import 'screens/settings.dart';
 import 'screens/player_screen.dart';
+import 'screens/game_screen.dart';
+import 'screens/team_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
            routes: {
              Settings.routeName: (ctx) => Settings(),
              PlayersScreen.routeName: (ctx) => PlayersScreen(),
+             GameScreen.routeName: (ctx) => GameScreen(),
+             TeamScreen.routeName: (ctx) => TeamScreen(),
 
                         },
         );

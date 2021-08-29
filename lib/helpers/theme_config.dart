@@ -20,7 +20,8 @@ class ThemeConfig {
       secondary: Colors.black,
     ),
     cardTheme: CardTheme(
-      color: Colors.blue,
+      elevation: 1,
+      color: Colors.white,
     ),
     iconTheme: IconThemeData(
       color: Colors.blue,
@@ -42,8 +43,8 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline4: TextStyle(
-        color: Colors.white54,
-        fontSize: 17.0,
+        color: Colors.white,
+        fontSize: 14.0,
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
@@ -52,6 +53,11 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
+        color: Colors.black87,
+        fontSize: 14.0,
+        fontWeight: FontWeight.bold,
+      ),
+      subtitle1: TextStyle(
         color: Colors.black87,
         fontSize: 14.0,
         fontWeight: FontWeight.normal,
@@ -83,7 +89,8 @@ class ThemeConfig {
       secondary: Colors.black,
     ),
     cardTheme: CardTheme(
-      color: Colors.black,
+      elevation: 1,
+      color: Colors.black87,
     ),
     iconTheme: IconThemeData(
       color: Colors.white54,
@@ -105,8 +112,8 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline4: TextStyle(
-        color: Colors.white54,
-        fontSize: 17.0,
+        color: Colors.white,
+        fontSize: 14.0,
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
@@ -115,6 +122,11 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
+        color: Color.fromRGBO(255, 255, 255, .85), // white
+        fontSize: 14.0,
+        fontWeight: FontWeight.bold,
+      ),
+      subtitle1: TextStyle(
         color: Color.fromRGBO(255, 255, 255, .85), // white
         fontSize: 14.0,
         fontWeight: FontWeight.normal,
