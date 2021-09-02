@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../providers/player_provider.dart';
 
 class PlayerBody extends StatelessWidget {
+
+  showBottomSheet(first,last, wins, id) {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("$id"),
+              Text("$first $last"),
+              Text("$wins"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _listItem(index, play, context) {
+    String? _selectedItems;
+    var title = Get.arguments;
+    print(title);
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -22,6 +46,21 @@ class PlayerBody extends StatelessWidget {
           //   '${play.player[index].id.toString()}',
           //   style: Theme.of(context).textTheme.headline6,
           // ),
+          onTap: () {
+             if (title[0] == 'main_body'){
+              _selectedItems = play.player[index].firstName; // assign first name
+              print(_selectedItems);
+              Get.back(result: _selectedItems);
+             } else {
+               print(title[0]);
+            showBottomSheet(
+              play.player[index].firstName,
+              play.player[index].lastName,
+              play.player[index].wins,
+              play.player[index].id,
+            );
+            }
+          },
           title: Text(
             '${play.player[index].firstName.toString()} ${play.player[index].lastName.toString()}',
             style: Theme.of(context).textTheme.headline6,
@@ -35,9 +74,7 @@ class PlayerBody extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8.0),
+                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
               '${play.player[index].wins.toString()}',

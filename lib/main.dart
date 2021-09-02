@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import './providers/theme_provider.dart';
 import './providers/settings_provider.dart';
@@ -36,13 +37,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, appState, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'Scoreboard',
           debugShowCheckedModeBanner: false,
           theme: ThemeConfig.lightTheme,
           darkTheme: ThemeConfig.darkTheme,
           home: MainScreen(),
           themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          getPages: [
+            GetPage(name: '/games', page: () => GameScreen()),
+            GetPage(name: '/players', page: () => PlayersScreen()),
+            GetPage(name: '/teams', page: () => TeamScreen()), 
+            GetPage(name: '/settings', page: () => Settings()),
+          ],
            routes: {
              Settings.routeName: (ctx) => Settings(),
              PlayersScreen.routeName: (ctx) => PlayersScreen(),

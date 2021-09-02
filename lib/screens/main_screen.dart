@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../providers/player_provider.dart';
 import '../providers/settings_provider.dart';
 import '../providers/game_provider.dart';
-import './player_screen.dart';
-import './game_screen.dart';
-import './team_screen.dart';
-import './settings.dart';
-import '../widgets/main_body.dart';
-import '../widgets/drop_down_players.dart';
+import '../widgets/player_tile.dart';
 
 enum FilterOptions {
   Players,
@@ -26,16 +22,16 @@ class MainScreen extends StatelessWidget {
   void selectSettings(BuildContext ctx, value) {
 
     if (value == FilterOptions.Players) {
-      Navigator.of(ctx).pushNamed(PlayersScreen.routeName);
+      Get.toNamed("/players", arguments: ["main_screen"]);
 
     }else if (value == FilterOptions.Games) {
-      Navigator.of(ctx).pushNamed(GameScreen.routeName);
+      Get.toNamed("/games");
 
     } else if (value == FilterOptions.Teams) {
-      Navigator.of(ctx).pushNamed(TeamScreen.routeName);
+      Get.toNamed("/teams");
 
     } else if (value == FilterOptions.Settings) {
-      Navigator.of(ctx).pushNamed(Settings.routeName);
+     Get.toNamed("/settings");
 
     } else if (value == FilterOptions.AddPlayer) {
       Provider.of<PlayerProvider>(ctx, listen: false).addPlayer(1);
@@ -82,7 +78,13 @@ class MainScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: MainBody(),
+      body: Column(
+        children: [
+          // Text('Cornhole'),
+          PlayerTile(),
+          PlayerTile(),
+        ],
+      ),
     );
   }
 }

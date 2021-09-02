@@ -28,12 +28,10 @@ dependencies:
   sqflite: ^2.0.0+3
   path: ^1.8.0
   package_info_plus: ^1.0.5
-  
+  get: ^4.3.8
+  flutter_colorpicker: ^0.5.0
   # Fake data for testing
   faker: ^2.0.0
-  # path_provider: ^2.0.2
-  # objectbox: ^1.1.1
-  # objectbox_flutter_libs: any
 
 
   # The following adds the Cupertino Icons font to your application.

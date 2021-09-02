@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:score/widgets/drop_down_players.dart';
+
 import '../providers/player_provider.dart';
 import '../providers/game_provider.dart';
-import '../widgets/game_body.dart';
 import '../screens/settings.dart';
 import '../screens/player_screen.dart';
-import '../screens/game_screen.dart';
+
 
 enum FilterOptions {
   Players,
@@ -66,7 +65,7 @@ class TeamScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: DropdownPlayers(),
+      body: PlayersScreen(),
     );
   }
 }
