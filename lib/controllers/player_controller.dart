@@ -1,29 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:faker/faker.dart';
 import '../helpers/db_helper.dart';
 import '../models/player_model.dart';
 
-class PlayerProvider extends ChangeNotifier {
-  List<PlayerModel> _players = [];
+class PlayerController extends GetxController {
+  List<PlayerModel> players = <PlayerModel>[].obs;
 
-  List<PlayerModel> get player {
-    return [..._players];
-  }
-
- 
-
-  // List<String> get players {
-  //   return [..._players];
+  // RxList<PlayerModel> get player {
+  //   return [..._players].obs;
   // }
 
-  // Temp function for testing
-  // PlayerModel findById(int id) {
-  //   return _players.firstWhere((player) => player.id == id);
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchPlayer();
   // }
 
   Future<void> fetchPlayer() async {
     final dataList = await DBHelper.getData('players');
-    _players = dataList
+    players = dataList
         .map(
           (player) => PlayerModel(
             id: player['id'] as int?,
@@ -33,7 +28,7 @@ class PlayerProvider extends ChangeNotifier {
           ),
         )
         .toList();
-    notifyListeners();
+    // update();
   }
 
   // Future<void> addPlayer(
@@ -59,15 +54,16 @@ class PlayerProvider extends ChangeNotifier {
   // }
 
   Future<void> addPlayer(
-    int wins,
   ) async {
     final newPlayer = PlayerModel(
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       wins: faker.randomGenerator.integer(20),
     );
-    _players.add(newPlayer);
-    notifyListeners();
+    players.add(newPlayer);
+    // _players.refresh();
+    // fetchPlayer();
+    // update();
     DBHelper.insert('players', {
       'firstname': newPlayer.firstName,
       'lastname': newPlayer.lastName,

@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:faker/faker.dart';
 import '../helpers/db_helper.dart';
 import '../models/game_model.dart';
 
-class GameProvider extends ChangeNotifier {
-  List<GameModel> _games = [];
+class GameController extends GetxController {
+  List<GameModel> games = <GameModel>[].obs;
   // String _version = '';
 
-  List<GameModel> get games {
-    return [..._games];
-  }
+  // List<GameModel> get games {
+  //   return [..._games];
+  // }
+
+  //  @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchGame();
+  // }
 
   Future<void> fetchGame() async {
     final dataList = await DBHelper.getData('games');
-    _games = dataList
+    games = dataList
         .map(
           (game) => GameModel(
             id: game['id'] as int?,
@@ -24,7 +31,7 @@ class GameProvider extends ChangeNotifier {
           ),
         )
         .toList();
-    notifyListeners();
+    // notifyListeners();
   }
 
   // Future<void> addGame({
@@ -66,8 +73,8 @@ class GameProvider extends ChangeNotifier {
       endScore: faker.randomGenerator.integer(21),
       lowScore: lowscore
     );
-    _games.add(newGame);
-    notifyListeners();
+    games.add(newGame);
+    // notifyListeners();
     DBHelper.insert('games', {
       'id': newGame.id,
       'name': newGame.name,

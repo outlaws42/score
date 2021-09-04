@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../providers/game_provider.dart';
+import 'package:get/get.dart';
+// import '../controllers/game_provider.dart';
+import '../controllers/game_controller.dart';
 
-class GameBody extends StatelessWidget {
+class GameList extends StatelessWidget {
+  final GameController gameController = Get.find();
   Widget _listItem(index, game, context) {
     return Container(
       padding: const EdgeInsets.all(2),
@@ -26,7 +29,7 @@ class GameBody extends StatelessWidget {
             '${game.games[index].name.toString()}',
             style: Theme.of(context).textTheme.headline6,
           ),
-          subtitle:Text(
+          subtitle: Text(
             '${game.games[index].description.toString()}',
             style: Theme.of(context).textTheme.subtitle1,
           ),
@@ -39,9 +42,7 @@ class GameBody extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8.0),
+                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
               '${game.games[index].endScore.toString()}',
@@ -64,7 +65,8 @@ class GameBody extends StatelessWidget {
         //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
         // ),
         title: Text('Game', style: Theme.of(context).textTheme.headline3),
-        trailing: Text('Wining Score', style: Theme.of(context).textTheme.headline3),
+        trailing:
+            Text('Wining Score', style: Theme.of(context).textTheme.headline3),
       ),
     );
   }
@@ -73,40 +75,32 @@ class GameBody extends StatelessWidget {
   Widget build(BuildContext context) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
 
-    return FutureBuilder(
-      future: Provider.of<GameProvider>(context, listen: false).fetchGame(),
-      builder: (ctx, snapshot) =>
-          snapshot.connectionState == ConnectionState.waiting
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Consumer<GameProvider>(
-                  builder: (cont, game, ch) => ListView.builder(
-                      // separatorBuilder: (context, index) => Divider(
-                      //       height: 0,
-                      //       thickness: 1,
-                      //       indent: 0,
-                      //       endIndent: 0,
-                      //     ),
-                      itemCount: game.games.length,
-                      itemBuilder: (ctx, index) {
-                        if (index == 0) {
-                          return Column(
-                            children: [
-                              header(context),
-                              // Divider(
-                              //   height: 0,
-                              //   thickness: 4,
-                              //   indent: 0,
-                              //   endIndent: 0,
-                              // ),
-                              _listItem(index, game, context)
-                            ],
-                          );
-                        } else
-                          return _listItem(index, game, context);
-                      }),
-                ),
+    return GetX<GameController>(
+      builder: (_) => ListView.builder(
+          // separatorBuilder: (context, index) => Divider(
+          //       height: 0,
+          //       thickness: 1,
+          //       indent: 0,
+          //       endIndent: 0,
+          //     ),
+          itemCount: _.games.length,
+          itemBuilder: (ctx, index) {
+            if (index == 0) {
+              return Column(
+                children: [
+                  header(context),
+                  // Divider(
+                  //   height: 0,
+                  //   thickness: 4,
+                  //   indent: 0,
+                  //   endIndent: 0,
+                  // ),
+                  _listItem(index, _, context)
+                ],
+              );
+            } else
+              return _listItem(index, _, context);
+          }),
     );
   }
 }

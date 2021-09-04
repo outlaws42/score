@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
-import '../providers/player_provider.dart';
+import '../controllers/player_controller.dart';
 
-class PlayerBody extends StatelessWidget {
+class PlayerList extends StatelessWidget {
+  final PlayerController playerController = Get.find();
 
-  showBottomSheet(first,last, wins, id) {
+  showBottomSheet(first, last, wins, id) {
     Get.bottomSheet(
       Container(
         color: Colors.white,
@@ -47,22 +47,23 @@ class PlayerBody extends StatelessWidget {
           //   style: Theme.of(context).textTheme.headline6,
           // ),
           onTap: () {
-             if (title[0] == 'main_body'){
-              _selectedItems = play.player[index].firstName; // assign first name
+            if (title[0] == 'main_body') {
+              _selectedItems =
+                  play.players[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
-             } else {
-               print(title[0]);
-            showBottomSheet(
-              play.player[index].firstName,
-              play.player[index].lastName,
-              play.player[index].wins,
-              play.player[index].id,
-            );
+            } else {
+              print(title[0]);
+              showBottomSheet(
+                play.players[index].firstName,
+                play.players[index].lastName,
+                play.players[index].wins,
+                play.players[index].id,
+              );
             }
           },
           title: Text(
-            '${play.player[index].firstName.toString()} ${play.player[index].lastName.toString()}',
+            '${play.players[index].firstName.toString()} ${play.players[index].lastName.toString()}',
             style: Theme.of(context).textTheme.headline6,
           ),
           trailing: Container(
@@ -77,7 +78,7 @@ class PlayerBody extends StatelessWidget {
                   BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
-              '${play.player[index].wins.toString()}',
+              '${play.players[index].wins.toString()}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -106,40 +107,37 @@ class PlayerBody extends StatelessWidget {
   Widget build(BuildContext context) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
 
-    return FutureBuilder(
-      future: Provider.of<PlayerProvider>(context, listen: false).fetchPlayer(),
-      builder: (ctx, snapshot) =>
-          snapshot.connectionState == ConnectionState.waiting
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Consumer<PlayerProvider>(
-                  builder: (cont, play, ch) => ListView.builder(
-                      // separatorBuilder: (context, index) => Divider(
-                      //       height: 0,
-                      //       thickness: 1,
-                      //       indent: 0,
-                      //       endIndent: 0,
-                      //     ),
-                      itemCount: play.player.length,
-                      itemBuilder: (ctx, index) {
-                        if (index == 0) {
-                          return Column(
-                            children: [
-                              header(context),
-                              // Divider(
-                              //   height: 0,
-                              //   thickness: 4,
-                              //   indent: 0,
-                              //   endIndent: 0,
-                              // ),
-                              _listItem(index, play, context)
-                            ],
-                          );
-                        } else
-                          return _listItem(index, play, context);
-                      }),
-                ),
+    return GetX<PlayerController>(
+      builder: (_) {
+          // init: PlayerController();
+        return ListView.builder(
+            // separatorBuilder: (context, index) => Divider(
+            //       height: 0,
+            //       thickness: 1,
+            //       indent: 0,
+            //       endIndent: 0,
+            //     ),
+            itemCount: _.players.length,
+            itemBuilder: (ctx, index) {
+              if (index == 0) {
+                return Column(
+                  children: [
+                    header(context),
+                    // Divider(
+                    //   height: 0,
+                    //   thickness: 4,
+                    //   indent: 0,
+                    //   endIndent: 0,
+                    // ),
+                    _listItem(index, _, context)
+                  ],
+                );
+              } else
+                return _listItem(index, _, context);
+            });
+      }
+      
     );
+    
   }
 }

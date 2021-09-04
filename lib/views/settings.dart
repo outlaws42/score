@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/theme_provider.dart';
-import '../providers/settings_provider.dart';
+import '../controllers/theme_provider.dart';
+import '../controllers/settings_provider.dart';
 
 class Settings extends StatefulWidget {
   static const routeName = 'settings';
