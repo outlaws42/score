@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:score/controllers/player_provider.dart';
+import '../controllers/player_provider.dart';
 // import '../controllers/player_controller.dart';
-import 'player_list.dart';
+import './player_form.dart';
+import './player_list.dart';
 
 
 enum FilterOptions {
@@ -22,7 +23,8 @@ class PlayersScreen extends StatelessWidget {
        Get.toNamed("/", arguments: ["player_screen"]);
     }  else if (value == FilterOptions.AddPlayer) {
       // Provider.of<PlayerProvider>(ctx, listen: false).addPlayer(1);
-      ctx.read(playerProvider).addPlayer();
+      // ctx.read(playerProvider).addPlayer();
+      Get.to(()=> PlayerForm());
       // controller.addPlayer();
     }
   }

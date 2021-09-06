@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
-import 'package:score/views/player_screen.dart';
+// import 'package:path/path.dart';
+// import 'package:score/views/player_screen.dart';
 import '../controllers/game_provider.dart';
 import './game_list.dart';
 

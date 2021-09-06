@@ -16,8 +16,9 @@ class ThemeConfig {
     colorScheme: ColorScheme.light(
       primary: Colors.black87,
       onPrimary: Colors.black38,
-      primaryVariant: Colors.blue,
+      primaryVariant: Colors.black54,
       secondary: Colors.black,
+      secondaryVariant: Colors.black45,
     ),
     cardTheme: CardTheme(
       elevation: 1,
@@ -83,10 +84,11 @@ class ThemeConfig {
       ),
     ),
     colorScheme: ColorScheme.dark(
-      primary: Colors.black,
+      primary: Colors.white70,
       onPrimary: Colors.black38,
       primaryVariant: Colors.teal,
       secondary: Colors.black,
+      secondaryVariant: Colors.white30,
     ),
     cardTheme: CardTheme(
       elevation: 1,

@@ -26,27 +26,27 @@ class PlayerProvider extends ChangeNotifier {
         notifyListeners();
   }
 
-  // Future<void> addPlayer(
-  //   int id,
-  //   String firstname,
-  //   String lastname,
-  //   int wins,
-  // ) async {
-  //   final newPlayer = PlayerModel(
-  //     id: id,
-  //     firstName: firstname,
-  //     lastName: lastname,
-  //     wins: wins,
-  //   );
-  //   _players.add(newPlayer);
-  //   notifyListeners();
-  //   DBHelper.insert('players', {
-  //     'id': newPlayer.id,
-  //     'firstname': newPlayer.firstName,
-  //     'lastname': newPlayer.lastName,
-  //     'wins': newPlayer.wins,
-  //   });
-  // }
+  Future<void> addPlayerForm(
+    // int id,
+    String firstname,
+    String lastname,
+    int wins,
+  ) async {
+    final newPlayer = PlayerModel(
+      // id: id,
+      firstName: firstname,
+      lastName: lastname,
+      wins: wins,
+    );
+    _players.add(newPlayer);
+    notifyListeners();
+    DBHelper.insert('players', {
+      // 'id': newPlayer.id,
+      'firstname': newPlayer.firstName,
+      'lastname': newPlayer.lastName,
+      'wins': newPlayer.wins,
+    });
+  }
 
   Future<void> addPlayer(
   ) async {
