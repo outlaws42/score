@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import '../controllers/player_controller.dart';
+import 'package:score/controllers/player_provider.dart';
+// import '../controllers/player_controller.dart';
 import 'player_list.dart';
-import './settings.dart';
+
 
 enum FilterOptions {
-  Players,
-  Teams,
-  Games,
-  Settings,
+  Home,
   AddPlayer,
-  AddTeam,
-  AddGame
 }
+final playerProvider = ChangeNotifierProvider((ref) => PlayerProvider());
 
 class PlayersScreen extends StatelessWidget {
-  static const routeName = 'players_screen';
+  // static const routeName = 'players_screen';
   // final PlayerController controller = Get.find<PlayerController>();
-  final PlayerController controller = Get.put(PlayerController());
+  // final PlayerController controller = Get.put(PlayerController());
 
   void selectSettings(BuildContext ctx, value) {
-    if (value == FilterOptions.Settings) {
-      Navigator.of(ctx).pushNamed(Settings.routeName);
-    } else if (value == FilterOptions.Players) {
-      Navigator.of(ctx).pushNamed(PlayersScreen.routeName);
-    } else if (value == FilterOptions.AddPlayer) {
-      //  Provider.of<PlayerProvider>(ctx, listen: false).addPlayer(1);
-      controller.addPlayer();
+    if (value == FilterOptions.Home) {
+       Get.toNamed("/", arguments: ["player_screen"]);
+    }  else if (value == FilterOptions.AddPlayer) {
+      // Provider.of<PlayerProvider>(ctx, listen: false).addPlayer(1);
+      ctx.read(playerProvider).addPlayer();
+      // controller.addPlayer();
     }
   }
 
@@ -50,6 +47,16 @@ class PlayersScreen extends StatelessWidget {
               PopupMenuItem(
                 child: ListTile(
                   horizontalTitleGap: -10,
+                  leading: Icon(Icons.home),
+                  title: Text(
+                    "Home",
+                  ),
+                ),
+                value: FilterOptions.Home,
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  horizontalTitleGap: -10,
                   leading: Icon(Icons.person_add),
                   title: Text(
                     "Add Player",
@@ -68,7 +75,8 @@ class PlayersScreen extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           // Provider.of<PlayerProvider>(context, listen: false).addPlayer(1);
-          controller.addPlayer();
+          context.read(playerProvider).addPlayer();
+          // controller.addPlayer();
         },
       ),
     );

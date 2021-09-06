@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:provider/provider.dart';
+// import 'package:get/get.dart';
 // import '../controllers/game_provider.dart';
-import '../controllers/game_controller.dart';
+import './game_screen.dart';
+// import '../controllers/game_provider.dart';
 
-class GameList extends StatelessWidget {
-  final GameController gameController = Get.find();
+// final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
+
+class GameList extends ConsumerWidget {
+  // final GameController gameController = Get.find();
   Widget _listItem(index, game, context) {
+    final _game = game.games[index].name;
+    final _description = game.games[index].description;
+    final _endScore = game.games[index].endScore;
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -26,11 +33,11 @@ class GameList extends StatelessWidget {
           //   style: Theme.of(context).textTheme.headline6,
           // ),
           title: Text(
-            '${game.games[index].name.toString()}',
+            '$_game',
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: Text(
-            '${game.games[index].description.toString()}',
+            '$_description',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: Container(
@@ -45,7 +52,7 @@ class GameList extends StatelessWidget {
                   BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
-              '${game.games[index].endScore.toString()}',
+              '$_endScore',
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -72,18 +79,17 @@ class GameList extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-
-    return GetX<GameController>(
-      builder: (_) => ListView.builder(
+    final gameWatch = watch(gameProvider);
+    return ListView.builder(
           // separatorBuilder: (context, index) => Divider(
           //       height: 0,
           //       thickness: 1,
           //       indent: 0,
           //       endIndent: 0,
           //     ),
-          itemCount: _.games.length,
+          itemCount: gameWatch.games.length,
           itemBuilder: (ctx, index) {
             if (index == 0) {
               return Column(
@@ -95,12 +101,12 @@ class GameList extends StatelessWidget {
                   //   indent: 0,
                   //   endIndent: 0,
                   // ),
-                  _listItem(index, _, context)
+                  _listItem(index, gameWatch, context)
                 ],
               );
             } else
-              return _listItem(index, _, context);
-          }),
-    );
+              return _listItem(index, gameWatch, context);
+          });
+    // );
   }
 }

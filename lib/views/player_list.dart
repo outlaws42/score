@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
-import '../controllers/player_controller.dart';
+import './player_screen.dart';
 
-class PlayerList extends StatelessWidget {
-  final PlayerController playerController = Get.find();
 
+class PlayerList extends ConsumerWidget {
+  
   showBottomSheet(first, last, wins, id) {
     Get.bottomSheet(
       Container(
@@ -28,6 +29,10 @@ class PlayerList extends StatelessWidget {
   Widget _listItem(index, play, context) {
     String? _selectedItems;
     var title = Get.arguments;
+    final _nameFirst = play.player[index].firstName;
+    final _nameLast = play.player[index].lastName;
+    final _wins = play.player[index].wins;
+    final _id = play.player[index].id;
     print(title);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -48,22 +53,26 @@ class PlayerList extends StatelessWidget {
           // ),
           onTap: () {
             if (title[0] == 'main_body') {
-              _selectedItems =
-                  play.players[index].firstName; // assign first name
+              _selectedItems = _nameFirst;
+                  // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
               print(title[0]);
               showBottomSheet(
-                play.players[index].firstName,
-                play.players[index].lastName,
-                play.players[index].wins,
-                play.players[index].id,
+                _nameFirst,
+                _nameLast,
+                _wins,
+                _id,
+                // play.player[index].firstName,
+                // play.player[index].lastName,
+                // play.player[index].wins,
+                // play.player[index].id,
               );
             }
           },
           title: Text(
-            '${play.players[index].firstName.toString()} ${play.players[index].lastName.toString()}',
+            '$_nameFirst $_nameLast',
             style: Theme.of(context).textTheme.headline6,
           ),
           trailing: Container(
@@ -78,7 +87,7 @@ class PlayerList extends StatelessWidget {
                   BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
-              '${play.players[index].wins.toString()}',
+              '${play.player[index].wins.toString()}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -104,12 +113,13 @@ class PlayerList extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-
-    return GetX<PlayerController>(
-      builder: (_) {
-          // init: PlayerController();
+    final play = watch(playerProvider);
+    print(play.player.length);
+    // return GetX<PlayerController>(
+    //   builder: (_) {
+    //       // init: PlayerController();
         return ListView.builder(
             // separatorBuilder: (context, index) => Divider(
             //       height: 0,
@@ -117,8 +127,8 @@ class PlayerList extends StatelessWidget {
             //       indent: 0,
             //       endIndent: 0,
             //     ),
-            itemCount: _.players.length,
-            itemBuilder: (ctx, index) {
+            itemCount: play.player.length,
+            itemBuilder: (contex, index) {
               if (index == 0) {
                 return Column(
                   children: [
@@ -129,15 +139,15 @@ class PlayerList extends StatelessWidget {
                     //   indent: 0,
                     //   endIndent: 0,
                     // ),
-                    _listItem(index, _, context)
+                    _listItem(index, play, context)
                   ],
                 );
               } else
-                return _listItem(index, _, context);
-            });
-      }
+                return _listItem(index, play, context);
+            },);
+      // }
       
-    );
-    
+    // );
+
   }
 }

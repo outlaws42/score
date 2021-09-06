@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import './settings.dart';
-
 import './player_list.dart';
 
 
@@ -24,6 +22,8 @@ class TeamScreen extends StatelessWidget {
 
     if (value == FilterOptions.Home) {
       Get.toNamed("/", arguments: ["team_screen"]);
+    }  else if (value == FilterOptions.AddTeam) {
+      // controller.addPlayer();
     }
   }
 
@@ -60,7 +60,7 @@ class TeamScreen extends StatelessWidget {
                     "Add Teams",
                   ),
                 ),
-                value: FilterOptions.AddPlayer,
+                value: FilterOptions.AddTeam,
               )
             ],
           ),

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:path/path.dart';
+import 'package:score/main.dart';
+// import 'package:provider/provider.dart';
+// import 'package:get/get.dart';
 import '../controllers/theme_provider.dart';
 import '../controllers/settings_provider.dart';
+// import '../controllers/settings_controller.dart';
 
+final settingsProvider = ChangeNotifierProvider<SettingsProvider>((ref) => SettingsProvider());
+// final themeProvider = ChangeNotifierProvider<ThemeProvider>((ref) => ThemeProvider());
 class Settings extends StatefulWidget {
-  static const routeName = 'settings';
+  // static const routeName = 'settings';
   @override
   _SettingsState createState() => _SettingsState();
 }
@@ -19,19 +26,25 @@ class _SettingsState extends State<Settings> {
     if (setting.isEmpty) {
       return;
     }
-    Provider.of<SettingsProvider>(context, listen: false)
-        .addSettings(id, setting, active);
-    print(active);
+    context.read(settingsProvider).addSettings(id, setting, active);
+    // Provider.of<SettingsProvider>(context, listen: false)
+    //     .addSettings(id, setting, active);
+    // print(active);
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Provider.of<ThemeProvider>(context, listen: false);
-    Provider.of<SettingsProvider>(context, listen: false).fetchSettings();
+    // final themeData = Provider.of<ThemeProvider>(context, listen: false);
+    // final themeData = watch(themeProvider);
+    // final settingsData = watch(settingsProvider);
+    // settingsData.fetchSettings();
+    // Provider.of<SettingsProvider>(context, listen: false).fetchSettings();
     // final set = Provider.of<SettingsProvider>(context, listen: false).settings;
     // print('This is setme: ${set[0].active}');
-    bool _isDarkMode = themeData.isDarkMode;
-    final ver = Provider.of<SettingsProvider>(context).getVersionNumber();
+    // bool _isDarkMode = themeProvider.updateTheme().isDarkMode;
+    // final SettingsController ver = Get.put(SettingsController().getVersionNumber());
+    // final ver = Provider.of<SettingsProvider>(context).getVersionNumber();
+    // final ver = settingsData.getVersionNumber();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,21 +52,26 @@ class _SettingsState extends State<Settings> {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FutureBuilder(
-              future: ver,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
-                  Text(
-                snapshot.hasData ? "${snapshot.data}" : "Loading ...",
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: FutureBuilder(
+          //     future: ver,
+          //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
+          //         Text(
+          //       snapshot.hasData ? "${snapshot.data}" : "Loading ...",
+          //       style: Theme.of(context).textTheme.headline4,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
-      body: Consumer<SettingsProvider>(
-        builder: (ctx, payload, ch) => SingleChildScrollView(
+      // body:
+      body: Consumer(
+        builder: (context, ScopedReader watch, child) {
+        final settingsData = watch(settingsProvider); 
+        final themeData = watch(themeProvider);
+        final _isDarkMode = themeData.isDarkMode;
+        return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -87,6 +105,7 @@ class _SettingsState extends State<Settings> {
                             onChanged: (boolVal) {
                               themeData.updateTheme();
                               int val = boolVal == false ? 0 : 1;
+                              print(val);
                               saveEach(0, 'DarkMode', val);
                             },
                             activeTrackColor:
@@ -203,7 +222,8 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ),
-              ),
+              );
+        }
       ),
       // ),
       // ),

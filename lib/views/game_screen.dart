@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import '../controllers/game_controller.dart';
+import 'package:path/path.dart';
+import 'package:score/views/player_screen.dart';
+import '../controllers/game_provider.dart';
 import './game_list.dart';
-import './settings.dart';
-import './player_screen.dart';
 
 enum FilterOptions {
-  Players,
-  Teams,
-  Games,
-  Settings,
-  AddPlayer,
-  AddTeam,
+  Home,
   AddGame
 }
+final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
 
 class GameScreen extends StatelessWidget {
-  static const routeName = 'game_screen';
-  final GameController controller = Get.put(GameController());
+  // static const routeName = 'game_screen';
+  // final GameController controller = Get.put(GameController());
 
   void selectSettings(BuildContext ctx, value) {
-    if (value == FilterOptions.Settings) {
-      Navigator.of(ctx).pushNamed(Settings.routeName);
-    } else if (value == FilterOptions.Players) {
-      Navigator.of(ctx).pushNamed(PlayersScreen.routeName);
-    } else if (value == FilterOptions.AddGame) {
+    if (value == FilterOptions.Home) {
+       Get.toNamed("/", arguments: ["game_screen"]);
+    }  else if (value == FilterOptions.AddGame) {
       // Provider.of<GameProvider>(ctx, listen: false).addGame();
-      controller.addGame();
+      ctx.read(gameProvider).addGame();
     }
   }
 
@@ -40,7 +35,7 @@ class GameScreen extends StatelessWidget {
         ),
         actions: [
           PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) {
+           onSelected: (FilterOptions selectedValue) {
               print(selectedValue);
               selectSettings(context, selectedValue);
             },
@@ -50,12 +45,22 @@ class GameScreen extends StatelessWidget {
               PopupMenuItem(
                 child: ListTile(
                   horizontalTitleGap: -10,
+                  leading: Icon(Icons.home),
+                  title: Text(
+                    "Home",
+                  ),
+                ),
+                value: FilterOptions.Home,
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  horizontalTitleGap: -10,
                   leading: Icon(Icons.games),
                   title: Text(
                     "Add Game",
                   ),
                 ),
-                value: FilterOptions.AddPlayer,
+                value: FilterOptions.AddGame,
               )
             ],
           ),
@@ -68,7 +73,8 @@ class GameScreen extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           // Provider.of<PlayerProvider>(context, listen: false).addPlayer(1);
-          controller.addGame();
+          context.read(gameProvider).addGame();
+          // controller.addGame();
         },
       ),
     );
