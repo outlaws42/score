@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 // import 'package:path/path.dart';
 // import 'package:score/views/player_screen.dart';
 import '../controllers/game_provider.dart';
+import './game_form.dart';
 import './game_list.dart';
 
 enum FilterOptions {
@@ -20,8 +21,9 @@ class GameScreen extends StatelessWidget {
     if (value == FilterOptions.Home) {
        Get.toNamed("/", arguments: ["game_screen"]);
     }  else if (value == FilterOptions.AddGame) {
+      Get.to(()=> GameForm());
       // Provider.of<GameProvider>(ctx, listen: false).addGame();
-      ctx.read(gameProvider).addGame();
+      // ctx.read(gameProvider).addGame();
     }
   }
 

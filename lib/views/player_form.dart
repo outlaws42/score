@@ -24,7 +24,7 @@ class _PlayerFormState extends State<PlayerForm> {
       return;
     }
     context.read(playerProvider).addPlayerForm(firstname, lastname,wins);
-    Get.back();
+    Get.back(result: "player_form");
   }
 
   @override

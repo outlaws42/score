@@ -11,6 +11,13 @@ class GameProvider extends ChangeNotifier {
     return [..._games];
   }
 
+  bool isLowScore = false;
+
+  void updateLowScore() {
+    isLowScore = !isLowScore;
+    notifyListeners();
+  }
+
   Future<void> fetchGame() async {
     final dataList = await DBHelper.getData('games');
     _games = dataList
@@ -27,30 +34,30 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> addGame({
-  //   int? id,
-  //   String? name,
-  //   String? description,
-  //   int? endscore,
-  //   bool lowscore=false,
-  // }) async {
-  //   final newGame = GameModel(
-  //     id: id,
-  //     name: name,
-  //     description: description,
-  //     endScore: endscore,
-  //     lowScore: lowscore
-  //   );
-  //   _games.add(newGame);
-  //   notifyListeners();
-  //   DBHelper.insert('games', {
-  //     'id': newGame.id,
-  //     'name': newGame.name,
-  //     'description': newGame.description,
-  //     'endscore': newGame.endScore,
-  //     'lowscore': newGame.lowScore,
-  //   });
-  // }
+  Future<void> addGameForm({
+    // int? id,
+    String? name,
+    String? description,
+    int? endscore,
+    bool lowscore=false,
+  }) async {
+    final newGame = GameModel(
+      // id: id,
+      name: name,
+      description: description,
+      endScore: endscore,
+      lowScore: lowscore
+    );
+    _games.add(newGame);
+    notifyListeners();
+    DBHelper.insert('games', {
+      'id': newGame.id,
+      'name': newGame.name,
+      'description': newGame.description,
+      'endscore': newGame.endScore,
+      'lowscore': newGame.lowScore== false ? 0 : 1,
+    });
+  }
 
   Future<void> addGame({
     int? id,
