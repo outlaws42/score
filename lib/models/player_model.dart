@@ -11,7 +11,7 @@ class PlayerModel with ChangeNotifier {
   PlayerModel({
     this.id = 0,
     this.firstName,
-    this.lastName,
+    this.lastName = "",
     this.wins = 0,
   });
 }
