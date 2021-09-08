@@ -50,7 +50,6 @@ class _PlayerTileState extends State<PlayerTile> {
           // ),
         ));
   }
-  
 
   @override
   Widget build(BuildContext context) {

@@ -83,30 +83,31 @@ class GameList extends ConsumerWidget {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
     final gameWatch = watch(gameProvider);
     return ListView.builder(
-          // separatorBuilder: (context, index) => Divider(
-          //       height: 0,
-          //       thickness: 1,
-          //       indent: 0,
-          //       endIndent: 0,
-          //     ),
-          itemCount: gameWatch.games.length,
-          itemBuilder: (ctx, index) {
-            if (index == 0) {
-              return Column(
-                children: [
-                  header(context),
-                  // Divider(
-                  //   height: 0,
-                  //   thickness: 4,
-                  //   indent: 0,
-                  //   endIndent: 0,
-                  // ),
-                  _listItem(index, gameWatch, context)
-                ],
-              );
-            } else
-              return _listItem(index, gameWatch, context);
-          });
+      // separatorBuilder: (context, index) => Divider(
+      //       height: 0,
+      //       thickness: 1,
+      //       indent: 0,
+      //       endIndent: 0,
+      //     ),
+      itemCount: gameWatch.games.length,
+      itemBuilder: (ctx, index) {
+        if (index == 0) {
+          return Column(
+            children: [
+              header(context),
+              // Divider(
+              //   height: 0,
+              //   thickness: 4,
+              //   indent: 0,
+              //   endIndent: 0,
+              // ),
+              _listItem(index, gameWatch, context)
+            ],
+          );
+        } else
+          return _listItem(index, gameWatch, context);
+      },
+    );
     // );
   }
 }

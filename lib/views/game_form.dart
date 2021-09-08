@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import './game_screen.dart';
+import '../helpers/custom_widgets/form_text_input.dart';
 
 class GameForm extends StatefulWidget {
   @override
@@ -58,113 +59,33 @@ class _GameFormState extends State<GameForm> {
                     ),
                   ),
                   // Game Name
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      controller: _nameController,
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return "Fill in the name of the game";
-                        }
-                        return null;
-                      },
-                      maxLength: 20,
-                      textCapitalization: TextCapitalization.words,
-                      textInputAction: TextInputAction.next,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        decorationColor: Colors.teal,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: "Game",
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        hintText: 'The name of your game (Required)',
-                        hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primaryVariant,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
-                  ),
-
+                  FormConfigInput.formTextInputValidation(
+                   context: context,
+                   controller: _nameController,
+                   labelText: "Game",
+                   hintText: "The name of your game (Required)",
+                   maxLength: 20,
+                   blankFieldMessage: "Please input a name for your game"
+                   ),
                   // Description
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      controller: _descriptionController,
-                      maxLength: 40,
-                      textCapitalization: TextCapitalization.words,
-                      textInputAction: TextInputAction.next,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        decorationColor: Colors.teal,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: "Description",
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        hintText: 'A breif description of your game (optional)',
-                        hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primaryVariant,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
-                  ),
+                  FormConfigInput.formTextInput(
+                   context: context,
+                   controller: _descriptionController,
+                   labelText: "Description",
+                   hintText: 'A breif description of your game (optional)',
+                   maxLength: 20,
+                   ),
+
 
                   // End Score
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      controller: _endscoreController,
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return "Fill in the winning score";
-                        }
-                        return null;
-                      },
-                      maxLength: 4,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        decorationColor: Colors.teal,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: "Winning Points",
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        hintText:
-                            'How many points needed to win the game (Required)',
-                        hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primaryVariant,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
-                  ),
+                  FormConfigInput.formTextInputValidation(
+                   context: context,
+                   controller: _endscoreController,
+                   labelText: "Winning Points",
+                   hintText: 'How many points needed to win the game (Required)',
+                   maxLength: 20,
+                   blankFieldMessage: "Please fill in the winning score"
+                   ),
 
                   // Low Score Wins (Toggle)
                   Container(
@@ -189,6 +110,8 @@ class _GameFormState extends State<GameForm> {
                       ],
                     ),
                   ),
+
+                  // Submit Button
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: ElevatedButton.icon(

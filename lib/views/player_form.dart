@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import './player_screen.dart';
+import '../helpers/custom_widgets/form_text_input.dart';
 
 class PlayerForm extends StatefulWidget {
-
   @override
   State<PlayerForm> createState() => _PlayerFormState();
 }
@@ -23,7 +23,7 @@ class _PlayerFormState extends State<PlayerForm> {
     if (firstname.isEmpty) {
       return;
     }
-    context.read(playerProvider).addPlayerForm(firstname, lastname,wins);
+    context.read(playerProvider).addPlayerForm(firstname, lastname, wins);
     Get.back(result: "player_form");
   }
 
@@ -35,7 +35,7 @@ class _PlayerFormState extends State<PlayerForm> {
       ),
       body: SingleChildScrollView(
         child: Form(
-        key: _formKey,  
+          key: _formKey,
           child: Column(
             children: [
               Container(
@@ -46,113 +46,41 @@ class _PlayerFormState extends State<PlayerForm> {
                 ),
               ),
               // First Name
-              Container(
-                margin: EdgeInsets.fromLTRB(10,0,10,0),
-                child: TextFormField(
+              FormConfigInput.formTextInputValidation(
+                  context: context,
                   controller: _firstNameController,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty){
-                      return "Fill in the First Name";
-                    }
-                    return null;
-                  },
+                  labelText: "First Name",
+                  hintText: 'Players first name (Required)',
                   maxLength: 20,
-                  textCapitalization: TextCapitalization.words,
-                  textInputAction: TextInputAction.next,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    decorationColor: Colors.teal,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: "First Name",
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    hintText: 'Players first name (Required)',
-                    hintStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primaryVariant,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
-              ),
-              
+                  blankFieldMessage: "Fill in the First Name"),
+
               // Last Name
-              Container(
-                 margin: EdgeInsets.fromLTRB(10,0,10,0),
-                child: TextFormField(
-                  controller: _lastNameController,
-                  maxLength: 20,
-                  textCapitalization: TextCapitalization.words,
-                  textInputAction: TextInputAction.next,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    decorationColor: Colors.teal,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: "Last Name",
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    hintText: 'Players last name (optional)',
-                    hintStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primaryVariant,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
+              FormConfigInput.formTextInput(
+                context: context,
+                controller: _lastNameController,
+                labelText: "Last Name",
+                hintText: 'Players last name (optional)',
+                maxLength: 20,
               ),
-        
+
               // Wins
-              Container(
-                margin: EdgeInsets.fromLTRB(10,0,10,0),
-                child: TextFormField(
-                  controller: _winsController,
-                  maxLength: 2,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    decorationColor: Colors.teal,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: "Wins",
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    hintText: 'Players previous wins (optional)',
-                    hintStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primaryVariant,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
+              FormConfigInput.formTextInput(
+                context: context,
+                controller: _winsController,
+                labelText: "Wins",
+                hintText: 'Players previous wins (optional)',
+                maxLength: 2,
               ),
+              // Submit Button
               Container(
-                margin: EdgeInsets.fromLTRB(0,20,0,0),
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: ElevatedButton.icon(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                    saveEach(_firstNameController.text, _lastNameController.text,
-                        int.parse(_winsController.text));
+                      saveEach(
+                          _firstNameController.text,
+                          _lastNameController.text,
+                          int.parse(_winsController.text));
                     }
                   },
                   style: ElevatedButton.styleFrom(
