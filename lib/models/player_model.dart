@@ -7,11 +7,13 @@ class PlayerModel with ChangeNotifier {
   final String? firstName;
   final String? lastName;
   final int? wins;
+  final int tempScore;
 
   PlayerModel({
     this.id = 0,
     this.firstName,
     this.lastName = "",
     this.wins = 0,
+    this.tempScore = 0,
   });
 }

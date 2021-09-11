@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import './player_tile.dart';
+import './match.dart';
+import './match_form.dart';
 
 enum FilterOptions {
   Players,
@@ -9,22 +11,28 @@ enum FilterOptions {
   Settings,
   AddPlayer,
   AddTeam,
-  AddGame
+  AddGame,
+  MatchForm,
 }
 
 class MatchScreen extends StatelessWidget {
+
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
       Get.toNamed("/players", arguments: ["match_screen"]);
     } else if (value == FilterOptions.Games) {
-      Get.toNamed("/games");
+      Get.toNamed("/games", arguments: ["match_screen"]);
     } else if (value == FilterOptions.Teams) {
-      Get.toNamed("/teams");
+      Get.toNamed("/teams", arguments: ["match_screen"]);
     } else if (value == FilterOptions.Settings) {
-      Get.toNamed("/settings");
+      Get.toNamed("/settings", arguments: ["match_screen"]);
+    }
+    else if (value == FilterOptions.MatchForm) {
+      Get.to(()=> MatchForm());
     }
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,13 +89,23 @@ class MatchScreen extends StatelessWidget {
                 ),
                 value: FilterOptions.Settings,
               ),
+              PopupMenuItem(
+                child: ListTile(
+                  horizontalTitleGap: -10,
+                  leading: Icon(Icons.settings),
+                  title: Text(
+                    "Match Form",
+                  ),
+                ),
+                value: FilterOptions.MatchForm,
+              ),
             ],
           ),
         ],
       ),
       body: Column(
         children: [
-          // Text('Cornhole'),
+          Match(),
           PlayerTile(),
           PlayerTile(),
         ],

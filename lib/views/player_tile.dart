@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:score/controllers/providers.dart';
 
 class PlayerTile extends StatefulWidget {
   @override
@@ -9,15 +11,23 @@ class PlayerTile extends StatefulWidget {
 
 class _PlayerTileState extends State<PlayerTile> {
   Color currentColor = Colors.green;
-  String dataFromPlayer = "";
-  String player = 'Select Player';
+  // String dataFromPlayer = "Select Player";
+  String _player = 'Select Player';
   int _score = 0;
 
   void plusOne() {
     setState(() {
       _score++;
     });
-    print(_score);
+    // print(_score);
+  }
+
+  void minusOne(){
+    setState(() {
+      _score--;
+    });
+    // context.read(playerProvider).edit;
+    // print(_score);
   }
 
   void changeColor(Color color) {
@@ -26,10 +36,15 @@ class _PlayerTileState extends State<PlayerTile> {
   }
 
   void goToPlay() async {
-    dataFromPlayer = await Get.toNamed(
+    var dataFromPlayer = await Get.toNamed(
       "/players",
       arguments: ['main_body', 'Players'],
     );
+    print(dataFromPlayer);
+    _player = dataFromPlayer[0];
+    var _id = dataFromPlayer[1];
+    var _ts = dataFromPlayer[2];
+    print(_id);
     setState(() {});
   }
 
@@ -74,10 +89,10 @@ class _PlayerTileState extends State<PlayerTile> {
                   // Select Player
                   TextButton(
                     onPressed: () => goToPlay(),
-                    child: dataFromPlayer == ""
-                        ? Text('$player',
-                            style: Theme.of(context).textTheme.headline3)
-                        : Text('$dataFromPlayer',
+                    // child: dataFromPlayer == ""
+                    //     ? Text('$player',
+                    //         style: Theme.of(context).textTheme.headline3)
+                        child: Text('$_player',
                             style: Theme.of(context).textTheme.headline3),
                   ),
 
@@ -101,11 +116,7 @@ class _PlayerTileState extends State<PlayerTile> {
                 children: [
                   // Minus Button
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _score -= 1;
-                      });
-                    },
+                    onPressed: minusOne,
                     onLongPress: () {},
                     child: Icon(Icons.exposure_minus_1),
                     style: ElevatedButton.styleFrom(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../helpers/db_helper.dart';
 import '../models/game_model.dart';
 
-class GameProvider extends ChangeNotifier {
+class Game extends StateNotifier<List<GameModel>> {
+  Game() :super([]);
   List<GameModel> _games = [];
   // String _version = '';
 
@@ -15,7 +17,7 @@ class GameProvider extends ChangeNotifier {
 
   void updateLowScore() {
     isLowScore = !isLowScore;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> fetchGame() async {
@@ -31,7 +33,7 @@ class GameProvider extends ChangeNotifier {
           ),
         )
         .toList();
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> addGameForm({
@@ -49,7 +51,7 @@ class GameProvider extends ChangeNotifier {
       lowScore: lowscore
     );
     _games.add(newGame);
-    notifyListeners();
+    // notifyListeners();
     DBHelper.insert('games', {
       // 'id': newGame.id,
       'name': newGame.name,
@@ -74,7 +76,7 @@ class GameProvider extends ChangeNotifier {
       lowScore: lowscore
     );
     _games.add(newGame);
-    notifyListeners();
+    // notifyListeners();
     DBHelper.insert('games', {
       // 'id': newGame.id,
       'name': newGame.name,

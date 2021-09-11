@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 // import 'package:path/path.dart';
 // import 'package:score/views/player_screen.dart';
+import '../controllers/providers.dart';
 import '../controllers/game_provider.dart';
 import './game_form.dart';
 import './game_list.dart';
@@ -11,7 +12,7 @@ enum FilterOptions {
   Home,
   AddGame
 }
-final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
+
 
 class GameScreen extends StatelessWidget {
   // static const routeName = 'game_screen';
@@ -76,6 +77,7 @@ class GameScreen extends StatelessWidget {
         onPressed: () {
           // Provider.of<PlayerProvider>(context, listen: false).addPlayer(1);
           context.read(gameProvider).addGame();
+          context.read(gameProvider).fetchGame();
           // controller.addGame();
         },
       ),

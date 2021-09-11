@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import './player_screen.dart';
+import '../controllers/providers.dart';
+// import '../controllers/player_provider.dart';
 import '../helpers/custom_widgets/form_text_input.dart';
 
 class PlayerForm extends StatefulWidget {
@@ -23,7 +24,9 @@ class _PlayerFormState extends State<PlayerForm> {
     if (firstname.isEmpty) {
       return;
     }
-    context.read(playerProvider).addPlayerForm(firstname, lastname, wins);
+    var controller = context.read(playerProvider);
+    controller.addPlayerForm(firstname, lastname, wins);
+    controller.fetchPlayer();
     Get.back(result: "player_form");
   }
 

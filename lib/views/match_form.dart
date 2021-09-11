@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/form_text_input.dart';
 
-class GameForm extends StatefulWidget {
+class MatchForm extends StatefulWidget {
   @override
-  State<GameForm> createState() => _GameFormState();
+  State<MatchForm> createState() => _MatchFormState();
 }
 
-class _GameFormState extends State<GameForm> {
+class _MatchFormState extends State<MatchForm> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController(
     text: "This game will challenge you",
@@ -21,15 +21,38 @@ class _GameFormState extends State<GameForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void saveEach(String name, String description, int endscore, int lowscore) {
+  String _game = 'Select Game';
+  int _endScore = 0;
+  int _gameid = 0;
+
+  void goToGame() async {
+    var dataFromGame = await Get.toNamed(
+      "/games",
+      arguments: ['match', ''],
+    );
+    print(dataFromGame);
+    _game = dataFromGame[0];
+    _endScore = dataFromGame[1];
+    _gameid = dataFromGame[2];
+    print(_gameid);
+    setState(() {});
+  }
+
+  void saveEach({
+    String? name,
+    String? game,
+    int? endscore,
+    int? lowscore,
+    int? gamid,
+  }) {
     // Save for each field save
-    if (name.isEmpty) {
+    if (game == null || game.isEmpty) {
       return;
     }
     final lowscoreSwitch = lowscore == 0 ? false : true;
     context.read(gameProvider).addGameForm(
           name: name,
-          description: description,
+          description: game,
           endscore: endscore,
           lowscore: lowscoreSwitch,
         );
@@ -59,13 +82,22 @@ class _GameFormState extends State<GameForm> {
                   ),
                 ),
                 // Game Name
-                FormConfigInput.formTextInputValidation(
-                    context: context,
-                    controller: _nameController,
-                    labelText: "Game",
-                    hintText: "The name of your game (Required)",
-                    maxLength: 20,
-                    blankFieldMessage: "Please input a name for your game"),
+                FormConfigInput.formTextInput(
+                  context: context,
+                  controller: _nameController,
+                  labelText: "Match Name",
+                  hintText: "The name of match (Optional)",
+                  maxLength: 20,
+                ),
+                TextButton(
+                  onPressed: () => goToGame(),
+                  // child: dataFromPlayer == ""
+                  //     ? Text('$player',
+                  //         style: Theme.of(context).textTheme.headline3)
+                  child: Text('$_game',
+                      style: Theme.of(context).textTheme.headline3),
+                ),
+
                 // Description
                 FormConfigInput.formTextInputMulti(
                   context: context,
@@ -118,12 +150,11 @@ class _GameFormState extends State<GameForm> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         saveEach(
-                          _nameController.text,
-                          _descriptionController.text,
-                          int.parse(
-                            _endscoreController.text,
-                          ),
-                          lowScoreInt,
+                          name: _nameController.text,
+                          game: _descriptionController.text,
+                          endscore: _endScore,
+                          lowscore: lowScoreInt,
+                          gamid: 0,
                         );
                       }
                     },

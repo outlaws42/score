@@ -10,7 +10,7 @@ import '../controllers/providers.dart';
 
 // final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
 
-class GameList extends ConsumerWidget {
+class MatchList extends ConsumerWidget {
   
   showBottomSheet(game, description, endscore, id) {
     Get.bottomSheet(

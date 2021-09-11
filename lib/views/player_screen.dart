@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../controllers/providers.dart';
 import '../controllers/player_provider.dart';
 // import '../controllers/player_controller.dart';
 import './player_form.dart';
@@ -11,7 +12,6 @@ enum FilterOptions {
   Home,
   AddPlayer,
 }
-final playerProvider = ChangeNotifierProvider((ref) => PlayerProvider());
 
 class PlayersScreen extends StatelessWidget {
   // static const routeName = 'players_screen';
@@ -78,6 +78,7 @@ class PlayersScreen extends StatelessWidget {
         onPressed: () {
           // Provider.of<PlayerProvider>(context, listen: false).addPlayer(1);
           context.read(playerProvider).addPlayer();
+          context.read(playerProvider).fetchPlayer();
           // controller.addPlayer();
         },
       ),

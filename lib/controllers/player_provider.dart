@@ -4,11 +4,21 @@ import '../helpers/db_helper.dart';
 import '../models/player_model.dart';
 
 class PlayerProvider extends ChangeNotifier {
+  
+
   List<PlayerModel> _players = [];
 
   List<PlayerModel> get player {
     return [..._players];
   }
+
+
+  // var score1 = 0;
+
+  // void plusOne(_score) {
+  //     _score++;
+  //   // print(_score);
+  // }
 
 
   Future<void> fetchPlayer() async {

@@ -12,16 +12,17 @@ class DBHelper {
       db.execute("PRAGMA foreign_keys = ON");
       db.execute(
           '''CREATE TABLE app_settings(
-            id INTEGER PRIMARY KEY, 
+            id INTEGER PRIMARY KEY , 
             setting TEXT, 
             active INTEGER
             )''');
       db.execute(
           '''CREATE TABLE players(
-            id INTEGER PRIMARY KEY, 
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
             firstname TEXT,
             lastname TEXT, 
-            wins INTEGER
+            wins INTEGER,
+            tempscore INTEGER
             )''');
       db.execute(
           '''CREATE TABLE teams(
@@ -31,7 +32,7 @@ class DBHelper {
             )''');
       db.execute(
           '''CREATE TABLE games(
-            id INTEGER PRIMARY KEY, 
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
             name TEXT,
             description TEXT, 
             endscore INTEGER, 
@@ -39,12 +40,30 @@ class DBHelper {
             )''');
       db.execute(
           '''CREATE TABLE indv_matches(
+            id INTEGER PRIMARY KEY,
+            matchname TEXT,
+            iscomplete INTEGER, 
             game_id INTEGER,
             player1_id INTEGER,
-            player2_id INTEGER,   
-            FOREIGN KEY(game_id) REFERENCES games(id),
-            FOREIGN KEY(player1_id) REFERENCES players(id),
-            FOREIGN KEY(player2_id) REFERENCES players(id)
+            player2_id INTEGER,
+            player3_id INTEGER, 
+            player4_id INTEGER, 
+            player5_id INTEGER,
+            playerscore1 INTEGER,
+            playerscore2 INTEGER,
+            playerscore3 INTEGER,
+            playerscore4 INTEGER,
+            playerscore5 INTEGER,  
+            winscore INTEGER,
+            lowscore INTEGER, 
+            FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player3_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player4_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player5_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(winscore) REFERENCES games(endscore) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(lowscore) REFERENCES games(lowscore) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
       db.execute(
           '''CREATE TABLE team_matches(

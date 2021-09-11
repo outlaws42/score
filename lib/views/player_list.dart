@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
-import './player_screen.dart';
+import '../controllers/providers.dart';
 
 
 class PlayerList extends ConsumerWidget {
@@ -27,12 +27,13 @@ class PlayerList extends ConsumerWidget {
   }
 
   Widget _listItem(index, play, context) {
-    String? _selectedItems;
+    List _selectedItems = [];
     var title = Get.arguments;
     final _nameFirst = play.player[index].firstName;
     final _nameLast = play.player[index].lastName;
     final _wins = play.player[index].wins;
     final _id = play.player[index].id;
+    final _ts = play.player[index].tempScore;
     print(title);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -53,7 +54,7 @@ class PlayerList extends ConsumerWidget {
           // ),
           onTap: () {
             if (title[0] == 'main_body') {
-              _selectedItems = _nameFirst;
+              _selectedItems = [ _nameFirst, _id,_ts];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
@@ -116,6 +117,7 @@ class PlayerList extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
     final play = watch(playerProvider);
+    // final fetch = play.fetchPlayer();
     print(play.player.length);
     // return GetX<PlayerController>(
     //   builder: (_) {
