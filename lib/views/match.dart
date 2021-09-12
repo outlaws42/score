@@ -69,9 +69,6 @@ class _MatchState extends State<Match> {
                   // Select Player
                   TextButton(
                     onPressed: () => goToGame(),
-                    // child: dataFromPlayer == ""
-                    //     ? Text('$player',
-                    //         style: Theme.of(context).textTheme.headline3)
                         child: Text('$_game ($_endScore)',
                             style: Theme.of(context).textTheme.headline3),
                   ),

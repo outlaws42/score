@@ -39,6 +39,7 @@ class GameList extends ConsumerWidget {
     final _game = game.games[index].name;
     final _description = game.games[index].description;
     final _endScore = game.games[index].endScore;
+    final _lowScore = game.games[index].lowScore;
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -81,8 +82,8 @@ class GameList extends ConsumerWidget {
             ),
           ),
           onTap: () {
-            if (arguments[0] == 'match') {
-              _selectedItems = [ _game, _endScore,_id];
+            if (arguments[0] == 'match' || arguments[0] == 'matchForm') {
+              _selectedItems = [ _game, _endScore,_id, _lowScore];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
@@ -93,10 +94,6 @@ class GameList extends ConsumerWidget {
                 _description,
                 _endScore,
                 _id,
-                // play.player[index].firstName,
-                // play.player[index].lastName,
-                // play.player[index].wins,
-                // play.player[index].id,
               );
             }
           },

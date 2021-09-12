@@ -28,13 +28,13 @@ class PlayerList extends ConsumerWidget {
 
   Widget _listItem(index, play, context) {
     List _selectedItems = [];
-    var title = Get.arguments;
+    List arguments = Get.arguments;
     final _nameFirst = play.player[index].firstName;
     final _nameLast = play.player[index].lastName;
     final _wins = play.player[index].wins;
     final _id = play.player[index].id;
     final _ts = play.player[index].tempScore;
-    print(title);
+    print(arguments);
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -53,13 +53,13 @@ class PlayerList extends ConsumerWidget {
           //   style: Theme.of(context).textTheme.headline6,
           // ),
           onTap: () {
-            if (title[0] == 'main_body') {
+            if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
               _selectedItems = [ _nameFirst, _id,_ts];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
-              print(title[0]);
+              print(arguments[0]);
               showBottomSheet(
                 _nameFirst,
                 _nameLast,
