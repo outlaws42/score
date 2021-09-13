@@ -41,29 +41,26 @@ class DBHelper {
       db.execute(
           '''CREATE TABLE indv_matches(
             id INTEGER PRIMARY KEY,
-            matchname TEXT,
-            iscomplete INTEGER, 
+            match_name TEXT,
+            is_complete INTEGER, 
+            game_name TEXT,
             game_id INTEGER,
+            player1_name TEXT,
+            player2_name TEXT,
             player1_id INTEGER,
             player2_id INTEGER,
-            player3_id INTEGER, 
-            player4_id INTEGER, 
-            player5_id INTEGER,
-            playerscore1 INTEGER,
-            playerscore2 INTEGER,
-            playerscore3 INTEGER,
-            playerscore4 INTEGER,
-            playerscore5 INTEGER,  
-            winscore INTEGER,
-            lowscore INTEGER, 
+            player_score1 INTEGER,
+            players_core2 INTEGER,
+            win_score INTEGER,
+            low_score INTEGER,
+            FOREIGN KEY(game_name) REFERENCES games(name) ON DELETE NO ACTION ON UPDATE NO ACTION, 
             FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player1_name) REFERENCES players(firstname) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player2_name) REFERENCES players(firstname) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(player3_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(player4_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(player5_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(winscore) REFERENCES games(endscore) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(lowscore) REFERENCES games(lowscore) ON DELETE NO ACTION ON UPDATE NO ACTION
+            FOREIGN KEY(win_score) REFERENCES games(endscore) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(low_score) REFERENCES games(lowscore) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
       db.execute(
           '''CREATE TABLE team_matches(

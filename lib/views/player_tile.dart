@@ -38,7 +38,7 @@ class _PlayerTileState extends State<PlayerTile> {
   void goToPlay() async {
     var dataFromPlayer = await Get.toNamed(
       "/players",
-      arguments: ['main_body', 'Players'],
+      arguments: ['player_tile', 'Players'],
     );
     print(dataFromPlayer);
     _player = dataFromPlayer[0];

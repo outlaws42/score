@@ -58,8 +58,10 @@ class _MatchFormState extends State<MatchForm> {
   }
 
   void save({
-    String? name,
+    String name = "",
     String? game,
+    String? player1Name,
+    String? player2Name,
     int? player1Id,
     int? player2Id,
     int? endscore,
@@ -70,14 +72,14 @@ class _MatchFormState extends State<MatchForm> {
     if (game == null || game.isEmpty) {
       return;
     }
-    context.read(gameProvider).addGameForm(
-          name: name,
-          description: game,
-          endscore: endscore,
-          lowscore: lowscore,
+    context.read(matchProvider).addMatch(
+          matchname: name,
+          playerscore1: 0,
+          playerscore2: 1,
+          iscompleted: true,
         );
-    context.read(gameProvider).fetchGame();
-    Get.back(result: "game_form");
+    context.read(matchProvider).fetchMatch();
+    Get.back(result: "match_form");
   }
 
   @override
@@ -172,6 +174,8 @@ class _MatchFormState extends State<MatchForm> {
                         save(
                           name: _nameController.text,
                           game: _game,
+                          player1Name: _player1,
+                          player2Name: _player2,
                           player1Id: _id1,
                           player2Id: _id2,
                           endscore: _endScore,

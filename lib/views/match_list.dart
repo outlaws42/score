@@ -35,10 +35,11 @@ class MatchList extends ConsumerWidget {
   Widget _listItem(index, game, context) {
     List _selectedItems = [];
     var arguments = Get.arguments;
-    final _id = game.games[index].id;
-    final _game = game.games[index].name;
-    final _description = game.games[index].description;
-    final _endScore = game.games[index].endScore;
+    final _id = game.match[index].id;
+    final _matchName = game.match[index].matchName;
+    final _player1Id = game.match[index].playerId1;
+    final _player2Id = game.match[index].playerId2;
+    final _endScore = game.match[index].winScore;
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -57,11 +58,11 @@ class MatchList extends ConsumerWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           title: Text(
-            '$_game',
+            '$_matchName',
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: Text(
-            '$_description',
+            '$_player1Id vrs $_player2Id',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: Container(
@@ -82,21 +83,17 @@ class MatchList extends ConsumerWidget {
           ),
           onTap: () {
             if (arguments[0] == 'match') {
-              _selectedItems = [ _game, _endScore,_id];
+              _selectedItems = [ _matchName, _endScore,_id];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
               showBottomSheet(
-                _game,
-                _description,
+                _matchName,
+                _player1Id,
                 _endScore,
                 _id,
-                // play.player[index].firstName,
-                // play.player[index].lastName,
-                // play.player[index].wins,
-                // play.player[index].id,
               );
             }
           },
@@ -115,7 +112,7 @@ class MatchList extends ConsumerWidget {
         //   alignment: Alignment.center,
         //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
         // ),
-        title: Text('Game', style: Theme.of(context).textTheme.headline3),
+        title: Text('Matches', style: Theme.of(context).textTheme.headline3),
         trailing:
             Text('Wining Score', style: Theme.of(context).textTheme.headline3),
       ),
@@ -125,7 +122,7 @@ class MatchList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-    final gameWatch = watch(gameProvider);
+    final matchWatch = watch(matchProvider);
     return ListView.builder(
       // separatorBuilder: (context, index) => Divider(
       //       height: 0,
@@ -133,7 +130,7 @@ class MatchList extends ConsumerWidget {
       //       indent: 0,
       //       endIndent: 0,
       //     ),
-      itemCount: gameWatch.games.length,
+      itemCount: matchWatch.match.length,
       itemBuilder: (ctx, index) {
         if (index == 0) {
           return Column(
@@ -145,11 +142,11 @@ class MatchList extends ConsumerWidget {
               //   indent: 0,
               //   endIndent: 0,
               // ),
-              _listItem(index, gameWatch, context)
+              _listItem(index, matchWatch, context)
             ],
           );
         } else
-          return _listItem(index, gameWatch, context);
+          return _listItem(index, matchWatch, context);
       },
     );
     // );

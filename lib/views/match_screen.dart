@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import './match_list.dart';
 import './player_tile.dart';
 import './match.dart';
 import './match_form.dart';
@@ -103,13 +104,14 @@ class MatchScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Match(),
-          PlayerTile(),
-          PlayerTile(),
-        ],
-      ),
+      body: MatchList()
+      // body: Column(
+      //   children: [
+      //     Match(),
+      //     PlayerTile(),
+      //     PlayerTile(),
+      //   ],
+      // ),
     );
   }
 }
