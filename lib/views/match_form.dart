@@ -51,7 +51,8 @@ class _MatchFormState extends State<MatchForm> {
       _id2 = dataFromPlayer[1];
     }
     print(dataFromPlayer);
-    
+    print(_player2);
+
     // var _id = dataFromPlayer[1];
     // var _ts = dataFromPlayer[2];
     setState(() {});
@@ -59,24 +60,32 @@ class _MatchFormState extends State<MatchForm> {
 
   void save({
     String name = "",
-    String? game,
+    String? gameName,
+    int? gameId,
     String? player1Name,
     String? player2Name,
     int? player1Id,
     int? player2Id,
-    int? endscore,
-    bool lowscore = false,
-    int? gamid,
+    int? endScore,
+    bool lowScore = false,
   }) {
     // Save all fields
-    if (game == null || game.isEmpty) {
+    if (gameName == null || gameName.isEmpty) {
       return;
     }
     context.read(matchProvider).addMatch(
-          matchname: name,
-          playerscore1: 0,
-          playerscore2: 1,
-          iscompleted: true,
+          matchName: name,
+          gameName: gameName,
+          gameId: gameId,
+          player1Name: player1Name,
+          player2Name: player2Name,
+          player1Id: player1Id,
+          player2Id: player2Id,
+          endScore: endScore,
+          lowScore: lowScore,
+          // player1Score: 0,
+          // player2Score: 1,
+          isCompleted: true,
         );
     context.read(matchProvider).fetchMatch();
     Get.back(result: "match_form");
@@ -111,7 +120,7 @@ class _MatchFormState extends State<MatchForm> {
                   hintText: "The name of match (Optional)",
                   maxLength: 20,
                 ),
-          
+
                 // Game Selection
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -119,8 +128,8 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_game',
-                            style: Theme.of(context).textTheme.headline5),
-                    IconButton(
+                          style: Theme.of(context).textTheme.headline5),
+                      IconButton(
                         icon: Icon(Icons.games),
                         color: Theme.of(context).appBarTheme.backgroundColor,
                         onPressed: () => goToGame(),
@@ -136,8 +145,8 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_player1',
-                            style: Theme.of(context).textTheme.headline5),
-                    IconButton(
+                          style: Theme.of(context).textTheme.headline5),
+                      IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,
                         onPressed: () => goToPlay('player1'),
@@ -153,8 +162,8 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_player2',
-                            style: Theme.of(context).textTheme.headline5),
-                    IconButton(
+                          style: Theme.of(context).textTheme.headline5),
+                      IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,
                         onPressed: () => goToPlay('player2'),
@@ -163,26 +172,27 @@ class _MatchFormState extends State<MatchForm> {
                   ),
                 ),
 
-                
-
                 // Submit Button
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() &&
+                          _game != "Select Player" &&
+                          _player1 != "Select Player1" &&
+                          _player2 != "Select Player2") {
                         save(
                           name: _nameController.text,
-                          game: _game,
+                          gameName: _game,
                           player1Name: _player1,
                           player2Name: _player2,
                           player1Id: _id1,
                           player2Id: _id2,
-                          endscore: _endScore,
-                          lowscore: _lowScore,
-                          gamid: _gameid,
+                          endScore: _endScore,
+                          lowScore: _lowScore,
+                          gameId: _gameid,
                         );
-                      }
+                      } else print("Add Popup warning about fields");
                     },
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.white,

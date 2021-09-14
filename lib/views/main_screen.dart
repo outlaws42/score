@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import './player_tile.dart';
+import './match.dart';
 
 enum FilterOptions {
   Players,
@@ -87,7 +88,7 @@ class MainScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Text('Cornhole'),
+          Match(),
           PlayerTile(),
           PlayerTile(),
         ],

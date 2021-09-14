@@ -42,7 +42,6 @@ class DBHelper {
           '''CREATE TABLE indv_matches(
             id INTEGER PRIMARY KEY,
             match_name TEXT,
-            is_complete INTEGER, 
             game_name TEXT,
             game_id INTEGER,
             player1_name TEXT,
@@ -53,6 +52,7 @@ class DBHelper {
             player2_score INTEGER,
             win_score INTEGER,
             low_score INTEGER,
+            is_complete INTEGER, 
             FOREIGN KEY(game_name) REFERENCES games(name) ON DELETE NO ACTION ON UPDATE NO ACTION, 
             FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_name) REFERENCES players(firstname) ON DELETE NO ACTION ON UPDATE NO ACTION,

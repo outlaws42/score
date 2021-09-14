@@ -10,6 +10,7 @@ class Match extends StatefulWidget {
 class _MatchState extends State<Match> {
   // Color currentColor = Colors.green;
   // String dataFromPlayer = "Select Player";
+  List arguments = Get.arguments;
   String _game = 'Select Game';
   int _endScore = 0;
   int _id = 0;
