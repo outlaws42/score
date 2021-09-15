@@ -72,78 +72,83 @@ class _PlayerTileState extends State<PlayerTile> {
     // var _names = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer() ;
     // print("This is names $players");
 
-    return Container(
-      constraints: BoxConstraints(maxHeight: 130),
-      child: Card(
-        elevation: 6,
-        color: currentColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Row Top Name/Menu
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Select Player
-                  TextButton(
-                    onPressed: () => goToPlay(),
-                    // child: dataFromPlayer == ""
-                    //     ? Text('$player',
-                    //         style: Theme.of(context).textTheme.headline3)
-                        child: Text('$_player',
-                            style: Theme.of(context).textTheme.headline3),
-                  ),
+    return Consumer(
+      builder: (context, watch, child) {
+        final matchData = watch(matchProvider);
+        return Container(
+          constraints: BoxConstraints(maxHeight: 130),
+          child: Card(
+            elevation: 6,
+            color: currentColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Row Top Name/Menu
+                Container(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Select Player
+                      TextButton(
+                        onPressed: () => goToPlay(),
+                        // child: dataFromPlayer == ""
+                        //     ? Text('$player',
+                        //         style: Theme.of(context).textTheme.headline3)
+                            child: Text('${matchData.match[1].player1Name}',
+                                style: Theme.of(context).textTheme.headline3),
+                      ),
 
-                  // Color Picker
-                  TextButton(
-                    onPressed: () => _showDialog(),
-                    child: Icon(Icons.color_lens),
-                    style: ElevatedButton.styleFrom(
-                      // primary: Theme.of(context).appBarTheme.backgroundColor,
-                      onPrimary: Colors.white,
-                    ),
+                      // Color Picker
+                      TextButton(
+                        onPressed: () => _showDialog(),
+                        child: Icon(Icons.color_lens),
+                        style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).appBarTheme.backgroundColor,
+                          onPrimary: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                // Row 2 minus button score positive button
+                Container(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Minus Button
+                      TextButton(
+                        onPressed: minusOne,
+                        onLongPress: () {},
+                        child: Icon(Icons.exposure_minus_1),
+                        style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).appBarTheme.backgroundColor,
+                          onPrimary: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        '$_score',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      // Plus Button
+                      TextButton(
+                        onPressed: plusOne,
+                        onLongPress: () {},
+                        child: Icon(Icons.plus_one),
+                        style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).appBarTheme.backgroundColor,
+                          onPrimary: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-            // Row 2 minus button score positive button
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Minus Button
-                  TextButton(
-                    onPressed: minusOne,
-                    onLongPress: () {},
-                    child: Icon(Icons.exposure_minus_1),
-                    style: ElevatedButton.styleFrom(
-                      // primary: Theme.of(context).appBarTheme.backgroundColor,
-                      onPrimary: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    '$_score',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  // Plus Button
-                  TextButton(
-                    onPressed: plusOne,
-                    onLongPress: () {},
-                    child: Icon(Icons.plus_one),
-                    style: ElevatedButton.styleFrom(
-                      // primary: Theme.of(context).appBarTheme.backgroundColor,
-                      onPrimary: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

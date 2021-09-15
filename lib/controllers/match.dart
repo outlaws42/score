@@ -91,21 +91,19 @@ class MatchProvider extends ChangeNotifier {
     });
   }
 
-  // Future<void> addPlayer(
-  //   int wins,
-  // ) async {
-  //   final newPlayer = PlayerModel(
-  //     firstName: faker.person.firstName(),
-  //     lastName: faker.person.lastName(),
-  //     wins: faker.randomGenerator.integer(20),
-  //   );
-  //   _players.add(newPlayer);
-  //   notifyListeners();
-  //   DBHelper.insert('players', {
-  //     'firstname': newPlayer.firstName,
-  //     'lastname': newPlayer.lastName,
-  //     'wins': newPlayer.wins,
-  //   });
-  //   print(newPlayer);
-  // }
+  Future<void> updateMatch(
+    int id,
+  ) async {
+    // final newPlayer = MatchModel(
+    //   firstName: faker.person.firstName(),
+    //   lastName: faker.person.lastName(),
+    //   wins: faker.randomGenerator.integer(20),
+    // );
+    // _matches.add(newPlayer);
+    // notifyListeners();
+    DBHelper.update('indv_matches',id , {
+      'player1_score': 5,
+      
+    });
+  }
 }

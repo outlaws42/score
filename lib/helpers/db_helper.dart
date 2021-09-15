@@ -10,36 +10,31 @@ class DBHelper {
     return sql.openDatabase(path.join(dbPath, 'score.db'),
         onCreate: (db, version) {
       db.execute("PRAGMA foreign_keys = ON");
-      db.execute(
-          '''CREATE TABLE app_settings(
+      db.execute('''CREATE TABLE app_settings(
             id INTEGER PRIMARY KEY , 
             setting TEXT, 
             active INTEGER
             )''');
-      db.execute(
-          '''CREATE TABLE players(
+      db.execute('''CREATE TABLE players(
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             firstname TEXT,
             lastname TEXT, 
             wins INTEGER,
             tempscore INTEGER
             )''');
-      db.execute(
-          '''CREATE TABLE teams(
+      db.execute('''CREATE TABLE teams(
             id INTEGER PRIMARY KEY, 
             name TEXT,
             wins INTEGER
             )''');
-      db.execute(
-          '''CREATE TABLE games(
+      db.execute('''CREATE TABLE games(
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             name TEXT,
             description TEXT, 
             endscore INTEGER, 
             lowscore INTEGER
             )''');
-      db.execute(
-          '''CREATE TABLE indv_matches(
+      db.execute('''CREATE TABLE indv_matches(
             id INTEGER PRIMARY KEY,
             match_name TEXT,
             game_name TEXT,
@@ -62,8 +57,7 @@ class DBHelper {
             FOREIGN KEY(win_score) REFERENCES games(endscore) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(low_score) REFERENCES games(lowscore) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
-      db.execute(
-          '''CREATE TABLE team_matches(
+      db.execute('''CREATE TABLE team_matches(
             game_id INTEGER,
             team1_id INTEGER,
             team2_id INTEGER,   
@@ -93,5 +87,29 @@ class DBHelper {
     final db = await DBHelper.database();
     // get the data from the db it will return a List of Maps
     return db.query(table);
+  }
+
+  static Future<void> remove(String table, int key) async {
+    final db = await DBHelper.database();
+    await db.delete(
+      table,
+      where: 'id = ?',
+      whereArgs: [key],
+    );
+  }
+
+  static Future<void> update(
+    String table,
+    int id,
+    Map<String, Object?> data,
+  ) async {
+    final db = await DBHelper.database();
+    await db.update(
+      table,
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+      
+    );
   }
 }
