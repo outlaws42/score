@@ -4,17 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 
-class PlayerTile extends StatefulWidget {
-  
-  @override
-  State<PlayerTile> createState() => _PlayerTileState();
-}
+class PlayerTileNo extends StatelessWidget {
+  final String player;
+  PlayerTileNo({this.player = "select Player"});
 
-class _PlayerTileState extends State<PlayerTile> {
-  Color currentColor = Colors.green;
+  final Color currentColor = Colors.green;
   // String dataFromPlayer = "Select Player";
-  String _player = 'Select Player';
-  int _score = 0;
+  final String _player = 'Select Player';
+  // final int _score = 0;
 
   // void plusOne() {
   //   setState(() {
@@ -31,41 +28,41 @@ class _PlayerTileState extends State<PlayerTile> {
   //   // print(_score);
   // }
 
-  void changeColor(Color color) {
-    setState(() => currentColor = color);
-    Get.back();
-  }
+  // void changeColor(Color color) {
+  //   setState(() => currentColor = color);
+  //   Get.back();
+  // }
 
-  void goToPlay() async {
-    var dataFromPlayer = await Get.toNamed(
-      "/players",
-      arguments: ['player_tile', 'Players'],
-    );
-    print(dataFromPlayer);
-    _player = dataFromPlayer[0];
-    var _id = dataFromPlayer[1];
-    var _ts = dataFromPlayer[2];
-    print(_id);
-    setState(() {});
-  }
+  // void goToPlay() async {
+  //   var dataFromPlayer = await Get.toNamed(
+  //     "/players",
+  //     arguments: ['player_tile', 'Players'],
+  //   );
+  //   print(dataFromPlayer);
+  //   _player = dataFromPlayer[0];
+  //   var _id = dataFromPlayer[1];
+  //   var _ts = dataFromPlayer[2];
+  //   print(_id);
+  //   setState(() {});
+  // }
 
-  void _showDialog() {
-    Get.defaultDialog(
-        title: "Select Color",
-        content: BlockPicker(
-          pickerColor: currentColor,
-          onColorChanged: changeColor,
-          // colorPickerWidth: 300.0,
-          // pickerAreaHeightPercent: 0.5,
-          // enableAlpha: true,
-          // displayThumbColor: true,
-          // showLabel: true,
-          // paletteType: PaletteType.hsv,
-          // pickerAreaBorderRadius: const BorderRadius.all(
-          //   Radius.circular(10.0)
-          // ),
-        ));
-  }
+  // void _showDialog() {
+  //   Get.defaultDialog(
+  //       title: "Select Color",
+  //       content: BlockPicker(
+  //         pickerColor: currentColor,
+  //         onColorChanged: changeColor,
+  //         // colorPickerWidth: 300.0,
+  //         // pickerAreaHeightPercent: 0.5,
+  //         // enableAlpha: true,
+  //         // displayThumbColor: true,
+  //         // showLabel: true,
+  //         // paletteType: PaletteType.hsv,
+  //         // pickerAreaBorderRadius: const BorderRadius.all(
+  //         //   Radius.circular(10.0)
+  //         // ),
+  //       ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +72,12 @@ class _PlayerTileState extends State<PlayerTile> {
 
     return Consumer(builder: (context, watch, child) {
       final matchData = watch(matchProvider);
-      _score = matchData.match[0].player1Score;
+      final players = player == "player1"
+          ? matchData.match[1].player1Name
+          : matchData.match[1].player2Name;
+      final _score = player == "player1"
+          ? matchData.match[0].player1Score
+          : matchData.match[0].player2Score;
       return Container(
         constraints: BoxConstraints(maxHeight: 130),
         child: Card(
@@ -92,17 +94,17 @@ class _PlayerTileState extends State<PlayerTile> {
                   children: [
                     // Select Player
                     TextButton(
-                      onPressed: () => goToPlay(),
+                      onPressed: () {}, //goToPlay(),
                       // child: dataFromPlayer == ""
                       //     ? Text('$player',
                       //         style: Theme.of(context).textTheme.headline3)
-                      child: Text('$_player',
+                      child: Text('$players',
                           style: Theme.of(context).textTheme.headline3),
                     ),
 
                     // Color Picker
                     TextButton(
-                      onPressed: () => _showDialog(),
+                      onPressed: () {}, //_showDialog(),
                       child: Icon(Icons.color_lens),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -120,7 +122,8 @@ class _PlayerTileState extends State<PlayerTile> {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).minusOne(1,_score,"player1"),
+                      onPressed: () =>
+                          context.read(matchProvider).minusOne(1, _score, player),
                       onLongPress: () {},
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
@@ -128,19 +131,21 @@ class _PlayerTileState extends State<PlayerTile> {
                         onPrimary: Colors.white,
                       ),
                     ),
-                    Consumer(
-                      builder: (context, watch,child) {
-                        final playerData = watch(playerProvider);
+                    Consumer(builder: (context, watch, child) {
+                      final playerData = watch(playerProvider);
 
-                        return Text(
-                          '${matchData.match[0].player1Score}',// '$_score',
-                          style: Theme.of(context).textTheme.headline1,
-                        );
-                      }
-                    ),
+                      return player == "player1" ?Text(
+                        '${matchData.match[0].player1Score}', // '$_score',
+                        style: Theme.of(context).textTheme.headline1,
+                      ) : Text(
+                        '${matchData.match[0].player2Score}', // '$_score',
+                        style: Theme.of(context).textTheme.headline1,
+                      );
+                    }),
                     // Plus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).plusOne(1,_score,"player1"),
+                      onPressed: () =>
+                          context.read(matchProvider).plusOne(1, _score,player),
                       onLongPress: () {},
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(

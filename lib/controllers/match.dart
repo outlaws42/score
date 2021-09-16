@@ -10,6 +10,22 @@ class MatchProvider extends ChangeNotifier {
     return [..._matches];
   }
 
+    void plusOne(id,score, player) {
+      score++;
+      print(score);
+      updateMatch(id, score, player);
+      fetchMatch();
+      notifyListeners();
+  }
+
+  void minusOne(id,score,player) {
+      score--;
+      print(score);
+      updateMatch(id, score, player);
+      fetchMatch();
+      notifyListeners();
+  }
+
   Future<void> fetchMatch() async {
     final dataList = await DBHelper.getData('indv_matches');
     _matches = dataList
@@ -26,8 +42,8 @@ class MatchProvider extends ChangeNotifier {
             // playerId3: match['player3_id'] as int?,
             // playerId4: match['player4_id'] as int?,
             // playerId5: match['player5_id'] as int?,
-            player1Score: match['player1_score'] as int?,
-            player2Score: match['player2_score'] as int?,
+            player1Score: match['player1_score'] as int,
+            player2Score: match['player2_score'] as int,
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
@@ -93,6 +109,8 @@ class MatchProvider extends ChangeNotifier {
 
   Future<void> updateMatch(
     int id,
+    int score,
+    String player,
   ) async {
     // final newPlayer = MatchModel(
     //   firstName: faker.person.firstName(),
@@ -101,9 +119,13 @@ class MatchProvider extends ChangeNotifier {
     // );
     // _matches.add(newPlayer);
     // notifyListeners();
-    DBHelper.update('indv_matches',id , {
-      'player1_score': 5,
-      
+    if (player == "player1") {
+      DBHelper.update('indv_matches',id , {
+      'player1_score': score,
     });
+    } else DBHelper.update('indv_matches',id , {
+      'player2_score': score,
+    });
+    
   }
 }

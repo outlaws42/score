@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import './player_tile.dart';
+import 'package:score/controllers/providers.dart';
+import './player_tile_no.dart';
 import './match.dart';
 
 enum FilterOptions {
@@ -86,12 +88,17 @@ class MainScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Match(),
-          PlayerTile(),
-          PlayerTile(),
-        ],
+      body: Consumer(
+        builder: (context,watch,child) {
+          final matchData = watch(matchProvider);
+          return Column(
+            children: [
+              Match(),
+              PlayerTileNo(player: "player1",),
+              PlayerTileNo(player: "player2"),
+            ],
+          );
+        }
       ),
     );
   }

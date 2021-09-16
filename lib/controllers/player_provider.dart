@@ -13,12 +13,8 @@ class PlayerProvider extends ChangeNotifier {
   }
 
 
-  // var score1 = 0;
+  
 
-  // void plusOne(_score) {
-  //     _score++;
-  //   // print(_score);
-  // }
 
 
   Future<void> fetchPlayer() async {

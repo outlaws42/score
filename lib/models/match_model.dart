@@ -12,8 +12,8 @@ class MatchModel with ChangeNotifier {
   // final int? playerId3;
   // final int? playerId4;
   // final int? playerId5;
-  final int? player1Score;
-  final int? player2Score;
+  final int player1Score;
+  final int player2Score;
   // final int? playerScore3;
   // final int? playerScore4;
   // final int? playerScore5;
@@ -33,8 +33,8 @@ class MatchModel with ChangeNotifier {
     // this.playerId3 = 0,
     // this.playerId4 = 0,
     // this.playerId5 = 0,
-    this.player1Score,
-    this.player2Score,
+    this.player1Score=0,
+    this.player2Score=0,
     // this.playerScore3 = 0,
     // this.playerScore4 = 0,
     // this.playerScore5 = 0,
