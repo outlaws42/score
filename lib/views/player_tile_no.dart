@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
+import '../helpers/custom_widgets/add_subtract_dialog.dart';
 
 class PlayerTileNo extends StatelessWidget {
   final String player;
@@ -66,37 +67,6 @@ class PlayerTileNo extends StatelessWidget {
         // pickerAreaBorderRadius: const BorderRadius.all(
         //   Radius.circular(10.0)
         // ),
-      ),
-    );
-  }
-
-  void _addDialog(context, score) {
-    Get.defaultDialog(
-      title: "Add Amount",
-      content: Column(
-        children: [
-          Row(
-            children: [
-              TextButton(
-                onPressed: () { 
-                  // context.read(matchProvider).plusOne(
-                  //     id: arguments,
-                  //     score: score,
-                  //     player: player,
-                  //     addAmount: 1,
-                  //   );
-                    Get.back();
-                    },
-                onLongPress: () {},
-                child: Icon(Icons.plus_one),
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).appBarTheme.backgroundColor,
-                  onPrimary: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -165,7 +135,13 @@ class PlayerTileNo extends StatelessWidget {
                             player: player,
                             minusAmount: 1,
                           ),
-                      onLongPress: () {},
+                      onLongPress: () => DialogConfig.minusDialog(
+                            context, 
+                            _score, 
+                            player, 
+                            arguments,
+                            playerName
+                            ),
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -193,7 +169,15 @@ class PlayerTileNo extends StatelessWidget {
                             player: player,
                             addAmount: 1,
                           ),
-                      onLongPress: () => _addDialog(context,_score),
+                      onLongPress: () =>
+                          DialogConfig.addDialog(
+                            context, 
+                            _score, 
+                            player, 
+                            arguments,
+                            playerName
+
+                            ),
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
