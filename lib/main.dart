@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 // import 'package:provider/provider.dart';
 
 import './controllers/theme_provider.dart';
-import './controllers/settings_provider.dart';
+// import './controllers/settings_provider.dart';
 // import './controllers/player_provider.dart';
 // import './controllers/game_provider.dart';
 import './helpers/theme_config.dart';
@@ -14,6 +14,7 @@ import './views/settings.dart';
 import './views/player_screen.dart';
 import './views/game_screen.dart';
 import './views/team_screen.dart';
+import './views/match_current_screen.dart';
 
 void main() {
   runApp(
@@ -55,6 +56,7 @@ class MyApp extends ConsumerWidget {
       getPages: [
         GetPage(name: '/', page: () => MainScreen()),
         GetPage(name: '/match', page: () => MatchScreen()),
+        GetPage(name: '/match_current', page: () => MatchCurrentScreen()),
         GetPage(name: '/games', page: () => GameScreen()),
         GetPage(name: '/players', page: () => PlayersScreen()),
         GetPage(name: '/teams', page: () => TeamScreen()),

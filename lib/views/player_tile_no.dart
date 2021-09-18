@@ -6,11 +6,15 @@ import 'package:score/controllers/providers.dart';
 
 class PlayerTileNo extends StatelessWidget {
   final String player;
-  PlayerTileNo({this.player = "select Player"});
+  final int arguments;
+  PlayerTileNo({
+    this.player = "select Player",
+    this.arguments = 1,
+  });
 
   final Color currentColor = Colors.green;
   // String dataFromPlayer = "Select Player";
-  final String _player = 'Select Player';
+  // final String _player = 'Select Player';
   // final int _score = 0;
 
   // void plusOne() {
@@ -28,10 +32,11 @@ class PlayerTileNo extends StatelessWidget {
   //   // print(_score);
   // }
 
-  // void changeColor(Color color) {
-  //   setState(() => currentColor = color);
-  //   Get.back();
-  // }
+  void changeColor(Color color) {
+    // setState(() => currentColor = color);
+    print("Put int color change logic");
+    Get.back();
+  }
 
   // void goToPlay() async {
   //   var dataFromPlayer = await Get.toNamed(
@@ -46,23 +51,55 @@ class PlayerTileNo extends StatelessWidget {
   //   setState(() {});
   // }
 
-  // void _showDialog() {
-  //   Get.defaultDialog(
-  //       title: "Select Color",
-  //       content: BlockPicker(
-  //         pickerColor: currentColor,
-  //         onColorChanged: changeColor,
-  //         // colorPickerWidth: 300.0,
-  //         // pickerAreaHeightPercent: 0.5,
-  //         // enableAlpha: true,
-  //         // displayThumbColor: true,
-  //         // showLabel: true,
-  //         // paletteType: PaletteType.hsv,
-  //         // pickerAreaBorderRadius: const BorderRadius.all(
-  //         //   Radius.circular(10.0)
-  //         // ),
-  //       ));
-  // }
+  void _colorDialog() {
+    Get.defaultDialog(
+      title: "Select Color",
+      content: BlockPicker(
+        pickerColor: currentColor,
+        onColorChanged: changeColor,
+        // colorPickerWidth: 300.0,
+        // pickerAreaHeightPercent: 0.5,
+        // enableAlpha: true,
+        // displayThumbColor: true,
+        // showLabel: true,
+        // paletteType: PaletteType.hsv,
+        // pickerAreaBorderRadius: const BorderRadius.all(
+        //   Radius.circular(10.0)
+        // ),
+      ),
+    );
+  }
+
+  void _addDialog(context, score) {
+    Get.defaultDialog(
+      title: "Add Amount",
+      content: Column(
+        children: [
+          Row(
+            children: [
+              TextButton(
+                onPressed: () { 
+                  // context.read(matchProvider).plusOne(
+                  //     id: arguments,
+                  //     score: score,
+                  //     player: player,
+                  //     addAmount: 1,
+                  //   );
+                    Get.back();
+                    },
+                onLongPress: () {},
+                child: Icon(Icons.plus_one),
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).appBarTheme.backgroundColor,
+                  onPrimary: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +109,12 @@ class PlayerTileNo extends StatelessWidget {
 
     return Consumer(builder: (context, watch, child) {
       final matchData = watch(matchProvider);
-      final players = player == "player1"
-          ? matchData.match[1].player1Name
-          : matchData.match[1].player2Name;
+      final playerName = player == "player1"
+          ? matchData.match[arguments - 1].player1Name
+          : matchData.match[arguments - 1].player2Name;
       final _score = player == "player1"
-          ? matchData.match[0].player1Score
-          : matchData.match[0].player2Score;
+          ? matchData.match[arguments - 1].player1Score
+          : matchData.match[arguments - 1].player2Score;
       return Container(
         constraints: BoxConstraints(maxHeight: 130),
         child: Card(
@@ -98,13 +135,13 @@ class PlayerTileNo extends StatelessWidget {
                       // child: dataFromPlayer == ""
                       //     ? Text('$player',
                       //         style: Theme.of(context).textTheme.headline3)
-                      child: Text('$players',
+                      child: Text('$playerName',
                           style: Theme.of(context).textTheme.headline3),
                     ),
 
                     // Color Picker
                     TextButton(
-                      onPressed: () {}, //_showDialog(),
+                      onPressed: () => _colorDialog(),
                       child: Icon(Icons.color_lens),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -122,8 +159,12 @@ class PlayerTileNo extends StatelessWidget {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: () =>
-                          context.read(matchProvider).minusOne(1, _score, player),
+                      onPressed: () => context.read(matchProvider).minusOne(
+                            id: arguments,
+                            score: _score,
+                            player: player,
+                            minusAmount: 1,
+                          ),
                       onLongPress: () {},
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
@@ -132,21 +173,27 @@ class PlayerTileNo extends StatelessWidget {
                       ),
                     ),
                     Consumer(builder: (context, watch, child) {
-                      final playerData = watch(playerProvider);
+                      // final playerData = watch(playerProvider);
 
-                      return player == "player1" ?Text(
-                        '${matchData.match[0].player1Score}', // '$_score',
-                        style: Theme.of(context).textTheme.headline1,
-                      ) : Text(
-                        '${matchData.match[0].player2Score}', // '$_score',
-                        style: Theme.of(context).textTheme.headline1,
-                      );
+                      return player == "player1"
+                          ? Text(
+                              '$_score',
+                              style: Theme.of(context).textTheme.headline1,
+                            )
+                          : Text(
+                              '$_score',
+                              style: Theme.of(context).textTheme.headline1,
+                            );
                     }),
                     // Plus Button
                     TextButton(
-                      onPressed: () =>
-                          context.read(matchProvider).plusOne(1, _score,player),
-                      onLongPress: () {},
+                      onPressed: () => context.read(matchProvider).plusOne(
+                            id: arguments,
+                            score: _score,
+                            player: player,
+                            addAmount: 1,
+                          ),
+                      onLongPress: () => _addDialog(context,_score),
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,

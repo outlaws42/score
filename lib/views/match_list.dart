@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import './main_screen.dart';
 import '../controllers/providers.dart';
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
@@ -33,15 +32,15 @@ class MatchList extends ConsumerWidget {
   }
 
   Widget _listItem(index, game, context) {
-    List _selectedItems = [];
-    var arguments = Get.arguments;
+    // List _selectedItems = [];
+    // var arguments = Get.arguments;
     final _id = game.match[index].id;
     final _gameName = game.match[index].gameName;
-    final _matchName = game.match[index].matchName;
+    // final _matchName = game.match[index].matchName;
     final _player1Name = game.match[index].player1Name;
     final _player2Name = game.match[index].player2Name;
-    final _player1Id = game.match[index].player1Id;
-    final _player2Id = game.match[index].player2Id;
+    // final _player1Id = game.match[index].player1Id;
+    // final _player2Id = game.match[index].player2Id;
     final _endScore = game.match[index].winScore;
     print(_player2Name);
     return Container(
@@ -66,7 +65,7 @@ class MatchList extends ConsumerWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: Text(
-            '$_player1Name vrs $_player2Name',
+            '$_player1Name vs $_player2Name',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: Container(
@@ -99,10 +98,10 @@ class MatchList extends ConsumerWidget {
             //   _player2Name,
             //   _id,
             // );
-            Get.to(() => MainScreen(), arguments: [
-              _gameName,
-              _player1Name,
-              _player2Name
+            Get.toNamed("/match_current", arguments: [
+              _id,
+              // _player1Name,
+              // _player2Name
             ]);
             // }
           },

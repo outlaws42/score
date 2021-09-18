@@ -20,7 +20,8 @@ class DBHelper {
             firstname TEXT,
             lastname TEXT, 
             wins INTEGER,
-            tempscore INTEGER
+            tempscore INTEGER,
+            is_selected INTEGER
             )''');
       db.execute('''CREATE TABLE teams(
             id INTEGER PRIMARY KEY, 
@@ -45,6 +46,8 @@ class DBHelper {
             player2_id INTEGER,
             player1_score INTEGER,
             player2_score INTEGER,
+            player1_color TEXT,
+            player2_color TEXT,
             win_score INTEGER,
             low_score INTEGER,
             is_complete INTEGER, 

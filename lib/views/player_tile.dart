@@ -44,7 +44,7 @@ class _PlayerTileState extends State<PlayerTile> {
     print(dataFromPlayer);
     _player = dataFromPlayer[0];
     var _id = dataFromPlayer[1];
-    var _ts = dataFromPlayer[2];
+    // var _ts = dataFromPlayer[2];
     print(_id);
     setState(() {});
   }
@@ -120,7 +120,8 @@ class _PlayerTileState extends State<PlayerTile> {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).minusOne(1,_score,"player1"),
+                      onPressed: ()=> context.read(matchProvider).minusOne(
+                        id:1,score: _score, player: "player1", minusAmount: 1,),
                       onLongPress: () {},
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
@@ -130,7 +131,7 @@ class _PlayerTileState extends State<PlayerTile> {
                     ),
                     Consumer(
                       builder: (context, watch,child) {
-                        final playerData = watch(playerProvider);
+                        // final playerData = watch(playerProvider);
 
                         return Text(
                           '${matchData.match[0].player1Score}',// '$_score',
@@ -140,7 +141,8 @@ class _PlayerTileState extends State<PlayerTile> {
                     ),
                     // Plus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).plusOne(1,_score,"player1"),
+                      onPressed: ()=> context.read(matchProvider).plusOne(
+                        id:1,score: _score, player: "player1", addAmount: 1,),
                       onLongPress: () {},
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(

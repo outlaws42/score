@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import './player_tile_no.dart';
 import './match.dart';
@@ -14,7 +13,7 @@ enum FilterOptions {
   AddGame
 }
 
-class MainScreen extends StatelessWidget {
+class MatchCurrentScreen extends StatelessWidget {
   final arguments = Get.arguments;
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
@@ -101,6 +100,7 @@ class MainScreen extends StatelessWidget {
             ),
           ],
         ),
-       );
+      // }),
+    );
   }
 }

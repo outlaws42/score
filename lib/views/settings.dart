@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/main.dart';
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
-import '../controllers/theme_provider.dart';
+// import '../controllers/theme_provider.dart';
 import '../controllers/settings_provider.dart';
 // import '../controllers/settings_controller.dart';
 
@@ -68,7 +68,7 @@ class _SettingsState extends State<Settings> {
       // body:
       body: Consumer(
         builder: (context, ScopedReader watch, child) {
-        final settingsData = watch(settingsProvider); 
+        // final settingsData = watch(settingsProvider); 
         final themeData = watch(themeProvider);
         final _isDarkMode = themeData.isDarkMode;
         return SingleChildScrollView(

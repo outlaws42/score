@@ -10,16 +10,16 @@ class MatchProvider extends ChangeNotifier {
     return [..._matches];
   }
 
-    void plusOne(id,score, player) {
-      score++;
+    void plusOne({id,score, player, addAmount,}) {
+      score+=addAmount;
       print(score);
       updateMatch(id, score, player);
       fetchMatch();
       notifyListeners();
   }
 
-  void minusOne(id,score,player) {
-      score--;
+  void minusOne({id,score,player, minusAmount,}) {
+      score-=minusAmount;
       print(score);
       updateMatch(id, score, player);
       fetchMatch();
@@ -44,6 +44,8 @@ class MatchProvider extends ChangeNotifier {
             // playerId5: match['player5_id'] as int?,
             player1Score: match['player1_score'] as int,
             player2Score: match['player2_score'] as int,
+            player1Color: match['player1_color'] as String,
+            player2Color: match['player2_color'] as String,
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
@@ -83,6 +85,8 @@ class MatchProvider extends ChangeNotifier {
       player2Id: player2Id,
       player1Score: 0,
       player2Score: 0,
+      player1Color: "green",
+      player2Color: "green",
       winScore: endScore,
       lowScore: lowScore,
       isComplete: isCompleted,
@@ -100,6 +104,8 @@ class MatchProvider extends ChangeNotifier {
       'player2_id': newMatch.player2Id,
       'player1_score': newMatch.player1Score,
       'player2_score': newMatch.player2Score,
+      'player1_color': newMatch.player1Color,
+      'player2_color': newMatch.player2Color,
       'win_score': newMatch.winScore,
       'low_score': newMatch.lowScore== false?0:1,
       'is_complete': newMatch.isComplete== false?0:1,

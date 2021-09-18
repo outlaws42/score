@@ -88,7 +88,28 @@ class _MatchFormState extends State<MatchForm> {
           isCompleted: true,
         );
     context.read(matchProvider).fetchMatch();
-    Get.back(result: "match_form");
+    int id = context.read(matchProvider).match.length;
+    print(id);
+    Get.toNamed("/match_current", arguments: [id, "match_form"]);
+  }
+
+  void _warnDialog() {
+    Get.defaultDialog(
+      title: "Warning",
+      content: Column(
+        children: [
+          Text("You need to select a game and 2 players"),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text("Ok"),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).appBarTheme.backgroundColor,
+              onPrimary: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -192,7 +213,8 @@ class _MatchFormState extends State<MatchForm> {
                           lowScore: _lowScore,
                           gameId: _gameid,
                         );
-                      } else print("Add Popup warning about fields");
+                      } else
+                        _warnDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.white,
