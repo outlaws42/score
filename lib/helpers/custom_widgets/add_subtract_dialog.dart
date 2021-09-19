@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/providers.dart';
 
 class DialogConfig {
-  static Widget mathButton({
+  static Widget plusMinusButton({
     required BuildContext context,
     required int score,
     required String player,
@@ -61,7 +61,7 @@ class DialogConfig {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // 5 Button
-              DialogConfig.mathButton(
+              DialogConfig.plusMinusButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -70,7 +70,7 @@ class DialogConfig {
                 sign: sign, 
                 amount: 5),
               // 10 Button
-               DialogConfig.mathButton(
+               DialogConfig.plusMinusButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -80,7 +80,7 @@ class DialogConfig {
                 amount: 10),
                 // 15 Button
 
-               DialogConfig.mathButton(
+               DialogConfig.plusMinusButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -89,7 +89,7 @@ class DialogConfig {
                 sign: sign, 
                 amount: 15),
               // 30 Button
-               DialogConfig.mathButton(
+               DialogConfig.plusMinusButton(
                 context: context, 
                 score: score, 
                 player: player, 
