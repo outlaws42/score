@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 class MatchModel with ChangeNotifier {
   final int? id;
   final String? matchName;
-  final String? player1Name;
-  final String? player2Name;
+  final String player1Name;
+  final String player2Name;
   final int? player1Id;
   final int? player2Id;
   // final int? playerId3;
@@ -28,8 +28,8 @@ class MatchModel with ChangeNotifier {
   MatchModel({
     this.id = 0,
     this.matchName,
-    this.player1Name,
-    this.player2Name,
+    required this.player1Name,
+    required this.player2Name,
     this.player1Id,
     this.player2Id,
     // this.playerId3 = 0,

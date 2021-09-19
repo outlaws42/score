@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../controllers/player_provider.dart';
+// import '../controllers/player_provider.dart';
 // import '../controllers/player_controller.dart';
 import './player_form.dart';
 import './player_list.dart';

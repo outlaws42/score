@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:faker/faker.dart';
 import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
 
@@ -10,20 +9,30 @@ class MatchProvider extends ChangeNotifier {
     return [..._matches];
   }
 
-    void plusOne({id,score, player, addAmount,}) {
-      score+=addAmount;
-      print(score);
-      updateMatch(id, score, player);
-      fetchMatch();
-      notifyListeners();
+  void plus({
+    id,
+    score,
+    player,
+    addAmount,
+  }) {
+    score += addAmount;
+    print(score);
+    updateScore(id, score, player);
+    // fetchMatch();
+    // notifyListeners();
   }
 
-  void minusOne({id,score,player, minusAmount,}) {
-      score-=minusAmount;
-      print(score);
-      updateMatch(id, score, player);
-      fetchMatch();
-      notifyListeners();
+  void minus({
+    id,
+    score,
+    player,
+    minusAmount,
+  }) {
+    score -= minusAmount;
+    print(score);
+    updateScore(id, score, player);
+    // fetchMatch();
+    // notifyListeners();
   }
 
   Future<void> fetchMatch() async {
@@ -49,7 +58,7 @@ class MatchProvider extends ChangeNotifier {
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
-           
+
             winScore: match['win_score'] as int?,
             lowScore: match['low_score'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
@@ -70,7 +79,7 @@ class MatchProvider extends ChangeNotifier {
     int? player2Id,
     // int player1Score = 0,
     // int player2Score = 0,
-    int? endScore,  
+    int? endScore,
     bool lowScore = false,
     bool isCompleted = false,
   }) async {
@@ -107,13 +116,12 @@ class MatchProvider extends ChangeNotifier {
       'player1_color': newMatch.player1Color,
       'player2_color': newMatch.player2Color,
       'win_score': newMatch.winScore,
-      'low_score': newMatch.lowScore== false?0:1,
-      'is_complete': newMatch.isComplete== false?0:1,
-
+      'low_score': newMatch.lowScore == false ? 0 : 1,
+      'is_complete': newMatch.isComplete == false ? 0 : 1,
     });
   }
 
-  Future<void> updateMatch(
+  Future<void> updateScore(
     int id,
     int score,
     String player,
@@ -126,12 +134,19 @@ class MatchProvider extends ChangeNotifier {
     // _matches.add(newPlayer);
     // notifyListeners();
     if (player == "player1") {
-      DBHelper.update('indv_matches',id , {
-      'player1_score': score,
-    });
-    } else DBHelper.update('indv_matches',id , {
-      'player2_score': score,
-    });
-    
+      DBHelper.update('indv_matches', id, {
+        'player1_score': score,
+      });
+    } else {
+      DBHelper.update(
+        'indv_matches',
+        id,
+        {
+          'player2_score': score,
+        },
+      );
+    }
+    fetchMatch();
+    notifyListeners();
   }
 }

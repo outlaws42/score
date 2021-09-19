@@ -120,7 +120,7 @@ class _PlayerTileState extends State<PlayerTile> {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).minusOne(
+                      onPressed: ()=> context.read(matchProvider).minus(
                         id:1,score: _score, player: "player1", minusAmount: 1,),
                       onLongPress: () {},
                       child: Icon(Icons.exposure_minus_1),
@@ -141,7 +141,7 @@ class _PlayerTileState extends State<PlayerTile> {
                     ),
                     // Plus Button
                     TextButton(
-                      onPressed: ()=> context.read(matchProvider).plusOne(
+                      onPressed: ()=> context.read(matchProvider).plus(
                         id:1,score: _score, player: "player1", addAmount: 1,),
                       onLongPress: () {},
                       child: Icon(Icons.plus_one),

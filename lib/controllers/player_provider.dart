@@ -23,8 +23,7 @@ class PlayerProvider extends ChangeNotifier {
         .map(
           (player) => PlayerModel(
             id: player['id'] as int?,
-            firstName: player['firstname'] as String?,
-            lastName: player['lastname'] as String?,
+            name: player['name'] as String?,
             wins: player['wins'] as int?,
           ),
         )
@@ -34,22 +33,19 @@ class PlayerProvider extends ChangeNotifier {
 
   Future<void> addPlayerForm(
     // int id,
-    String firstname,
-    String lastname,
+    String name,
     int wins,
   ) async {
     final newPlayer = PlayerModel(
       // id: id,
-      firstName: firstname,
-      lastName: lastname,
+      name: name,
       wins: wins,
     );
     _players.add(newPlayer);
     notifyListeners();
     DBHelper.insert('players', {
       // 'id': newPlayer.id,
-      'firstname': newPlayer.firstName,
-      'lastname': newPlayer.lastName,
+      'name': newPlayer.name,
       'wins': newPlayer.wins,
     });
   }
@@ -57,17 +53,37 @@ class PlayerProvider extends ChangeNotifier {
   Future<void> addPlayer(
   ) async {
     final newPlayer = PlayerModel(
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName(),
+      name: faker.person.firstName(),
       wins: faker.randomGenerator.integer(20),
     );
     _players.add(newPlayer);
     notifyListeners();
     DBHelper.insert('players', {
-      'firstname': newPlayer.firstName,
-      'lastname': newPlayer.lastName,
+      'name': newPlayer.name,
       'wins': newPlayer.wins,
     });
     print(newPlayer);
+  }
+
+  Future<void> updatePlayer(
+    int id,
+    int score,
+    String player,
+  ) async {
+    // final newPlayer = MatchModel(
+    //   firstName: faker.person.firstName(),
+    //   lastName: faker.person.lastName(),
+    //   wins: faker.randomGenerator.integer(20),
+    // );
+    // _matches.add(newPlayer);
+    // notifyListeners();
+    if (player == "player1") {
+      DBHelper.update('indv_matches',id , {
+      'player1_score': score,
+    });
+    } else DBHelper.update('indv_matches',id , {
+      'player2_score': score,
+    });
+    
   }
 }

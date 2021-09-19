@@ -129,55 +129,47 @@ class PlayerTileNo extends StatelessWidget {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: () => context.read(matchProvider).minusOne(
+                      onPressed: () => context.read(matchProvider).minus(
                             id: arguments,
                             score: _score,
                             player: player,
                             minusAmount: 1,
                           ),
-                      onLongPress: () => DialogConfig.minusDialog(
-                            context, 
-                            _score, 
-                            player, 
-                            arguments,
-                            playerName
-                            ),
+                      onLongPress: () => DialogConfig.mathDialog(
+                          context: context, 
+                          score: _score, 
+                          player: player, 
+                          arguments: arguments, 
+                          playerName: playerName,
+                          sign: "minus",
+                          ),
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
                         onPrimary: Colors.white,
                       ),
                     ),
-                    Consumer(builder: (context, watch, child) {
-                      // final playerData = watch(playerProvider);
-
-                      return player == "player1"
-                          ? Text(
-                              '$_score',
-                              style: Theme.of(context).textTheme.headline1,
-                            )
-                          : Text(
-                              '$_score',
-                              style: Theme.of(context).textTheme.headline1,
-                            );
-                    }),
+                     Text(
+                        '$_score',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                    // }),
                     // Plus Button
                     TextButton(
-                      onPressed: () => context.read(matchProvider).plusOne(
+                      onPressed: () => context.read(matchProvider).plus(
                             id: arguments,
                             score: _score,
                             player: player,
                             addAmount: 1,
                           ),
-                      onLongPress: () =>
-                          DialogConfig.addDialog(
-                            context, 
-                            _score, 
-                            player, 
-                            arguments,
-                            playerName
-
-                            ),
+                      onLongPress: () => DialogConfig.mathDialog(
+                          context: context, 
+                          score: _score, 
+                          player: player, 
+                          arguments: arguments, 
+                          playerName: playerName,
+                          sign: "add",
+                          ),
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,

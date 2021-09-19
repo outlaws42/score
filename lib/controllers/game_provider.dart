@@ -26,8 +26,8 @@ class GameProvider extends ChangeNotifier {
             id: game['id'] as int?,
             name: game['name'] as String,
             description: game['description'] as String?,
-            endScore: game['endscore'] as int?,
-            lowScore: game['lowscore'] == 0 ? false : true,
+            endScore: game['end_score'] as int?,
+            lowScore: game['low_score'] == 0 ? false : true,
           ),
         )
         .toList();
@@ -54,8 +54,8 @@ class GameProvider extends ChangeNotifier {
       // 'id': newGame.id,
       'name': newGame.name,
       'description': newGame.description,
-      'endscore': newGame.endScore,
-      'lowscore': newGame.lowScore== false ? 0 : 1,
+      'end_score': newGame.endScore,
+      'low_score': newGame.lowScore== false ? 0 : 1,
     });
   }
 
@@ -79,8 +79,8 @@ class GameProvider extends ChangeNotifier {
       // 'id': newGame.id,
       'name': newGame.name,
       'description': newGame.description,
-      'endscore': newGame.endScore,
-      'lowscore': newGame.lowScore== false ? 0 : 1, 
+      'end_score': newGame.endScore,
+      'low_score': newGame.lowScore== false ? 0 : 1, 
     });
   }
 }

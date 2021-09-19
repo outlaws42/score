@@ -129,7 +129,7 @@ class _GameFormState extends State<GameForm> {
                     },
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.white,
-                      primary: Theme.of(context).colorScheme.secondaryVariant,
+                      primary: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     icon: Icon(Icons.games),
                     label: Text('Add Game'),

@@ -10,7 +10,8 @@ enum FilterOptions {
   Settings,
   AddPlayer,
   AddTeam,
-  AddGame
+  AddGame,
+  Matches
 }
 
 class MatchCurrentScreen extends StatelessWidget {
@@ -24,6 +25,8 @@ class MatchCurrentScreen extends StatelessWidget {
       Get.toNamed("/teams");
     } else if (value == FilterOptions.Settings) {
       Get.toNamed("/settings");
+    } else if (value == FilterOptions.Matches) {
+      Get.toNamed("/match");
     }
   }
 
@@ -32,7 +35,7 @@ class MatchCurrentScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Score",
+          "Player Match",
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
@@ -44,6 +47,15 @@ class MatchCurrentScreen extends StatelessWidget {
             icon: Icon(Icons.more_vert),
             // onSelected: (Filter){},
             itemBuilder: (_) => [
+               PopupMenuItem(
+                  child: ListTile(
+                    horizontalTitleGap: -10,
+                    leading: Icon(Icons.person),
+                    title: Text(
+                      "Matches",
+                    ),
+                  ),
+                  value: FilterOptions.Matches),
               PopupMenuItem(
                   child: ListTile(
                     horizontalTitleGap: -10,
@@ -87,19 +99,21 @@ class MatchCurrentScreen extends StatelessWidget {
           ),
         ],
       ),
-      body:  Column(
-          children: [
-            Match(arguments: arguments[0],),
-            PlayerTileNo(
-              player: "player1",
-              arguments: arguments[0],
-            ),
-            PlayerTileNo(
-              player: "player2",
-              arguments: arguments[0],
-            ),
-          ],
-        ),
+      body:  SingleChildScrollView(
+        child: Column(
+            children: [
+              Match(arguments: arguments[0],),
+              PlayerTileNo(
+                player: "player1",
+                arguments: arguments[0],
+              ),
+              PlayerTileNo(
+                player: "player2",
+                arguments: arguments[0],
+              ),
+            ],
+          ),
+      ),
       // }),
     );
   }

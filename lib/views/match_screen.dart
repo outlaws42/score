@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import './match_list.dart';
-import './player_tile.dart';
-import './match.dart';
+// import './player_tile.dart';
+// import './match.dart';
 import './match_form.dart';
 
 enum FilterOptions {
@@ -13,7 +13,7 @@ enum FilterOptions {
   AddPlayer,
   AddTeam,
   AddGame,
-  MatchForm,
+  AddMatch,
 }
 
 class MatchScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class MatchScreen extends StatelessWidget {
     } else if (value == FilterOptions.Settings) {
       Get.toNamed("/settings", arguments: ["match_screen"]);
     }
-    else if (value == FilterOptions.MatchForm) {
+    else if (value == FilterOptions.AddMatch) {
       Get.to(()=> MatchForm());
     }
   }
@@ -39,7 +39,7 @@ class MatchScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Score",
+          "Matches",
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
@@ -95,10 +95,10 @@ class MatchScreen extends StatelessWidget {
                   horizontalTitleGap: -10,
                   leading: Icon(Icons.settings),
                   title: Text(
-                    "Match Form",
+                    "Add Player Match",
                   ),
                 ),
-                value: FilterOptions.MatchForm,
+                value: FilterOptions.AddMatch,
               ),
             ],
           ),

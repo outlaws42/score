@@ -7,7 +7,7 @@ import '../controllers/providers.dart';
 
 class PlayerList extends ConsumerWidget {
   
-  showBottomSheet(first, last, wins, id) {
+  showBottomSheet(name, wins, id) {
     Get.bottomSheet(
       Container(
         color: Colors.white,
@@ -17,7 +17,7 @@ class PlayerList extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text("$id"),
-              Text("$first $last"),
+              Text("$name"),
               Text("$wins"),
             ],
           ),
@@ -29,11 +29,11 @@ class PlayerList extends ConsumerWidget {
   Widget _listItem(index, play, context) {
     List _selectedItems = [];
     List arguments = Get.arguments;
-    final _nameFirst = play.player[index].firstName;
-    final _nameLast = play.player[index].lastName;
+    final _name = play.player[index].name;
+    // final _nameLast = play.player[index].lastName;
     final _wins = play.player[index].wins;
     final _id = play.player[index].id;
-    final _ts = play.player[index].tempScore;
+    // final _ts = play.player[index].tempScore;
     print(arguments);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -54,15 +54,14 @@ class PlayerList extends ConsumerWidget {
           // ),
           onTap: () {
             if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
-              _selectedItems = [ _nameFirst, _id,_ts];
+              _selectedItems = [ _name, _id];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
               showBottomSheet(
-                _nameFirst,
-                _nameLast,
+                _name,
                 _wins,
                 _id,
                 // play.player[index].firstName,
@@ -73,7 +72,7 @@ class PlayerList extends ConsumerWidget {
             }
           },
           title: Text(
-            '$_nameFirst $_nameLast',
+            '$_name',
             style: Theme.of(context).textTheme.headline6,
           ),
           trailing: Container(

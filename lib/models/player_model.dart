@@ -4,15 +4,13 @@ import 'package:flutter/foundation.dart';
 
 class PlayerModel with ChangeNotifier {
   final int? id;
-  final String? firstName;
-  final String? lastName;
+  final String? name;
   final int? wins;
   final int tempScore;
 
   PlayerModel({
     this.id = 0,
-    this.firstName,
-    this.lastName = "",
+    this.name,
     this.wins = 0,
     this.tempScore = 0,
   });

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../models/player_model.dart';
 import '../helpers/custom_widgets/form_text_input.dart';
 
 class MatchForm extends StatefulWidget {
@@ -62,8 +61,8 @@ class _MatchFormState extends State<MatchForm> {
     String name = "",
     String? gameName,
     int? gameId,
-    String? player1Name,
-    String? player2Name,
+    required String player1Name,
+    required String player2Name,
     int? player1Id,
     int? player2Id,
     int? endScore,
@@ -119,8 +118,8 @@ class _MatchFormState extends State<MatchForm> {
         title: Text("Add Player"),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
-        final gameData = watch(gameProvider);
-        final _isLowScore = gameData.isLowScore;
+        // final gameData = watch(gameProvider);
+        // final _isLowScore = gameData.isLowScore;
         return SingleChildScrollView(
           child: Form(
             key: _formKey,

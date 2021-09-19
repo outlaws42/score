@@ -72,6 +72,17 @@ class ThemeConfig {
       padding: EdgeInsets.all(18),
       buttonColor: Color(0xFFE7bd3b), // blue 0xFF4286f4 yellow 0xFFE7bd3b
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 15, 
+      ),
+      labelStyle: TextStyle(
+        fontSize: 35,
+        decorationColor: Colors.red,
+      ),
+    )
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -142,5 +153,16 @@ class ThemeConfig {
       padding: EdgeInsets.all(18),
       buttonColor: Color(0xFFE7bd3b), // blue 0xFF4286f4 yellow 0xFFE7bd3b
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 15.0,
+        horizontal: 15.0, 
+      ),
+      labelStyle: TextStyle(
+        fontSize: 35,
+        decorationColor: Colors.red,
+      ),
+    )
   );
 }

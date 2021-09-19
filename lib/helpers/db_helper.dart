@@ -17,10 +17,8 @@ class DBHelper {
             )''');
       db.execute('''CREATE TABLE players(
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            firstname TEXT,
-            lastname TEXT, 
+            name TEXT,
             wins INTEGER,
-            tempscore INTEGER,
             is_selected INTEGER
             )''');
       db.execute('''CREATE TABLE teams(
@@ -32,8 +30,8 @@ class DBHelper {
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             name TEXT,
             description TEXT, 
-            endscore INTEGER, 
-            lowscore INTEGER
+            end_score INTEGER, 
+            low_score INTEGER
             )''');
       db.execute('''CREATE TABLE indv_matches(
             id INTEGER PRIMARY KEY,
@@ -53,12 +51,12 @@ class DBHelper {
             is_complete INTEGER, 
             FOREIGN KEY(game_name) REFERENCES games(name) ON DELETE NO ACTION ON UPDATE NO ACTION, 
             FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(player1_name) REFERENCES players(firstname) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(player2_name) REFERENCES players(firstname) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player1_name) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(player2_name) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(win_score) REFERENCES games(endscore) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(low_score) REFERENCES games(lowscore) ON DELETE NO ACTION ON UPDATE NO ACTION
+            FOREIGN KEY(win_score) REFERENCES games(end_score) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(low_score) REFERENCES games(low_score) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
       db.execute('''CREATE TABLE team_matches(
             game_id INTEGER,
