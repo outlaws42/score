@@ -35,6 +35,7 @@ class PlayerTileNo extends StatelessWidget {
 
   void changeColor(Color color) {
     // setState(() => currentColor = color);
+    print(color.toString());
     print("Put int color change logic");
     Get.back();
   }

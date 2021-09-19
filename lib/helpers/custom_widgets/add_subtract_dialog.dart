@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/providers.dart';
 
 class DialogConfig {
-  static mathButton({
+  static Widget mathButton({
     required BuildContext context,
     required int score,
     required String player,
@@ -14,7 +16,7 @@ class DialogConfig {
     required String sign,
     required int amount,
   }) {
-    TextButton(
+    return TextButton(
       onPressed: () {
         sign == "add"
             ? context.read(matchProvider).plus(
@@ -59,7 +61,7 @@ class DialogConfig {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // 5 Button
-              mathButton(
+              DialogConfig.mathButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -68,7 +70,7 @@ class DialogConfig {
                 sign: sign, 
                 amount: 5),
               // 10 Button
-              mathButton(
+               DialogConfig.mathButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -78,7 +80,7 @@ class DialogConfig {
                 amount: 10),
                 // 15 Button
 
-              mathButton(
+               DialogConfig.mathButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -87,7 +89,7 @@ class DialogConfig {
                 sign: sign, 
                 amount: 15),
               // 30 Button
-              mathButton(
+               DialogConfig.mathButton(
                 context: context, 
                 score: score, 
                 player: player, 
@@ -111,6 +113,7 @@ class DialogConfig {
             child: TextFormField(
               maxLength: 3,
               // textCapitalization: TextCapitalization.words,
+              keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               onFieldSubmitted: (value) {
                 sign == "add"
