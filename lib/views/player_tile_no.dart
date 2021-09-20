@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
+import 'package:score/models/match_model.dart';
 import '../helpers/custom_widgets/add_subtract_dialog.dart';
 
 class PlayerTileNo extends StatelessWidget {
   final String player;
-  final int arguments;
+  final int id;
   PlayerTileNo({
     this.player = "select Player",
-    this.arguments = 1,
+    this.id = 1,
   });
 
   final Color currentColor = Colors.green;
@@ -80,12 +81,26 @@ class PlayerTileNo extends StatelessWidget {
 
     return Consumer(builder: (context, watch, child) {
       final matchData = watch(matchProvider);
+      var _index = matchData.match.indexWhere((element) => element.id == id);
+      if (_index == -1) {
+        _index = 0;
+      }
+      print('This is the index $_index for the current id $id');
       final playerName = player == "player1"
-          ? matchData.match[arguments - 1].player1Name
-          : matchData.match[arguments - 1].player2Name;
+          ? matchData.match[_index].player1Name
+          : matchData.match[_index].player2Name;
       final _score = player == "player1"
-          ? matchData.match[arguments - 1].player1Score
-          : matchData.match[arguments - 1].player2Score;
+          ? matchData.match[_index].player1Score
+          : matchData.match[_index].player2Score;
+      // print(matchData.match[_index].player1Score);
+      // print(matchData.match[_index].player2Score);
+      // if (matchData.match[_index].player1Score ==
+      //         matchData.match[_index].winScore ||
+      //     matchData.match[_index].player2Score ==
+      //         matchData.match[_index].winScore) {
+      //   print("Won the Game");
+      // }
+
       return Container(
         constraints: BoxConstraints(maxHeight: 130),
         child: Card(
@@ -131,46 +146,46 @@ class PlayerTileNo extends StatelessWidget {
                     // Minus Button
                     TextButton(
                       onPressed: () => context.read(matchProvider).minus(
-                            id: arguments,
+                            id: id,
                             score: _score,
                             player: player,
                             minusAmount: 1,
                           ),
                       onLongPress: () => DialogConfig.mathDialog(
-                          context: context, 
-                          score: _score, 
-                          player: player, 
-                          arguments: arguments, 
-                          playerName: playerName,
-                          sign: "minus",
-                          ),
+                        context: context,
+                        score: _score,
+                        player: player,
+                        id: id,
+                        playerName: playerName,
+                        sign: "minus",
+                      ),
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,
                         onPrimary: Colors.white,
                       ),
                     ),
-                     Text(
-                        '$_score',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
+                    Text(
+                      '$_score',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
                     // }),
                     // Plus Button
                     TextButton(
                       onPressed: () => context.read(matchProvider).plus(
-                            id: arguments,
+                            id: id,
                             score: _score,
                             player: player,
                             addAmount: 1,
                           ),
                       onLongPress: () => DialogConfig.mathDialog(
-                          context: context, 
-                          score: _score, 
-                          player: player, 
-                          arguments: arguments, 
-                          playerName: playerName,
-                          sign: "add",
-                          ),
+                        context: context,
+                        score: _score,
+                        player: player,
+                        id: id,
+                        playerName: playerName,
+                        sign: "add",
+                      ),
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(
                         // primary: Theme.of(context).appBarTheme.backgroundColor,

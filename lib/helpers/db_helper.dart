@@ -46,6 +46,7 @@ class DBHelper {
             player2_score INTEGER,
             player1_color TEXT,
             player2_color TEXT,
+            winner TEXT,
             win_score INTEGER,
             low_score INTEGER,
             is_complete INTEGER, 
@@ -55,6 +56,7 @@ class DBHelper {
             FOREIGN KEY(player2_name) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(winner) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(win_score) REFERENCES games(end_score) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(low_score) REFERENCES games(low_score) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');

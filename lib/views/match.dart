@@ -3,14 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 
 class Match extends StatelessWidget {
-  final int arguments;
+  final int id;
   Match({
-    this.arguments = 1,
+    this.id = 1,
   });
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       constraints: BoxConstraints(maxHeight: 60),
       child: Card(
@@ -25,22 +24,25 @@ class Match extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // Select Player
-                  Consumer(
-                    builder: (context,watch,child) {
-                      final gameData = watch(matchProvider);
-                      final _gameName = gameData.match[arguments-1].gameName;
-                      return TextButton(
-                        onPressed: () {},
-                            child: Text('$_gameName',
-                                style: Theme.of(context).textTheme.headline3),
-                      );
+                  Consumer(builder: (context, watch, child) {
+                    final gameData = watch(matchProvider);
+                    var _index = gameData.match
+                        .indexWhere((element) => element.id == id);
+                    if (_index == -1) {
+                      _index = 0;
                     }
-                  ),
-
+                    print(
+                        'Match, This is the index $_index for the current id $id');
+                    final _gameName = gameData.match[_index].gameName;
+                    return TextButton(
+                      onPressed: () {},
+                      child: Text('$_gameName',
+                          style: Theme.of(context).textTheme.headline3),
+                    );
+                  }),
                 ],
               ),
             ),
-            
           ],
         ),
       ),

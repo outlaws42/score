@@ -11,7 +11,7 @@ class DialogConfig {
     required BuildContext context,
     required int score,
     required String player,
-    required int arguments,
+    required int id,
     required String playerName,
     required String sign,
     required int amount,
@@ -20,13 +20,13 @@ class DialogConfig {
       onPressed: () {
         sign == "add"
             ? context.read(matchProvider).plus(
-                  id: arguments,
+                  id: id,
                   score: score,
                   player: player,
                   addAmount: amount,
                 )
             : context.read(matchProvider).minus(
-                  id: arguments,
+                  id: id,
                   score: score,
                   player: player,
                   minusAmount: amount,
@@ -45,7 +45,7 @@ class DialogConfig {
     required BuildContext context,
     required int score,
     required String player,
-    required int arguments,
+    required int id,
     required String playerName,
     required String sign,
   }) {
@@ -65,7 +65,7 @@ class DialogConfig {
                 context: context, 
                 score: score, 
                 player: player, 
-                arguments: arguments, 
+                id: id, 
                 playerName: playerName, 
                 sign: sign, 
                 amount: 5),
@@ -74,7 +74,7 @@ class DialogConfig {
                 context: context, 
                 score: score, 
                 player: player, 
-                arguments: arguments, 
+                id: id, 
                 playerName: playerName, 
                 sign: sign, 
                 amount: 10),
@@ -84,7 +84,7 @@ class DialogConfig {
                 context: context, 
                 score: score, 
                 player: player, 
-                arguments: arguments, 
+                id: id, 
                 playerName: playerName, 
                 sign: sign, 
                 amount: 15),
@@ -93,7 +93,7 @@ class DialogConfig {
                 context: context, 
                 score: score, 
                 player: player, 
-                arguments: arguments, 
+                id: id, 
                 playerName: playerName, 
                 sign: sign, 
                 amount: 30),
@@ -118,13 +118,13 @@ class DialogConfig {
               onFieldSubmitted: (value) {
                 sign == "add"
                     ? context.read(matchProvider).plus(
-                          id: arguments,
+                          id: id,
                           score: score,
                           player: player,
                           addAmount: int.parse(value),
                         )
                     : context.read(matchProvider).minus(
-                          id: arguments,
+                          id: id,
                           score: score,
                           player: player,
                           minusAmount: int.parse(value),

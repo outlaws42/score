@@ -102,14 +102,14 @@ class MatchCurrentScreen extends StatelessWidget {
       body:  SingleChildScrollView(
         child: Column(
             children: [
-              Match(arguments: arguments[0],),
+              Match(id: arguments[0],),
               PlayerTileNo(
                 player: "player1",
-                arguments: arguments[0],
+                id: arguments[0],
               ),
               PlayerTileNo(
                 player: "player2",
-                arguments: arguments[0],
+                id: arguments[0],
               ),
             ],
           ),
