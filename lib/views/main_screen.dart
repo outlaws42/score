@@ -89,14 +89,14 @@ class MainScreen extends StatelessWidget {
       ),
       body:  Column(
           children: [
-            Match(id: arguments[0],),
+            Match(arguments: arguments[0],),
             PlayerTileNo(
               player: "player1",
-              id: arguments[0],
+              arguments: arguments[0],
             ),
             PlayerTileNo(
               player: "player2",
-              id: arguments[0],
+              arguments: arguments[0],
             ),
           ],
         ),

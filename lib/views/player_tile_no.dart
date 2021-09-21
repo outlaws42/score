@@ -8,10 +8,10 @@ import '../helpers/custom_widgets/add_subtract_dialog.dart';
 
 class PlayerTileNo extends StatelessWidget {
   final String player;
-  final int id;
+  final int arguments;
   PlayerTileNo({
     this.player = "select Player",
-    this.id = 1,
+    this.arguments = 1,
   });
 
   final Color currentColor = Colors.green;
@@ -54,6 +54,25 @@ class PlayerTileNo extends StatelessWidget {
   //   setState(() {});
   // }
 
+  void checkWinner(
+    BuildContext context,
+    score,
+    currentPlayer,
+    winningScore
+  ) {
+    context.read(matchProvider).plus(
+          id: arguments,
+          score: score,
+          player: player,
+          addAmount: 1,
+        );
+    if (score == winningScore) {
+        context.read(matchProvider).updateWinner(arguments, currentPlayer);
+        context.read(matchProvider).fetchMatch();
+        
+      }
+  }
+
   void _colorDialog() {
     Get.defaultDialog(
       title: "Select Color",
@@ -81,24 +100,25 @@ class PlayerTileNo extends StatelessWidget {
 
     return Consumer(builder: (context, watch, child) {
       final matchData = watch(matchProvider);
-      var _index = matchData.match.indexWhere((element) => element.id == id);
+      var _index =
+          matchData.match.indexWhere((element) => element.id == arguments);
       if (_index == -1) {
         _index = 0;
       }
-      print('This is the index $_index for the current id $id');
+      print('This is the index $_index for the current id $arguments');
+      final winScore = matchData.match[_index].winScore;
       final playerName = player == "player1"
           ? matchData.match[_index].player1Name
           : matchData.match[_index].player2Name;
       final _score = player == "player1"
           ? matchData.match[_index].player1Score
           : matchData.match[_index].player2Score;
-      // print(matchData.match[_index].player1Score);
-      // print(matchData.match[_index].player2Score);
-      // if (matchData.match[_index].player1Score ==
-      //         matchData.match[_index].winScore ||
-      //     matchData.match[_index].player2Score ==
-      //         matchData.match[_index].winScore) {
-      //   print("Won the Game");
+      print(matchData.match[_index].player1Score);
+      print(matchData.match[_index].player2Score);
+      print("${matchData.match[_index].winner} Won the Game");
+      // if (_score == matchData.match[_index].winScore) {
+      //   context.read(matchProvider).updateWinner(arguments, playerName);
+      //   print("${matchData.match[_index].winner} Won the Game");
       // }
 
       return Container(
@@ -146,7 +166,7 @@ class PlayerTileNo extends StatelessWidget {
                     // Minus Button
                     TextButton(
                       onPressed: () => context.read(matchProvider).minus(
-                            id: id,
+                            id: arguments,
                             score: _score,
                             player: player,
                             minusAmount: 1,
@@ -155,7 +175,7 @@ class PlayerTileNo extends StatelessWidget {
                         context: context,
                         score: _score,
                         player: player,
-                        id: id,
+                        id: arguments,
                         playerName: playerName,
                         sign: "minus",
                       ),
@@ -172,17 +192,19 @@ class PlayerTileNo extends StatelessWidget {
                     // }),
                     // Plus Button
                     TextButton(
-                      onPressed: () => context.read(matchProvider).plus(
-                            id: id,
-                            score: _score,
-                            player: player,
-                            addAmount: 1,
-                          ),
+                      onPressed: ()=> checkWinner(
+                        context, _score, playerName, winScore),
+                      // onPressed: () => context.read(matchProvider).plus(
+                      //       id: arguments,
+                      //       score: _score,
+                      //       player: player,
+                      //       addAmount: 1,
+                      //     ),
                       onLongPress: () => DialogConfig.mathDialog(
                         context: context,
                         score: _score,
                         player: player,
-                        id: id,
+                        id: arguments,
                         playerName: playerName,
                         sign: "add",
                       ),

@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 
 class Match extends StatelessWidget {
-  final int id;
+  final int arguments;
   Match({
-    this.id = 1,
+    this.arguments = 1,
   });
 
   @override
@@ -27,12 +27,12 @@ class Match extends StatelessWidget {
                   Consumer(builder: (context, watch, child) {
                     final gameData = watch(matchProvider);
                     var _index = gameData.match
-                        .indexWhere((element) => element.id == id);
+                        .indexWhere((element) => element.id == arguments);
                     if (_index == -1) {
                       _index = 0;
                     }
                     print(
-                        'Match, This is the index $_index for the current id $id');
+                        'Match, This is the index $_index for the current id $arguments');
                     final _gameName = gameData.match[_index].gameName;
                     return TextButton(
                       onPressed: () {},

@@ -88,8 +88,8 @@ class _MatchFormState extends State<MatchForm> {
         );
     context.read(matchProvider).fetchMatch();
     int id = context.read(matchProvider).match.length;
-    print(id);
-    Get.toNamed("/match_current", arguments: [id, "match_form"]);
+    print("This is id from match_form $id");
+    Get.offAllNamed("/match_current", arguments: [id, "match_form"]);
   }
 
   void _warnDialog() {

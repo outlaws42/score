@@ -4,9 +4,13 @@ import '../models/match_model.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];
+  List<MatchModel> _matchesSingle = [];
 
   List<MatchModel> get match {
     return [..._matches];
+  }
+  List<MatchModel> get matchSingle {
+    return [..._matchesSingle];
   }
 
   void plus({
@@ -68,6 +72,39 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchMatchById(int id) async {
+    final dataList = await DBHelper.getDataById('indv_matches', id);
+    _matchesSingle = dataList
+        .map(
+          (match) => MatchModel(
+            id: match['id'] as int?,
+            matchName: match['match_name'] as String?,
+            gameName: match['game_name'] as String?,
+            gameId: match['game_id'] as int?,
+            player1Name: match['player1_name'] as String,
+            player2Name: match['player2_name'] as String,
+            player1Id: match['player1_id'] as int?,
+            player2Id: match['player2_id'] as int?,
+            // playerId3: match['player3_id'] as int?,
+            // playerId4: match['player4_id'] as int?,
+            // playerId5: match['player5_id'] as int?,
+            player1Score: match['player1_score'] as int,
+            player2Score: match['player2_score'] as int,
+            player1Color: match['player1_color'] as String,
+            player2Color: match['player2_color'] as String,
+            // playerScore3: match['playerscore3'] as int?,
+            // playerScore4: match['playerscore4'] as int?,
+            // playerScore5: match['playerscore5'] as int?,
+            winner: match['winner'] as String,
+            winScore: match['win_score'] as int?,
+            lowScore: match['low_score'] == 0 ? false : true,
+            isComplete: match['is_complete'] == 0 ? false : true,
+          ),
+        )
+        .toList();
+    notifyListeners();
+  }
+
   Future<void> addMatch({
     // int id,
     String matchName = "",
@@ -96,6 +133,7 @@ class MatchProvider extends ChangeNotifier {
       player2Score: 0,
       player1Color: "green",
       player2Color: "green",
+      winner: "_",
       winScore: endScore,
       lowScore: lowScore,
       isComplete: isCompleted,
@@ -115,6 +153,7 @@ class MatchProvider extends ChangeNotifier {
       'player2_score': newMatch.player2Score,
       'player1_color': newMatch.player1Color,
       'player2_color': newMatch.player2Color,
+      'winner': newMatch.winner,
       'win_score': newMatch.winScore,
       'low_score': newMatch.lowScore == false ? 0 : 1,
       'is_complete': newMatch.isComplete == false ? 0 : 1,

@@ -34,7 +34,7 @@ class DBHelper {
             low_score INTEGER
             )''');
       db.execute('''CREATE TABLE indv_matches(
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             match_name TEXT,
             game_name TEXT,
             game_id INTEGER,
@@ -56,7 +56,6 @@ class DBHelper {
             FOREIGN KEY(player2_name) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(winner) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(win_score) REFERENCES games(end_score) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(low_score) REFERENCES games(low_score) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
@@ -92,12 +91,19 @@ class DBHelper {
     return db.query(table);
   }
 
-  static Future<void> remove(String table, int key) async {
+  static Future<List<Map<String, Object?>>> getDataById(String table, int id) async {
+    // gets access to the database
+    final db = await DBHelper.database();
+    // get the data from the db it will return a List of Maps
+    return db.query(table, where: "id = ", whereArgs: [id]);
+  }
+
+  static Future<void> remove(String table, int id) async {
     final db = await DBHelper.database();
     await db.delete(
       table,
       where: 'id = ?',
-      whereArgs: [key],
+      whereArgs: [id],
     );
   }
 

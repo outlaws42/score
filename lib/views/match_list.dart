@@ -98,7 +98,7 @@ class MatchList extends ConsumerWidget {
             //   _player2Name,
             //   _id,
             // );
-            Get.toNamed("/match_current", arguments: [
+            Get.offAllNamed("/match_current", arguments: [
               _id,
               // _player1Name,
               // _player2Name
