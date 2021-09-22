@@ -65,7 +65,7 @@ class _MatchFormState extends State<MatchForm> {
     required String player2Name,
     int? player1Id,
     int? player2Id,
-    int? endScore,
+    int endScore = 0,
     bool lowScore = false,
   }) {
     // Save all fields
@@ -84,7 +84,7 @@ class _MatchFormState extends State<MatchForm> {
           lowScore: lowScore,
           // player1Score: 0,
           // player2Score: 1,
-          isCompleted: true,
+          isCompleted: false,
         );
     context.read(matchProvider).fetchMatch();
     int id = context.read(matchProvider).match.length;
@@ -94,6 +94,7 @@ class _MatchFormState extends State<MatchForm> {
 
   void _warnDialog() {
     Get.defaultDialog(
+      radius: 10.0,
       title: "Warning",
       content: Column(
         children: [

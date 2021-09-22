@@ -58,23 +58,71 @@ class PlayerTileNo extends StatelessWidget {
     BuildContext context,
     score,
     currentPlayer,
-    winningScore
+    winningScore,
+    sign,
   ) {
-    context.read(matchProvider).plus(
+    // _winDialog(context, currentPlayer);
+    if (score + 1 == winningScore) {
+      context.read(matchProvider).updateWinner(arguments, currentPlayer);
+      // context.read(playerProvider).updateWins(arguments, currentPlayer);
+
+      context.read(matchProvider).fetchMatch();
+      _winDialog(context, currentPlayer);
+    }
+    if (sign == "plus") {
+      context.read(matchProvider).plus(
           id: arguments,
           score: score,
           player: player,
           addAmount: 1,
         );
-    if (score == winningScore) {
-        context.read(matchProvider).updateWinner(arguments, currentPlayer);
-        context.read(matchProvider).fetchMatch();
-        
-      }
+    } else if (sign == "minus") {
+      context.read(matchProvider).minus(
+          id: arguments,
+          score: score,
+          player: player,
+          minusAmount: 1,
+        );
+    } else print("sign isn't valid");
+    
+  }
+
+  void _winDialog(BuildContext context, currentPlayer) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "The Game Is Complete",
+      content: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.beach_access,
+                color: Colors.green,
+              ),
+              Text(
+                " $currentPlayer",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              Text(" Won The Game"),
+            ],
+          ),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text("Ok"),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).appBarTheme.backgroundColor,
+              onPrimary: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _colorDialog() {
     Get.defaultDialog(
+      radius: 10.0,
       title: "Select Color",
       content: BlockPicker(
         pickerColor: currentColor,
@@ -105,17 +153,21 @@ class PlayerTileNo extends StatelessWidget {
       if (_index == -1) {
         _index = 0;
       }
-      print('This is the index $_index for the current id $arguments');
+      final _isComplete = matchData.match[_index].isComplete;
+      // print('This is the index $_index for the current id $arguments');
+      // print('This is the isComplete $_isComplete');
+
       final winScore = matchData.match[_index].winScore;
+      // print('This is the winScore $winScore');
       final playerName = player == "player1"
           ? matchData.match[_index].player1Name
           : matchData.match[_index].player2Name;
       final _score = player == "player1"
           ? matchData.match[_index].player1Score
           : matchData.match[_index].player2Score;
-      print(matchData.match[_index].player1Score);
-      print(matchData.match[_index].player2Score);
-      print("${matchData.match[_index].winner} Won the Game");
+      // print(matchData.match[_index].player1Score);
+      // print(matchData.match[_index].player2Score);
+      // print("${matchData.match[_index].winner} Won the Game");
       // if (_score == matchData.match[_index].winScore) {
       //   context.read(matchProvider).updateWinner(arguments, playerName);
       //   print("${matchData.match[_index].winner} Won the Game");
@@ -131,30 +183,37 @@ class PlayerTileNo extends StatelessWidget {
             children: [
               // Row Top Name/Menu
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // Select Player
-                    TextButton(
-                      onPressed: () {}, //goToPlay(),
-                      // child: dataFromPlayer == ""
-                      //     ? Text('$player',
-                      //         style: Theme.of(context).textTheme.headline3)
-                      child: Text('$playerName',
-                          style: Theme.of(context).textTheme.headline3),
-                    ),
-
-                    // Color Picker
-                    TextButton(
-                      onPressed: () => _colorDialog(),
-                      child: Icon(Icons.color_lens),
-                      style: ElevatedButton.styleFrom(
-                        // primary: Theme.of(context).appBarTheme.backgroundColor,
-                        onPrimary: Colors.white,
+                // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Container(
+                  // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  height:45,
+                  color: Colors.black12,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Select Player
+                      TextButton(
+                        onPressed: () {}, //goToPlay(),
+                        // child: dataFromPlayer == ""
+                        //     ? Text('$player',
+                        //         style: Theme.of(context).textTheme.headline3)
+                        child: Text('$playerName',
+                            style: Theme.of(context).textTheme.headline3),
                       ),
-                    ),
-                  ],
+
+                      // Color Picker
+                      TextButton(
+                        onPressed: _isComplete == true
+                            ? null
+                            :() => _colorDialog(),
+                        child: Icon(Icons.color_lens),
+                        style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).appBarTheme.backgroundColor,
+                          onPrimary: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // Row 2 minus button score positive button
@@ -165,19 +224,26 @@ class PlayerTileNo extends StatelessWidget {
                   children: [
                     // Minus Button
                     TextButton(
-                      onPressed: () => context.read(matchProvider).minus(
-                            id: arguments,
-                            score: _score,
-                            player: player,
-                            minusAmount: 1,
-                          ),
-                      onLongPress: () => DialogConfig.mathDialog(
+                      onPressed: _isComplete == true || _score == 0
+                          ? null
+                          : () => checkWinner(
+                              context, _score, playerName, winScore, "minus"),
+                      // onPressed: () => context.read(matchProvider).minus(
+                      //       id: arguments,
+                      //       score: _score,
+                      //       player: player,
+                      //       minusAmount: 1,
+                      //     ),
+                      onLongPress: _isComplete == true
+                          ? null
+                          :() => DialogConfig.mathDialog(
                         context: context,
                         score: _score,
                         player: player,
                         id: arguments,
                         playerName: playerName,
                         sign: "minus",
+                        winScore: winScore,
                       ),
                       child: Icon(Icons.exposure_minus_1),
                       style: ElevatedButton.styleFrom(
@@ -192,21 +258,26 @@ class PlayerTileNo extends StatelessWidget {
                     // }),
                     // Plus Button
                     TextButton(
-                      onPressed: ()=> checkWinner(
-                        context, _score, playerName, winScore),
+                      onPressed: _isComplete == true
+                          ? null
+                          : () => checkWinner(
+                              context, _score, playerName, winScore, "plus"),
                       // onPressed: () => context.read(matchProvider).plus(
                       //       id: arguments,
                       //       score: _score,
                       //       player: player,
                       //       addAmount: 1,
                       //     ),
-                      onLongPress: () => DialogConfig.mathDialog(
+                      onLongPress: _isComplete == true
+                          ? null
+                          :() => DialogConfig.mathDialog(
                         context: context,
                         score: _score,
                         player: player,
                         id: arguments,
                         playerName: playerName,
                         sign: "add",
+                        winScore: winScore,
                       ),
                       child: Icon(Icons.plus_one),
                       style: ElevatedButton.styleFrom(

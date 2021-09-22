@@ -42,6 +42,18 @@ class MatchList extends ConsumerWidget {
     // final _player1Id = game.match[index].player1Id;
     // final _player2Id = game.match[index].player2Id;
     final _endScore = game.match[index].winScore;
+    final _winner = game.match[index].winner;
+    final _isComplete = game.match[index].isComplete;
+
+    bool _player1 = false;
+    bool _player2 = false;  
+
+    if (_isComplete == true && _player1Name == _winner){
+      _player1 = true;
+    } else if (_isComplete == true && _player2Name == _winner){
+      _player2 = true;
+    }
+
     print(_player2Name);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -64,8 +76,14 @@ class MatchList extends ConsumerWidget {
             '$_gameName',
             style: Theme.of(context).textTheme.headline6,
           ),
-          subtitle: Text(
+          subtitle: _player1 == false && _player2 == false ? Text(
             '$_player1Name vs $_player2Name',
+            style: Theme.of(context).textTheme.subtitle1,
+          ) : _player1 == true ? Text(
+            '$_player1Name (Winner) vs $_player2Name',
+            style: Theme.of(context).textTheme.subtitle1,
+          ): Text(
+            '$_player1Name vs $_player2Name (Winner)',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: Container(

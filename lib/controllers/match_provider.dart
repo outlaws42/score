@@ -63,7 +63,7 @@ class MatchProvider extends ChangeNotifier {
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
             winner: match['winner'] as String,
-            winScore: match['win_score'] as int?,
+            winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
           ),
@@ -96,7 +96,7 @@ class MatchProvider extends ChangeNotifier {
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
             winner: match['winner'] as String,
-            winScore: match['win_score'] as int?,
+            winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
           ),
@@ -116,7 +116,7 @@ class MatchProvider extends ChangeNotifier {
     int? player2Id,
     // int player1Score = 0,
     // int player2Score = 0,
-    int? endScore,
+    int endScore = 0,
     bool lowScore = false,
     bool isCompleted = false,
   }) async {
@@ -195,6 +195,7 @@ class MatchProvider extends ChangeNotifier {
   ) async {
     DBHelper.update('indv_matches', id, {
       'winner': player,
+      'is_complete': 1,
     });
     fetchMatch();
     notifyListeners();

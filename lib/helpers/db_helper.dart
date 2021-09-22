@@ -28,7 +28,7 @@ class DBHelper {
             )''');
       db.execute('''CREATE TABLE games(
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            name TEXT,
+            name TEXT UNIQUE,
             description TEXT, 
             end_score INTEGER, 
             low_score INTEGER

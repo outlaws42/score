@@ -15,24 +15,32 @@ class DialogConfig {
     required String playerName,
     required String sign,
     required int amount,
+    required int winScore,
   }) {
+    bool isDisable = false;
+    if (amount + score > winScore && sign == "add" ||
+        score - amount < 0 && sign == "minus") {
+      isDisable = true;
+    }
     return TextButton(
-      onPressed: () {
-        sign == "add"
-            ? context.read(matchProvider).plus(
-                  id: id,
-                  score: score,
-                  player: player,
-                  addAmount: amount,
-                )
-            : context.read(matchProvider).minus(
-                  id: id,
-                  score: score,
-                  player: player,
-                  minusAmount: amount,
-                );
-        Get.back();
-      },
+      onPressed: isDisable == true
+          ? null
+          : () {
+              sign == "add"
+                  ? context.read(matchProvider).plus(
+                        id: id,
+                        score: score,
+                        player: player,
+                        addAmount: amount,
+                      )
+                  : context.read(matchProvider).minus(
+                        id: id,
+                        score: score,
+                        player: player,
+                        minusAmount: amount,
+                      );
+              Get.back();
+            },
       child: sign == "add" ? Text("+$amount") : Text("-$amount"),
       style: ElevatedButton.styleFrom(
         primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -48,8 +56,10 @@ class DialogConfig {
     required int id,
     required String playerName,
     required String sign,
+    required int winScore,
   }) {
     Get.defaultDialog(
+      radius: 10.0,
       title: sign == "add" ? "Add Amount" : "Subtract Amount",
       content: Column(
         children: [
@@ -62,41 +72,49 @@ class DialogConfig {
             children: [
               // 5 Button
               DialogConfig.plusMinusButton(
-                context: context, 
-                score: score, 
-                player: player, 
-                id: id, 
-                playerName: playerName, 
-                sign: sign, 
-                amount: 5),
+                  context: context,
+                  score: score,
+                  player: player,
+                  id: id,
+                  playerName: playerName,
+                  sign: sign,
+                  amount: 5,
+                  winScore: winScore,
+                  ),
               // 10 Button
-               DialogConfig.plusMinusButton(
-                context: context, 
-                score: score, 
-                player: player, 
-                id: id, 
-                playerName: playerName, 
-                sign: sign, 
-                amount: 10),
-                // 15 Button
+              DialogConfig.plusMinusButton(
+                  context: context,
+                  score: score,
+                  player: player,
+                  id: id,
+                  playerName: playerName,
+                  sign: sign,
+                  amount: 10,
+                  winScore: winScore,
+                  ),
+              // 15 Button
 
-               DialogConfig.plusMinusButton(
-                context: context, 
-                score: score, 
-                player: player, 
-                id: id, 
-                playerName: playerName, 
-                sign: sign, 
-                amount: 15),
+              DialogConfig.plusMinusButton(
+                  context: context,
+                  score: score,
+                  player: player,
+                  id: id,
+                  playerName: playerName,
+                  sign: sign,
+                  amount: 15,
+                  winScore: winScore,
+                  ),
               // 30 Button
-               DialogConfig.plusMinusButton(
-                context: context, 
-                score: score, 
-                player: player, 
-                id: id, 
-                playerName: playerName, 
-                sign: sign, 
-                amount: 30),
+              DialogConfig.plusMinusButton(
+                  context: context,
+                  score: score,
+                  player: player,
+                  id: id,
+                  playerName: playerName,
+                  sign: sign,
+                  amount: 30,
+                  winScore: winScore,
+                  ),
             ],
           ),
           Container(
@@ -116,7 +134,8 @@ class DialogConfig {
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               onFieldSubmitted: (value) {
-                sign == "add"
+                // int.parse(value) + score > winScore ?
+                sign == "add" 
                     ? context.read(matchProvider).plus(
                           id: id,
                           score: score,
@@ -128,7 +147,7 @@ class DialogConfig {
                           score: score,
                           player: player,
                           minusAmount: int.parse(value),
-                        );
+                        ); //: print("Over Amount");
                 Get.back();
               },
               style: TextStyle(
