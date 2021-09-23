@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 // This Model is the layout of each individual item in the state.
 
@@ -14,8 +15,8 @@ class MatchModel with ChangeNotifier {
   // final int? playerId5;
   final int player1Score;
   final int player2Score;
-  final String player1Color;
-  final String player2Color;
+  final int player1Color;
+  final int player2Color;
   // final int? playerScore3;
   // final int? playerScore4;
   // final int? playerScore5;
@@ -38,8 +39,8 @@ class MatchModel with ChangeNotifier {
     // this.playerId5 = 0,
     this.player1Score=0,
     this.player2Score=0,
-    this.player1Color="",
-    this.player2Color="",
+    this.player1Color=0,
+    this.player2Color=0,
     // this.playerScore3 = 0,
     // this.playerScore4 = 0,
     // this.playerScore5 = 0,

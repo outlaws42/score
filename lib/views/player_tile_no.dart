@@ -34,9 +34,10 @@ class PlayerTileNo extends StatelessWidget {
   //   // print(_score);
   // }
 
-  void changeColor(Color color) {
+  void changeColor( Color color) {
     // setState(() => currentColor = color);
-    print(color.toString());
+    // context.read(matchProvider).match[_index]
+    print(color.value);
     print("Put int color change logic");
     Get.back();
   }
@@ -120,22 +121,27 @@ class PlayerTileNo extends StatelessWidget {
     );
   }
 
-  void _colorDialog() {
+  void _colorDialog(BuildContext context, matchData, player, id, playerColor) {
     Get.defaultDialog(
       radius: 10.0,
       title: "Select Color",
-      content: BlockPicker(
-        pickerColor: currentColor,
-        onColorChanged: changeColor,
-        // colorPickerWidth: 300.0,
-        // pickerAreaHeightPercent: 0.5,
-        // enableAlpha: true,
-        // displayThumbColor: true,
-        // showLabel: true,
-        // paletteType: PaletteType.hsv,
-        // pickerAreaBorderRadius: const BorderRadius.all(
-        //   Radius.circular(10.0)
-        // ),
+      content: SingleChildScrollView(
+        child: BlockPicker(
+          pickerColor: Color(playerColor).withOpacity(1),
+          onColorChanged: (color) { 
+            matchData.changeTileColor(color, player, id);
+            Get.back();
+            },
+          // colorPickerWidth: 300.0,
+          // pickerAreaHeightPercent: 0.25,
+          // enableAlpha: true,
+          // displayThumbColor: true,
+          // showLabel: true,
+          // paletteType: PaletteType.hsv,
+          // pickerAreaBorderRadius: const BorderRadius.all(
+          //   Radius.circular(10.0)
+          // ),
+        ),
       ),
     );
   }
@@ -165,6 +171,9 @@ class PlayerTileNo extends StatelessWidget {
       final _score = player == "player1"
           ? matchData.match[_index].player1Score
           : matchData.match[_index].player2Score;
+      final _color = player == "player1"
+          ? matchData.match[_index].player1Color
+          : matchData.match[_index].player2Color;
       // print(matchData.match[_index].player1Score);
       // print(matchData.match[_index].player2Score);
       // print("${matchData.match[_index].winner} Won the Game");
@@ -177,7 +186,7 @@ class PlayerTileNo extends StatelessWidget {
         constraints: BoxConstraints(maxHeight: 130),
         child: Card(
           elevation: 6,
-          color: currentColor,
+          color: Color(_color).withOpacity(1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -205,7 +214,7 @@ class PlayerTileNo extends StatelessWidget {
                       TextButton(
                         onPressed: _isComplete == true
                             ? null
-                            :() => _colorDialog(),
+                            :() => _colorDialog(context, matchData,player, arguments,_color),
                         child: Icon(Icons.color_lens),
                         style: ElevatedButton.styleFrom(
                           // primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -223,32 +232,35 @@ class PlayerTileNo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     // Minus Button
-                    TextButton(
-                      onPressed: _isComplete == true || _score == 0
-                          ? null
-                          : () => checkWinner(
-                              context, _score, playerName, winScore, "minus"),
-                      // onPressed: () => context.read(matchProvider).minus(
-                      //       id: arguments,
-                      //       score: _score,
-                      //       player: player,
-                      //       minusAmount: 1,
-                      //     ),
-                      onLongPress: _isComplete == true
-                          ? null
-                          :() => DialogConfig.mathDialog(
-                        context: context,
-                        score: _score,
-                        player: player,
-                        id: arguments,
-                        playerName: playerName,
-                        sign: "minus",
-                        winScore: winScore,
-                      ),
-                      child: Icon(Icons.exposure_minus_1),
-                      style: ElevatedButton.styleFrom(
-                        // primary: Theme.of(context).appBarTheme.backgroundColor,
-                        onPrimary: Colors.white,
+                    Container(
+                      // color: Colors.blue,
+                      child: TextButton(
+                        onPressed: _isComplete == true || _score == 0
+                            ? null
+                            : () => checkWinner(
+                                context, _score, playerName, winScore, "minus"),
+                        // onPressed: () => context.read(matchProvider).minus(
+                        //       id: arguments,
+                        //       score: _score,
+                        //       player: player,
+                        //       minusAmount: 1,
+                        //     ),
+                        onLongPress: _isComplete == true
+                            ? null
+                            :() => DialogConfig.mathDialog(
+                          context: context,
+                          score: _score,
+                          player: player,
+                          id: arguments,
+                          playerName: playerName,
+                          sign: "minus",
+                          winScore: winScore,
+                        ),
+                        child: Icon(Icons.exposure_minus_1),
+                        style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).appBarTheme.backgroundColor,
+                          onPrimary: Colors.white,
+                        ),
                       ),
                     ),
                     Text(

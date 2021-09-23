@@ -3,6 +3,7 @@ import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
 
 class MatchProvider extends ChangeNotifier {
+
   List<MatchModel> _matches = [];
   List<MatchModel> _matchesSingle = [];
 
@@ -11,6 +12,19 @@ class MatchProvider extends ChangeNotifier {
   }
   List<MatchModel> get matchSingle {
     return [..._matchesSingle];
+  }
+
+  // int currentColor = Colors.green.value; //4284790262;
+
+  void changeTileColor(Color color, player, id) {
+    // print("This is color changeTileColr $color");
+    int colorInt = color.value;
+    print(color.value);
+    // print("This is colorInt changeTileColr $colorInt");
+    // currentColor = colorInt;
+    // notifyListeners();
+    updateColor(id, colorInt, player);
+    
   }
 
   void plus({
@@ -57,8 +71,8 @@ class MatchProvider extends ChangeNotifier {
             // playerId5: match['player5_id'] as int?,
             player1Score: match['player1_score'] as int,
             player2Score: match['player2_score'] as int,
-            player1Color: match['player1_color'] as String,
-            player2Color: match['player2_color'] as String,
+            player1Color: match['player1_color'] as int,
+            player2Color: match['player2_color'] as int,
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
@@ -90,8 +104,8 @@ class MatchProvider extends ChangeNotifier {
             // playerId5: match['player5_id'] as int?,
             player1Score: match['player1_score'] as int,
             player2Score: match['player2_score'] as int,
-            player1Color: match['player1_color'] as String,
-            player2Color: match['player2_color'] as String,
+            player1Color: match['player1_color'] as int,
+            player2Color: match['player2_color'] as int,
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
@@ -131,8 +145,8 @@ class MatchProvider extends ChangeNotifier {
       player2Id: player2Id,
       player1Score: 0,
       player2Score: 0,
-      player1Color: "green",
-      player2Color: "green",
+      player1Color: 4282339765,
+      player2Color: 4278228616,
       winner: "_",
       winScore: endScore,
       lowScore: lowScore,
@@ -182,6 +196,28 @@ class MatchProvider extends ChangeNotifier {
         id,
         {
           'player2_score': score,
+        },
+      );
+    }
+    fetchMatch();
+    notifyListeners();
+  }
+
+  Future<void> updateColor(
+    int id,
+    int color,
+    String player,
+  ) async {
+    if (player == "player1") {
+      DBHelper.update('indv_matches', id, {
+        'player1_color': color,
+      });
+    } else {
+      DBHelper.update(
+        'indv_matches',
+        id,
+        {
+          'player2_color': color,
         },
       );
     }
