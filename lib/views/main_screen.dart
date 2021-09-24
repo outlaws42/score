@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import './player_tile_no.dart';
+import 'player_tile.dart';
 import './match.dart';
 
 enum FilterOptions {
@@ -89,14 +89,14 @@ class MainScreen extends StatelessWidget {
       ),
       body:  Column(
           children: [
-            Match(arguments: arguments[0],),
-            PlayerTileNo(
+            Match(matchId: arguments[0],),
+            PlayerTile(
               player: "player1",
-              arguments: arguments[0],
+              matchId: arguments[0],
             ),
-            PlayerTileNo(
+            PlayerTile(
               player: "player2",
-              arguments: arguments[0],
+              matchId: arguments[0],
             ),
           ],
         ),

@@ -18,6 +18,13 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isFreePlay = false;
+
+  void updateFreePlay() {
+    isFreePlay = !isFreePlay;
+    notifyListeners();
+  }
+
   Future<void> fetchGame() async {
     final dataList = await DBHelper.getData('games');
     _games = dataList

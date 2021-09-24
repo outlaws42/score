@@ -41,11 +41,12 @@ class _GameFormState extends State<GameForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Player"),
+        title: Text("Add Game"),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final gameData = watch(gameProvider);
         final _isLowScore = gameData.isLowScore;
+        final _isFreePlay = gameData.isFreePlay;
         return SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -84,6 +85,32 @@ class _GameFormState extends State<GameForm> {
                         'How many points needed to win the game (Required)',
                     maxLength: 20,
                     blankFieldMessage: "Please fill in the winning score"),
+
+                // Free Playe (Toggle)
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Free Play',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Switch(
+                        value: _isFreePlay,
+                        onChanged: (boolVal) {
+                          lowScoreInt = boolVal == false ? 0 : 1;
+                          print(lowScoreInt);
+                          context.read(gameProvider).updateFreePlay();
+                        },
+                        activeTrackColor:
+                            Theme.of(context).colorScheme.secondary,
+                        activeColor:
+                            Theme.of(context).colorScheme.primaryVariant,
+                      ),
+                    ],
+                  ),
+                ),
 
                 // Low Score Wins (Toggle)
                 Container(

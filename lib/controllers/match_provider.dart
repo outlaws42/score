@@ -46,9 +46,12 @@ class MatchProvider extends ChangeNotifier {
     player,
     minusAmount,
   }) {
-    score -= minusAmount;
-    print(score);
-    updateScore(id, score, player);
+    if (score != 0){
+      score -= minusAmount;
+      print(score);
+      updateScore(id, score, player);
+    }
+    
     // fetchMatch();
     // notifyListeners();
   }

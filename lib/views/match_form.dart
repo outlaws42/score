@@ -23,6 +23,7 @@ class _MatchFormState extends State<MatchForm> {
   bool _lowScore = false;
   String? selected;
 
+
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
       "/games",
@@ -116,7 +117,7 @@ class _MatchFormState extends State<MatchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Player"),
+        title: Text("Add Match"),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         // final gameData = watch(gameProvider);
@@ -129,7 +130,7 @@ class _MatchFormState extends State<MatchForm> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: Text(
-                    'Game Information',
+                    'Match Information',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
@@ -192,7 +193,7 @@ class _MatchFormState extends State<MatchForm> {
                     ],
                   ),
                 ),
-
+                
                 // Submit Button
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
