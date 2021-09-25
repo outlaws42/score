@@ -31,7 +31,8 @@ class DBHelper {
             name TEXT UNIQUE,
             description TEXT, 
             end_score INTEGER, 
-            low_score INTEGER
+            low_score INTEGER,
+            free_play INTEGER
             )''');
       db.execute('''CREATE TABLE indv_matches(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,7 +50,8 @@ class DBHelper {
             winner TEXT,
             win_score INTEGER,
             low_score INTEGER,
-            is_complete INTEGER, 
+            is_complete INTEGER,
+            free_play INTEGER, 
             FOREIGN KEY(game_name) REFERENCES games(name) ON DELETE NO ACTION ON UPDATE NO ACTION, 
             FOREIGN KEY(game_id) REFERENCES games(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player1_name) REFERENCES players(name) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -57,7 +59,8 @@ class DBHelper {
             FOREIGN KEY(player1_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(player2_id) REFERENCES players(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY(win_score) REFERENCES games(end_score) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY(low_score) REFERENCES games(low_score) ON DELETE NO ACTION ON UPDATE NO ACTION
+            FOREIGN KEY(low_score) REFERENCES games(low_score) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY(free_play) REFERENCES games(free_play) ON DELETE NO ACTION ON UPDATE NO ACTION
             )''');
       db.execute('''CREATE TABLE team_matches(
             game_id INTEGER,

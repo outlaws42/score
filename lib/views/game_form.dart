@@ -18,20 +18,29 @@ class _GameFormState extends State<GameForm> {
   // final _lowScoreController = TextEditingController(text: '0');
 
   int lowScoreInt = 0;
+  int freePlayInt = 0;
 
   final _formKey = GlobalKey<FormState>();
 
-  void saveEach(String name, String description, int endscore, int lowscore) {
+  void saveEach(
+    String name,
+    String description,
+    int endScore,
+    int lowScore,
+    int freePlay,
+  ) {
     // Save for each field save
     if (name.isEmpty) {
       return;
     }
-    final lowscoreSwitch = lowscore == 0 ? false : true;
+    final lowScoreSwitch = lowScore == 0 ? false : true;
+    final freePlaySwitch = freePlay == 0 ? false : true;
     context.read(gameProvider).addGameForm(
           name: name,
           description: description,
-          endscore: endscore,
-          lowscore: lowscoreSwitch,
+          endScore: endScore,
+          lowScore: lowScoreSwitch,
+          freePlay: freePlaySwitch,
         );
     context.read(gameProvider).fetchGame();
     Get.back(result: "game_form");
@@ -75,17 +84,6 @@ class _GameFormState extends State<GameForm> {
                   hintText: 'A description of your game (optional)',
                   maxLength: 200,
                 ),
-
-                // End Score
-                FormConfigInput.formTextInputValidation(
-                    context: context,
-                    controller: _endscoreController,
-                    labelText: "Winning Points",
-                    hintText:
-                        'How many points needed to win the game (Required)',
-                    maxLength: 20,
-                    blankFieldMessage: "Please fill in the winning score"),
-
                 // Free Playe (Toggle)
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -99,8 +97,8 @@ class _GameFormState extends State<GameForm> {
                       Switch(
                         value: _isFreePlay,
                         onChanged: (boolVal) {
-                          lowScoreInt = boolVal == false ? 0 : 1;
-                          print(lowScoreInt);
+                          freePlayInt = boolVal == false ? 0 : 1;
+                          print(freePlayInt);
                           context.read(gameProvider).updateFreePlay();
                         },
                         activeTrackColor:
@@ -111,6 +109,18 @@ class _GameFormState extends State<GameForm> {
                     ],
                   ),
                 ),
+
+                // End Score
+                _isFreePlay == false
+                    ? FormConfigInput.formTextInputValidation(
+                        context: context,
+                        controller: _endscoreController,
+                        labelText: "Winning Points",
+                        hintText:
+                            'How many points needed to win the game (Required)',
+                        maxLength: 20,
+                        blankFieldMessage: "Please fill in the winning score")
+                    : Container(),
 
                 // Low Score Wins (Toggle)
                 Container(
@@ -151,6 +161,7 @@ class _GameFormState extends State<GameForm> {
                             _endscoreController.text,
                           ),
                           lowScoreInt,
+                          freePlayInt,
                         );
                       }
                     },

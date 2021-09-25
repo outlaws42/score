@@ -35,6 +35,7 @@ class GameProvider extends ChangeNotifier {
             description: game['description'] as String?,
             endScore: game['end_score'] as int?,
             lowScore: game['low_score'] == 0 ? false : true,
+            freePlay: game['free_play'] == 0 ? false : true,
           ),
         )
         .toList();
@@ -45,15 +46,17 @@ class GameProvider extends ChangeNotifier {
     // int? id,
     String? name,
     String? description,
-    int? endscore,
-    bool lowscore=false,
+    int? endScore,
+    bool lowScore=false,
+    bool freePlay = false,
   }) async {
     final newGame = GameModel(
       // id: id,
       name: name,
       description: description,
-      endScore: endscore,
-      lowScore: lowscore
+      endScore: endScore,
+      lowScore: lowScore,
+      freePlay: freePlay,
     );
     _games.add(newGame);
     notifyListeners();
@@ -63,6 +66,7 @@ class GameProvider extends ChangeNotifier {
       'description': newGame.description,
       'end_score': newGame.endScore,
       'low_score': newGame.lowScore== false ? 0 : 1,
+      'free_play': newGame.freePlay== false ? 0 : 1,
     });
   }
 
@@ -78,7 +82,8 @@ class GameProvider extends ChangeNotifier {
       name: faker.sport.name(),
       description: faker.lorem.sentence(),
       endScore: faker.randomGenerator.integer(21),
-      lowScore: lowscore
+      lowScore: lowscore,
+      freePlay: false,
     );
     _games.add(newGame);
     notifyListeners();
@@ -87,7 +92,8 @@ class GameProvider extends ChangeNotifier {
       'name': newGame.name,
       'description': newGame.description,
       'end_score': newGame.endScore,
-      'low_score': newGame.lowScore== false ? 0 : 1, 
+      'low_score': newGame.lowScore== false ? 0 : 1,
+      'free_play': newGame.freePlay== false ? 0 : 1,  
     });
   }
 }

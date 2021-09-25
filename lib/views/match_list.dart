@@ -42,6 +42,7 @@ class MatchList extends ConsumerWidget {
     // final _player1Id = game.match[index].player1Id;
     // final _player2Id = game.match[index].player2Id;
     final _endScore = game.match[index].winScore;
+    final _freePlay = game.match[index].freePlay;
     final _winner = game.match[index].winner;
     final _isComplete = game.match[index].isComplete;
 
@@ -86,7 +87,7 @@ class MatchList extends ConsumerWidget {
             '$_player1Name vs $_player2Name (Winner)',
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          trailing: Container(
+          trailing: _freePlay == true ? Text("Free Play"): Container(
             alignment: Alignment.center,
             height: 30,
             width: 30,

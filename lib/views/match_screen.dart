@@ -42,7 +42,7 @@ class MatchScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: ()=> Get.to(() => MatchForm()),
-              child: Icon(Icons.note_add),
+              child: Icon(Icons.add_circle),
               style: ElevatedButton.styleFrom(
                 // primary: Theme.of(context).appBarTheme.backgroundColor,
                 onPrimary: Colors.white,

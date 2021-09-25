@@ -14,15 +14,11 @@ class PlayerTile extends StatelessWidget {
   });
 
   // final Color currentColor = Colors.green;
-
-  void checkWinner(
-    BuildContext context,
-    score,
-    currentPlayer,
-    winningScore,
-    sign,
-  ) {
-    // _winDialog(context, currentPlayer);
+  void winner(
+      BuildContext context, score, currentPlayer, winningScore, freePlay) {
+    if (freePlay == true) {
+      return;
+    }
     if (score + 1 == winningScore) {
       context.read(matchProvider).updateWinner(matchId, currentPlayer);
       // context.read(playerProvider).updateWins(arguments, currentPlayer);
@@ -30,6 +26,24 @@ class PlayerTile extends StatelessWidget {
       context.read(matchProvider).fetchMatch();
       _winDialog(context, currentPlayer);
     }
+  }
+
+  void checkWinner(
+    BuildContext context,
+    score,
+    currentPlayer,
+    winningScore,
+    sign,
+    freePlay,
+  ) {
+    winner(
+      context,
+      score,
+      currentPlayer,
+      winningScore,
+      freePlay,
+    );
+
     if (sign == "plus") {
       context.read(matchProvider).plus(
             id: matchId,
@@ -110,6 +124,7 @@ class PlayerTile extends StatelessWidget {
       if (_index == -1) {
         _index = 0;
       }
+      final _freePlay = matchData.match[_index].freePlay;
       final _isComplete = matchData.match[_index].isComplete;
       // print('This is the index $_index for the current id $arguments');
       // print('This is the isComplete $_isComplete');
@@ -191,7 +206,13 @@ class PlayerTile extends StatelessWidget {
                       onPressed: _isComplete == true
                           ? null
                           : () => checkWinner(
-                              context, _score, playerName, winScore, "minus"),
+                                context,
+                                _score,
+                                playerName,
+                                winScore,
+                                "minus",
+                                _freePlay,
+                              ),
                       // onPressed: () => context.read(matchProvider).minus(
                       //       id: arguments,
                       //       score: _score,
@@ -208,6 +229,7 @@ class PlayerTile extends StatelessWidget {
                                 playerName: playerName,
                                 sign: "minus",
                                 winScore: winScore,
+                                freePlay: _freePlay,
                               ),
                       child: Icon(Icons.remove),
 
@@ -226,7 +248,13 @@ class PlayerTile extends StatelessWidget {
                       onPressed: _isComplete == true
                           ? null
                           : () => checkWinner(
-                              context, _score, playerName, winScore, "plus"),
+                                context,
+                                _score,
+                                playerName,
+                                winScore,
+                                "plus",
+                                _freePlay,
+                              ),
                       // onPressed: () => context.read(matchProvider).plus(
                       //       id: arguments,
                       //       score: _score,
@@ -243,6 +271,7 @@ class PlayerTile extends StatelessWidget {
                                 playerName: playerName,
                                 sign: "add",
                                 winScore: winScore,
+                                freePlay: _freePlay,
                               ),
                       child: Icon(Icons.add),
                       style: ElevatedButton.styleFrom(

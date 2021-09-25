@@ -27,6 +27,14 @@ class MatchProvider extends ChangeNotifier {
     
   }
 
+  void changeCompleteStatus(matchId, _isComplete) {
+    _isComplete = !_isComplete;
+    int isCompleteInt = _isComplete ==false ? 0 :1;
+    print(isCompleteInt);
+    updateIsComplete(matchId, isCompleteInt);
+    
+  }
+
   void plus({
     id,
     score,
@@ -82,6 +90,7 @@ class MatchProvider extends ChangeNotifier {
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
+            freePlay: match['free_play'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
           ),
         )
@@ -115,6 +124,7 @@ class MatchProvider extends ChangeNotifier {
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
+            freePlay: match['free_play'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
           ),
         )
@@ -135,6 +145,7 @@ class MatchProvider extends ChangeNotifier {
     // int player2Score = 0,
     int endScore = 0,
     bool lowScore = false,
+    bool freePlay = false,
     bool isCompleted = false,
   }) async {
     final newMatch = MatchModel(
@@ -153,6 +164,7 @@ class MatchProvider extends ChangeNotifier {
       winner: "_",
       winScore: endScore,
       lowScore: lowScore,
+      freePlay: freePlay,
       isComplete: isCompleted,
     );
     _matches.add(newMatch);
@@ -173,6 +185,7 @@ class MatchProvider extends ChangeNotifier {
       'winner': newMatch.winner,
       'win_score': newMatch.winScore,
       'low_score': newMatch.lowScore == false ? 0 : 1,
+      'free_play': newMatch.freePlay == false ? 0 : 1,
       'is_complete': newMatch.isComplete == false ? 0 : 1,
     });
   }
@@ -235,6 +248,16 @@ class MatchProvider extends ChangeNotifier {
     DBHelper.update('indv_matches', id, {
       'winner': player,
       'is_complete': 1,
+    });
+    fetchMatch();
+    notifyListeners();
+  }
+  Future<void> updateIsComplete(
+    int matchId,
+    int isComplete,
+  ) async {
+    DBHelper.update('indv_matches', matchId, {
+      'is_complete': isComplete,
     });
     fetchMatch();
     notifyListeners();

@@ -21,6 +21,7 @@ class _MatchFormState extends State<MatchForm> {
   int _endScore = 0;
   int _gameid = 0;
   bool _lowScore = false;
+  bool _freePlay = false;
   String? selected;
 
 
@@ -34,6 +35,7 @@ class _MatchFormState extends State<MatchForm> {
     _endScore = dataFromGame[1];
     _gameid = dataFromGame[2];
     _lowScore = dataFromGame[3];
+    _freePlay = dataFromGame[4];
     print(_gameid);
     setState(() {});
   }
@@ -68,6 +70,7 @@ class _MatchFormState extends State<MatchForm> {
     int? player2Id,
     int endScore = 0,
     bool lowScore = false,
+    bool freePlay = false,
   }) {
     // Save all fields
     if (gameName == null || gameName.isEmpty) {
@@ -83,6 +86,7 @@ class _MatchFormState extends State<MatchForm> {
           player2Id: player2Id,
           endScore: endScore,
           lowScore: lowScore,
+          freePlay: freePlay,
           // player1Score: 0,
           // player2Score: 1,
           isCompleted: false,
@@ -212,6 +216,7 @@ class _MatchFormState extends State<MatchForm> {
                           player2Id: _id2,
                           endScore: _endScore,
                           lowScore: _lowScore,
+                          freePlay: _freePlay,
                           gameId: _gameid,
                         );
                       } else

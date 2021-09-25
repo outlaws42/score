@@ -26,6 +26,7 @@ class MatchModel with ChangeNotifier {
   final int winScore;
   final bool? lowScore;
   final bool isComplete;
+  final bool freePlay;
 
   MatchModel({
     this.id = 0,
@@ -50,5 +51,6 @@ class MatchModel with ChangeNotifier {
     this.winScore = 0,
     this.lowScore,
     this.isComplete = false,
+    this.freePlay = false,
   });
 }

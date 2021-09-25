@@ -7,6 +7,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/providers.dart';
 
 class DialogConfig {
+ 
+  void checkDisable(
+    amount,
+    score,
+    winScore,
+    sign,
+    freePlay,
+  ) {
+    print('This is freePlay $freePlay');
+    // if (freePlay == true) {
+    //   return;
+    // }
+    
+  }
+
   static Widget plusMinusButton({
     required BuildContext context,
     required int score,
@@ -16,9 +31,13 @@ class DialogConfig {
     required String sign,
     required int amount,
     required int winScore,
+    required bool freePlay,
   }) {
-    bool isDisable = false;
-    if (amount + score > winScore && sign == "add" ||
+     bool isDisable = false;
+    if (freePlay == true) {
+      isDisable = false;
+    }
+    else if (amount + score > winScore && sign == "add" ||
         score - amount < 0 && sign == "minus") {
       isDisable = true;
     }
@@ -57,6 +76,7 @@ class DialogConfig {
     required String playerName,
     required String sign,
     required int winScore,
+    required bool freePlay,
   }) {
     Get.defaultDialog(
       radius: 10.0,
@@ -72,49 +92,53 @@ class DialogConfig {
             children: [
               // 5 Button
               DialogConfig.plusMinusButton(
-                  context: context,
-                  score: score,
-                  player: player,
-                  id: id,
-                  playerName: playerName,
-                  sign: sign,
-                  amount: 5,
-                  winScore: winScore,
-                  ),
+                context: context,
+                score: score,
+                player: player,
+                id: id,
+                playerName: playerName,
+                sign: sign,
+                amount: 5,
+                winScore: winScore,
+                freePlay: freePlay,
+              ),
               // 10 Button
               DialogConfig.plusMinusButton(
-                  context: context,
-                  score: score,
-                  player: player,
-                  id: id,
-                  playerName: playerName,
-                  sign: sign,
-                  amount: 10,
-                  winScore: winScore,
-                  ),
+                context: context,
+                score: score,
+                player: player,
+                id: id,
+                playerName: playerName,
+                sign: sign,
+                amount: 10,
+                winScore: winScore,
+                freePlay: freePlay,
+              ),
               // 15 Button
 
               DialogConfig.plusMinusButton(
-                  context: context,
-                  score: score,
-                  player: player,
-                  id: id,
-                  playerName: playerName,
-                  sign: sign,
-                  amount: 15,
-                  winScore: winScore,
-                  ),
+                context: context,
+                score: score,
+                player: player,
+                id: id,
+                playerName: playerName,
+                sign: sign,
+                amount: 15,
+                winScore: winScore,
+                freePlay: freePlay,
+              ),
               // 30 Button
               DialogConfig.plusMinusButton(
-                  context: context,
-                  score: score,
-                  player: player,
-                  id: id,
-                  playerName: playerName,
-                  sign: sign,
-                  amount: 30,
-                  winScore: winScore,
-                  ),
+                context: context,
+                score: score,
+                player: player,
+                id: id,
+                playerName: playerName,
+                sign: sign,
+                amount: 30,
+                winScore: winScore,
+                freePlay: freePlay,
+              ),
             ],
           ),
           Container(
@@ -135,7 +159,7 @@ class DialogConfig {
               textInputAction: TextInputAction.done,
               onFieldSubmitted: (value) {
                 // int.parse(value) + score > winScore ?
-                sign == "add" 
+                sign == "add"
                     ? context.read(matchProvider).plus(
                           id: id,
                           score: score,

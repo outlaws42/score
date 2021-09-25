@@ -8,6 +8,7 @@ class GameModel with ChangeNotifier {
   final String? description;
   final int? endScore;
   final bool? lowScore;
+  final bool freePlay;
 
   GameModel({
     this.id=0,
@@ -15,5 +16,6 @@ class GameModel with ChangeNotifier {
     this.description = '',
     this.endScore,
     this.lowScore,
+    this.freePlay = false,
   });
 }

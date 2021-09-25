@@ -40,6 +40,7 @@ class GameList extends ConsumerWidget {
     final _description = game.games[index].description;
     final _endScore = game.games[index].endScore;
     final _lowScore = game.games[index].lowScore;
+    final _freePlay = game.games[index].freePlay;
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -65,7 +66,7 @@ class GameList extends ConsumerWidget {
             '$_description',
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          trailing: Container(
+          trailing: _freePlay == true ? Text("Free Play"):Container(
             alignment: Alignment.center,
             height: 30,
             width: 30,
@@ -83,7 +84,7 @@ class GameList extends ConsumerWidget {
           ),
           onTap: () {
             if (arguments[0] == 'match' || arguments[0] == 'matchForm') {
-              _selectedItems = [ _game, _endScore,_id, _lowScore];
+              _selectedItems = [ _game, _endScore,_id, _lowScore, _freePlay];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
