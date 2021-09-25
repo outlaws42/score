@@ -8,8 +8,8 @@ class MatchModel with ChangeNotifier {
   final String? matchName;
   final String player1Name;
   final String player2Name;
-  final int? player1Id;
-  final int? player2Id;
+  final int player1Id;
+  final int player2Id;
   // final int? playerId3;
   // final int? playerId4;
   // final int? playerId5;
@@ -33,8 +33,8 @@ class MatchModel with ChangeNotifier {
     this.matchName,
     required this.player1Name,
     required this.player2Name,
-    this.player1Id,
-    this.player2Id,
+    this.player1Id = 0,
+    this.player2Id = 0,
     // this.playerId3 = 0,
     // this.playerId4 = 0,
     // this.playerId5 = 0,

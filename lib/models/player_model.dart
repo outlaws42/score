@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 class PlayerModel with ChangeNotifier {
   final int? id;
   final String? name;
-  final int? wins;
+  final int wins;
   final int tempScore;
 
   PlayerModel({

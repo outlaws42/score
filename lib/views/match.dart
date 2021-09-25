@@ -23,6 +23,7 @@ class Match extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Consumer(builder: (context, watch, child) {
                 final gameData = watch(matchProvider);
+                final playerData = watch(playerProvider);
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
                 if (_index == -1) {
@@ -34,6 +35,8 @@ class Match extends StatelessWidget {
                 final _winScore = gameData.match[_index].winScore;
                 final _freePlay = gameData.match[_index].freePlay;
                 final _lowScore = gameData.match[_index].lowScore;
+                final _player1Id = gameData.match[_index].player1Id;
+                final _player2Id = gameData.match[_index].player2Id;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -45,6 +48,7 @@ class Match extends StatelessWidget {
                                     gameData.match[_index].isComplete,
                                   );
                               String winner = "_";
+                              int playerId = 0;
                               int player1Score =
                                   gameData.match[_index].player1Score;
                               int player2Score =
@@ -52,21 +56,35 @@ class Match extends StatelessWidget {
                               if (_lowScore == false &&
                                   player1Score > player2Score) {
                                 winner = gameData.match[_index].player1Name;
+                                playerId = _player1Id;
                               } else if (_lowScore == false &&
                                   player1Score < player2Score) {
                                 winner = gameData.match[_index].player2Name;
+                                playerId = _player2Id;
                               } else if (_lowScore == true &&
                                   player1Score < player2Score) {
                                 winner = gameData.match[_index].player1Name;
+                                playerId = _player1Id;
                               } else if (_lowScore == true &&
                                   player1Score > player2Score) {
                                 winner = gameData.match[_index].player2Name;
+                                playerId = _player2Id;
                               }
+                              var _playerIndex = playerData.player.indexWhere(
+                                  (element) => element.id == playerId);
+                              final _wins =
+                                  playerData.player[_playerIndex].wins;
                               context
                                   .read(matchProvider)
                                   .updateWinner(matchId, winner);
+
                               print("winner of match $matchId is $winner");
                               WinnerConfig.winDialog(context, winner);
+                              context.read(playerProvider).plus(
+                                    id: playerId,
+                                    wins: _wins,
+                                    addAmount: 1,
+                                  );
                             },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(
@@ -77,31 +95,32 @@ class Match extends StatelessWidget {
                           )
                         : Text(""),
                     // Winning Score/Free Play
-                    TextButton(
-                      onPressed: () {},
-                      child: Text('$_gameName',
-                          style: Theme.of(context).textTheme.headline3),
-                    ),
+                    Text('$_gameName',
+                        style: Theme.of(context).textTheme.headline3),
+
                     // Select Player
                     Container(
-            alignment: Alignment.center,
-            height: 32,
-            width: 32,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).appBarTheme.backgroundColor,
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                ]),
-            child: _freePlay == true 
-                        ? Text('FP',
-                            style: Theme.of(context).textTheme.headline3)
-                        : Text('$_winScore',
-                            style: Theme.of(context).textTheme.headline3)
-            ),
-          // ),
-                    
+                        alignment: Alignment.center,
+                        height: 32,
+                        width: 32,
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            )
+                            // color: Theme.of(context).appBarTheme.backgroundColor,
+                            // boxShadow: [
+                            //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                            // ],
+                            ),
+                        child: _freePlay == true
+                            ? Text('FP',
+                                style: Theme.of(context).textTheme.headline3)
+                            : Text('$_winScore',
+                                style: Theme.of(context).textTheme.headline3)),
+                    // ),
                   ],
                 );
               }),

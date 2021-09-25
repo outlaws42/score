@@ -13,7 +13,17 @@ class PlayerProvider extends ChangeNotifier {
   }
 
 
-  
+  void plus({
+    id,
+    wins,
+    addAmount,
+  }) {
+    wins += addAmount;
+    print(wins);
+    updatePlayerWins(id, wins);
+    // fetchMatch();
+    // notifyListeners();
+  }
 
 
 
@@ -24,7 +34,7 @@ class PlayerProvider extends ChangeNotifier {
           (player) => PlayerModel(
             id: player['id'] as int?,
             name: player['name'] as String?,
-            wins: player['wins'] as int?,
+            wins: player['wins'] as int,
           ),
         )
         .toList();
@@ -85,5 +95,17 @@ class PlayerProvider extends ChangeNotifier {
       'player2_score': score,
     });
     
+  }
+
+  Future<void> updatePlayerWins(
+    int playerId,
+    int win,
+  ) async {
+    DBHelper.update('players',playerId , {
+      'wins': win,
+    },
+    );
+    fetchPlayer();
+    notifyListeners();
   }
 }
