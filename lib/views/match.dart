@@ -83,11 +83,25 @@ class Match extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline3),
                     ),
                     // Select Player
-                    _freePlay == true
-                        ? Text('Free Play',
+                    Container(
+            alignment: Alignment.center,
+            height: 32,
+            width: 32,
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                ]),
+            child: _freePlay == true 
+                        ? Text('FP',
                             style: Theme.of(context).textTheme.headline3)
                         : Text('$_winScore',
                             style: Theme.of(context).textTheme.headline3)
+            ),
+          // ),
+                    
                   ],
                 );
               }),
