@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 import '../helpers/custom_widgets/add_subtract_dialog.dart';
+import '../helpers/custom_widgets/winner_dialog.dart';
 
 class PlayerTile extends StatelessWidget {
   final String player;
@@ -24,7 +25,7 @@ class PlayerTile extends StatelessWidget {
       // context.read(playerProvider).updateWins(arguments, currentPlayer);
 
       context.read(matchProvider).fetchMatch();
-      _winDialog(context, currentPlayer);
+      WinnerConfig.winDialog(context, currentPlayer,);
     }
   }
 
@@ -62,38 +63,6 @@ class PlayerTile extends StatelessWidget {
       print("sign isn't valid");
   }
 
-  void _winDialog(BuildContext context, currentPlayer) {
-    Get.defaultDialog(
-      radius: 10.0,
-      title: "The Game Is Complete",
-      content: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.beach_access,
-                color: Colors.green,
-              ),
-              Text(
-                " $currentPlayer",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              Text(" Won The Game"),
-            ],
-          ),
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text("Ok"),
-            style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).appBarTheme.backgroundColor,
-              onPrimary: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   void _colorDialog(
     BuildContext context,

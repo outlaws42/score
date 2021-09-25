@@ -31,6 +31,7 @@ class Match extends StatelessWidget {
                 }
                 // print(
                 //     'Match, This is the index $_index for the current id $matchId');
+                final _isComplete = gameData.match[_index].isComplete;
                 final _gameName = gameData.match[_index].gameName;
                 final _winScore = gameData.match[_index].winScore;
                 final _freePlay = gameData.match[_index].freePlay;
@@ -42,50 +43,60 @@ class Match extends StatelessWidget {
                   children: [
                     _freePlay == true
                         ? TextButton(
-                            onPressed: () {
-                              context.read(matchProvider).changeCompleteStatus(
-                                    matchId,
-                                    gameData.match[_index].isComplete,
-                                  );
-                              String winner = "_";
-                              int playerId = 0;
-                              int player1Score =
-                                  gameData.match[_index].player1Score;
-                              int player2Score =
-                                  gameData.match[_index].player2Score;
-                              if (_lowScore == false &&
-                                  player1Score > player2Score) {
-                                winner = gameData.match[_index].player1Name;
-                                playerId = _player1Id;
-                              } else if (_lowScore == false &&
-                                  player1Score < player2Score) {
-                                winner = gameData.match[_index].player2Name;
-                                playerId = _player2Id;
-                              } else if (_lowScore == true &&
-                                  player1Score < player2Score) {
-                                winner = gameData.match[_index].player1Name;
-                                playerId = _player1Id;
-                              } else if (_lowScore == true &&
-                                  player1Score > player2Score) {
-                                winner = gameData.match[_index].player2Name;
-                                playerId = _player2Id;
-                              }
-                              var _playerIndex = playerData.player.indexWhere(
-                                  (element) => element.id == playerId);
-                              final _wins =
-                                  playerData.player[_playerIndex].wins;
-                              context
-                                  .read(matchProvider)
-                                  .updateWinner(matchId, winner);
+                            onPressed: _isComplete == true
+                                ? null
+                                : () {
+                                    // context
+                                    //     .read(matchProvider)
+                                    //     .changeCompleteStatus(
+                                    //       matchId,
+                                    //       _isComplete,
+                                    //     );
+                                    String winner = "_";
+                                    int playerId = 0;
+                                    int player1Score =
+                                        gameData.match[_index].player1Score;
+                                    int player2Score =
+                                        gameData.match[_index].player2Score;
+                                    if (_lowScore == false &&
+                                        player1Score > player2Score) {
+                                      winner =
+                                          gameData.match[_index].player1Name;
+                                      playerId = _player1Id;
+                                    } else if (_lowScore == false &&
+                                        player1Score < player2Score) {
+                                      winner =
+                                          gameData.match[_index].player2Name;
+                                      playerId = _player2Id;
+                                    } else if (_lowScore == true &&
+                                        player1Score < player2Score) {
+                                      winner =
+                                          gameData.match[_index].player1Name;
+                                      playerId = _player1Id;
+                                    } else if (_lowScore == true &&
+                                        player1Score > player2Score) {
+                                      winner =
+                                          gameData.match[_index].player2Name;
+                                      playerId = _player2Id;
+                                    }
+                                    var _playerIndex = playerData.player
+                                        .indexWhere((element) =>
+                                            element.id == playerId);
+                                    final _wins =
+                                        playerData.player[_playerIndex].wins;
+                                    context
+                                        .read(matchProvider)
+                                        .updateWinner(matchId, winner);
 
-                              print("winner of match $matchId is $winner");
-                              WinnerConfig.winDialog(context, winner);
-                              context.read(playerProvider).plus(
-                                    id: playerId,
-                                    wins: _wins,
-                                    addAmount: 1,
-                                  );
-                            },
+                                    // print(
+                                    //     "winner of match $matchId is $winner");
+                                    WinnerConfig.winDialog(context, winner);
+                                    context.read(playerProvider).plus(
+                                          id: playerId,
+                                          wins: _wins,
+                                          addAmount: 1,
+                                        );
+                                  },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(
                               // primary: Theme.of(context).appBarTheme.backgroundColor,
