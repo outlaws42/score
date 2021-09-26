@@ -7,26 +7,35 @@ import '../controllers/providers.dart';
 
 class PlayerList extends ConsumerWidget {
   
-  showBottomSheet(name, wins, id) {
+  showBottomSheet(name, wins, id, status) {
     Get.bottomSheet(
       Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("$id"),
-              Text("$name"),
-              Text("$wins"),
-            ],
+          child: ListView.builder(
+            itemCount: status.length,
+            itemBuilder: (context, index) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("$id"),
+                  Text("$name"),
+                  Text("$wins"),
+                ],
+              );
+            }
           ),
         ),
       ),
     );
   }
 
-  Widget _listItem(index, play, context) {
+  void playerAcomplishments(){
+
+  }
+
+  Widget _listItem(index, play, context,status) {
     List _selectedItems = [];
     List arguments = Get.arguments;
     final _name = play.player[index].name;
@@ -64,6 +73,7 @@ class PlayerList extends ConsumerWidget {
                 _name,
                 _wins,
                 _id,
+                status,
                 // play.player[index].firstName,
                 // play.player[index].lastName,
                 // play.player[index].wins,
@@ -116,6 +126,7 @@ class PlayerList extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
     final play = watch(playerProvider);
+    final _status = watch(matchProvider).matchWins;
     // final fetch = play.fetchPlayer();
     print(play.player.length);
     // return GetX<PlayerController>(
@@ -140,11 +151,11 @@ class PlayerList extends ConsumerWidget {
                     //   indent: 0,
                     //   endIndent: 0,
                     // ),
-                    _listItem(index, play, context)
+                    _listItem(index, play, context, _status)
                   ],
                 );
               } else
-                return _listItem(index, play, context);
+                return _listItem(index, play, context, _status);
             },);
       // }
       

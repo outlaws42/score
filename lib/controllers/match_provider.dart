@@ -5,13 +5,13 @@ import '../models/match_model.dart';
 class MatchProvider extends ChangeNotifier {
 
   List<MatchModel> _matches = [];
-  List<MatchModel> _matchesSingle = [];
+  List<MatchModel> _matchesWins= [];
 
   List<MatchModel> get match {
     return [..._matches];
   }
   List<MatchModel> get matchSingle {
-    return [..._matchesSingle];
+    return [..._matchesWins];
   }
 
   // int currentColor = Colors.green.value; //4284790262;
@@ -87,6 +87,7 @@ class MatchProvider extends ChangeNotifier {
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
+            winnerId: match['winner_id'] as int,
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
@@ -98,9 +99,11 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchMatchById(int id) async {
-    final dataList = await DBHelper.getDataById('indv_matches', id);
-    _matchesSingle = dataList
+  Future<void> fetchMatchByWinnerId({
+    required int winnerId,
+    }) async {
+    final dataList = await DBHelper.getDataById('indv_matches', winnerId);
+    _matchesWins = dataList
         .map(
           (match) => MatchModel(
             id: match['id'] as int?,
@@ -121,6 +124,7 @@ class MatchProvider extends ChangeNotifier {
             // playerScore3: match['playerscore3'] as int?,
             // playerScore4: match['playerscore4'] as int?,
             // playerScore5: match['playerscore5'] as int?,
+            winnerId: match['winner_id'] as int,
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
             lowScore: match['low_score'] == 0 ? false : true,
@@ -162,6 +166,7 @@ class MatchProvider extends ChangeNotifier {
       player1Color: 4282339765,
       player2Color: 4278228616,
       winner: "_",
+      winnerId: 0,
       winScore: endScore,
       lowScore: lowScore,
       freePlay: freePlay,
@@ -182,6 +187,7 @@ class MatchProvider extends ChangeNotifier {
       'player2_score': newMatch.player2Score,
       'player1_color': newMatch.player1Color,
       'player2_color': newMatch.player2Color,
+      'winner_id': newMatch.winnerId,
       'winner': newMatch.winner,
       'win_score': newMatch.winScore,
       'low_score': newMatch.lowScore == false ? 0 : 1,
@@ -241,12 +247,14 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateWinner(
-    int id,
-    String player,
-  ) async {
-    DBHelper.update('indv_matches', id, {
-      'winner': player,
+  Future<void> updateWinner({
+    required int matchId,
+    required int winnerId,
+    required String winnerName,
+  }) async {
+    DBHelper.update('indv_matches', matchId, {
+      'winner': winnerName,
+      'winner_id': winnerId,
       'is_complete': 1,
     });
     fetchMatch();

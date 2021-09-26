@@ -35,7 +35,11 @@ class FunctionHelper {
         .player
         .indexWhere((element) => element.id == playerId);
     final _wins = context.read(playerProvider).player[_playerIndex].wins;
-    context.read(matchProvider).updateWinner(matchId, winner);
+    context.read(matchProvider).updateWinner(
+      matchId: matchId, 
+      winnerName: winner,
+      winnerId: playerId,
+      );
 
     // print(
     //     "winner of match $matchId is $winner");

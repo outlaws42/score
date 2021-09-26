@@ -34,6 +34,14 @@ class GameScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
+          TextButton(
+              onPressed: ()=> Get.to(() => GameForm()),
+              child: Icon(Icons.add_circle),
+              style: ElevatedButton.styleFrom(
+                // primary: Theme.of(context).appBarTheme.backgroundColor,
+                onPrimary: Colors.white,
+              ),
+            ),
           PopupMenuButton(
            onSelected: (FilterOptions selectedValue) {
               print(selectedValue);

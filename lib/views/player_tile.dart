@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 import '../helpers/custom_widgets/add_subtract_dialog.dart';
-import '../helpers/custom_widgets/winner_dialog.dart';
 import '../helpers/function_helpers.dart';
 
 class PlayerTile extends StatelessWidget {

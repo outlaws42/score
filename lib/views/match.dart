@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/helpers/function_helpers.dart';
-import '../helpers/custom_widgets/winner_dialog.dart';
 
 class Match extends StatelessWidget {
   final int matchId;

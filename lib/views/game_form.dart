@@ -123,7 +123,7 @@ class _GameFormState extends State<GameForm> {
                     : Container(),
 
                 // Low Score Wins (Toggle)
-                Container(
+                _isFreePlay== true ? Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +146,7 @@ class _GameFormState extends State<GameForm> {
                       ),
                     ],
                   ),
-                ),
+                ): Container(),
 
                 // Submit Button
                 Container(

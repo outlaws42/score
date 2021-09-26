@@ -23,6 +23,7 @@ class MatchModel with ChangeNotifier {
   final String? gameName;
   final int? gameId;
   final String winner;
+  final int winnerId;
   final int winScore;
   final bool lowScore;
   final bool isComplete;
@@ -48,6 +49,7 @@ class MatchModel with ChangeNotifier {
     this.gameName,
     this.gameId,
     this.winner = "",
+    this.winnerId = 0,
     this.winScore = 0,
     this.lowScore = false,
     this.isComplete = false,
