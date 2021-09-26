@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
+import 'package:score/helpers/function_helpers.dart';
 import '../helpers/custom_widgets/winner_dialog.dart';
 
 class Match extends StatelessWidget {
@@ -23,7 +24,7 @@ class Match extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Consumer(builder: (context, watch, child) {
                 final gameData = watch(matchProvider);
-                final playerData = watch(playerProvider);
+                // final playerData = watch(playerProvider);
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
                 if (_index == -1) {
@@ -35,7 +36,7 @@ class Match extends StatelessWidget {
                 final _gameName = gameData.match[_index].gameName;
                 final _winScore = gameData.match[_index].winScore;
                 final _freePlay = gameData.match[_index].freePlay;
-                final _lowScore = gameData.match[_index].lowScore;
+                // final _lowScore = gameData.match[_index].lowScore;
                 final _player1Id = gameData.match[_index].player1Id;
                 final _player2Id = gameData.match[_index].player2Id;
                 return Row(
@@ -46,56 +47,16 @@ class Match extends StatelessWidget {
                             onPressed: _isComplete == true
                                 ? null
                                 : () {
-                                    // context
-                                    //     .read(matchProvider)
-                                    //     .changeCompleteStatus(
-                                    //       matchId,
-                                    //       _isComplete,
-                                    //     );
-                                    String winner = "_";
-                                    int playerId = 0;
-                                    int player1Score =
-                                        gameData.match[_index].player1Score;
-                                    int player2Score =
-                                        gameData.match[_index].player2Score;
-                                    if (_lowScore == false &&
-                                        player1Score > player2Score) {
-                                      winner =
-                                          gameData.match[_index].player1Name;
-                                      playerId = _player1Id;
-                                    } else if (_lowScore == false &&
-                                        player1Score < player2Score) {
-                                      winner =
-                                          gameData.match[_index].player2Name;
-                                      playerId = _player2Id;
-                                    } else if (_lowScore == true &&
-                                        player1Score < player2Score) {
-                                      winner =
-                                          gameData.match[_index].player1Name;
-                                      playerId = _player1Id;
-                                    } else if (_lowScore == true &&
-                                        player1Score > player2Score) {
-                                      winner =
-                                          gameData.match[_index].player2Name;
-                                      playerId = _player2Id;
-                                    }
-                                    var _playerIndex = playerData.player
-                                        .indexWhere((element) =>
-                                            element.id == playerId);
-                                    final _wins =
-                                        playerData.player[_playerIndex].wins;
-                                    context
-                                        .read(matchProvider)
-                                        .updateWinner(matchId, winner);
-
-                                    // print(
-                                    //     "winner of match $matchId is $winner");
-                                    WinnerConfig.winDialog(context, winner);
-                                    context.read(playerProvider).plus(
-                                          id: playerId,
-                                          wins: _wins,
-                                          addAmount: 1,
-                                        );
+                                  FunctionHelper.checkWinner(
+                                    context: context, 
+                                    player1Score: gameData.match[_index].player1Score, 
+                                    player2Score: gameData.match[_index].player2Score, 
+                                    player1Id: _player1Id, 
+                                    player2Id: _player2Id, 
+                                    player1Name: gameData.match[_index].player1Name, 
+                                    player2Name: gameData.match[_index].player2Name, 
+                                    lowScore: gameData.match[_index].lowScore, 
+                                    matchId: matchId);
                                   },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(

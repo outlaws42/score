@@ -5,6 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 import '../helpers/custom_widgets/add_subtract_dialog.dart';
 import '../helpers/custom_widgets/winner_dialog.dart';
+import '../helpers/function_helpers.dart';
 
 class PlayerTile extends StatelessWidget {
   final String player;
@@ -15,54 +16,58 @@ class PlayerTile extends StatelessWidget {
   });
 
   // final Color currentColor = Colors.green;
-  void winner(
-      BuildContext context, score, currentPlayer, winningScore, freePlay) {
-    if (freePlay == true) {
-      return;
-    }
-    if (score + 1 == winningScore) {
-      context.read(matchProvider).updateWinner(matchId, currentPlayer);
-      // context.read(playerProvider).updateWins(arguments, currentPlayer);
+  // void checkWinner({
+  //   required BuildContext context,
+  //   required int score,
+  //   required String player1Name,
+  //   required String player2Name,
+  //   required int player1Id,
+  //   required int player2Id,
+  //   required int player1Score,
+  //   required int player2Score,
+  //   required int winningScore,
+  //   required bool freePlay,
+  //   required bool lowScore,
+  // }) {
+  //   String winner = "_";
+  //   int playerId = 1;
+  //   // if (freePlay == true) {
+  //   //   return;
+  //   // }
+  //   if (lowScore == false && player1Score > player2Score) {
+  //     playerId = player1Id;
+  //     winner = player1Name;
+  //   } else if (lowScore == false && player1Score < player2Score) {
+  //     playerId = player2Id;
+  //     winner = player1Name;
+  //   } else if (lowScore == true && player1Score < player2Score) {
+  //     playerId = player1Id;
+  //     winner = player1Name;
+  //   } else if (lowScore == true && player1Score > player2Score) {
+  //     playerId = player2Id;
+  //     winner = player2Name;
+      
+  //   }
+  //   var _playerIndex = context
+  //       .read(playerProvider)
+  //       .player
+  //       .indexWhere((element) => element.id == playerId);
+  //   final _wins = context.read(playerProvider).player[_playerIndex].wins;
+  //   context.read(matchProvider).updateWinner(matchId, winner);
 
-      context.read(matchProvider).fetchMatch();
-      WinnerConfig.winDialog(context, currentPlayer,);
-    }
-  }
-
-  void checkWinner(
-    BuildContext context,
-    score,
-    currentPlayer,
-    winningScore,
-    sign,
-    freePlay,
-  ) {
-    winner(
-      context,
-      score,
-      currentPlayer,
-      winningScore,
-      freePlay,
-    );
-
-    if (sign == "plus") {
-      context.read(matchProvider).plus(
-            id: matchId,
-            score: score,
-            player: player,
-            addAmount: 1,
-          );
-    } else if (sign == "minus") {
-      context.read(matchProvider).minus(
-            id: matchId,
-            score: score,
-            player: player,
-            minusAmount: 1,
-          );
-    } else
-      print("sign isn't valid");
-  }
-
+  //   // print(
+  //   //     "winner of match $matchId is $winner");
+    
+  //   context.read(playerProvider).plus(
+  //         id: playerId,
+  //         wins: _wins,
+  //         addAmount: 1,
+  //       );
+  //   WinnerConfig.winDialog(
+  //       context,
+  //       winner,
+  //     );
+  // }
 
   void _colorDialog(
     BuildContext context,
@@ -94,18 +99,25 @@ class PlayerTile extends StatelessWidget {
         _index = 0;
       }
       final _freePlay = matchData.match[_index].freePlay;
+      final _lowScore = matchData.match[_index].lowScore;
       final _isComplete = matchData.match[_index].isComplete;
+      final _player1Name = matchData.match[_index].player1Name;
+      final _player2Name = matchData.match[_index].player2Name;
+      final _player1Score = matchData.match[_index].player1Score;
+      final _player2Score = matchData.match[_index].player2Score;
+      final _player1Id = matchData.match[_index].player1Id;
+      final _player2Id = matchData.match[_index].player2Id;
       // print('This is the index $_index for the current id $arguments');
       // print('This is the isComplete $_isComplete');
 
       final winScore = matchData.match[_index].winScore;
       // print('This is the winScore $winScore');
       final playerName = player == "player1"
-          ? matchData.match[_index].player1Name
-          : matchData.match[_index].player2Name;
+          ? _player1Name
+          : _player2Name;
       final _score = player == "player1"
-          ? matchData.match[_index].player1Score
-          : matchData.match[_index].player2Score;
+          ? _player1Score
+          : _player2Score;
       final _color = player == "player1"
           ? matchData.match[_index].player1Color
           : matchData.match[_index].player2Color;
@@ -174,14 +186,31 @@ class PlayerTile extends StatelessWidget {
                     TextButton(
                       onPressed: _isComplete == true
                           ? null
-                          : () => checkWinner(
-                                context,
-                                _score,
-                                playerName,
-                                winScore,
-                                "minus",
-                                _freePlay,
-                              ),
+                          : () {
+                              context.read(matchProvider).minus(
+                                    id: matchId,
+                                    score: _score,
+                                    player: player,
+                                    minusAmount: 1,
+                                  );
+                              if(_freePlay == true){
+                                return;
+                              }
+                              if(_score + 1 == winScore){
+                               FunctionHelper.checkWinner(
+                                context: context,
+                                player1Name:_player1Name,
+                                player2Name:_player2Name,
+                                matchId: matchId,
+                                player1Id: _player1Id,
+                                player2Id: _player2Id,
+                                player1Score:_player1Score,
+                                player2Score:_player2Score,
+                                lowScore: _lowScore,
+                              );
+                              }
+                              
+                            },
                       // onPressed: () => context.read(matchProvider).minus(
                       //       id: arguments,
                       //       score: _score,
@@ -216,14 +245,30 @@ class PlayerTile extends StatelessWidget {
                     TextButton(
                       onPressed: _isComplete == true
                           ? null
-                          : () => checkWinner(
-                                context,
-                                _score,
-                                playerName,
-                                winScore,
-                                "plus",
-                                _freePlay,
-                              ),
+                          : () {
+                              context.read(matchProvider).plus(
+                                    id: matchId,
+                                    score: _score,
+                                    player: player,
+                                    addAmount: 1,
+                                  );
+                              if(_freePlay == true){
+                                return;
+                              }
+                              if(_score + 1 == winScore){
+                               FunctionHelper.checkWinner(
+                                context: context,
+                                player1Name:_player1Name,
+                                player2Name:_player2Name,
+                                matchId: matchId,
+                                player1Id: _player1Id,
+                                player2Id: _player2Id,
+                                player1Score:_player1Score,
+                                player2Score:_player2Score,
+                                lowScore: _lowScore,
+                              );
+                              }
+                            },
                       // onPressed: () => context.read(matchProvider).plus(
                       //       id: arguments,
                       //       score: _score,

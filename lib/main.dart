@@ -45,10 +45,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final appState = watch(themeProvider);
-    // context.read(matchProvider).fetchMatch();
-    // context.read(playerProvider).fetchPlayer();
-    // context.read(gameProvider).fetchGame();
-    // print("Fetch all state when first load");
+    context.read(matchProvider).fetchMatch();
+    context.read(playerProvider).fetchPlayer();
+    context.read(gameProvider).fetchGame();
+    print("Fetch all state when first load");
     // return Consumer<ThemeProvider>(
     //   builder: (context, appState, child) {
     return GetMaterialApp(
