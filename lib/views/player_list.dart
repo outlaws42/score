@@ -14,14 +14,14 @@ class PlayerList extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView.builder(
-            itemCount: status.length,
+            itemCount: status.matchWins.length,
             itemBuilder: (context, index) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("$id"),
-                  Text("$name"),
-                  Text("$wins"),
+                  Text("${status.matchWins[index].player1Name} vs ${status.matchWins[index].player2Name}"),
+                  Text("${status.matchWins[index].gameName}"),
+                  // Text("$wins"),
                 ],
               );
             }
@@ -35,7 +35,7 @@ class PlayerList extends ConsumerWidget {
 
   }
 
-  Widget _listItem(index, play, context,status) {
+  Widget _listItem(index, play, BuildContext context,status) {
     List _selectedItems = [];
     List arguments = Get.arguments;
     final _name = play.player[index].name;
@@ -69,6 +69,7 @@ class PlayerList extends ConsumerWidget {
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
+              // context.read(matchProvider).fetchMatchByWinnerId(winnerId: _id);
               showBottomSheet(
                 _name,
                 _wins,
@@ -125,8 +126,19 @@ class PlayerList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
+    DateTime dt = DateTime.now();
+    int ms = dt.toUtc().millisecondsSinceEpoch;
+    // double unix = ms/1000;
+    print(dt);
+    print(ms);
+    // print(unix);
+    DateTime dts = DateTime.fromMillisecondsSinceEpoch(ms);
+    print(dts);
+    print(dt);
+    // final DateFormat formatter =DateFormat('yyyy-MM-dd');
     final play = watch(playerProvider);
-    final _status = watch(matchProvider).matchWins;
+    final _status = watch(matchProvider);
+    // context.read(matchProvider).fetchMatchByWinnerId(winnerId: 2);
     // final fetch = play.fetchPlayer();
     print(play.player.length);
     // return GetX<PlayerController>(

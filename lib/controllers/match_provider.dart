@@ -10,7 +10,7 @@ class MatchProvider extends ChangeNotifier {
   List<MatchModel> get match {
     return [..._matches];
   }
-  List<MatchModel> get matchSingle {
+  List<MatchModel> get matchWins {
     return [..._matchesWins];
   }
 
@@ -102,7 +102,7 @@ class MatchProvider extends ChangeNotifier {
   Future<void> fetchMatchByWinnerId({
     required int winnerId,
     }) async {
-    final dataList = await DBHelper.getDataById('indv_matches', winnerId);
+    final dataList = await DBHelper.getDataByWinnerId('indv_matches', winnerId);
     _matchesWins = dataList
         .map(
           (match) => MatchModel(

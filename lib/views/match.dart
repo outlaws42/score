@@ -38,6 +38,7 @@ class Match extends StatelessWidget {
                 // final _lowScore = gameData.match[_index].lowScore;
                 final _player1Id = gameData.match[_index].player1Id;
                 final _player2Id = gameData.match[_index].player2Id;
+                 final _lowScore = gameData.match[_index].lowScore;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -46,16 +47,21 @@ class Match extends StatelessWidget {
                             onPressed: _isComplete == true
                                 ? null
                                 : () {
-                                  FunctionHelper.checkWinner(
-                                    context: context, 
-                                    player1Score: gameData.match[_index].player1Score, 
-                                    player2Score: gameData.match[_index].player2Score, 
-                                    player1Id: _player1Id, 
-                                    player2Id: _player2Id, 
-                                    player1Name: gameData.match[_index].player1Name, 
-                                    player2Name: gameData.match[_index].player2Name, 
-                                    lowScore: gameData.match[_index].lowScore, 
-                                    matchId: matchId);
+                                    FunctionHelper.checkWinner(
+                                        context: context,
+                                        player1Score:
+                                            gameData.match[_index].player1Score,
+                                        player2Score:
+                                            gameData.match[_index].player2Score,
+                                        player1Id: _player1Id,
+                                        player2Id: _player2Id,
+                                        player1Name:
+                                            gameData.match[_index].player1Name,
+                                        player2Name:
+                                            gameData.match[_index].player2Name,
+                                        lowScore:
+                                            gameData.match[_index].lowScore,
+                                        matchId: matchId);
                                   },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(
@@ -71,27 +77,47 @@ class Match extends StatelessWidget {
 
                     // Select Player
                     Container(
-                        alignment: Alignment.center,
-                        height: 32,
-                        width: 32,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                            )
-                            // color: Theme.of(context).appBarTheme.backgroundColor,
-                            // boxShadow: [
-                            //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                            // ],
-                            ),
-                        child: _freePlay == true
-                            ? Text('FP',
-                                style: Theme.of(context).textTheme.headline3)
-                            : Text('$_winScore',
-                                style: Theme.of(context).textTheme.headline3)),
-                    // ),
+                      alignment: Alignment.center,
+                      height: 32,
+                      width: 32,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          )
+                          // color: Theme.of(context).appBarTheme.backgroundColor,
+                          // boxShadow: [
+                          //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                          // ],
+                          ),
+                      child: _freePlay == true
+                          ? Text('FP',
+                              style: Theme.of(context).textTheme.headline3)
+                          : Text('$_winScore',
+                              style: Theme.of(context).textTheme.headline3),
+                    ),
+                    _lowScore == true ? Container(
+                      alignment: Alignment.center,
+                      height: 32,
+                      width: 32,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          )
+                          // color: Theme.of(context).appBarTheme.backgroundColor,
+                          // boxShadow: [
+                          //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                          // ],
+                          ),
+                      child: Text('LS',
+                              style: Theme.of(context).textTheme.headline3)
+                         
+                    ): Text(""),
                   ],
                 );
               }),

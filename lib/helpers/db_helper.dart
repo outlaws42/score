@@ -95,11 +95,11 @@ class DBHelper {
     return db.query(table);
   }
 
-  static Future<List<Map<String, Object?>>> getDataById(String table, int id) async {
+  static Future<List<Map<String, Object?>>> getDataByWinnerId(String table, int id) async {
     // gets access to the database
     final db = await DBHelper.database();
     // get the data from the db it will return a List of Maps
-    return db.query(table, where: "id = ", whereArgs: [id]);
+    return db.query(table, where: "winner_id = ?", whereArgs: [id]);
   }
 
   static Future<void> remove(String table, int id) async {
