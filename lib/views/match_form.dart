@@ -76,6 +76,7 @@ class _MatchFormState extends State<MatchForm> {
     if (gameName == null || gameName.isEmpty) {
       return;
     }
+    int dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     context.read(matchProvider).addMatch(
           matchName: name,
           gameName: gameName,
@@ -87,6 +88,7 @@ class _MatchFormState extends State<MatchForm> {
           endScore: endScore,
           lowScore: lowScore,
           freePlay: freePlay,
+          dateTime: dtUtcMs,
           // player1Score: 0,
           // player2Score: 1,
           isCompleted: false,

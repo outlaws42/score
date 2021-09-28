@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../controllers/providers.dart';
 import './custom_widgets/winner_dialog.dart';
 
@@ -36,19 +37,30 @@ class FunctionHelper {
         .indexWhere((element) => element.id == playerId);
     final _wins = context.read(playerProvider).player[_playerIndex].wins;
     context.read(matchProvider).updateWinner(
-      matchId: matchId, 
-      winnerName: winner,
-      winnerId: playerId,
-      );
+          matchId: matchId,
+          winnerName: winner,
+          winnerId: playerId,
+        );
 
     // print(
     //     "winner of match $matchId is $winner");
-    
+
     context.read(playerProvider).plus(
           id: playerId,
           wins: _wins,
           addAmount: 1,
         );
     WinnerConfig.winDialog(context, winner);
+  }
+
+  convertToDate({
+    required int dateTimeUtcInt,
+    String format = 'yyy-MM-dd'
+  }) {
+    // Take int and returns date in the default format of YYYY-MM-DD
+    DateTime dts = DateTime.fromMillisecondsSinceEpoch(dateTimeUtcInt);
+    DateFormat dateFormat = DateFormat(format);
+    String date = dateFormat.format(dts);
+    return date;
   }
 }

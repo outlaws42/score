@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
+import 'package:score/models/match_model.dart';
 import '../controllers/providers.dart';
 
-
 class PlayerList extends ConsumerWidget {
-  
   showBottomSheet(name, wins, id, status) {
     Get.bottomSheet(
       Container(
@@ -14,28 +13,26 @@ class PlayerList extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView.builder(
-            itemCount: status.matchWins.length,
-            itemBuilder: (context, index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("${status.matchWins[index].player1Name} vs ${status.matchWins[index].player2Name}"),
-                  Text("${status.matchWins[index].gameName}"),
-                  // Text("$wins"),
-                ],
-              );
-            }
-          ),
+              itemCount: status.length,
+              itemBuilder: (context, index) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                        "${status[index].player1Name} vs ${status.player2Name}"),
+                    Text("${status[index].gameName}"),
+                    // Text("$wins"),
+                  ],
+                );
+              }),
         ),
       ),
     );
   }
 
-  void playerAcomplishments(){
+  void playerAcomplishments() {}
 
-  }
-
-  Widget _listItem(index, play, BuildContext context,status) {
+  Widget _listItem(index, play, BuildContext context, status) {
     List _selectedItems = [];
     List arguments = Get.arguments;
     final _name = play.player[index].name;
@@ -63,18 +60,19 @@ class PlayerList extends ConsumerWidget {
           // ),
           onTap: () {
             if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
-              _selectedItems = [ _name, _id];
-                  // play.player[index].firstName; // assign first name
+              _selectedItems = [_name, _id];
+              // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
+              Iterable<MatchModel>  wins =  status.match.where((win) => win.winner.contains('Cara')).toList();
               // context.read(matchProvider).fetchMatchByWinnerId(winnerId: _id);
               showBottomSheet(
                 _name,
                 _wins,
                 _id,
-                status,
+                wins,
                 // play.player[index].firstName,
                 // play.player[index].lastName,
                 // play.player[index].wins,
@@ -125,17 +123,6 @@ class PlayerList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-    DateTime dt = DateTime.now();
-    int ms = dt.toUtc().millisecondsSinceEpoch;
-    // double unix = ms/1000;
-    print(dt);
-    print(ms);
-    // print(unix);
-    DateTime dts = DateTime.fromMillisecondsSinceEpoch(ms);
-    print(dts);
-    print(dt);
-    // final DateFormat formatter =DateFormat('yyyy-MM-dd');
     final play = watch(playerProvider);
     final _status = watch(matchProvider);
     // context.read(matchProvider).fetchMatchByWinnerId(winnerId: 2);
@@ -144,34 +131,38 @@ class PlayerList extends ConsumerWidget {
     // return GetX<PlayerController>(
     //   builder: (_) {
     //       // init: PlayerController();
-        return ListView.builder(
-            // separatorBuilder: (context, index) => Divider(
-            //       height: 0,
-            //       thickness: 1,
-            //       indent: 0,
-            //       endIndent: 0,
-            //     ),
-            itemCount: play.player.length,
-            itemBuilder: (contex, index) {
-              if (index == 0) {
-                return Column(
-                  children: [
-                    header(context),
-                    // Divider(
-                    //   height: 0,
-                    //   thickness: 4,
-                    //   indent: 0,
-                    //   endIndent: 0,
-                    // ),
-                    _listItem(index, play, context, _status)
-                  ],
-                );
-              } else
-                return _listItem(index, play, context, _status);
-            },);
-      // }
-      
-    // );
+    print(_status.match.length);
+    Iterable<MatchModel> matchWin =
+        _status.match.where((element) => element.winner.contains('Cara'));
+    matchWin.forEach((element) => print(element.gameName));
+    return ListView.builder(
+      // separatorBuilder: (context, index) => Divider(
+      //       height: 0,
+      //       thickness: 1,
+      //       indent: 0,
+      //       endIndent: 0,
+      //     ),
+      itemCount: play.player.length,
+      itemBuilder: (contex, index) {
+        if (index == 0) {
+          return Column(
+            children: [
+              header(context),
+              // Divider(
+              //   height: 0,
+              //   thickness: 4,
+              //   indent: 0,
+              //   endIndent: 0,
+              // ),
+              _listItem(index, play, context, _status)
+            ],
+          );
+        } else
+          return _listItem(index, play, context, _status);
+      },
+    );
+    // }
 
+    // );
   }
 }

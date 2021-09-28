@@ -48,6 +48,7 @@ class DBHelper {
             player1_color INTGER,
             player2_color INTEGER,
             winner TEXT,
+            date_time INTEGER,
             winner_id INTEGER,
             win_score INTEGER,
             low_score INTEGER,

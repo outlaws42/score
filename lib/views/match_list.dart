@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
+import '../helpers/function_helpers.dart';
+
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
 // import '../controllers/game_provider.dart';
@@ -45,13 +47,16 @@ class MatchList extends ConsumerWidget {
     final _freePlay = game.match[index].freePlay;
     final _winner = game.match[index].winner;
     final _isComplete = game.match[index].isComplete;
+    final _date = FunctionHelper().convertToDate(
+      dateTimeUtcInt: game.match[index].dateTime,
+    );
 
     bool _player1 = false;
-    bool _player2 = false;  
+    bool _player2 = false;
 
-    if (_isComplete == true && _player1Name == _winner){
+    if (_isComplete == true && _player1Name == _winner) {
       _player1 = true;
-    } else if (_isComplete == true && _player2Name == _winner){
+    } else if (_isComplete == true && _player2Name == _winner) {
       _player2 = true;
     }
 
@@ -77,32 +82,38 @@ class MatchList extends ConsumerWidget {
             '$_gameName',
             style: Theme.of(context).textTheme.headline6,
           ),
-          subtitle: _player1 == false && _player2 == false ? Text(
-            '$_player1Name vs $_player2Name',
-            style: Theme.of(context).textTheme.subtitle1,
-          ) : _player1 == true ? Text(
-            '$_player1Name (Winner) vs $_player2Name',
-            style: Theme.of(context).textTheme.subtitle1,
-          ): Text(
-            '$_player1Name vs $_player2Name (Winner)',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          trailing: _freePlay == true ? Text("Free Play"): Container(
-            alignment: Alignment.center,
-            height: 30,
-            width: 30,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).appBarTheme.backgroundColor,
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                ]),
-            child: Text(
-              '$_endScore',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ),
+          subtitle: _player1 == false && _player2 == false
+              ? Text(
+                  '$_player1Name vs $_player2Name  $_date',
+                  style: Theme.of(context).textTheme.subtitle1,
+                )
+              : _player1 == true
+                  ? Text(
+                      '$_player1Name (Winner) vs $_player2Name  $_date',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    )
+                  : Text(
+                      '$_player1Name vs $_player2Name (Winner)  $_date',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+          trailing: _freePlay == true
+              ? Text("Free Play")
+              : Container(
+                  alignment: Alignment.center,
+                  height: 30,
+                  width: 30,
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                      boxShadow: [
+                        BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                      ]),
+                  child: Text(
+                    '$_endScore',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                ),
           onTap: () {
             // if (arguments[0] == 'match') {
             //   _selectedItems = [ _matchName, _endScore,_id];

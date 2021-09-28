@@ -38,9 +38,9 @@ class Match extends StatelessWidget {
                 // final _lowScore = gameData.match[_index].lowScore;
                 final _player1Id = gameData.match[_index].player1Id;
                 final _player2Id = gameData.match[_index].player2Id;
-                 final _lowScore = gameData.match[_index].lowScore;
+                final _lowScore = gameData.match[_index].lowScore;
                 return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _freePlay == true
                         ? TextButton(
@@ -72,10 +72,12 @@ class Match extends StatelessWidget {
                           )
                         : Text(""),
                     // Winning Score/Free Play
+                    Spacer(),
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 
-                    // Select Player
+                    // Win Score/Free Play
+                    Spacer(),
                     Container(
                       alignment: Alignment.center,
                       height: 32,
@@ -98,26 +100,26 @@ class Match extends StatelessWidget {
                           : Text('$_winScore',
                               style: Theme.of(context).textTheme.headline3),
                     ),
-                    _lowScore == true ? Container(
-                      alignment: Alignment.center,
-                      height: 32,
-                      width: 32,
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
-                          )
-                          // color: Theme.of(context).appBarTheme.backgroundColor,
-                          // boxShadow: [
-                          //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                          // ],
-                          ),
-                      child: Text('LS',
-                              style: Theme.of(context).textTheme.headline3)
-                         
-                    ): Text(""),
+                    _lowScore == true
+                        ? Container(
+                            alignment: Alignment.center,
+                            height: 32,
+                            width: 32,
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                )
+                                // color: Theme.of(context).appBarTheme.backgroundColor,
+                                // boxShadow: [
+                                //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
+                                // ],
+                                ),
+                            child: Text('LS',
+                                style: Theme.of(context).textTheme.headline3))
+                        : Text(""),
                   ],
                 );
               }),
