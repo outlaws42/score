@@ -64,6 +64,12 @@ class MatchProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
+  void filtereList(){
+    // var wins = _matches;
+    _matchesWins = _matches.where((win) => win.winner.contains('Cara')).toList();
+    notifyListeners();
+  }
+
   Future<void> fetchMatch() async {
     final dataList = await DBHelper.getData('indv_matches');
     _matches = dataList

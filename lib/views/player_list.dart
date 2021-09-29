@@ -6,21 +6,27 @@ import 'package:score/models/match_model.dart';
 import '../controllers/providers.dart';
 
 class PlayerList extends ConsumerWidget {
-  showBottomSheet(name, wins, id, status) {
+  showBottomSheet(name, wins, id, List<MatchModel> status) {
+      var _wins = status.where((win) => win.winner.contains('Cara')).toList();
+    // wins.forEach((win) => print(win.player1Name));
     Get.bottomSheet(
+      // Text('Test'),
       Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView.builder(
-              itemCount: status.length,
+              itemCount: _wins.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                        "${status[index].player1Name} vs ${status.player2Name}"),
-                    Text("${status[index].gameName}"),
+                        "${_wins[index].player1Name} ${_wins[index].dateTime}",
+                        ),
+                    Text(
+                        "${_wins[index].gameName}",
+                        ),
                     // Text("$wins"),
                   ],
                 );
@@ -58,7 +64,7 @@ class PlayerList extends ConsumerWidget {
           //   '${play.player[index].id.toString()}',
           //   style: Theme.of(context).textTheme.headline6,
           // ),
-          onTap: () {
+          onTap: () async {
             if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
               _selectedItems = [_name, _id];
               // play.player[index].firstName; // assign first name
@@ -66,13 +72,13 @@ class PlayerList extends ConsumerWidget {
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
-              Iterable<MatchModel>  wins =  status.match.where((win) => win.winner.contains('Cara')).toList();
+
               // context.read(matchProvider).fetchMatchByWinnerId(winnerId: _id);
-              showBottomSheet(
+              await showBottomSheet(
                 _name,
                 _wins,
                 _id,
-                wins,
+                status,
                 // play.player[index].firstName,
                 // play.player[index].lastName,
                 // play.player[index].wins,
@@ -124,17 +130,20 @@ class PlayerList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final play = watch(playerProvider);
-    final _status = watch(matchProvider);
+    final _status = watch(matchProvider).match;
     // context.read(matchProvider).fetchMatchByWinnerId(winnerId: 2);
     // final fetch = play.fetchPlayer();
     print(play.player.length);
     // return GetX<PlayerController>(
     //   builder: (_) {
     //       // init: PlayerController();
-    print(_status.match.length);
-    Iterable<MatchModel> matchWin =
-        _status.match.where((element) => element.winner.contains('Cara'));
-    matchWin.forEach((element) => print(element.gameName));
+    print(_status.length);
+    Iterable<MatchModel> matchWin = _status
+        .where(
+          (win) => win.winner.toLowerCase().contains('Cara'.toLowerCase()),
+        )
+        .toList();
+    matchWin.forEach((win) => print(win.gameName));
     return ListView.builder(
       // separatorBuilder: (context, index) => Divider(
       //       height: 0,
