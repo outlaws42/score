@@ -18,7 +18,7 @@ class MatchCurrentScreen extends StatelessWidget {
   final arguments = Get.arguments;
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
-      Get.toNamed("/players", arguments: ["main_screen"]);
+      Get.toNamed("/players", arguments: ["main_screen", "player"]);
     } else if (value == FilterOptions.Games) {
       Get.toNamed("/games");
     } else if (value == FilterOptions.Teams) {

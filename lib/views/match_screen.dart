@@ -19,7 +19,7 @@ enum FilterOptions {
 class MatchScreen extends StatelessWidget {
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
-      Get.toNamed("/players", arguments: ["match_screen"]);
+      Get.toNamed("/players", arguments: ["match_screen", "player"]);
     } else if (value == FilterOptions.Games) {
       Get.toNamed("/games", arguments: ["match_screen"]);
     } else if (value == FilterOptions.Teams) {

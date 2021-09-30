@@ -32,8 +32,8 @@ class PlayerProvider extends ChangeNotifier {
     _players = dataList
         .map(
           (player) => PlayerModel(
-            id: player['id'] as int?,
-            name: player['name'] as String?,
+            id: player['id'] as int,
+            name: player['name'] as String,
             wins: player['wins'] as int,
           ),
         )

@@ -2,50 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
-import 'package:score/models/match_model.dart';
+import '../models/match_model.dart';
+import '../models/player_model.dart';
 import '../controllers/providers.dart';
+import '../helpers/function_helpers.dart';
 
 class PlayerList extends ConsumerWidget {
-  showBottomSheet(name, wins, id, List<MatchModel> status) {
-      var _wins = status.where((win) => win.winner.contains('Cara')).toList();
-    // wins.forEach((win) => print(win.player1Name));
+  showBottomSheet({
+    required int playerId,
+    required List<MatchModel> matchList,
+  }) {
+    var _wins = matchList.where((win) => win.winnerId == playerId).toList();
+
     Get.bottomSheet(
-      // Text('Test'),
       Container(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: ListView.builder(
-              itemCount: _wins.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                        "${_wins[index].player1Name} ${_wins[index].dateTime}",
+          padding: const EdgeInsets.all(10.0),
+          child: _wins.length == 0
+              ? Text("No Wins Yet, Please keep trying",
+              // style: Theme.of(context).textTheme.head,
+              )
+              : ListView.builder(
+                  itemCount: _wins.length,
+                  itemBuilder: (context, index) {
+                    final _date = FunctionHelper().convertToDate(
+                      dateTimeUtcInt: _wins[index].dateTime,
+                    );
+                    return Container(
+                        child: Card(
+                      elevation: 3,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      child: ListTile(
+                        // leading: ,
+                        title: Text(
+                          "${_wins[index].matchName} ${_wins[index].gameName}",
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
-                    Text(
-                        "${_wins[index].gameName}",
+                        subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${_wins[index].player1Name}:  ${_wins[index].player1Score}",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                            Text(
+                              "${_wins[index].player2Name}: ${_wins[index].player2Score}",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ],
                         ),
-                    // Text("$wins"),
-                  ],
-                );
-              }),
+                        trailing: Text('$_date'),
+                      ),
+                    ));
+                  }),
         ),
       ),
     );
   }
 
-  void playerAcomplishments() {}
-
-  Widget _listItem(index, play, BuildContext context, status) {
+  Widget _listItem({
+    required BuildContext context,
+    required int index,
+    required List<PlayerModel> player,
+    required List<MatchModel> matchList,
+  }) {
     List _selectedItems = [];
     List arguments = Get.arguments;
-    final _name = play.player[index].name;
-    // final _nameLast = play.player[index].lastName;
-    final _wins = play.player[index].wins;
-    final _id = play.player[index].id;
-    // final _ts = play.player[index].tempScore;
+    final _name = player[index].name;
+    final _wins = player[index].wins;
+    final _id = player[index].id;
     print(arguments);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -53,36 +79,16 @@ class PlayerList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          // leading: CircleAvatar(
-          //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          //   child: Text(
-          //     '${play.player[index].id.toString()}',
-          //     style: Theme.of(context).textTheme.headline3,
-          //   ),
-          // ),
-          // leading: Text(
-          //   '${play.player[index].id.toString()}',
-          //   style: Theme.of(context).textTheme.headline6,
-          // ),
           onTap: () async {
             if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
               _selectedItems = [_name, _id];
-              // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
-
-              // context.read(matchProvider).fetchMatchByWinnerId(winnerId: _id);
               await showBottomSheet(
-                _name,
-                _wins,
-                _id,
-                status,
-                // play.player[index].firstName,
-                // play.player[index].lastName,
-                // play.player[index].wins,
-                // play.player[index].id,
+                playerId: _id,
+                matchList: matchList,
               );
             }
           },
@@ -102,7 +108,7 @@ class PlayerList extends ConsumerWidget {
                   BoxShadow(color: Colors.black26, blurRadius: 8.0),
                 ]),
             child: Text(
-              '${play.player[index].wins.toString()}',
+              '${_wins.toString()}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
@@ -116,11 +122,6 @@ class PlayerList extends ConsumerWidget {
       elevation: 6,
       color: Theme.of(context).appBarTheme.backgroundColor,
       child: ListTile(
-        // leading: Container(
-        //   width: 30,
-        //   alignment: Alignment.center,
-        //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
-        // ),
         title: Text('Name', style: Theme.of(context).textTheme.headline3),
         trailing: Text('Wins', style: Theme.of(context).textTheme.headline3),
       ),
@@ -129,45 +130,35 @@ class PlayerList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final play = watch(playerProvider);
-    final _status = watch(matchProvider).match;
-    // context.read(matchProvider).fetchMatchByWinnerId(winnerId: 2);
-    // final fetch = play.fetchPlayer();
-    print(play.player.length);
-    // return GetX<PlayerController>(
-    //   builder: (_) {
-    //       // init: PlayerController();
-    print(_status.length);
-    Iterable<MatchModel> matchWin = _status
-        .where(
-          (win) => win.winner.toLowerCase().contains('Cara'.toLowerCase()),
-        )
+    List args = Get.arguments;
+    final _player = watch(playerProvider).player;
+    final _matchList = watch(matchProvider).match;
+    print(args);
+    var _filterPlayer = _player
+        .where((win) => win.name.toLowerCase() != args[1].toLowerCase())
         .toList();
-    matchWin.forEach((win) => print(win.gameName));
     return ListView.builder(
-      // separatorBuilder: (context, index) => Divider(
-      //       height: 0,
-      //       thickness: 1,
-      //       indent: 0,
-      //       endIndent: 0,
-      //     ),
-      itemCount: play.player.length,
+      itemCount: args[0] == "matchForm" ? _filterPlayer.length : _player.length,
       itemBuilder: (contex, index) {
         if (index == 0) {
           return Column(
             children: [
               header(context),
-              // Divider(
-              //   height: 0,
-              //   thickness: 4,
-              //   indent: 0,
-              //   endIndent: 0,
-              // ),
-              _listItem(index, play, context, _status)
+              _listItem(
+                context: context,
+                index: index,
+                player: args[0] == "matchForm" ? _filterPlayer : _player,
+                matchList: _matchList,
+              )
             ],
           );
         } else
-          return _listItem(index, play, context, _status);
+          return _listItem(
+            context: context,
+            index: index,
+            player: args[0] == "matchForm" ? _filterPlayer : _player,
+            matchList: _matchList,
+          );
       },
     );
     // }

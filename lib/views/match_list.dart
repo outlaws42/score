@@ -59,7 +59,6 @@ class MatchList extends ConsumerWidget {
     } else if (_isComplete == true && _player2Name == _winner) {
       _player2 = true;
     }
-
     print(_player2Name);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -67,13 +66,6 @@ class MatchList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          // leading: CircleAvatar(
-          //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          //   child: Text(
-          //     '${play.player[index].id.toString()}',
-          //     style: Theme.of(context).textTheme.headline3,
-          //   ),
-          // ),
           leading: Text(
             '$_id',
             style: Theme.of(context).textTheme.headline6,
@@ -84,36 +76,44 @@ class MatchList extends ConsumerWidget {
           ),
           subtitle: _player1 == false && _player2 == false
               ? Text(
-                  '$_player1Name vs $_player2Name  $_date',
+                  '$_player1Name vs $_player2Name',
                   style: Theme.of(context).textTheme.subtitle1,
                 )
               : _player1 == true
                   ? Text(
-                      '$_player1Name (Winner) vs $_player2Name  $_date',
+                      '$_player1Name (Winner) vs $_player2Name',
                       style: Theme.of(context).textTheme.subtitle1,
                     )
                   : Text(
-                      '$_player1Name vs $_player2Name (Winner)  $_date',
+                      '$_player1Name vs $_player2Name (Winner)',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-          trailing: _freePlay == true
-              ? Text("Free Play")
-              : Container(
-                  alignment: Alignment.center,
-                  height: 30,
-                  width: 30,
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).appBarTheme.backgroundColor,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                      ]),
-                  child: Text(
-                    '$_endScore',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _freePlay == true
+                  ? Text("Free Play")
+                  : Container(
+                      alignment: Alignment.center,
+                      height: 30,
+                      width: 30,
+                      margin: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(context).appBarTheme.backgroundColor,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black26, blurRadius: 2.0),
+                          ]),
+                      child: Text(
+                        '$_endScore',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    ),
+                    Text('$_date',
+                    style: Theme.of(context).textTheme.subtitle1,
+                    )
+            ],
+          ),
           onTap: () {
             // if (arguments[0] == 'match') {
             //   _selectedItems = [ _matchName, _endScore,_id];
