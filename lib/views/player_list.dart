@@ -8,6 +8,7 @@ import '../controllers/providers.dart';
 import '../helpers/function_helpers.dart';
 
 class PlayerList extends ConsumerWidget {
+  final List _selectedPlayers = [1,2,3,4];
   showBottomSheet({
     required int playerId,
     required List<MatchModel> matchList,
@@ -80,7 +81,7 @@ class PlayerList extends ConsumerWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
           onTap: () async {
-            if (arguments[0] == 'player_tile' || arguments[0] == 'matchForm') {
+            if (arguments[0] == 'player_tile' || arguments[0] == 'form') {
               _selectedItems = [_name, _id];
               print(_selectedItems);
               Get.back(result: _selectedItems);
@@ -131,14 +132,20 @@ class PlayerList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     List args = Get.arguments;
+    
+    // _selectedPlayers.add(args[1]);
+    print("This is the _selectedPlayers $_selectedPlayers");
     final _player = watch(playerProvider).player;
     final _matchList = watch(matchProvider).match;
     print(args);
-    var _filterPlayer = _player
-        .where((win) => win.name.toLowerCase() != args[1].toLowerCase())
-        .toList();
+    var _filterPlayer = args[0] =="form" ?_player
+        .where((win) => win.id != int.parse(args[1]))
+        .toList(): _player;
+    // var _filterPlayer = args[0] =="form" ?_player
+    //     .where((win) => _selectedPlayers.any((field)=> field != win.id))
+    //     .toList(): _player;
     return ListView.builder(
-      itemCount: args[0] == "matchForm" ? _filterPlayer.length : _player.length,
+      itemCount: args[0] == "form" ? _filterPlayer.length : _player.length,
       itemBuilder: (contex, index) {
         if (index == 0) {
           return Column(
@@ -147,7 +154,7 @@ class PlayerList extends ConsumerWidget {
               _listItem(
                 context: context,
                 index: index,
-                player: args[0] == "matchForm" ? _filterPlayer : _player,
+                player: args[0] == "form" ? _filterPlayer : _player,
                 matchList: _matchList,
               )
             ],
@@ -156,7 +163,7 @@ class PlayerList extends ConsumerWidget {
           return _listItem(
             context: context,
             index: index,
-            player: args[0] == "matchForm" ? _filterPlayer : _player,
+            player: args[0] == "form" ? _filterPlayer : _player,
             matchList: _matchList,
           );
       },

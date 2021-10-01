@@ -12,21 +12,36 @@ import '../controllers/providers.dart';
 
 class GameList extends ConsumerWidget {
   
-  showBottomSheet(game, description, endscore, id) {
+  showBottomSheet({
+    required BuildContext context,
+    required String game,
+    required String description,
+  }) {
+    
+
     Get.bottomSheet(
       Container(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("$id"),
-              Text("$game"),
-              Text("$description"),
-              Text("$endscore"),
-            ],
-          ),
+          padding: const EdgeInsets.all(10.0),
+          child:  Container(
+                        
+                      child: ListTile(
+                        // leading: ,
+                        title: Text(
+                          "$game",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        subtitle:
+                            Text(
+                              "$description",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                            
+                        trailing: Text('date'),
+                      ),
+                    ),
+                  // }),
         ),
       ),
     );
@@ -41,6 +56,14 @@ class GameList extends ConsumerWidget {
     final _endScore = game.games[index].endScore;
     final _lowScore = game.games[index].lowScore;
     final _freePlay = game.games[index].freePlay;
+    String _firstDesc = "";
+
+    if (_description.length > 29){
+     _firstDesc =  _description.substring(0,29);
+    } else {
+      _firstDesc = _description;
+    }
+
     return Container(
       padding: const EdgeInsets.all(2),
       child: Card(
@@ -63,7 +86,7 @@ class GameList extends ConsumerWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: Text(
-            '$_description',
+            '$_firstDesc',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           trailing: _freePlay == true ? Text("Free Play"):Container(
@@ -83,7 +106,7 @@ class GameList extends ConsumerWidget {
             ),
           ),
           onTap: () {
-            if (arguments[0] == 'match' || arguments[0] == 'matchForm') {
+            if (arguments[0] == 'match' || arguments[0] == 'form') {
               _selectedItems = [ _game, _endScore,_id, _lowScore, _freePlay];
                   // play.player[index].firstName; // assign first name
               print(_selectedItems);
@@ -91,10 +114,11 @@ class GameList extends ConsumerWidget {
             } else {
               print(arguments[0]);
               showBottomSheet(
-                _game,
-                _description,
-                _endScore,
-                _id,
+                context: context,
+                game: _game,
+                description: _description,
+                // _endScore,
+                // _id,
               );
             }
           },

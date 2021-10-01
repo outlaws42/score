@@ -28,7 +28,7 @@ class _MatchFormState extends State<MatchForm> {
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
       "/games",
-      arguments: ['matchForm', ''],
+      arguments: ['form', ''],
     );
     print(dataFromGame);
     _game = dataFromGame[0];
@@ -40,10 +40,10 @@ class _MatchFormState extends State<MatchForm> {
     setState(() {});
   }
 
-  void goToPlay(String player, otherPlayer) async {
+  void goToPlay(String player, otherId) async {
     var dataFromPlayer = await Get.toNamed(
       "/players",
-      arguments: ['matchForm', '$otherPlayer'],
+      arguments: ['form', '$otherId'],
     );
     if (player == "player1") {
       _player1 = dataFromPlayer[0];
@@ -177,7 +177,7 @@ class _MatchFormState extends State<MatchForm> {
                       IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,
-                        onPressed: () => goToPlay('player1',_player2),
+                        onPressed: () => goToPlay('player1',_id2),
                       ),
                     ],
                   ),
@@ -194,11 +194,12 @@ class _MatchFormState extends State<MatchForm> {
                       IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,
-                        onPressed: () => goToPlay('player2',_player1),
+                        onPressed: () => goToPlay('player2',_id1),
                       ),
                     ],
                   ),
                 ),
+
                 
                 // Submit Button
                 Container(
