@@ -27,6 +27,7 @@ class Match extends StatelessWidget {
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
                 if (_index == -1) {
+                  // Get rid of error when it is the only item until db can assing id
                   _index = 0;
                 }
                 // print(
@@ -38,13 +39,16 @@ class Match extends StatelessWidget {
                 // final _lowScore = gameData.match[_index].lowScore;
                 final _player1Id = gameData.match[_index].player1Id;
                 final _player2Id = gameData.match[_index].player2Id;
+                final _player1Score = gameData.match[_index].player1Score;
+                final _player2Score = gameData.match[_index].player2Score;
+                bool scoreCheck = _player1Score - _player2Score > 0 || _player2Score - _player1Score > 0;
                 final _lowScore = gameData.match[_index].lowScore;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _freePlay == true
                         ? TextButton(
-                            onPressed: _isComplete == true
+                            onPressed: _isComplete == true || scoreCheck == false
                                 ? null
                                 : () {
                                     FunctionHelper.checkWinner(

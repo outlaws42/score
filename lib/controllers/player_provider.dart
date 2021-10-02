@@ -13,6 +13,19 @@ class PlayerProvider extends ChangeNotifier {
   }
 
 
+// bool isSelected = false;
+
+  void updateSelected({
+    required int playerId,
+    required bool isSelected
+  }) {
+    bool selected = isSelected;
+    selected = !selected;
+    int isSelectedInt = selected == false ? 0 : 1;
+    updateIsSelected(playerId, isSelectedInt);
+    // notifyListeners();
+  }
+
   void plus({
     id,
     wins,
@@ -28,35 +41,40 @@ class PlayerProvider extends ChangeNotifier {
 
 
   Future<void> fetchPlayer() async {
-    final dataList = await DBHelper.getData('players');
+    final dataList = await DBHelper.getData('player');
     _players = dataList
         .map(
           (player) => PlayerModel(
             id: player['id'] as int,
             name: player['name'] as String,
             wins: player['wins'] as int,
+            dateTime: player['date_time'] as int,
+            isSelected: player['is_complete'] == 0 ? false : true,
           ),
         )
         .toList();
         notifyListeners();
   }
 
-  Future<void> addPlayerForm(
+  Future<void> addPlayerForm({
     // int id,
-    String name,
-    int wins,
-  ) async {
+    required String name,
+    required int wins,
+    required int dateTime,
+  }) async {
     final newPlayer = PlayerModel(
       // id: id,
       name: name,
       wins: wins,
+      dateTime: dateTime,
     );
     _players.add(newPlayer);
     notifyListeners();
-    DBHelper.insert('players', {
+    DBHelper.insert('player', {
       // 'id': newPlayer.id,
       'name': newPlayer.name,
       'wins': newPlayer.wins,
+      'date_time': newPlayer.dateTime,
     });
   }
 
@@ -68,7 +86,7 @@ class PlayerProvider extends ChangeNotifier {
     );
     _players.add(newPlayer);
     notifyListeners();
-    DBHelper.insert('players', {
+    DBHelper.insert('player', {
       'name': newPlayer.name,
       'wins': newPlayer.wins,
     });
@@ -88,10 +106,10 @@ class PlayerProvider extends ChangeNotifier {
     // _matches.add(newPlayer);
     // notifyListeners();
     if (player == "player1") {
-      DBHelper.update('indv_matches',id , {
+      DBHelper.update('player_match',id , {
       'player1_score': score,
     });
-    } else DBHelper.update('indv_matches',id , {
+    } else DBHelper.update('player_match',id , {
       'player2_score': score,
     });
     
@@ -101,10 +119,22 @@ class PlayerProvider extends ChangeNotifier {
     int playerId,
     int win,
   ) async {
-    DBHelper.update('players',playerId , {
+    DBHelper.update('player',playerId , {
       'wins': win,
     },
     );
+    fetchPlayer();
+    notifyListeners();
+  }
+
+  Future<void> updateIsSelected(
+    int playerId,
+    int isSelected,
+  ) async { 
+    print('Update is selected $isSelected');
+    DBHelper.update('player', playerId, {
+      'is_selected': isSelected,
+    });
     fetchPlayer();
     notifyListeners();
   }

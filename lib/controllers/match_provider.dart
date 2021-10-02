@@ -71,7 +71,7 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchMatch() async {
-    final dataList = await DBHelper.getData('indv_matches');
+    final dataList = await DBHelper.getData('player_match');
     _matches = dataList
         .map(
           (match) => MatchModel(
@@ -109,7 +109,7 @@ class MatchProvider extends ChangeNotifier {
   Future<void> fetchMatchByWinnerId({
     required int winnerId,
     }) async {
-    final dataList = await DBHelper.getDataByWinnerId('indv_matches', winnerId);
+    final dataList = await DBHelper.getDataByWinnerId('player_match', winnerId);
     _matchesWins = dataList
         .map(
           (match) => MatchModel(
@@ -184,7 +184,7 @@ class MatchProvider extends ChangeNotifier {
     );
     _matches.add(newMatch);
     notifyListeners();
-    DBHelper.insert('indv_matches', {
+    DBHelper.insert('player_match', {
       // 'id': newPlayer.id,
       'match_name': newMatch.matchName,
       'game_name': newMatch.gameName,
@@ -220,12 +220,12 @@ class MatchProvider extends ChangeNotifier {
     // _matches.add(newPlayer);
     // notifyListeners();
     if (player == "player1") {
-      DBHelper.update('indv_matches', id, {
+      DBHelper.update('player_match', id, {
         'player1_score': score,
       });
     } else {
       DBHelper.update(
-        'indv_matches',
+        'player_match',
         id,
         {
           'player2_score': score,
@@ -242,12 +242,12 @@ class MatchProvider extends ChangeNotifier {
     String player,
   ) async {
     if (player == "player1") {
-      DBHelper.update('indv_matches', id, {
+      DBHelper.update('player_match', id, {
         'player1_color': color,
       });
     } else {
       DBHelper.update(
-        'indv_matches',
+        'player_match',
         id,
         {
           'player2_color': color,
@@ -263,7 +263,7 @@ class MatchProvider extends ChangeNotifier {
     required int winnerId,
     required String winnerName,
   }) async {
-    DBHelper.update('indv_matches', matchId, {
+    DBHelper.update('player_match', matchId, {
       'winner': winnerName,
       'winner_id': winnerId,
       'is_complete': 1,
@@ -275,7 +275,7 @@ class MatchProvider extends ChangeNotifier {
     int matchId,
     int isComplete,
   ) async {
-    DBHelper.update('indv_matches', matchId, {
+    DBHelper.update('player_match', matchId, {
       'is_complete': isComplete,
     });
     fetchMatch();

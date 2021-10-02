@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:score/controllers/providers.dart';
 import 'player_tile.dart';
 import './match.dart';
 
@@ -15,7 +17,8 @@ enum FilterOptions {
 }
 
 class MatchCurrentScreen extends StatelessWidget {
-  final arguments = Get.arguments;
+  final matchId = Get.arguments;
+  // int matchId = ;
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
       Get.toNamed("/players", arguments: ["match_current_screen", "players"]);
@@ -34,10 +37,24 @@ class MatchCurrentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Player Match",
-          style: Theme.of(context).textTheme.headline3,
-        ),
+        title: Consumer(builder: (context, watch, child) {
+          final _matches = watch(matchProvider).match;
+          var _index = _matches.indexWhere((match) => match.id == matchId[0]);
+          if (_index == -1) {
+            // Get rid of error when it is the only item until db can assing id
+            _index = 0;
+          }
+          final _matchName = _matches[_index].matchName;
+          return _matchName != ""
+              ? Text(
+                  "$_matchName",
+                  style: Theme.of(context).textTheme.headline3,
+                )
+              : Text(
+                  "Player Match",
+                  style: Theme.of(context).textTheme.headline3,
+                );
+        }),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
@@ -47,7 +64,7 @@ class MatchCurrentScreen extends StatelessWidget {
             icon: Icon(Icons.more_vert),
             // onSelected: (Filter){},
             itemBuilder: (_) => [
-               PopupMenuItem(
+              PopupMenuItem(
                   child: ListTile(
                     horizontalTitleGap: -10,
                     leading: Icon(Icons.person),
@@ -99,20 +116,22 @@ class MatchCurrentScreen extends StatelessWidget {
           ),
         ],
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
-            children: [
-              Match(matchId: arguments[0],),
-              PlayerTile(
-                player: "player1",
-                matchId: arguments[0],
-              ),
-              PlayerTile(
-                player: "player2",
-                matchId: arguments[0],
-              ),
-            ],
-          ),
+          children: [
+            Match(
+              matchId: matchId[0],
+            ),
+            PlayerTile(
+              player: "player1",
+              matchId: matchId[0],
+            ),
+            PlayerTile(
+              player: "player2",
+              matchId: matchId[0],
+            ),
+          ],
+        ),
       ),
       // }),
     );

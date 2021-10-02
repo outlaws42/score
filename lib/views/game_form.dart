@@ -17,12 +17,12 @@ class _GameFormState extends State<GameForm> {
   final _endscoreController = TextEditingController(text: '21');
   // final _lowScoreController = TextEditingController(text: '0');
 
-  int lowScoreInt = 0;
-  int freePlayInt = 0;
+  int _lowScoreInt = 0;
+  int _freePlayInt = 0;
 
   final _formKey = GlobalKey<FormState>();
 
-  void saveEach(
+  void _save(
     String name,
     String description,
     int endScore,
@@ -35,12 +35,14 @@ class _GameFormState extends State<GameForm> {
     }
     final lowScoreSwitch = lowScore == 0 ? false : true;
     final freePlaySwitch = freePlay == 0 ? false : true;
+    int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     context.read(gameProvider).addGameForm(
           name: name,
           description: description,
           endScore: endScore,
           lowScore: lowScoreSwitch,
           freePlay: freePlaySwitch,
+          dateTime: _dtUtcMs,
         );
     context.read(gameProvider).fetchGame();
     Get.back(result: "game_form");
@@ -97,8 +99,8 @@ class _GameFormState extends State<GameForm> {
                       Switch(
                         value: _isFreePlay,
                         onChanged: (boolVal) {
-                          freePlayInt = boolVal == false ? 0 : 1;
-                          print(freePlayInt);
+                          _freePlayInt = boolVal == false ? 0 : 1;
+                          print(_freePlayInt);
                           context.read(gameProvider).updateFreePlay();
                         },
                         activeTrackColor:
@@ -135,8 +137,8 @@ class _GameFormState extends State<GameForm> {
                       Switch(
                         value: _isLowScore,
                         onChanged: (boolVal) {
-                          lowScoreInt = boolVal == false ? 0 : 1;
-                          print(lowScoreInt);
+                          _lowScoreInt = boolVal == false ? 0 : 1;
+                          print(_lowScoreInt);
                           context.read(gameProvider).updateLowScore();
                         },
                         activeTrackColor:
@@ -154,15 +156,21 @@ class _GameFormState extends State<GameForm> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        saveEach(
+                        _save(
                           _nameController.text,
                           _descriptionController.text,
                           int.parse(
                             _endscoreController.text,
                           ),
-                          lowScoreInt,
-                          freePlayInt,
+                          _lowScoreInt,
+                          _freePlayInt,
                         );
+                        if (_isLowScore == true) { 
+                          context.read(gameProvider).updateLowScore();
+                        }
+                        if (_isFreePlay== true) { 
+                          context.read(gameProvider).updateFreePlay();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

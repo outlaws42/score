@@ -75,16 +75,16 @@ class MatchScreen extends StatelessWidget {
                   ),
                   value: FilterOptions.Games,
                 ),
-                PopupMenuItem(
-                  child: ListTile(
-                    horizontalTitleGap: -10,
-                    leading: Icon(Icons.people),
-                    title: Text(
-                      "Teams",
-                    ),
-                  ),
-                  value: FilterOptions.Teams,
-                ),
+                // PopupMenuItem(
+                //   child: ListTile(
+                //     horizontalTitleGap: -10,
+                //     leading: Icon(Icons.people),
+                //     title: Text(
+                //       "Teams",
+                //     ),
+                //   ),
+                //   value: FilterOptions.Teams,
+                // ),
                 PopupMenuItem(
                   child: ListTile(
                     horizontalTitleGap: -10,

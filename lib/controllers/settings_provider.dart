@@ -29,7 +29,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   Future<void> fetchSettings() async {
-    final dataList = await DBHelper.getData('app_settings');
+    final dataList = await DBHelper.getData('setting');
     if (dataList.isNotEmpty)  { 
     _settings = dataList
         .map(
@@ -61,7 +61,7 @@ class SettingsProvider extends ChangeNotifier {
     );
     _settings.add(newSetting);
     notifyListeners();
-    DBHelper.insert('app_settings', {
+    DBHelper.insert('setting', {
       'id': newSetting.id,
       'setting': newSetting.setting,
       'active': newSetting.active,

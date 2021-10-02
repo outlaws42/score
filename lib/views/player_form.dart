@@ -17,13 +17,18 @@ class _PlayerFormState extends State<PlayerForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void saveEach(String name, int wins) {
+  void _save(String name, int wins) {
     // Save for each field save
     if (name.isEmpty) {
       return;
     }
+    int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     var controller = context.read(playerProvider);
-    controller.addPlayerForm(name, wins);
+    controller.addPlayerForm(
+      name: name, 
+      wins: wins,
+      dateTime: _dtUtcMs,
+      );
     controller.fetchPlayer();
     Get.back(result: "player_form");
   }
@@ -70,7 +75,7 @@ class _PlayerFormState extends State<PlayerForm> {
                 child: ElevatedButton.icon(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      saveEach(
+                      _save(
                           _nameController.text,
 
                           int.parse(_winsController.text));

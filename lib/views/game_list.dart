@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../helpers/function_helpers.dart';
 import '../controllers/providers.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
+import './game_form.dart';
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
 // import '../controllers/game_provider.dart';
@@ -16,6 +19,7 @@ class GameList extends ConsumerWidget {
     required BuildContext context,
     required String game,
     required String description,
+    required String date,
   }) {
     
 
@@ -38,7 +42,7 @@ class GameList extends ConsumerWidget {
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
                             
-                        trailing: Text('date'),
+                        trailing: Text('$date'),
                       ),
                     ),
                   // }),
@@ -50,12 +54,13 @@ class GameList extends ConsumerWidget {
   Widget _listItem(index, game, context) {
     List _selectedItems = [];
     var arguments = Get.arguments;
-    final _id = game.games[index].id;
-    final _game = game.games[index].name;
-    final _description = game.games[index].description;
-    final _endScore = game.games[index].endScore;
-    final _lowScore = game.games[index].lowScore;
-    final _freePlay = game.games[index].freePlay;
+    final _id = game[index].id;
+    final _game = game[index].name;
+    final _description = game[index].description;
+    final _endScore = game[index].endScore;
+    final _lowScore = game[index].lowScore;
+    final _freePlay = game[index].freePlay;
+    final _date = FunctionHelper().convertToDate(dateTimeUtcInt: game[index].dateTime) ;
     String _firstDesc = "";
 
     if (_description.length > 29){
@@ -117,6 +122,7 @@ class GameList extends ConsumerWidget {
                 context: context,
                 game: _game,
                 description: _description,
+                date: _date,
                 // _endScore,
                 // _id,
               );
@@ -147,15 +153,20 @@ class GameList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-    final gameWatch = watch(gameProvider);
-    return ListView.builder(
+    final _game = watch(gameProvider).games;
+    return _game.length == 0
+        ? PageWidgets().noData(
+            context: context,
+            pageName: 'game',
+            pageLink: GameForm(),
+          ):ListView.builder(
       // separatorBuilder: (context, index) => Divider(
       //       height: 0,
       //       thickness: 1,
       //       indent: 0,
       //       endIndent: 0,
       //     ),
-      itemCount: gameWatch.games.length,
+      itemCount: _game.length,
       itemBuilder: (ctx, index) {
         if (index == 0) {
           return Column(
@@ -167,11 +178,11 @@ class GameList extends ConsumerWidget {
               //   indent: 0,
               //   endIndent: 0,
               // ),
-              _listItem(index, gameWatch, context)
+              _listItem(index, _game, context)
             ],
           );
         } else
-          return _listItem(index, gameWatch, context);
+          return _listItem(index, _game, context);
       },
     );
     // );

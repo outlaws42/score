@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/function_helpers.dart';
+import './match_form.dart';
 
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
@@ -33,22 +35,24 @@ class MatchList extends ConsumerWidget {
     );
   }
 
-  Widget _listItem(index, game, context) {
+  
+
+  Widget _listItem(index, match, context) {
     // List _selectedItems = [];
     // var arguments = Get.arguments;
-    final _id = game.match[index].id;
-    final _gameName = game.match[index].gameName;
+    final _id = match[index].id;
+    final _gameName = match[index].gameName;
     // final _matchName = game.match[index].matchName;
-    final _player1Name = game.match[index].player1Name;
-    final _player2Name = game.match[index].player2Name;
+    final _player1Name = match[index].player1Name;
+    final _player2Name = match[index].player2Name;
     // final _player1Id = game.match[index].player1Id;
     // final _player2Id = game.match[index].player2Id;
-    final _endScore = game.match[index].winScore;
-    final _freePlay = game.match[index].freePlay;
-    final _winner = game.match[index].winner;
-    final _isComplete = game.match[index].isComplete;
+    final _endScore = match[index].winScore;
+    final _freePlay = match[index].freePlay;
+    final _winner = match[index].winner;
+    final _isComplete = match[index].isComplete;
     final _date = FunctionHelper().convertToDate(
-      dateTimeUtcInt: game.match[index].dateTime,
+      dateTimeUtcInt: match[index].dateTime,
     );
 
     bool _player1 = false;
@@ -109,9 +113,10 @@ class MatchList extends ConsumerWidget {
                         style: Theme.of(context).textTheme.headline4,
                       ),
                     ),
-                    Text('$_date',
-                    style: Theme.of(context).textTheme.subtitle1,
-                    )
+              Text(
+                '$_date',
+                style: Theme.of(context).textTheme.subtitle1,
+              )
             ],
           ),
           onTap: () {
@@ -160,33 +165,39 @@ class MatchList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
-    final matchWatch = watch(matchProvider);
-    return ListView.builder(
-      // separatorBuilder: (context, index) => Divider(
-      //       height: 0,
-      //       thickness: 1,
-      //       indent: 0,
-      //       endIndent: 0,
-      //     ),
-      itemCount: matchWatch.match.length,
-      itemBuilder: (ctx, index) {
-        if (index == 0) {
-          return Column(
-            children: [
-              header(context),
-              // Divider(
-              //   height: 0,
-              //   thickness: 4,
-              //   indent: 0,
-              //   endIndent: 0,
-              // ),
-              _listItem(index, matchWatch, context)
-            ],
+    final _match = watch(matchProvider).match;
+    return _match.length == 0
+        ? PageWidgets().noData(
+            context: context,
+            pageName: 'match',
+            pageLink: MatchForm(),
+          )
+        : ListView.builder(
+            // separatorBuilder: (context, index) => Divider(
+            //       height: 0,
+            //       thickness: 1,
+            //       indent: 0,
+            //       endIndent: 0,
+            //     ),
+            itemCount: _match.length,
+            itemBuilder: (ctx, index) {
+              if (index == 0) {
+                return Column(
+                  children: [
+                    header(context),
+                    // Divider(
+                    //   height: 0,
+                    //   thickness: 4,
+                    //   indent: 0,
+                    //   endIndent: 0,
+                    // ),
+                    _listItem(index, _match, context)
+                  ],
+                );
+              } else
+                return _listItem(index, _match, context);
+            },
           );
-        } else
-          return _listItem(index, matchWatch, context);
-      },
-    );
     // );
   }
 }
