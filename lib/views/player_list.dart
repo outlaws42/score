@@ -11,10 +11,12 @@ import '../helpers/custom_widgets/page_widgets.dart';
 import './player_form.dart';
 
 class PlayerList extends ConsumerWidget {
-  final List _selectedPlayers = [1, 2, 3, 4];
+  // final List _selectedPlayers = [1, 2, 3, 4];
   showBottomSheet({
+    required BuildContext buildContext,
     required int playerId,
     required List<MatchModel> matchList,
+    required String playerName,
   }) {
     var _wins = matchList.where((win) => win.winnerId == playerId).toList();
 
@@ -24,10 +26,23 @@ class PlayerList extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: _wins.length == 0
-              ? Text(
-                  "No Wins Yet, Please keep trying",
-                  // style: Theme.of(context).textTheme.head,
-                )
+              ? Column(
+                children: [
+                  Text(
+                      "$playerName",
+                      style: Theme.of(buildContext).textTheme.headline2,
+                    ),
+                  Text(
+                      "no Wins Yet, Please keep trying",
+                      style: Theme.of(buildContext).textTheme.headline3,
+                    ),
+                  Icon(
+                    Icons.sentiment_dissatisfied,
+                    size: 85,
+                    color: Colors.grey,
+                    ),
+                ],
+              )
               : ListView.builder(
                   itemCount: _wins.length,
                   itemBuilder: (context, index) {
@@ -88,8 +103,11 @@ class PlayerList extends ConsumerWidget {
       padding: const EdgeInsets.all(2),
       child: Card(
         elevation: 3,
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: _isSelected == false
+            ? Theme.of(context).scaffoldBackgroundColor
+            : Theme.of(context).appBarTheme.backgroundColor,
         child: ListTile(
+          selected: _isSelected,
           onLongPress: () {
             _oLPSelectedItems.add(_id);
             // print(_oLPSelectedItems);
@@ -107,14 +125,18 @@ class PlayerList extends ConsumerWidget {
             } else {
               // print(arguments[0]);
               await showBottomSheet(
+                buildContext: context,
                 playerId: _id,
                 matchList: matchList,
+                playerName: _name
               );
             }
           },
           title: Text(
-            '$_name $_isSelected',
-            style: Theme.of(context).textTheme.headline6,
+            '$_name',
+            style: _isSelected == false 
+            ?Theme.of(context).textTheme.headline4
+            :Theme.of(context).textTheme.headline5,
           ),
           trailing: Container(
             alignment: Alignment.center,
@@ -129,7 +151,7 @@ class PlayerList extends ConsumerWidget {
                 ]),
             child: Text(
               '${_wins.toString()}',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
         ),

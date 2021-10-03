@@ -75,13 +75,6 @@ class GameList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          // leading: CircleAvatar(
-          //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          //   child: Text(
-          //     '${play.player[index].id.toString()}',
-          //     style: Theme.of(context).textTheme.headline3,
-          //   ),
-          // ),
           leading: Text(
             '$_id',
             style: Theme.of(context).textTheme.headline6,
@@ -160,12 +153,6 @@ class GameList extends ConsumerWidget {
             pageName: 'game',
             pageLink: GameForm(),
           ):ListView.builder(
-      // separatorBuilder: (context, index) => Divider(
-      //       height: 0,
-      //       thickness: 1,
-      //       indent: 0,
-      //       endIndent: 0,
-      //     ),
       itemCount: _game.length,
       itemBuilder: (ctx, index) {
         if (index == 0) {

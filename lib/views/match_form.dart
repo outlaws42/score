@@ -123,7 +123,9 @@ class _MatchFormState extends State<MatchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Match"),
+        title: Text("Add Match",
+        style: Theme.of(context).textTheme.headline3,
+        ),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         // final gameData = watch(gameProvider);
@@ -137,7 +139,7 @@ class _MatchFormState extends State<MatchForm> {
                   padding: EdgeInsets.all(8),
                   child: Text(
                     'Match Information',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
                 // Game Name
@@ -156,7 +158,7 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_game',
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context).textTheme.headline4),
                       IconButton(
                         icon: Icon(Icons.games),
                         color: Theme.of(context).appBarTheme.backgroundColor,
@@ -173,7 +175,7 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_player1',
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context).textTheme.headline4),
                       IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,
@@ -190,7 +192,7 @@ class _MatchFormState extends State<MatchForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('$_player2',
-                          style: Theme.of(context).textTheme.headline5),
+                          style: Theme.of(context).textTheme.headline4),
                       IconButton(
                         icon: Icon(Icons.person_add),
                         color: Theme.of(context).appBarTheme.backgroundColor,

@@ -49,7 +49,7 @@ class _SettingsState extends State<Settings> {
       appBar: AppBar(
         title: Text(
           'Settings',
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.headline4,
         ),
         actions: [
           // Padding(
@@ -84,7 +84,7 @@ class _SettingsState extends State<Settings> {
                           children: [
                             Text(
                               'Interface Options',
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ],
                         ),
@@ -193,7 +193,7 @@ class _SettingsState extends State<Settings> {
                           children: [
                             Text(
                               'Quick Entry Options',
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ],
                         ),

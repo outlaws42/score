@@ -34,8 +34,8 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline2: TextStyle(
-        color: Colors.blue,
-        fontSize: 30.0,
+        color: Colors.black87,
+        fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
       headline3: TextStyle(
@@ -44,13 +44,13 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline4: TextStyle(
-        color: Colors.white,
-        fontSize: 14.0,
+        color: Colors.black87,
+        fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
-        color: Colors.black87,
-        fontSize: 16.0,
+        color: Colors.white,
+        fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
@@ -60,9 +60,39 @@ class ThemeConfig {
       ),
       subtitle1: TextStyle(
         color: Colors.black87,
+        fontSize: 16.0,
+        fontWeight: FontWeight.normal,
+      ),
+      subtitle2: TextStyle(
+        color: Colors.black87,
         fontSize: 14.0,
         fontWeight: FontWeight.normal,
       ),
+      bodyText1: TextStyle(
+        color: Colors.black87,
+        fontSize: 14.0,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyText2: TextStyle(
+        color: Colors.black87,
+        fontSize: 12.0,
+        fontWeight: FontWeight.normal,
+      ),
+      // caption: TextStyle(
+      //   color: Colors.white,
+      //   fontSize: 20.0,
+      //   fontWeight: FontWeight.bold,
+      // ),
+      button: TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
+      ),
+      // overline: TextStyle(
+      //   color: Colors.white,
+      //   fontSize: 16.0,
+      //   fontWeight: FontWeight.bold,
+      // ),
     ),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(

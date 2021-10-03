@@ -49,7 +49,7 @@ class PlayerProvider extends ChangeNotifier {
             name: player['name'] as String,
             wins: player['wins'] as int,
             dateTime: player['date_time'] as int,
-            isSelected: player['is_complete'] == 0 ? false : true,
+            isSelected: player['is_selected'] == 0 ? false : true,
           ),
         )
         .toList();
@@ -67,6 +67,7 @@ class PlayerProvider extends ChangeNotifier {
       name: name,
       wins: wins,
       dateTime: dateTime,
+      isSelected: false
     );
     _players.add(newPlayer);
     notifyListeners();
@@ -75,6 +76,8 @@ class PlayerProvider extends ChangeNotifier {
       'name': newPlayer.name,
       'wins': newPlayer.wins,
       'date_time': newPlayer.dateTime,
+      'is_selected': newPlayer.isSelected,
+
     });
   }
 

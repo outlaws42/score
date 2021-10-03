@@ -35,8 +35,6 @@ class MatchList extends ConsumerWidget {
     );
   }
 
-  
-
   Widget _listItem(index, match, context) {
     // List _selectedItems = [];
     // var arguments = Get.arguments;
@@ -50,6 +48,7 @@ class MatchList extends ConsumerWidget {
     final _endScore = match[index].winScore;
     final _freePlay = match[index].freePlay;
     final _winner = match[index].winner;
+    final _lowScore = match[index].lowScore;
     final _isComplete = match[index].isComplete;
     final _date = FunctionHelper().convertToDate(
       dateTimeUtcInt: match[index].dateTime,
@@ -72,11 +71,11 @@ class MatchList extends ConsumerWidget {
         child: ListTile(
           leading: Text(
             '$_id',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline4,
           ),
           title: Text(
             '$_gameName',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline4,
           ),
           subtitle: _player1 == false && _player2 == false
               ? Text(
@@ -95,24 +94,27 @@ class MatchList extends ConsumerWidget {
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _freePlay == true
-                  ? Text("Free Play")
-                  : Container(
-                      alignment: Alignment.center,
-                      height: 30,
-                      width: 30,
-                      margin: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).appBarTheme.backgroundColor,
-                          boxShadow: [
-                            BoxShadow(color: Colors.black26, blurRadius: 2.0),
-                          ]),
-                      child: Text(
-                        '$_endScore',
-                        style: Theme.of(context).textTheme.headline4,
+              // _freePlay == true && _lowScore == true ? Row(children: [
+              //         PageWidgets().circleContainer(
+              //               context: context,
+              //               content: "FP",
+              //             ),
+              //         PageWidgets().circleContainer(
+              //               context: context,
+              //               content: "LS",
+              //             )
+              //       ],):
+                _freePlay == true
+                    ? 
+                        PageWidgets().circleContainer(
+                            context: context,
+                            content: "FP",
+                          )
+                    : PageWidgets().circleContainer(
+                        context: context,
+                        content: _endScore.toString(),
                       ),
-                    ),
+                
               Text(
                 '$_date',
                 style: Theme.of(context).textTheme.subtitle1,
