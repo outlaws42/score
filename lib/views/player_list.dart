@@ -28,13 +28,13 @@ class PlayerList extends ConsumerWidget {
           child: _wins.length == 0
               ? Column(
                 children: [
+                  // Text(
+                  //     "$playerName",
+                  //     style: Theme.of(buildContext).textTheme.headline2,
+                  //   ),
                   Text(
-                      "$playerName",
+                      "No wins Yet, Please keep trying",
                       style: Theme.of(buildContext).textTheme.headline2,
-                    ),
-                  Text(
-                      "no Wins Yet, Please keep trying",
-                      style: Theme.of(buildContext).textTheme.headline3,
                     ),
                   Icon(
                     Icons.sentiment_dissatisfied,
@@ -132,6 +132,12 @@ class PlayerList extends ConsumerWidget {
               );
             }
           },
+          leading: _isSelected == true ? IconButton(
+              onPressed: () => Get.to(() {}),
+              icon: Icon(Icons.delete_forever),
+              iconSize: 50,
+              color: Theme.of(context).appBarTheme.backgroundColor,
+            ): null,
           title: Text(
             '$_name',
             style: _isSelected == false 
