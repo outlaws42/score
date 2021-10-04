@@ -37,7 +37,9 @@ class _PlayerFormState extends State<PlayerForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Player"),
+        title: Text("Add Player",
+        style: Theme.of(context).textTheme.headline3,
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(

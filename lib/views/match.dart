@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/helpers/function_helpers.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 
 class Match extends StatelessWidget {
   final int matchId;
@@ -41,14 +42,16 @@ class Match extends StatelessWidget {
                 final _player2Id = gameData.match[_index].player2Id;
                 final _player1Score = gameData.match[_index].player1Score;
                 final _player2Score = gameData.match[_index].player2Score;
-                bool scoreCheck = _player1Score - _player2Score > 0 || _player2Score - _player1Score > 0;
+                bool scoreCheck = _player1Score - _player2Score > 0 ||
+                    _player2Score - _player1Score > 0;
                 final _lowScore = gameData.match[_index].lowScore;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _freePlay == true
                         ? TextButton(
-                            onPressed: _isComplete == true || scoreCheck == false
+                            onPressed: _isComplete == true ||
+                                    scoreCheck == false
                                 ? null
                                 : () {
                                     FunctionHelper.checkWinner(
@@ -74,56 +77,35 @@ class Match extends StatelessWidget {
                             ), //Text('complete',
                             //      style: Theme.of(context).textTheme.headline3),
                           )
-                        : Text(""),
+                        : Container(
+                            height: 0,
+                            width: 0,
+                          ),
                     // Winning Score/Free Play
-                    Spacer(),
+                    // Spacer(),
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 
                     // Win Score/Free Play
                     Spacer(),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 32,
-                      width: 32,
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
+                    _freePlay == true
+                        ? PageWidgets().circleOulineContainer(
+                            context: context,
+                            content: 'FP',
                           )
-                          // color: Theme.of(context).appBarTheme.backgroundColor,
-                          // boxShadow: [
-                          //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                          // ],
+                        : PageWidgets().circleOulineContainer(
+                            context: context,
+                            content: _winScore.toString(),
                           ),
-                      child: _freePlay == true
-                          ? Text('FP',
-                              style: Theme.of(context).textTheme.headline3)
-                          : Text('$_winScore',
-                              style: Theme.of(context).textTheme.headline3),
-                    ),
                     _lowScore == true
-                        ? Container(
-                            alignment: Alignment.center,
-                            height: 32,
-                            width: 32,
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                )
-                                // color: Theme.of(context).appBarTheme.backgroundColor,
-                                // boxShadow: [
-                                //   BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                                // ],
-                                ),
-                            child: Text('LS',
-                                style: Theme.of(context).textTheme.headline3))
-                        : Text(""),
+                        ? PageWidgets().circleOulineContainer(
+                            context: context,
+                            content: 'LS',
+                          )
+                        : Container(
+                            height: 0,
+                            width: 0,
+                          ),
                   ],
                 );
               }),

@@ -27,22 +27,22 @@ class PlayerList extends ConsumerWidget {
           padding: const EdgeInsets.all(10.0),
           child: _wins.length == 0
               ? Column(
-                children: [
-                  // Text(
-                  //     "$playerName",
-                  //     style: Theme.of(buildContext).textTheme.headline2,
-                  //   ),
-                  Text(
+                  children: [
+                    // Text(
+                    //     "$playerName",
+                    //     style: Theme.of(buildContext).textTheme.headline2,
+                    //   ),
+                    Text(
                       "No wins Yet, Please keep trying",
                       style: Theme.of(buildContext).textTheme.headline2,
                     ),
-                  Icon(
-                    Icons.sentiment_dissatisfied,
-                    size: 85,
-                    color: Colors.grey,
+                    Icon(
+                      Icons.sentiment_dissatisfied,
+                      size: 85,
+                      color: Colors.grey,
                     ),
-                ],
-              )
+                  ],
+                )
               : ListView.builder(
                   itemCount: _wins.length,
                   itemBuilder: (context, index) {
@@ -125,40 +125,29 @@ class PlayerList extends ConsumerWidget {
             } else {
               // print(arguments[0]);
               await showBottomSheet(
-                buildContext: context,
-                playerId: _id,
-                matchList: matchList,
-                playerName: _name
-              );
+                  buildContext: context,
+                  playerId: _id,
+                  matchList: matchList,
+                  playerName: _name);
             }
           },
-          leading: _isSelected == true ? IconButton(
-              onPressed: () => Get.to(() {}),
-              icon: Icon(Icons.delete_forever),
-              iconSize: 50,
-              color: Theme.of(context).appBarTheme.backgroundColor,
-            ): null,
+          leading: _isSelected == true
+              ? IconButton(
+                  onPressed: () => Get.to(() {}),
+                  icon: Icon(Icons.delete_forever),
+                  iconSize: 50,
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                )
+              : null,
           title: Text(
             '$_name',
-            style: _isSelected == false 
-            ?Theme.of(context).textTheme.headline4
-            :Theme.of(context).textTheme.headline5,
+            style: _isSelected == false
+                ? Theme.of(context).textTheme.headline4
+                : Theme.of(context).textTheme.headline5,
           ),
-          trailing: Container(
-            alignment: Alignment.center,
-            height: 30,
-            width: 30,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).appBarTheme.backgroundColor,
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                ]),
-            child: Text(
-              '${_wins.toString()}',
-              style: Theme.of(context).textTheme.headline5,
-            ),
+          trailing: PageWidgets().circleContainer(
+            context: context,
+            content: _wins.toString(),
           ),
         ),
       ),
@@ -195,7 +184,7 @@ class PlayerList extends ConsumerWidget {
         ? PageWidgets().noData(
             context: context,
             pageName: 'player',
-            pageLink: PlayerForm(),
+            pageLink: '/player_form',
           )
         : ListView.builder(
             itemCount: args[0] == "form"

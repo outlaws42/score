@@ -14,38 +14,33 @@ import './game_form.dart';
 // final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
 
 class GameList extends ConsumerWidget {
-  
   showBottomSheet({
     required BuildContext context,
     required String game,
     required String description,
     required String date,
   }) {
-    
-
     Get.bottomSheet(
       Container(
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child:  Container(
-                        
-                      child: ListTile(
-                        // leading: ,
-                        title: Text(
-                          "$game",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                        subtitle:
-                            Text(
-                              "$description",
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            
-                        trailing: Text('$date'),
-                      ),
-                    ),
-                  // }),
+          child: Container(
+            child: ListTile(
+              // leading: ,
+              title: Text(
+                "$game",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              subtitle: Text(
+                "$description",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+
+              trailing: Text('$date'),
+            ),
+          ),
+          // }),
         ),
       ),
     );
@@ -60,11 +55,12 @@ class GameList extends ConsumerWidget {
     final _endScore = game[index].endScore;
     final _lowScore = game[index].lowScore;
     final _freePlay = game[index].freePlay;
-    final _date = FunctionHelper().convertToDate(dateTimeUtcInt: game[index].dateTime) ;
+    final _date =
+        FunctionHelper().convertToDate(dateTimeUtcInt: game[index].dateTime);
     String _firstDesc = "";
 
-    if (_description.length > 29){
-     _firstDesc =  _description.substring(0,29);
+    if (_description.length > 29) {
+      _firstDesc = _description.substring(0, 29);
     } else {
       _firstDesc = _description;
     }
@@ -77,36 +73,29 @@ class GameList extends ConsumerWidget {
         child: ListTile(
           leading: Text(
             '$_id',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline4,
           ),
           title: Text(
             '$_game',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline4,
           ),
           subtitle: Text(
             '$_firstDesc',
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          trailing: _freePlay == true ? Text("Free Play"):Container(
-            alignment: Alignment.center,
-            height: 30,
-            width: 30,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).appBarTheme.backgroundColor,
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0),
-                ]),
-            child: Text(
-              '$_endScore',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ),
+          trailing: _freePlay == true
+              ? PageWidgets().circleContainer(
+                  context: context,
+                  content: 'FP',
+                )
+              : PageWidgets().circleContainer(
+                  context: context,
+                  content: _endScore.toString(),
+                ),
           onTap: () {
             if (arguments[0] == 'match' || arguments[0] == 'form') {
-              _selectedItems = [ _game, _endScore,_id, _lowScore, _freePlay];
-                  // play.player[index].firstName; // assign first name
+              _selectedItems = [_game, _endScore, _id, _lowScore, _freePlay];
+              // play.player[index].firstName; // assign first name
               print(_selectedItems);
               Get.back(result: _selectedItems);
             } else {
@@ -151,27 +140,28 @@ class GameList extends ConsumerWidget {
         ? PageWidgets().noData(
             context: context,
             pageName: 'game',
-            pageLink: GameForm(),
-          ):ListView.builder(
-      itemCount: _game.length,
-      itemBuilder: (ctx, index) {
-        if (index == 0) {
-          return Column(
-            children: [
-              header(context),
-              // Divider(
-              //   height: 0,
-              //   thickness: 4,
-              //   indent: 0,
-              //   endIndent: 0,
-              // ),
-              _listItem(index, _game, context)
-            ],
+            pageLink:'/game_form',
+          )
+        : ListView.builder(
+            itemCount: _game.length,
+            itemBuilder: (ctx, index) {
+              if (index == 0) {
+                return Column(
+                  children: [
+                    header(context),
+                    // Divider(
+                    //   height: 0,
+                    //   thickness: 4,
+                    //   indent: 0,
+                    //   endIndent: 0,
+                    // ),
+                    _listItem(index, _game, context)
+                  ],
+                );
+              } else
+                return _listItem(index, _game, context);
+            },
           );
-        } else
-          return _listItem(index, _game, context);
-      },
-    );
     // );
   }
 }

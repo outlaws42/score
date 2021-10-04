@@ -172,7 +172,7 @@ class MatchList extends ConsumerWidget {
         ? PageWidgets().noData(
             context: context,
             pageName: 'match',
-            pageLink: MatchForm(),
+            pageLink: '/match_form',
           )
         : ListView.builder(
             // separatorBuilder: (context, index) => Divider(

@@ -52,7 +52,9 @@ class _GameFormState extends State<GameForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Game"),
+        title: Text("Add Game",
+        style: Theme.of(context).textTheme.headline3,
+        ),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final gameData = watch(gameProvider);

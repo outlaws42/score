@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 // import '../controllers/player_provider.dart';
 // import '../controllers/player_controller.dart';
 import './player_form.dart';
@@ -38,20 +39,18 @@ class PlayersScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
-          TextButton(
-              onPressed: ()=> Get.to(() => PlayerForm()),
-              child: Icon(Icons.add_circle),
-              style: ElevatedButton.styleFrom(
-                // primary: Theme.of(context).appBarTheme.backgroundColor,
-                onPrimary: Colors.white,
-              ),
-            ),
+           PageWidgets().iconButtonBar(
+            context: context,
+            pageLink: "/player_form",
+            icon: Icon(Icons.add_circle),
+          ),
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
               print(selectedValue);
               selectSettings(context, selectedValue);
             },
             icon: Icon(Icons.more_vert),
+            iconSize: 30,
             // onSelected: (Filter){},
             itemBuilder: (_) => [
               PopupMenuItem(

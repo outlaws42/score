@@ -4,6 +4,7 @@ import './match_list.dart';
 // import './player_tile.dart';
 // import './match.dart';
 import './match_form.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 
 enum FilterOptions {
   Players,
@@ -40,19 +41,17 @@ class MatchScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline3,
           ),
           actions: [
-            TextButton(
-              onPressed: ()=> Get.to(() => MatchForm()),
-              child: Icon(Icons.add_circle),
-              style: ElevatedButton.styleFrom(
-                // primary: Theme.of(context).appBarTheme.backgroundColor,
-                onPrimary: Colors.white,
-              ),
-            ),
+            PageWidgets().iconButtonBar(
+            context: context,
+            pageLink: "/match_form",
+            icon: Icon(Icons.add_circle),
+          ),
             PopupMenuButton(
               onSelected: (FilterOptions selectedValue) {
                 print(selectedValue);
                 selectSettings(context, selectedValue);
               },
+              iconSize: 30,
               icon: Icon(Icons.more_vert),
               // onSelected: (Filter){},
               itemBuilder: (_) => [

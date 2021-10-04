@@ -2,10 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PageWidgets {
+  Widget iconButtonBar({
+    required BuildContext context,
+    required String pageLink,
+    required Icon icon,
+  }) {
+    return IconButton(
+      onPressed: () => Get.toNamed(pageLink),
+      icon: icon,
+      iconSize: 30,
+      color: Theme.of(context).appBarTheme.foregroundColor,
+    );
+  }
+
   Widget noData({
     required BuildContext context,
     required String pageName,
-    required Widget pageLink,
+    required String pageLink,
   }) {
     return Center(
       child: Container(
@@ -17,7 +30,7 @@ class PageWidgets {
             //   style: Theme.of(context).textTheme.headline5,
             // ),
             IconButton(
-              onPressed: () => Get.to(() => pageLink),
+              onPressed: () => Get.toNamed(pageLink),
               icon: Icon(Icons.add_circle),
               iconSize: 120,
               color: Theme.of(context).appBarTheme.backgroundColor,
@@ -48,8 +61,31 @@ class PageWidgets {
             BoxShadow(color: Colors.black26, blurRadius: 2.0),
           ]),
       child: Text(
-        '$content',
+        content,
         style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
+
+  Widget circleOulineContainer({
+    required BuildContext context,
+    required String content,
+  }) {
+    return Container(
+      alignment: Alignment.center,
+      height: 32,
+      width: 32,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.white,
+          width: 2,
+        ),
+      ),
+      child: Text(
+        content,
+        style: Theme.of(context).textTheme.headline3,
       ),
     );
   }

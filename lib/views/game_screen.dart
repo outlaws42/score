@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 import './game_form.dart';
 import './game_list.dart';
 
@@ -34,14 +35,11 @@ class GameScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
-          TextButton(
-              onPressed: ()=> Get.to(() => GameForm()),
-              child: Icon(Icons.add_circle),
-              style: ElevatedButton.styleFrom(
-                // primary: Theme.of(context).appBarTheme.backgroundColor,
-                onPrimary: Colors.white,
-              ),
-            ),
+           PageWidgets().iconButtonBar(
+            context: context,
+            pageLink: "/game_form",
+            icon: Icon(Icons.add_circle),
+          ),
           PopupMenuButton(
            onSelected: (FilterOptions selectedValue) {
               print(selectedValue);
@@ -49,6 +47,7 @@ class GameScreen extends StatelessWidget {
             },
             icon: Icon(Icons.more_vert),
             // onSelected: (Filter){},
+            iconSize: 30,
             itemBuilder: (_) => [
               PopupMenuItem(
                 child: ListTile(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:score/controllers/providers.dart';
+import '../helpers/custom_widgets/page_widgets.dart';
 import 'player_tile.dart';
 import './match.dart';
 
@@ -56,6 +57,11 @@ class MatchCurrentScreen extends StatelessWidget {
                 );
         }),
         actions: [
+          PageWidgets().iconButtonBar(
+            context: context,
+            pageLink: "/match",
+            icon: Icon(Icons.list_alt),
+          ),
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
               print(selectedValue);
