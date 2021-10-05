@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../helpers/custom_widgets/form_text_input.dart';
+import '../helpers/custom_widgets/form_widgets.dart';
 
 class GameForm extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _GameFormState extends State<GameForm> {
                   ),
                 ),
                 // Game Name
-                FormConfigInput.formTextInputValidation(
+                FormWidgets.formTextInputValidation(
                     context: context,
                     controller: _nameController,
                     labelText: "Game",
@@ -81,7 +81,7 @@ class _GameFormState extends State<GameForm> {
                     maxLength: 20,
                     blankFieldMessage: "Please input a name for your game"),
                 // Description
-                FormConfigInput.formTextInputMulti(
+                FormWidgets.formTextInputMulti(
                   context: context,
                   controller: _descriptionController,
                   labelText: "Description",
@@ -116,7 +116,7 @@ class _GameFormState extends State<GameForm> {
 
                 // End Score
                 _isFreePlay == false
-                    ? FormConfigInput.formTextInputValidation(
+                    ? FormWidgets.formTextInputValidation(
                         context: context,
                         controller: _endscoreController,
                         labelText: "Winning Points",

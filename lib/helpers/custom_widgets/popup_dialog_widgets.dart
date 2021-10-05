@@ -6,22 +6,7 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/providers.dart';
 
-class DialogConfig {
- 
-  void checkDisable(
-    amount,
-    score,
-    winScore,
-    sign,
-    freePlay,
-  ) {
-    print('This is freePlay $freePlay');
-    // if (freePlay == true) {
-    //   return;
-    // }
-    
-  }
-
+class PopupDialogWidgets{
   static Widget plusMinusButton({
     required BuildContext context,
     required int score,
@@ -91,7 +76,7 @@ class DialogConfig {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // 5 Button
-              DialogConfig.plusMinusButton(
+              PopupDialogWidgets.plusMinusButton(
                 context: context,
                 score: score,
                 player: player,
@@ -103,7 +88,7 @@ class DialogConfig {
                 freePlay: freePlay,
               ),
               // 10 Button
-              DialogConfig.plusMinusButton(
+              PopupDialogWidgets.plusMinusButton(
                 context: context,
                 score: score,
                 player: player,
@@ -116,7 +101,7 @@ class DialogConfig {
               ),
               // 15 Button
 
-              DialogConfig.plusMinusButton(
+              PopupDialogWidgets.plusMinusButton(
                 context: context,
                 score: score,
                 player: player,
@@ -128,7 +113,7 @@ class DialogConfig {
                 freePlay: freePlay,
               ),
               // 30 Button
-              DialogConfig.plusMinusButton(
+              PopupDialogWidgets.plusMinusButton(
                 context: context,
                 score: score,
                 player: player,
@@ -195,6 +180,41 @@ class DialogConfig {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static winDialog(BuildContext context, currentPlayer) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "The Game Is Complete",
+      content: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.beach_access,
+                color: Colors.green,
+              ),
+              Text(
+                " $currentPlayer",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              Text(" Won The Game",
+              style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
+          ),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text("Ok"),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).appBarTheme.backgroundColor,
+              onPrimary: Colors.white,
             ),
           ),
         ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../controllers/providers.dart';
-import './custom_widgets/winner_dialog.dart';
+import './custom_widgets/popup_dialog_widgets.dart';
 
 class FunctionHelper {
   static checkWinner({
@@ -50,7 +50,7 @@ class FunctionHelper {
           wins: _wins,
           addAmount: 1,
         );
-    WinnerConfig.winDialog(context, winner);
+    PopupDialogWidgets.winDialog(context, winner);
   }
 
   convertToDate({

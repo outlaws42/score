@@ -16,8 +16,8 @@ class SettingsProvider extends ChangeNotifier {
     PackageInfo packageInfo =  await PackageInfo.fromPlatform();
     String appVersion = packageInfo.version;
     String appBuild = packageInfo.buildNumber;
-    String appName = packageInfo.appName;
-    String version = appName + " " + 'V' + appVersion + " B" + appBuild;
+    // String appName = packageInfo.appName;
+    String version = appVersion + " B" + appBuild;
     return version;
   }
 

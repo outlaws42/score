@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/function_helpers.dart';
-import './match_form.dart';
+// import './match_form.dart';
 
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
@@ -48,7 +48,7 @@ class MatchList extends ConsumerWidget {
     final _endScore = match[index].winScore;
     final _freePlay = match[index].freePlay;
     final _winner = match[index].winner;
-    final _lowScore = match[index].lowScore;
+    // final _lowScore = match[index].lowScore;
     final _isComplete = match[index].isComplete;
     final _date = FunctionHelper().convertToDate(
       dateTimeUtcInt: match[index].dateTime,

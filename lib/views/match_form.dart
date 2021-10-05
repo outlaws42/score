@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../helpers/custom_widgets/form_text_input.dart';
+import '../helpers/custom_widgets/form_widgets.dart';
 
 class MatchForm extends StatefulWidget {
   @override
@@ -143,7 +143,7 @@ class _MatchFormState extends State<MatchForm> {
                   ),
                 ),
                 // Game Name
-                FormConfigInput.formTextInput(
+                FormWidgets.formTextInput(
                   context: context,
                   controller: _nameController,
                   labelText: "Match Name",

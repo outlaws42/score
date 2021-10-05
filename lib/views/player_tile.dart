@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
-import '../helpers/custom_widgets/add_subtract_dialog.dart';
+import '../helpers/custom_widgets/popup_dialog_widgets.dart';
 import '../helpers/function_helpers.dart';
 
 class PlayerTile extends StatelessWidget {
@@ -218,7 +218,7 @@ class PlayerTile extends StatelessWidget {
                       //     ),
                       onLongPress: _isComplete == true
                           ? null
-                          : () => DialogConfig.mathDialog(
+                          : () => PopupDialogWidgets.mathDialog(
                                 context: context,
                                 score: _score,
                                 player: player,
@@ -276,7 +276,7 @@ class PlayerTile extends StatelessWidget {
                       //     ),
                       onLongPress: _isComplete == true
                           ? null
-                          : () => DialogConfig.mathDialog(
+                          : () => PopupDialogWidgets.mathDialog(
                                 context: context,
                                 score: _score,
                                 player: player,

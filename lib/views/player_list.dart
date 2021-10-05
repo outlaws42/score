@@ -8,7 +8,7 @@ import '../models/player_model.dart';
 import '../controllers/providers.dart';
 import '../helpers/function_helpers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
-import './player_form.dart';
+// import './player_form.dart';
 
 class PlayerList extends ConsumerWidget {
   // final List _selectedPlayers = [1, 2, 3, 4];
@@ -57,7 +57,7 @@ class PlayerList extends ConsumerWidget {
                         // leading: ,
                         title: Text(
                           "${_wins[index].matchName} ${_wins[index].gameName}",
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                         subtitle: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -135,8 +135,8 @@ class PlayerList extends ConsumerWidget {
               ? IconButton(
                   onPressed: () => Get.to(() {}),
                   icon: Icon(Icons.delete_forever),
-                  iconSize: 50,
-                  color: Theme.of(context).appBarTheme.backgroundColor,
+                  iconSize: 40,
+                  color: Theme.of(context).appBarTheme.foregroundColor,
                 )
               : null,
           title: Text(

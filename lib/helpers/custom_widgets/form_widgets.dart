@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class FormConfigInput {
+class FormWidgets {
 
   static Widget formTextInputValidation({
     BuildContext? context,
