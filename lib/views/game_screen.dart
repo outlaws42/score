@@ -1,32 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../helpers/custom_widgets/menu_widgets.dart';
-// import './game_form.dart';
 import './game_list.dart';
-
-// enum FilterOptions {
-//   Home,
-//   AddGame
-// }
 
 
 class GameScreen extends StatelessWidget {
-  // static const routeName = 'game_screen';
-  // final GameController controller = Get.put(GameController());
-
-  // void selectSettings(BuildContext ctx, value) {
-  //   if (value == FilterOptions.Home) {
-  //      Get.toNamed("/", arguments: ["game_screen"]);
-  //   }  else if (value == FilterOptions.AddGame) {
-  //     Get.to(()=> GameForm());
-  //     // Provider.of<GameProvider>(ctx, listen: false).addGame();
-  //     // ctx.read(gameProvider).addGame();
-  //   }
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,41 +22,33 @@ class GameScreen extends StatelessWidget {
             pageLink: "/game_form",
             icon: Icon(Icons.add_box),
           ),
-          MenuWidgets.mainMenu(
-              context: context,
-              screenArgument: "game_screen"
-            ),
-          // PopupMenuButton(
-          //  onSelected: (FilterOptions selectedValue) {
-          //     print(selectedValue);
-          //     selectSettings(context, selectedValue);
-          //   },
-          //   icon: Icon(Icons.more_vert),
-          //   // onSelected: (Filter){},
-          //   iconSize: 30,
-          //   itemBuilder: (_) => [
-          //     PopupMenuItem(
-          //       child: ListTile(
-          //         horizontalTitleGap: -10,
-          //         leading: Icon(Icons.home),
-          //         title: Text(
-          //           "Home",
-          //         ),
-          //       ),
-          //       value: FilterOptions.Home,
-          //     ),
-          //     PopupMenuItem(
-          //       child: ListTile(
-          //         horizontalTitleGap: -10,
-          //         leading: Icon(Icons.games),
-          //         title: Text(
-          //           "Add Game",
-          //         ),
-          //       ),
-          //       value: FilterOptions.AddGame,
-          //     )
-          //   ],
-          // ),
+            PopupMenuButton(
+              iconSize: 30,
+              icon: Icon(Icons.menu),
+              itemBuilder: (BuildContext context) => <PopupMenuItem>[
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Matches",
+                      icon: Icon(Icons.list_alt),
+                      value: 1,
+                    ),
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Players",
+                      icon: Icon(Icons.person),
+                      value: 2,
+                    ),
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Settings",
+                      icon: Icon(Icons.settings),
+                      value: 10,
+                    ),
+                  ],
+              onSelected: (value) {
+                print(value);
+                MenuWidgets.menuSelect(context, value, "game_screen");
+              })
         ],
       ),
       body: GameList(),
@@ -84,10 +57,8 @@ class GameScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         child: Icon(Icons.add),
         onPressed: () {
-          // Provider.of<PlayerProvider>(context, listen: false).addPlayer(1);
           context.read(gameProvider).addGame();
           context.read(gameProvider).fetchGame();
-          // controller.addGame();
         },
       ),
     );

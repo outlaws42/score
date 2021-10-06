@@ -69,10 +69,10 @@ class MatchList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          leading: Text(
-            '$_id',
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          // leading: Text(
+          //   '$_id',
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
           title: Text(
             '$_gameName',
             style: Theme.of(context).textTheme.headline4,
@@ -157,7 +157,7 @@ class MatchList extends ConsumerWidget {
         //   alignment: Alignment.center,
         //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
         // ),
-        title: Text('Matches', style: Theme.of(context).textTheme.headline3),
+        title: Text('Match', style: Theme.of(context).textTheme.headline3),
         trailing:
             Text('Wining Score', style: Theme.of(context).textTheme.headline3),
       ),

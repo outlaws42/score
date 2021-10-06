@@ -71,10 +71,10 @@ class GameList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          leading: Text(
-            '$_id',
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          // leading: Text(
+          //   '$_id',
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
           title: Text(
             '$_game',
             style: Theme.of(context).textTheme.headline4,
