@@ -221,4 +221,50 @@ class PopupDialogWidgets{
       ),
     );
   }
+  static warnDialog(BuildContext context, String item, int itemId) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "Warning",
+      content: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.beach_access,
+                color: Colors.green,
+              ),
+              
+              Text(" Do you want to delete? $item",
+              style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+            onPressed: () => Get.back(),
+            child: Text("Cancel"),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).appBarTheme.backgroundColor,
+              onPrimary: Colors.white,
+            ),
+            
+          ),
+              TextButton(
+                onPressed: () => context.read(playerProvider).deletePlayer(itemId),
+                child: Text("Delete"),
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).appBarTheme.backgroundColor,
+                  onPrimary: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 }

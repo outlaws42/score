@@ -5,50 +5,36 @@ import 'package:get/get.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/function_helpers.dart';
-// import './match_form.dart';
-
-// import 'package:provider/provider.dart';
-// import 'package:get/get.dart';
-// import '../controllers/game_provider.dart';
-// import '../controllers/game_provider.dart';
-
-// final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
 
 class MatchList extends ConsumerWidget {
-  showBottomSheet(game, description, endscore, id) {
-    Get.bottomSheet(
-      Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("$id"),
-              Text("$game"),
-              Text("$description"),
-              Text("$endscore"),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // showBottomSheet(game, description, endscore, id) {
+  //   Get.bottomSheet(
+  //     Container(
+  //       color: Colors.white,
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(30.0),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //           children: [
+  //             Text("$id"),
+  //             Text("$game"),
+  //             Text("$description"),
+  //             Text("$endscore"),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _listItem(index, match, context) {
-    // List _selectedItems = [];
-    // var arguments = Get.arguments;
     final _id = match[index].id;
     final _gameName = match[index].gameName;
-    // final _matchName = game.match[index].matchName;
     final _player1Name = match[index].player1Name;
     final _player2Name = match[index].player2Name;
-    // final _player1Id = game.match[index].player1Id;
-    // final _player2Id = game.match[index].player2Id;
     final _endScore = match[index].winScore;
     final _freePlay = match[index].freePlay;
     final _winner = match[index].winner;
-    // final _lowScore = match[index].lowScore;
     final _isComplete = match[index].isComplete;
     final _date = FunctionHelper().convertToDate(
       dateTimeUtcInt: match[index].dateTime,
@@ -69,10 +55,6 @@ class MatchList extends ConsumerWidget {
         elevation: 3,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListTile(
-          // leading: Text(
-          //   '$_id',
-          //   style: Theme.of(context).textTheme.headline4,
-          // ),
           title: Text(
             '$_gameName',
             style: Theme.of(context).textTheme.headline4,
@@ -94,16 +76,6 @@ class MatchList extends ConsumerWidget {
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // _freePlay == true && _lowScore == true ? Row(children: [
-              //         PageWidgets().circleContainer(
-              //               context: context,
-              //               content: "FP",
-              //             ),
-              //         PageWidgets().circleContainer(
-              //               context: context,
-              //               content: "LS",
-              //             )
-              //       ],):
                 _freePlay == true
                     ? 
                         PageWidgets().circleContainer(
@@ -122,51 +94,17 @@ class MatchList extends ConsumerWidget {
             ],
           ),
           onTap: () {
-            // if (arguments[0] == 'match') {
-            //   _selectedItems = [ _matchName, _endScore,_id];
-            //       // play.player[index].firstName; // assign first name
-            //   print(_selectedItems);
-            //   Get.back(result: _selectedItems);
-            // } else {
-            // print(arguments[0]);
-            // showBottomSheet(
-            //   _gameName,
-            //   _player1Name,
-            //   _player2Name,
-            //   _id,
-            // );
             Get.offAllNamed("/match_current", arguments: [
               _id,
-              // _player1Name,
-              // _player2Name
             ]);
-            // }
           },
         ),
       ),
     );
   }
 
-  Widget header(context) {
-    return Card(
-      elevation: 6,
-      color: Theme.of(context).appBarTheme.backgroundColor,
-      child: ListTile(
-        // leading: Container(
-        //   width: 30,
-        //   alignment: Alignment.center,
-        //   child: Text('Id', style: Theme.of(context).textTheme.headline5),
-        // ),
-        title: Text('Match', style: Theme.of(context).textTheme.headline3),
-        trailing:
-            Text('Wining Score', style: Theme.of(context).textTheme.headline3),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
     final _match = watch(matchProvider).match;
     return _match.length == 0
         ? PageWidgets().noData(
@@ -175,24 +113,16 @@ class MatchList extends ConsumerWidget {
             pageLink: '/match_form',
           )
         : ListView.builder(
-            // separatorBuilder: (context, index) => Divider(
-            //       height: 0,
-            //       thickness: 1,
-            //       indent: 0,
-            //       endIndent: 0,
-            //     ),
             itemCount: _match.length,
             itemBuilder: (ctx, index) {
               if (index == 0) {
                 return Column(
                   children: [
-                    header(context),
-                    // Divider(
-                    //   height: 0,
-                    //   thickness: 4,
-                    //   indent: 0,
-                    //   endIndent: 0,
-                    // ),
+                    PageWidgets().header(
+                      context: context,
+                      column1: 'Match',
+                      column2: 'Winning Score'
+                      ),
                     _listItem(index, _match, context)
                   ],
                 );

@@ -141,4 +141,12 @@ class PlayerProvider extends ChangeNotifier {
     fetchPlayer();
     notifyListeners();
   }
+  Future<void> deletePlayer(
+    int playerId,
+  ) async {
+    DBHelper.remove('player',playerId,
+    );
+    fetchPlayer();
+    notifyListeners();
+  }
 }
