@@ -149,4 +149,16 @@ class PlayerProvider extends ChangeNotifier {
     fetchPlayer();
     notifyListeners();
   }
+
+  Future<void> updatePlayerName(
+    int playerId,
+    String name,
+  ) async {
+    DBHelper.update('player',playerId , {
+      'name': name,
+    },
+    );
+    fetchPlayer();
+    notifyListeners();
+  }
 }

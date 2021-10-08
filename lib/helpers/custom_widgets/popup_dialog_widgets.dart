@@ -253,7 +253,10 @@ class PopupDialogWidgets{
             
           ),
               TextButton(
-                onPressed: () => context.read(playerProvider).deletePlayer(itemId),
+                onPressed: () {
+                  Get.back();
+                  context.read(playerProvider).deletePlayer(itemId);
+                  },
                 child: Text("Delete"),
                 style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).appBarTheme.backgroundColor,

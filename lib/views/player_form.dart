@@ -11,9 +11,11 @@ class PlayerForm extends StatefulWidget {
 }
 
 class _PlayerFormState extends State<PlayerForm> {
-  final _nameController = TextEditingController();
+  List arguments = Get.arguments;
 
-  final _winsController = TextEditingController(text: '0');
+  var _nameController = TextEditingController();
+
+  var _winsController = TextEditingController(text: '0');
 
   final _formKey = GlobalKey<FormState>();
 
@@ -24,21 +26,34 @@ class _PlayerFormState extends State<PlayerForm> {
     }
     int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     var controller = context.read(playerProvider);
-    controller.addPlayerForm(
-      name: name, 
-      wins: wins,
-      dateTime: _dtUtcMs,
+    if (arguments[0] == "form_edit") {
+      controller.updatePlayerName(arguments[1], name);
+    } else {
+      controller.addPlayerForm(
+        name: name,
+        wins: wins,
+        dateTime: _dtUtcMs,
       );
-    controller.fetchPlayer();
+      controller.fetchPlayer();
+    }
     Get.back(result: "player_form");
   }
 
   @override
   Widget build(BuildContext context) {
+    // final form = arguments[0];
+    if (arguments[0] == "form_edit") {
+       _nameController =
+          TextEditingController(text: arguments[2].toString());
+      _winsController =
+          TextEditingController(text: arguments[3].toString());
+    }
+    print(arguments);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Player",
-        style: Theme.of(context).textTheme.headline3,
+        title: Text(
+          arguments[0] == "form_edit" ? "Edit Player" : "Add Player",
+          style: Theme.of(context).textTheme.headline3,
         ),
       ),
       body: SingleChildScrollView(
@@ -62,7 +77,6 @@ class _PlayerFormState extends State<PlayerForm> {
                   maxLength: 20,
                   blankFieldMessage: "Fill in the Name"),
 
-
               // Wins
               FormWidgets.formTextInput(
                 context: context,
@@ -78,9 +92,9 @@ class _PlayerFormState extends State<PlayerForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _save(
-                          _nameController.text,
-
-                          int.parse(_winsController.text));
+                        _nameController.text,
+                        int.parse(_winsController.text),
+                      );
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -88,7 +102,9 @@ class _PlayerFormState extends State<PlayerForm> {
                     primary: Theme.of(context).appBarTheme.backgroundColor,
                   ),
                   icon: Icon(Icons.person),
-                  label: Text('Add Player'),
+                  label: arguments[0] == "form_edit"
+                      ? Text('Edit Player')
+                      : Text('Add Player'),
                 ),
               ),
             ],

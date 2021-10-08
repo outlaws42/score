@@ -19,7 +19,7 @@ import './views/team_screen.dart';
 import './views/match_current_screen.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
-import './views/player_form.dart';
+import 'views/player_form.dart';
 
 void main() {
   runApp(
