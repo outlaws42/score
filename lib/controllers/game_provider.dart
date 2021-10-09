@@ -128,4 +128,34 @@ class GameProvider extends ChangeNotifier {
     fetchGame();
     notifyListeners();
   }
+
+  Future<void> deleteGame(
+    int id,
+  ) async {
+    DBHelper.remove('game',id,
+    );
+    fetchGame();
+    notifyListeners();
+  }
+
+  Future<void> updateGame({
+   required int gameId,
+   required String name,
+   required String description,
+   required int? endScore,
+   required int lowScore,
+   required int freePlay,
+  }
+  ) async { 
+    DBHelper.update('game', gameId, {
+      'name': name,
+      'description': description,
+      'end_score': endScore,
+      'low_score': lowScore,
+      'free_play': freePlay,
+      'is_selected': 0,
+    });
+    fetchGame();
+    notifyListeners();
+  }
 }

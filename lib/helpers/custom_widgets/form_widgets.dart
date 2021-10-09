@@ -103,7 +103,7 @@ class FormWidgets {
       child: TextFormField(
         controller: controller,
         maxLength: maxLength,
-        textCapitalization: TextCapitalization.words,
+        textCapitalization: TextCapitalization.sentences,
         textInputAction: TextInputAction.next,
         minLines: 1,
         maxLines: 10,

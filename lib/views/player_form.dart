@@ -78,13 +78,13 @@ class _PlayerFormState extends State<PlayerForm> {
                   blankFieldMessage: "Fill in the Name"),
 
               // Wins
-              FormWidgets.formTextInput(
-                context: context,
-                controller: _winsController,
-                labelText: "Wins",
-                hintText: 'Players previous wins (optional)',
-                maxLength: 2,
-              ),
+              // FormWidgets.formTextInput(
+              //   context: context,
+              //   controller: _winsController,
+              //   labelText: "Wins",
+              //   hintText: 'Players previous wins (optional)',
+              //   maxLength: 2,
+              // ),
               // Submit Button
               Container(
                 margin: EdgeInsets.fromLTRB(0, 20, 0, 0),

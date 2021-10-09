@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // This Model is the layout of each individual item in the state.
 
 class MatchModel with ChangeNotifier {
-  final int? id;
+  final int id;
   final String? matchName;
   final String player1Name;
   final String player2Name;
@@ -20,7 +20,7 @@ class MatchModel with ChangeNotifier {
   // final int? playerScore3;
   // final int? playerScore4;
   // final int? playerScore5;
-  final String? gameName;
+  final String gameName;
   final int? gameId;
   final String winner;
   final int winnerId;
@@ -28,6 +28,7 @@ class MatchModel with ChangeNotifier {
   final bool lowScore;
   final int dateTime;
   final bool isComplete;
+  final bool isSelected;
   final bool freePlay;
 
   MatchModel({
@@ -47,7 +48,7 @@ class MatchModel with ChangeNotifier {
     // this.playerScore3 = 0,
     // this.playerScore4 = 0,
     // this.playerScore5 = 0,
-    this.gameName,
+    this.gameName = "_",
     this.gameId,
     this.winner = "",
     this.winnerId = 0,
@@ -55,6 +56,7 @@ class MatchModel with ChangeNotifier {
     this.lowScore = false,
     this.dateTime = 0,
     this.isComplete = false,
+    this.isSelected = false,
     this.freePlay = false,
   });
 }

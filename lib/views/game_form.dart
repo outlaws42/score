@@ -10,11 +10,12 @@ class GameForm extends StatefulWidget {
 }
 
 class _GameFormState extends State<GameForm> {
-  final _nameController = TextEditingController();
-  final _descriptionController = TextEditingController(
+  List arguments = Get.arguments;
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController(
     text: "This game will challenge you",
   );
-  final _endscoreController = TextEditingController(text: '21');
+  TextEditingController _endscoreController = TextEditingController(text: '21');
   // final _lowScoreController = TextEditingController(text: '0');
 
   int _lowScoreInt = 0;
@@ -36,30 +37,58 @@ class _GameFormState extends State<GameForm> {
     final lowScoreSwitch = lowScore == 0 ? false : true;
     final freePlaySwitch = freePlay == 0 ? false : true;
     int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
-    context.read(gameProvider).addGameForm(
-          name: name,
-          description: description,
-          endScore: endScore,
-          lowScore: lowScoreSwitch,
-          freePlay: freePlaySwitch,
-          dateTime: _dtUtcMs,
+
+    if (arguments[0] == "form_edit") {
+      context.read(gameProvider).updateGame(
+        gameId: arguments[1], 
+        name: name, 
+        description: description, 
+        endScore: endScore, 
+        lowScore: lowScore, 
+        freePlay: freePlay, 
         );
-    context.read(gameProvider).fetchGame();
+    } else {
+      context.read(gameProvider).addGameForm(
+            name: name,
+            description: description,
+            endScore: endScore,
+            lowScore: lowScoreSwitch,
+            freePlay: freePlaySwitch,
+            dateTime: _dtUtcMs,
+          );
+      context.read(gameProvider).fetchGame();
+    }
+
     Get.back(result: "game_form");
   }
 
   @override
   Widget build(BuildContext context) {
+    if (arguments[0] == "form_edit") {
+      _nameController = TextEditingController(
+        text: arguments[2].toString(),
+      );
+      _descriptionController = TextEditingController(
+        text: arguments[3].toString(),
+      );
+      _endscoreController = TextEditingController(
+        text: arguments[4].toString(),
+      );
+    }
+    print(arguments);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Game",
-        style: Theme.of(context).textTheme.headline3,
+        title: Text(
+          arguments[0] == "form_edit" ? "Edit Game" : "Add Game",
+          style: Theme.of(context).textTheme.headline3,
         ),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final gameData = watch(gameProvider);
-        final _isLowScore = gameData.isLowScore;
-        final _isFreePlay = gameData.isFreePlay;
+        final _isLowScore =
+            arguments[0] == 'form_edit' ? arguments[5] : gameData.isLowScore;
+        final _isFreePlay =
+            arguments[0] == 'form_edit' ? arguments[6] : gameData.isFreePlay;
         return SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -127,30 +156,32 @@ class _GameFormState extends State<GameForm> {
                     : Container(),
 
                 // Low Score Wins (Toggle)
-                _isFreePlay== true ? Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Low Score Wins',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      Switch(
-                        value: _isLowScore,
-                        onChanged: (boolVal) {
-                          _lowScoreInt = boolVal == false ? 0 : 1;
-                          print(_lowScoreInt);
-                          context.read(gameProvider).updateLowScore();
-                        },
-                        activeTrackColor:
-                            Theme.of(context).colorScheme.secondary,
-                        activeColor:
-                            Theme.of(context).colorScheme.primaryVariant,
-                      ),
-                    ],
-                  ),
-                ): Container(),
+                _isFreePlay == true
+                    ? Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Low Score Wins',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            Switch(
+                              value: _isLowScore,
+                              onChanged: (boolVal) {
+                                _lowScoreInt = boolVal == false ? 0 : 1;
+                                print(_lowScoreInt);
+                                context.read(gameProvider).updateLowScore();
+                              },
+                              activeTrackColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              activeColor:
+                                  Theme.of(context).colorScheme.primaryVariant,
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(),
 
                 // Submit Button
                 Container(
@@ -167,10 +198,10 @@ class _GameFormState extends State<GameForm> {
                           _lowScoreInt,
                           _freePlayInt,
                         );
-                        if (_isLowScore == true) { 
+                        if (_isLowScore == true) {
                           context.read(gameProvider).updateLowScore();
                         }
-                        if (_isFreePlay== true) { 
+                        if (_isFreePlay == true) {
                           context.read(gameProvider).updateFreePlay();
                         }
                       }
@@ -180,7 +211,9 @@ class _GameFormState extends State<GameForm> {
                       primary: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     icon: Icon(Icons.games),
-                    label: Text('Add Game'),
+                    label:arguments[0] == "form_edit"
+                      ? Text('Edit Game')
+                      : Text('Add Game'),
                   ),
                 ),
               ],

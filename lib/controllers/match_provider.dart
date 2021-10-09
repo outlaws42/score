@@ -70,14 +70,23 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateSelected({
+    required int matchId,
+    required bool isSelected
+  }) {
+    isSelected = !isSelected;
+    int isSelectedInt = isSelected == false ? 0 : 1;
+    updateIsSelected(matchId, isSelectedInt);
+  }
+
   Future<void> fetchMatch() async {
     final dataList = await DBHelper.getData('player_match');
     _matches = dataList
         .map(
           (match) => MatchModel(
-            id: match['id'] as int?,
+            id: match['id'] as int,
             matchName: match['match_name'] as String?,
-            gameName: match['game_name'] as String?,
+            gameName: match['game_name'] as String,
             gameId: match['game_id'] as int?,
             player1Name: match['player1_name'] as String,
             player2Name: match['player2_name'] as String,
@@ -100,6 +109,7 @@ class MatchProvider extends ChangeNotifier {
             lowScore: match['low_score'] == 0 ? false : true,
             freePlay: match['free_play'] == 0 ? false : true,
             isComplete: match['is_complete'] == 0 ? false : true,
+            isSelected: match['is_selected'] == 0 ? false : true,
           ),
         )
         .toList();
@@ -113,9 +123,9 @@ class MatchProvider extends ChangeNotifier {
     _matchesWins = dataList
         .map(
           (match) => MatchModel(
-            id: match['id'] as int?,
+            id: match['id'] as int,
             matchName: match['match_name'] as String?,
-            gameName: match['game_name'] as String?,
+            gameName: match['game_name'] as String,
             gameId: match['game_id'] as int?,
             player1Name: match['player1_name'] as String,
             player2Name: match['player2_name'] as String,
@@ -147,7 +157,7 @@ class MatchProvider extends ChangeNotifier {
   Future<void> addMatch({
     // int id,
     String matchName = "",
-    String? gameName,
+    String gameName = "",
     int? gameId,
     required String player1Name,
     required String player2Name,
@@ -160,6 +170,7 @@ class MatchProvider extends ChangeNotifier {
     bool lowScore = false,
     bool freePlay = false,
     bool isCompleted = false,
+    bool isSelected = false,
   }) async {
     final newMatch = MatchModel(
       // id: id,
@@ -181,6 +192,7 @@ class MatchProvider extends ChangeNotifier {
       lowScore: lowScore,
       freePlay: freePlay,
       isComplete: isCompleted,
+      isSelected: isSelected,
     );
     _matches.add(newMatch);
     notifyListeners();
@@ -204,6 +216,7 @@ class MatchProvider extends ChangeNotifier {
       'low_score': newMatch.lowScore == false ? 0 : 1,
       'free_play': newMatch.freePlay == false ? 0 : 1,
       'is_complete': newMatch.isComplete == false ? 0 : 1,
+      'is_selected': newMatch.isSelected == false ? 0 : 1,
     });
   }
 
@@ -254,6 +267,27 @@ class MatchProvider extends ChangeNotifier {
         },
       );
     }
+    fetchMatch();
+    notifyListeners();
+  }
+
+  Future<void> updateIsSelected(
+    int matchId,
+    int isSelected,
+  ) async { 
+    print('Update is selected $isSelected');
+    DBHelper.update('player_match', matchId, {
+      'is_selected': isSelected,
+    });
+    fetchMatch();
+    notifyListeners();
+  }
+
+  Future<void> deleteMatch(
+    int id,
+  ) async {
+    DBHelper.remove('player_match',id,
+    );
     fetchMatch();
     notifyListeners();
   }

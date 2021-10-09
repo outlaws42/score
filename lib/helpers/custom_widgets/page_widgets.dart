@@ -156,7 +156,9 @@ class PageWidgets {
       child: Container(
           padding: const EdgeInsets.all(2),
           // margin: const EdgeInsets.all(10),
-          height: 70,
+          constraints: BoxConstraints(
+            minHeight: 70,
+          ),
           child: Card(
             // margin: const EdgeInsets.all(10),
             elevation: 3,
@@ -175,7 +177,7 @@ class PageWidgets {
                             IconButton(
                               onPressed: () {
                                 PopupDialogWidgets.warnDialog(
-                                    context, _name, _id);
+                                    context, _name, _id, "player");
                                 // context.read(playerProvider).deletePlayer(_id);
                                 print("Pressed Delete");
                               },
@@ -276,7 +278,6 @@ class PageWidgets {
         }
       },
       onLongPress: () {
-        print("This is ID $_id");
         context.read(gameProvider).updateSelected(
               gameId: _id,
               isSelected: _isSelected,
@@ -285,7 +286,9 @@ class PageWidgets {
       },
       child: Container(
         padding: const EdgeInsets.all(2),
-        height: 70,
+        constraints: BoxConstraints(
+          minHeight: 70,
+        ),
         child: Card(
           elevation: 3,
           color: _isSelected == false
@@ -304,7 +307,7 @@ class PageWidgets {
                           IconButton(
                             onPressed: () {
                               PopupDialogWidgets.warnDialog(
-                                  context, _game, _id);
+                                  context, _game, _id, "game");
                               // context.read(playerProvider).deletePlayer(_id);
                               print("Pressed Delete");
                             },
@@ -323,7 +326,10 @@ class PageWidgets {
                                 "form_edit",
                                 _id,
                                 _game,
-                                _description
+                                _description,
+                                _endScore,
+                                _lowScore,
+                                _freePlay
                               ]);
 
                               print("Pressed Edit");
@@ -385,6 +391,142 @@ class PageWidgets {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget listItemMatch({
+    required BuildContext context,
+    required int index,
+    required List<MatchModel> match,
+  }) {
+    final _id = match[index].id;
+    final _gameName = match[index].gameName;
+    final _player1Name = match[index].player1Name;
+    final _player2Name = match[index].player2Name;
+    final _endScore = match[index].winScore;
+    final _freePlay = match[index].freePlay;
+    final _lowScore = match[index].lowScore;
+    final _winner = match[index].winner;
+    final _isComplete = match[index].isComplete;
+    final _isSelected = match[index].isSelected;
+    final _date = FunctionHelper().convertToDate(
+      dateTimeUtcInt: match[index].dateTime,
+    );
+
+    bool _player1 = false;
+    bool _player2 = false;
+
+    if (_isComplete == true && _player1Name == _winner) {
+      _player1 = true;
+    } else if (_isComplete == true && _player2Name == _winner) {
+      _player2 = true;
+    }
+    print(_player2Name);
+    return GestureDetector(
+      onTap: () {
+        Get.offAllNamed("/match_current", arguments: [
+          _id,
+        ]);
+      },
+      onLongPress: () {
+        context.read(matchProvider).updateSelected(
+              matchId: _id,
+              isSelected: _isSelected,
+            );
+        print("This is onLongPress");
+      },
+      child: Container(
+        padding: const EdgeInsets.all(2),
+        constraints: BoxConstraints(
+          minHeight: 80,
+        ),
+        child: Card(
+          elevation: 3,
+          color: _isSelected == false
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Theme.of(context).appBarTheme.backgroundColor,
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              child: Row(
+                children: [
+                  _isSelected == true
+                      ? IconButton(
+                          onPressed: () {
+                            PopupDialogWidgets.warnDialog(
+                              context,
+                              _gameName,
+                              _id,
+                              "match",
+                            );
+                            // context.read(playerProvider).deletePlayer(_id);
+                            print("Pressed Delete");
+                          },
+                          icon: Icon(Icons.delete_forever),
+                          iconSize: 30,
+                          color: Theme.of(context).appBarTheme.foregroundColor,
+                        )
+                      : Container(height: 0, width: 0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$_gameName',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      _player1 == false && _player2 == false
+                          ? Text(
+                              '$_player1Name vs $_player2Name',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            )
+                          : _player1 == true
+                              ? Text(
+                                  '$_player1Name (Winner) vs $_player2Name',
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                )
+                              : Text(
+                                  '$_player1Name vs $_player2Name (Winner)',
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
+                    ],
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _freePlay == true
+                          ? Row(
+                              children: [
+                                PageWidgets().circleContainer(
+                                  context: context,
+                                  content: 'FP',
+                                ),
+                                _lowScore == true
+                                    ? PageWidgets().circleContainer(
+                                        context: context,
+                                        content: 'LS',
+                                      )
+                                    : Container(
+                                        height: 0,
+                                        width: 0,
+                                      ),
+                              ],
+                            )
+                          : PageWidgets().circleContainer(
+                              context: context,
+                              content: _endScore.toString(),
+                            ),
+                      Text(
+                        '$_date',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    ],
+                  ),
+                ],
+              )),
         ),
       ),
     );

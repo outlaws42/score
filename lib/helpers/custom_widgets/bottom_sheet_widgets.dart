@@ -49,7 +49,7 @@ class BottomSheetWidgets {
                           // leading: ,
                           title: Text(
                             "${_wins[index].matchName} ${_wins[index].gameName}",
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +64,10 @@ class BottomSheetWidgets {
                               ),
                             ],
                           ),
-                          trailing: Text('$_date'),
+                          trailing: Text(
+                            '$_date',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                         ),
                       ),
                     );
@@ -90,14 +93,16 @@ class BottomSheetWidgets {
               // leading: ,
               title: Text(
                 "$game",
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline4,
               ),
               subtitle: Text(
                 "$description",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-
-              trailing: Text('$date'),
+              trailing: Text(
+                '$date',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
             ),
           ),
           // }),

@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:score/helpers/function_helpers.dart';
 import '../../controllers/providers.dart';
 
-class PopupDialogWidgets{
+class PopupDialogWidgets {
   static Widget plusMinusButton({
     required BuildContext context,
     required int score,
@@ -18,11 +19,10 @@ class PopupDialogWidgets{
     required int winScore,
     required bool freePlay,
   }) {
-     bool isDisable = false;
+    bool isDisable = false;
     if (freePlay == true) {
       isDisable = false;
-    }
-    else if (amount + score > winScore && sign == "add" ||
+    } else if (amount + score > winScore && sign == "add" ||
         score - amount < 0 && sign == "minus") {
       isDisable = true;
     }
@@ -63,14 +63,15 @@ class PopupDialogWidgets{
     required int winScore,
     required bool freePlay,
   }) {
+    bool isDisabled = false;
     Get.defaultDialog(
       radius: 10.0,
       title: sign == "add" ? "Add Amount" : "Subtract Amount",
       content: Column(
         children: [
-          Text(
-            '$playerName',
-            style: Theme.of(context).textTheme.headline5,
+          Text(freePlay == true ? "" :
+            'Points left to win ${winScore - score}',
+            style: Theme.of(context).textTheme.headline6,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,8 +143,16 @@ class PopupDialogWidgets{
               // textCapitalization: TextCapitalization.words,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
+              onChanged: (value){
+                print(value);
+                if (score + int.parse(value) > winScore){
+                  isDisabled = true;
+                  print("The Input is to higher then the score to win");
+                }
+              },
               onFieldSubmitted: (value) {
                 // int.parse(value) + score > winScore ?
+                isDisabled == true ? Get.back() :
                 sign == "add"
                     ? context.read(matchProvider).plus(
                           id: id,
@@ -157,6 +166,7 @@ class PopupDialogWidgets{
                           player: player,
                           minusAmount: int.parse(value),
                         ); //: print("Over Amount");
+                  
                 Get.back();
               },
               style: TextStyle(
@@ -166,7 +176,7 @@ class PopupDialogWidgets{
               decoration: InputDecoration(
                 labelText: sign == "add" ? "+ Amount" : "- Amount",
                 labelStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: isDisabled == true ? Colors.red : Theme.of(context).colorScheme.primary,
                 ),
                 // hintText: hintText,
                 hintStyle: TextStyle(
@@ -204,8 +214,9 @@ class PopupDialogWidgets{
                 " $currentPlayer",
                 style: Theme.of(context).textTheme.headline6,
               ),
-              Text(" Won The Game",
-              style: Theme.of(context).textTheme.headline6,
+              Text(
+                " Won The Game",
+                style: Theme.of(context).textTheme.headline6,
               ),
             ],
           ),
@@ -221,7 +232,13 @@ class PopupDialogWidgets{
       ),
     );
   }
-  static warnDialog(BuildContext context, String item, int itemId) {
+
+  static warnDialog(
+    BuildContext context,
+    String item,
+    int itemId,
+    String screen,
+  ) {
     Get.defaultDialog(
       radius: 10.0,
       title: "Warning",
@@ -234,9 +251,9 @@ class PopupDialogWidgets{
                 Icons.beach_access,
                 color: Colors.green,
               ),
-              
-              Text(" Do you want to delete? $item",
-              style: Theme.of(context).textTheme.headline6,
+              Text(
+                " Do you want to delete? $item",
+                style: Theme.of(context).textTheme.headline6,
               ),
             ],
           ),
@@ -244,19 +261,26 @@ class PopupDialogWidgets{
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-            onPressed: () => Get.back(),
-            child: Text("Cancel"),
-            style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).appBarTheme.backgroundColor,
-              onPrimary: Colors.white,
-            ),
-            
-          ),
+                onPressed: () => Get.back(),
+                child: Text("Cancel"),
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).appBarTheme.backgroundColor,
+                  onPrimary: Colors.white,
+                ),
+              ),
               TextButton(
                 onPressed: () {
                   Get.back();
-                  context.read(playerProvider).deletePlayer(itemId);
-                  },
+                  if(screen == "player"){
+                    context.read(playerProvider).deletePlayer(itemId);
+                  } else if(screen == "match"){
+                  context.read(matchProvider).deleteMatch(itemId);
+                  } else if(screen == "game"){
+                  context.read(gameProvider).deleteGame(itemId);
+                  } else {
+                    print("nothing to delete here");
+                  }
+                },
                 child: Text("Delete"),
                 style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).appBarTheme.backgroundColor,
@@ -269,5 +293,4 @@ class PopupDialogWidgets{
       ),
     );
   }
-
 }
