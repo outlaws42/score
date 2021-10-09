@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../helpers/custom_widgets/menu_widgets.dart';
 import './player_list.dart';
@@ -52,15 +50,15 @@ class PlayersScreen extends StatelessWidget {
         ],
       ),
       body: PlayerList(),
-      floatingActionButton: FloatingActionButton(
-        foregroundColor: Colors.white70,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        child: Icon(Icons.add),
-        onPressed: () {
-          context.read(playerProvider).addPlayer();
-          context.read(playerProvider).fetchPlayer();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   foregroundColor: Colors.white70,
+      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     context.read(playerProvider).addPlayer();
+      //     context.read(playerProvider).fetchPlayer();
+      //   },
+      // ),
     );
   }
 }

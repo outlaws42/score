@@ -25,17 +25,29 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateSelected({
+    required int gameId,
+    required bool isSelected
+  }) {
+    bool selected = isSelected;
+    selected = !selected;
+    int isSelectedInt = selected == false ? 0 : 1;
+    updateIsSelected(gameId, isSelectedInt);
+    // notifyListeners();
+  }
+
   Future<void> fetchGame() async {
     final dataList = await DBHelper.getData('game');
     _games = dataList
         .map(
           (game) => GameModel(
-            id: game['id'] as int?,
+            id: game['id'] as int,
             name: game['name'] as String,
-            description: game['description'] as String?,
+            description: game['description'] as String,
             endScore: game['end_score'] as int?,
             lowScore: game['low_score'] == 0 ? false : true,
             freePlay: game['free_play'] == 0 ? false : true,
+            isSelected: game['is_selected'] == 0 ? false : true,
             dateTime: game['date_time'] as int,
           ),
         )
@@ -45,11 +57,12 @@ class GameProvider extends ChangeNotifier {
 
   Future<void> addGameForm({
     // int? id,
-    String? name,
-    String? description,
+    String name="game",
+    String description = 'This game will challenge you',
     int? endScore,
     bool lowScore=false,
     bool freePlay = false,
+    bool isSelected = false,
     int dateTime = 0,
   }) async {
     final newGame = GameModel(
@@ -59,6 +72,7 @@ class GameProvider extends ChangeNotifier {
       endScore: endScore,
       lowScore: lowScore,
       freePlay: freePlay,
+      isSelected: isSelected,
       dateTime: dateTime,
     );
     _games.add(newGame);
@@ -70,6 +84,7 @@ class GameProvider extends ChangeNotifier {
       'end_score': newGame.endScore,
       'low_score': newGame.lowScore== false ? 0 : 1,
       'free_play': newGame.freePlay== false ? 0 : 1,
+      'is_selected': newGame.isSelected,
       'date_time': newGame.dateTime,
     });
   }
@@ -99,5 +114,18 @@ class GameProvider extends ChangeNotifier {
       'low_score': newGame.lowScore== false ? 0 : 1,
       'free_play': newGame.freePlay== false ? 0 : 1,  
     });
+  }
+
+  Future<void> updateIsSelected(
+    int gameId,
+    int isSelected,
+  ) async { 
+    print('Update is selected $isSelected');
+    DBHelper.update('game', gameId, {
+      'is_selected': isSelected,
+    });
+    print("fetchGame");
+    fetchGame();
+    notifyListeners();
   }
 }

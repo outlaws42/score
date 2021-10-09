@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../helpers/custom_widgets/menu_widgets.dart';
 import './game_list.dart';
@@ -52,15 +50,15 @@ class GameScreen extends StatelessWidget {
         ],
       ),
       body: GameList(),
-      floatingActionButton: FloatingActionButton(
-        foregroundColor: Colors.white70,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        child: Icon(Icons.add),
-        onPressed: () {
-          context.read(gameProvider).addGame();
-          context.read(gameProvider).fetchGame();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   foregroundColor: Colors.white70,
+      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     context.read(gameProvider).addGame();
+      //     context.read(gameProvider).fetchGame();
+      //   },
+      // ),
     );
   }
 }

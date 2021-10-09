@@ -44,6 +44,7 @@ class DBHelper {
             end_score INTEGER, 
             low_score INTEGER,
             free_play INTEGER,
+            is_selected INTEGER,
             date_time INTEGER
             )''');
       db.execute('''CREATE TABLE player_match(
@@ -57,6 +58,7 @@ class DBHelper {
             low_score INTEGER,
             is_complete INTEGER,
             free_play INTEGER,
+            is_selected INTEGER,
             date_time INTEGER, 
             player1_name TEXT,
             player2_name TEXT,
@@ -119,6 +121,7 @@ class DBHelper {
             low_score INTEGER,
             is_complete INTEGER,
             free_play INTEGER,
+            is_selected INTEGER,
             date_time INTEGER, 
             team1_name TEXT,
             team2_name TEXT,

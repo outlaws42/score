@@ -73,4 +73,36 @@ class BottomSheetWidgets {
       ),
     );
   }
+
+  gameSheet({
+    required BuildContext context,
+    required String game,
+    required String description,
+    required String date,
+  }) {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            child: ListTile(
+              // leading: ,
+              title: Text(
+                "$game",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              subtitle: Text(
+                "$description",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+
+              trailing: Text('$date'),
+            ),
+          ),
+          // }),
+        ),
+      ),
+    );
+  }
 }

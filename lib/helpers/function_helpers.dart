@@ -63,5 +63,13 @@ class FunctionHelper {
     String date = dateFormat.format(dts);
     return date;
   }
-  
+  updateSelected({
+    required int id,
+    required bool isSelected
+  }) {
+    isSelected = !isSelected;
+    int isSelectedInt = isSelected == false ? 0 : 1;
+    return isSelectedInt;
+    // notifyListeners();
+  }
 }

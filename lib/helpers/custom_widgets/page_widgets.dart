@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:score/helpers/custom_widgets/popup_dialog_widgets.dart';
-import 'package:score/views/player_form.dart';
+import './popup_dialog_widgets.dart';
 import '../../controllers/providers.dart';
 import '../../controllers/player_provider.dart';
 import '../../models/match_model.dart';
 import '../../models/player_model.dart';
+import '../../models/game_model.dart';
+import '../function_helpers.dart';
 import './bottom_sheet_widgets.dart';
 
 class PageWidgets {
@@ -43,6 +44,7 @@ class PageWidgets {
     required BuildContext context,
     required String pageName,
     required String pageLink,
+    List args = const ["form"],
   }) {
     return Center(
       child: Container(
@@ -54,7 +56,7 @@ class PageWidgets {
             //   style: Theme.of(context).textTheme.headline5,
             // ),
             IconButton(
-              onPressed: () => Get.toNamed(pageLink),
+              onPressed: () => Get.toNamed(pageLink, arguments: args),
               icon: Icon(Icons.add_circle),
               iconSize: 120,
               color: Theme.of(context).appBarTheme.backgroundColor,
@@ -227,6 +229,164 @@ class PageWidgets {
               ),
             ),
           )),
+    );
+  }
+
+  Widget listItemGame({
+    required BuildContext context,
+    required int index,
+    required List<GameModel> game,
+  }) {
+    List _selectedItems = [];
+    List arguments = Get.arguments;
+    final _id = game[index].id;
+    final _game = game[index].name;
+    final _description = game[index].description;
+    final _endScore = game[index].endScore;
+    final _lowScore = game[index].lowScore;
+    final _freePlay = game[index].freePlay;
+    bool _isSelected = game[index].isSelected;
+    final _date =
+        FunctionHelper().convertToDate(dateTimeUtcInt: game[index].dateTime);
+    String _firstDesc = "";
+
+    if (_description.length > 29) {
+      _firstDesc = _description.substring(0, 29);
+    } else {
+      _firstDesc = _description;
+    }
+
+    return GestureDetector(
+      onTap: () {
+        print("OnTap");
+        if (arguments[0] == 'form') {
+          _selectedItems = [_game, _endScore, _id, _lowScore, _freePlay];
+          print(_selectedItems);
+          Get.back(result: _selectedItems);
+        } else {
+          print(arguments[0]);
+          BottomSheetWidgets().gameSheet(
+            context: context,
+            game: _game,
+            description: _description,
+            date: _date,
+            // _endScore,
+            // _id,
+          );
+        }
+      },
+      onLongPress: () {
+        print("This is ID $_id");
+        context.read(gameProvider).updateSelected(
+              gameId: _id,
+              isSelected: _isSelected,
+            );
+        print("This is onLongPress");
+      },
+      child: Container(
+        padding: const EdgeInsets.all(2),
+        height: 70,
+        child: Card(
+          elevation: 3,
+          color: _isSelected == false
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Theme.of(context).appBarTheme.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // Leading
+                _isSelected == true
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              PopupDialogWidgets.warnDialog(
+                                  context, _game, _id);
+                              // context.read(playerProvider).deletePlayer(_id);
+                              print("Pressed Delete");
+                            },
+                            icon: Icon(Icons.delete_forever),
+                            iconSize: 30,
+                            color:
+                                Theme.of(context).appBarTheme.foregroundColor,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              context.read(playerProvider).updateSelected(
+                                    playerId: _id,
+                                    isSelected: _isSelected,
+                                  );
+                              Get.toNamed("/game_form", arguments: [
+                                "form_edit",
+                                _id,
+                                _game,
+                                _description
+                              ]);
+
+                              print("Pressed Edit");
+                            },
+                            icon: Icon(Icons.edit),
+                            iconSize: 30,
+                            color:
+                                Theme.of(context).appBarTheme.foregroundColor,
+                          ),
+                        ],
+                      )
+                    : Container(
+                        height: 0,
+                        width: 0,
+                      ),
+                //Title(Player Name)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$_game',
+                      style: _isSelected == false
+                          ? Theme.of(context).textTheme.headline4
+                          : Theme.of(context).textTheme.headline5,
+                    ),
+                    Text(
+                      '$_firstDesc',
+                      style: _isSelected == false
+                          ? Theme.of(context).textTheme.bodyText1
+                          : Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                _freePlay == true
+                    ? Row(
+                        children: [
+                          PageWidgets().circleContainer(
+                            context: context,
+                            content: 'FP',
+                          ),
+                          _lowScore == true
+                              ? PageWidgets().circleContainer(
+                                  context: context,
+                                  content: 'LS',
+                                )
+                              : Container(
+                                  height: 0,
+                                  width: 0,
+                                ),
+                        ],
+                      )
+                    : PageWidgets().circleContainer(
+                        context: context,
+                        content: _endScore.toString(),
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

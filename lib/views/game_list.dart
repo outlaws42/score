@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../models/game_model.dart';
 import '../helpers/function_helpers.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
+import '../helpers/custom_widgets/bottom_sheet_widgets.dart';
 // import './game_form.dart';
 // import 'package:provider/provider.dart';
 // import 'package:get/get.dart';
@@ -14,39 +16,43 @@ import '../helpers/custom_widgets/page_widgets.dart';
 // final gameProvider = ChangeNotifierProvider<GameProvider>((ref) => GameProvider());
 
 class GameList extends ConsumerWidget {
-  showBottomSheet({
+  // showBottomSheet({
+  //   required BuildContext context,
+  //   required String game,
+  //   required String description,
+  //   required String date,
+  // }) {
+  //   Get.bottomSheet(
+  //     Container(
+  //       color: Colors.white,
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(10.0),
+  //         child: Container(
+  //           child: ListTile(
+  //             // leading: ,
+  //             title: Text(
+  //               "$game",
+  //               style: Theme.of(context).textTheme.headline6,
+  //             ),
+  //             subtitle: Text(
+  //               "$description",
+  //               style: Theme.of(context).textTheme.subtitle1,
+  //             ),
+
+  //             trailing: Text('$date'),
+  //           ),
+  //         ),
+  //         // }),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget _listItem({
     required BuildContext context,
-    required String game,
-    required String description,
-    required String date,
+    required int index,
+    required List<GameModel> game,
   }) {
-    Get.bottomSheet(
-      Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            child: ListTile(
-              // leading: ,
-              title: Text(
-                "$game",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              subtitle: Text(
-                "$description",
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-
-              trailing: Text('$date'),
-            ),
-          ),
-          // }),
-        ),
-      ),
-    );
-  }
-
-  Widget _listItem(index, game, context) {
     List _selectedItems = [];
     var arguments = Get.arguments;
     final _id = game[index].id;
@@ -100,7 +106,7 @@ class GameList extends ConsumerWidget {
               Get.back(result: _selectedItems);
             } else {
               print(arguments[0]);
-              showBottomSheet(
+              BottomSheetWidgets().gameSheet(
                 context: context,
                 game: _game,
                 description: _description,
@@ -140,7 +146,7 @@ class GameList extends ConsumerWidget {
         ? PageWidgets().noData(
             context: context,
             pageName: 'game',
-            pageLink:'/game_form',
+            pageLink: '/game_form',
           )
         : ListView.builder(
             itemCount: _game.length,
@@ -155,11 +161,19 @@ class GameList extends ConsumerWidget {
                     //   indent: 0,
                     //   endIndent: 0,
                     // ),
-                    _listItem(index, _game, context)
+                    PageWidgets().listItemGame(
+                      context: context,
+                      index: index,
+                      game: _game,
+                    )
                   ],
                 );
               } else
-                return _listItem(index, _game, context);
+                return PageWidgets().listItemGame(
+                  context: context,
+                  index: index,
+                  game: _game,
+                );
             },
           );
     // );

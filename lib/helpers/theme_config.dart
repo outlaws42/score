@@ -70,11 +70,11 @@ class ThemeConfig {
       ),
       bodyText1: TextStyle(
         color: Colors.black87,
-        fontSize: 14.0,
+        fontSize: 12.0,
         fontWeight: FontWeight.normal,
       ),
       bodyText2: TextStyle(
-        color: Colors.black87,
+        color: Colors.white,
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
       ),
