@@ -145,14 +145,14 @@ class PopupDialogWidgets {
               textInputAction: TextInputAction.done,
               onChanged: (value){
                 print(value);
-                if (score + int.parse(value) > winScore){
+                if (score + int.parse(value) > winScore && freePlay == false){
                   isDisabled = true;
                   print("The Input is to higher then the score to win");
                 }
               },
               onFieldSubmitted: (value) {
                 // int.parse(value) + score > winScore ?
-                isDisabled == true ? Get.back() :
+                isDisabled == true && freePlay== false ? Get.back() :
                 sign == "add"
                     ? context.read(matchProvider).plus(
                           id: id,
