@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:score/helpers/function_helpers.dart';
 import '../../controllers/providers.dart';
 
 class PopupDialogWidgets {

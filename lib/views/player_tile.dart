@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
-import '../helpers/custom_widgets/popup_dialog_widgets.dart';
-import '../helpers/function_helpers.dart';
+// import '../helpers/custom_widgets/popup_dialog_widgets.dart';
+// import '../helpers/function_helpers.dart';
+import '../helpers.dart';
 
 class PlayerTile extends StatelessWidget {
   final String player;

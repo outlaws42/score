@@ -17,12 +17,8 @@ class MatchProvider extends ChangeNotifier {
   // int currentColor = Colors.green.value; //4284790262;
 
   void changeTileColor(Color color, player, id) {
-    // print("This is color changeTileColr $color");
     int colorInt = color.value;
     print(color.value);
-    // print("This is colorInt changeTileColr $colorInt");
-    // currentColor = colorInt;
-    // notifyListeners();
     updateColor(id, colorInt, player);
     
   }
@@ -225,13 +221,6 @@ class MatchProvider extends ChangeNotifier {
     int score,
     String player,
   ) async {
-    // final newPlayer = MatchModel(
-    //   firstName: faker.person.firstName(),
-    //   lastName: faker.person.lastName(),
-    //   wins: faker.randomGenerator.integer(20),
-    // );
-    // _matches.add(newPlayer);
-    // notifyListeners();
     if (player == "player1") {
       DBHelper.update('player_match', id, {
         'player1_score': score,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:faker/faker.dart';
+// import 'package:faker/faker.dart';
 import '../helpers/db_helper.dart';
 import '../models/game_model.dart';
 
@@ -89,32 +89,32 @@ class GameProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> addGame({
-    // int? id,
-    String? name,
-    String? description,
-    int? endscore,
-    bool lowscore=false,
-  }) async {
-    final newGame = GameModel(
-      // id: id,
-      name: faker.sport.name(),
-      description: faker.lorem.sentence(),
-      endScore: faker.randomGenerator.integer(21),
-      lowScore: lowscore,
-      freePlay: false,
-    );
-    _games.add(newGame);
-    notifyListeners();
-    DBHelper.insert('game', {
-      // 'id': newGame.id,
-      'name': newGame.name,
-      'description': newGame.description,
-      'end_score': newGame.endScore,
-      'low_score': newGame.lowScore== false ? 0 : 1,
-      'free_play': newGame.freePlay== false ? 0 : 1,  
-    });
-  }
+  // Future<void> addGame({
+  //   // int? id,
+  //   String? name,
+  //   String? description,
+  //   int? endscore,
+  //   bool lowscore=false,
+  // }) async {
+  //   final newGame = GameModel(
+  //     // id: id,
+  //     name: faker.sport.name(),
+  //     description: faker.lorem.sentence(),
+  //     endScore: faker.randomGenerator.integer(21),
+  //     lowScore: lowscore,
+  //     freePlay: false,
+  //   );
+  //   _games.add(newGame);
+  //   notifyListeners();
+  //   DBHelper.insert('game', {
+  //     // 'id': newGame.id,
+  //     'name': newGame.name,
+  //     'description': newGame.description,
+  //     'end_score': newGame.endScore,
+  //     'low_score': newGame.lowScore== false ? 0 : 1,
+  //     'free_play': newGame.freePlay== false ? 0 : 1,  
+  //   });
+  // }
 
   Future<void> updateIsSelected(
     int gameId,

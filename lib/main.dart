@@ -10,7 +10,7 @@ import './controllers/theme_provider.dart';
 // import './controllers/player_provider.dart';
 // import './controllers/game_provider.dart';
 import './helpers/theme_config.dart';
-import './views/main_screen.dart';
+// import './views/main_screen.dart';
 import './views/match_screen.dart';
 import './views/settings.dart';
 import './views/player_screen.dart';
@@ -63,7 +63,6 @@ class MyApp extends ConsumerWidget {
       home: MatchScreen(),
       themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: [
-        GetPage(name: '/', page: () => MainScreen()),
         GetPage(name: '/match', page: () => MatchScreen()),
         GetPage(name: '/match_current', page: () => MatchCurrentScreen()),
         GetPage(name: '/games', page: () => GameScreen()),

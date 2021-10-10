@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:score/controllers/providers.dart';
-import '../helpers/custom_widgets/page_widgets.dart';
+// import '../helpers/custom_widgets/page_widgets.dart';
 import 'player_tile.dart';
 import './match.dart';
+import '../helpers.dart';
 
 enum FilterOptions {
   Players,
@@ -63,63 +64,42 @@ class MatchCurrentScreen extends StatelessWidget {
             icon: Icon(Icons.list_alt),
           ),
           PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) {
-              print(selectedValue);
-              selectSettings(context, selectedValue);
-            },
-            icon: Icon(Icons.more_vert),
-            // onSelected: (Filter){},
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                  child: ListTile(
-                    horizontalTitleGap: -10,
-                    leading: Icon(Icons.person),
-                    title: Text(
-                      "Matches",
+              iconSize: 30,
+              icon: Icon(Icons.menu),
+              itemBuilder: (BuildContext context) => <PopupMenuItem>[
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Matches",
+                      icon: Icon(Icons.list_alt),
+                      value: 1,
                     ),
-                  ),
-                  value: FilterOptions.Matches),
-              PopupMenuItem(
-                  child: ListTile(
-                    horizontalTitleGap: -10,
-                    leading: Icon(Icons.person),
-                    title: Text(
-                      "Players",
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Players",
+                      icon: Icon(Icons.person),
+                      value: 2,
                     ),
-                  ),
-                  value: FilterOptions.Players),
-              PopupMenuItem(
-                child: ListTile(
-                  horizontalTitleGap: -10,
-                  leading: Icon(Icons.games),
-                  title: Text(
-                    "Games",
-                  ),
-                ),
-                value: FilterOptions.Games,
-              ),
-              PopupMenuItem(
-                child: ListTile(
-                  horizontalTitleGap: -10,
-                  leading: Icon(Icons.people),
-                  title: Text(
-                    "Teams",
-                  ),
-                ),
-                value: FilterOptions.Teams,
-              ),
-              PopupMenuItem(
-                child: ListTile(
-                  horizontalTitleGap: -10,
-                  leading: Icon(Icons.settings),
-                  title: Text(
-                    "Settings",
-                  ),
-                ),
-                value: FilterOptions.Settings,
-              ),
-            ],
-          ),
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Games",
+                      icon: Icon(Icons.games),
+                      value: 3,
+                    ),
+                    MenuWidgets.menuItem(
+                      context: context,
+                      menuTitle: "Settings",
+                      icon: Icon(Icons.settings),
+                      value: 10,
+                    ),
+                  ],
+              onSelected: (value) {
+                print(value);
+                MenuWidgets.menuSelect(
+                  context,
+                  value,
+                  "current_match_screen",
+                );
+              })
         ],
       ),
       body: SingleChildScrollView(

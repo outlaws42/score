@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../helpers/custom_widgets/page_widgets.dart';
-import '../helpers/custom_widgets/menu_widgets.dart';
+// import '../helpers/custom_widgets/page_widgets.dart';
+// import '../helpers/custom_widgets/menu_widgets.dart';
+import '../helpers.dart';
 import './game_list.dart';
 
-
 class GameScreen extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,12 +14,12 @@ class GameScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
-           PageWidgets().iconButtonBar(
+          PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/game_form",
             icon: Icon(Icons.add_box),
           ),
-            PopupMenuButton(
+          PopupMenuButton(
               iconSize: 30,
               icon: Icon(Icons.menu),
               itemBuilder: (BuildContext context) => <PopupMenuItem>[
@@ -45,20 +44,15 @@ class GameScreen extends StatelessWidget {
                   ],
               onSelected: (value) {
                 print(value);
-                MenuWidgets.menuSelect(context, value, "game_screen");
+                MenuWidgets.menuSelect(
+                  context,
+                  value,
+                  "game_screen",
+                );
               })
         ],
       ),
       body: GameList(),
-      // floatingActionButton: FloatingActionButton(
-      //   foregroundColor: Colors.white70,
-      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-      //   child: Icon(Icons.add),
-      //   onPressed: () {
-      //     context.read(gameProvider).addGame();
-      //     context.read(gameProvider).fetchGame();
-      //   },
-      // ),
     );
   }
 }

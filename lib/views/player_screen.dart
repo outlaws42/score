@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../helpers/custom_widgets/page_widgets.dart';
-import '../helpers/custom_widgets/menu_widgets.dart';
+// import '../helpers/custom_widgets/page_widgets.dart';
+// import '../helpers/custom_widgets/menu_widgets.dart';
+import '../helpers.dart';
 import './player_list.dart';
 
-
 class PlayersScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +44,15 @@ class PlayersScreen extends StatelessWidget {
                   ],
               onSelected: (value) {
                 print(value);
-                MenuWidgets.menuSelect(context, value, "player_screen");
+                MenuWidgets.menuSelect(
+                  context,
+                  value,
+                  "player_screen",
+                );
               })
         ],
       ),
       body: PlayerList(),
-      // floatingActionButton: FloatingActionButton(
-      //   foregroundColor: Colors.white70,
-      //   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-      //   child: Icon(Icons.add),
-      //   onPressed: () {
-      //     context.read(playerProvider).addPlayer();
-      //     context.read(playerProvider).fetchPlayer();
-      //   },
-      // ),
     );
   }
 }

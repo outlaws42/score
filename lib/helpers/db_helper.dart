@@ -190,6 +190,11 @@ class DBHelper {
     );
   }
 
+  // static Future<void> export() async{
+  //   final db = await DBHelper.database();
+
+  // }
+
   static Future<List<Map<String, Object?>>> getData(String table) async {
     // gets access to the database
     final db = await DBHelper.database();
@@ -227,4 +232,6 @@ class DBHelper {
       
     );
   }
+
+  
 }

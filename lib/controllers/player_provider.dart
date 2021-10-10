@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:faker/faker.dart';
+// import 'package:faker/faker.dart';
 import '../helpers/db_helper.dart';
 import '../models/player_model.dart';
 
@@ -81,33 +81,26 @@ class PlayerProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> addPlayer(
-  ) async {
-    final newPlayer = PlayerModel(
-      name: faker.person.firstName(),
-      wins: faker.randomGenerator.integer(20),
-    );
-    _players.add(newPlayer);
-    notifyListeners();
-    DBHelper.insert('player', {
-      'name': newPlayer.name,
-      'wins': newPlayer.wins,
-    });
-    print(newPlayer);
-  }
+  // Future<void> addPlayer(
+  // ) async {
+  //   final newPlayer = PlayerModel(
+  //     name: faker.person.firstName(),
+  //     wins: faker.randomGenerator.integer(20),
+  //   );
+  //   _players.add(newPlayer);
+  //   notifyListeners();
+  //   DBHelper.insert('player', {
+  //     'name': newPlayer.name,
+  //     'wins': newPlayer.wins,
+  //   });
+  //   print(newPlayer);
+  // }
 
   Future<void> updatePlayer(
     int id,
     int score,
     String player,
   ) async {
-    // final newPlayer = MatchModel(
-    //   firstName: faker.person.firstName(),
-    //   lastName: faker.person.lastName(),
-    //   wins: faker.randomGenerator.integer(20),
-    // );
-    // _matches.add(newPlayer);
-    // notifyListeners();
     if (player == "player1") {
       DBHelper.update('player_match',id , {
       'player1_score': score,
