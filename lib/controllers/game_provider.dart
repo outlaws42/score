@@ -18,6 +18,7 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   bool isFreePlay = false;
 
   void updateFreePlay() {
@@ -137,7 +138,9 @@ class GameProvider extends ChangeNotifier {
     fetchGame();
     notifyListeners();
   }
-
+  Future<void> export() async{
+    DBHelper().export();
+  }
   Future<void> updateGame({
    required int gameId,
    required String name,

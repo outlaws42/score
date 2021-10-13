@@ -1,5 +1,9 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:async';
+import 'dart:io';
 
 class DBHelper {
   static Future<sql.Database> database() async {
@@ -190,9 +194,35 @@ class DBHelper {
     );
   }
 
-  // static Future<void> export() async{
-  //   final db = await DBHelper.database();
+  Future<void> export() async{
+    var status = await Permission.storage.status;
+    print(status);
+    final dbPath = await sql.getDatabasesPath();
+    final File db = File(path.join(dbPath, 'score.db'));
+    final dirloc = (await getApplicationDocumentsDirectory()).path;
+    final savePath = await _extPath;
+    // final dir = Directory('/storage/emulated/0/Download/')
+    print('This is db dir $db');
+    print(savePath);
+    print(dirloc);
+    db.copy(savePath + "/score.db");
+    // db.copy(dirloc + "/score.db");
 
+  }
+
+  Future<String> get _extPath async {
+    var extPath = await getExternalStorageDirectory();
+    if (extPath == null){
+      extPath = Directory("This");
+      return extPath.path;
+    } else {
+      return extPath.path;
+    }
+  }
+
+  // Future<File> get _localFile async {
+  //   final path = await _localPath;
+  //   return File('$path/score.db');
   // }
 
   static Future<List<Map<String, Object?>>> getData(String table) async {
@@ -232,6 +262,34 @@ class DBHelper {
       
     );
   }
+
+//   private void exportDB() {
+//     try {
+//         File dbFile = new File(this.getDatabasePath(DATABASE_NAME).getAbsolutePath());
+//         FileInputStream fis = new FileInputStream(dbFile);
+
+//         String outFileName = DirectoryName + File.separator +
+//                 DATABASE_NAME + ".db";
+
+//         // Open the empty db as the output stream
+//         OutputStream output = new FileOutputStream(outFileName);
+
+//         // Transfer bytes from the inputfile to the outputfile
+//         byte[] buffer = new byte[1024];
+//         int length;
+//         while ((length = fis.read(buffer)) > 0) {
+//             output.write(buffer, 0, length);
+//         }
+//         // Close the streams
+//         output.flush();
+//         output.close();
+//         fis.close();
+
+
+//     } catch (IOException e) {
+//         Log.e("dbBackup:", e.getMessage());
+//     }
+// }
 
   
 }
