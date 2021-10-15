@@ -248,8 +248,9 @@ class PageWidgets {
     final _lowScore = game[index].lowScore;
     final _freePlay = game[index].freePlay;
     bool _isSelected = game[index].isSelected;
-    final _date =
-        FunctionHelper().convertToDate(dateTimeUtcInt: game[index].dateTime);
+    final _date = FunctionHelper().intUtcToStringFormatDT(
+      dateTimeUtcInt: game[index].dateTime,
+    );
     String _firstDesc = "";
 
     if (_description.length > 29) {
@@ -411,7 +412,7 @@ class PageWidgets {
     final _winner = match[index].winner;
     final _isComplete = match[index].isComplete;
     final _isSelected = match[index].isSelected;
-    final _date = FunctionHelper().convertToDate(
+    final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: match[index].dateTime,
     );
 

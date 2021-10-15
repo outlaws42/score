@@ -38,7 +38,7 @@ class BottomSheetWidgets {
               : ListView.builder(
                   itemCount: _wins.length,
                   itemBuilder: (context, index) {
-                    final _date = FunctionHelper().convertToDate(
+                    final _date = FunctionHelper().intUtcToStringFormatDT(
                       dateTimeUtcInt: _wins[index].dateTime,
                     );
                     return Container(

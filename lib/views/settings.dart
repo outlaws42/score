@@ -6,6 +6,8 @@ import 'package:score/main.dart';
 // import 'package:get/get.dart';
 // import '../controllers/theme_provider.dart';
 import '../controllers/settings_provider.dart';
+import '../controllers/providers.dart';
+import '../helpers.dart';
 // import '../controllers/settings_controller.dart';
 
 final settingsProvider =
@@ -168,7 +170,75 @@ class _SettingsState extends State<Settings> {
                 ),
                 // End Button Feedback
 
-                
+                // Export Import Database
+                 // About (Category)
+                Container(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  padding: EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Database',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Export Database',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        FunctionHelper().exportDb(context);
+                        // context.read(settingsProvider).export();
+
+                        print("Pressed Edit");
+                      },
+                      icon: Icon(Icons.share),
+                      iconSize: 30,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                    ),
+                  ],
+                ),
+                Divider(
+                  height: 20,
+                  thickness: 5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Import Database',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        FunctionHelper().restore(context);
+                        // context.read(playerProvider).fetchPlayer();
+                        // context.read(matchProvider).fetchMatch();
+                        // context.read(gameProvider).fetchGame();
+
+                        print("Pressed Edit");
+                      },
+                      icon: Icon(Icons.share),
+                      iconSize: 30,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                    ),
+                  ],
+                ),
+                Divider(
+                  height: 20,
+                  thickness: 5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
 
                 // About (Category)
                 Container(

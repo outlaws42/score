@@ -1,9 +1,10 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:permission_handler/permission_handler.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'dart:async';
-import 'dart:io';
+// import 'dart:io';
 
 class DBHelper {
   static Future<sql.Database> database() async {
@@ -194,36 +195,7 @@ class DBHelper {
     );
   }
 
-  Future<void> export() async{
-    var status = await Permission.storage.status;
-    print(status);
-    final dbPath = await sql.getDatabasesPath();
-    final File db = File(path.join(dbPath, 'score.db'));
-    final dirloc = (await getApplicationDocumentsDirectory()).path;
-    final savePath = await _extPath;
-    // final dir = Directory('/storage/emulated/0/Download/')
-    print('This is db dir $db');
-    print(savePath);
-    print(dirloc);
-    db.copy(savePath + "/score.db");
-    // db.copy(dirloc + "/score.db");
-
-  }
-
-  Future<String> get _extPath async {
-    var extPath = await getExternalStorageDirectory();
-    if (extPath == null){
-      extPath = Directory("This");
-      return extPath.path;
-    } else {
-      return extPath.path;
-    }
-  }
-
-  // Future<File> get _localFile async {
-  //   final path = await _localPath;
-  //   return File('$path/score.db');
-  // }
+  
 
   static Future<List<Map<String, Object?>>> getData(String table) async {
     // gets access to the database
