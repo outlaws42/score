@@ -110,4 +110,38 @@ class BottomSheetWidgets {
       ),
     );
   }
+
+  dbBackupSheet({
+    required BuildContext context,
+    required String url,
+    // required String description,
+    // required String date,
+  }) {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            child: ListTile(
+              // leading: ,
+              title: Text(
+                "The database was backed up at this location",
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              subtitle: Text(
+                "$url",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              // trailing: Text(
+              //   '$date',
+              //   style: Theme.of(context).textTheme.subtitle1,
+              // ),
+            ),
+          ),
+          // }),
+        ),
+      ),
+    );
+  }
 }

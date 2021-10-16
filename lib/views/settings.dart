@@ -6,7 +6,7 @@ import 'package:score/main.dart';
 // import 'package:get/get.dart';
 // import '../controllers/theme_provider.dart';
 import '../controllers/settings_provider.dart';
-import '../controllers/providers.dart';
+// import '../controllers/providers.dart';
 import '../helpers.dart';
 // import '../controllers/settings_controller.dart';
 
@@ -171,7 +171,7 @@ class _SettingsState extends State<Settings> {
                 // End Button Feedback
 
                 // Export Import Database
-                 // About (Category)
+                // Database (Category)
                 Container(
                   color: Theme.of(context).colorScheme.onPrimary,
                   padding: EdgeInsets.all(8),
@@ -184,16 +184,20 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ),
+                // Share Database
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Export Database',
+                      'Share Database',
                       style: Theme.of(context).textTheme.headline6,
                     ),
+                    Spacer(),
                     IconButton(
                       onPressed: () {
-                        FunctionHelper().exportDb(context);
+                        FunctionHelper().shareDb(
+                          context: context,
+                        );
                         // context.read(settingsProvider).export();
 
                         print("Pressed Edit");
@@ -211,6 +215,38 @@ class _SettingsState extends State<Settings> {
                   endIndent: 0,
                 ),
 
+                // Export Database
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Export Database',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        String url = await FunctionHelper().backupDb(
+                          context: context,
+                        );
+                        BottomSheetWidgets().dbBackupSheet(context: context, url: url);
+                        // context.read(settingsProvider).export();
+
+                        print("Pressed Edit");
+                      },
+                      icon: Icon(Icons.file_upload),
+                      iconSize: 30,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                    ),
+                  ],
+                ),
+                Divider(
+                  height: 20,
+                  thickness: 5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+
+                //Restore Database
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -220,14 +256,17 @@ class _SettingsState extends State<Settings> {
                     ),
                     IconButton(
                       onPressed: () {
-                        FunctionHelper().restore(context);
+                        PopupDialogWidgets.confirmBackupDialog(context: context, dbFile: "Test");
+                        // FunctionHelper().restore(
+                        //   context: context,
+                        // );
                         // context.read(playerProvider).fetchPlayer();
                         // context.read(matchProvider).fetchMatch();
                         // context.read(gameProvider).fetchGame();
 
                         print("Pressed Edit");
                       },
-                      icon: Icon(Icons.share),
+                      icon: Icon(Icons.file_download),
                       iconSize: 30,
                       color: Theme.of(context).appBarTheme.backgroundColor,
                     ),

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../controllers/providers.dart';
+import '../function_helpers.dart';
 
 class PopupDialogWidgets {
   static Widget plusMinusButton({
@@ -243,50 +244,130 @@ class PopupDialogWidgets {
       title: "Warning",
       content: Column(
         children: [
+           Icon(
+                Icons.dangerous,
+                color: Colors.red,
+                size: 50,
+              ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.beach_access,
-                color: Colors.green,
-              ),
+              // Icon(
+              //   Icons.delete_forever,
+              //   color: Colors.green,
+              // ),
               Text(
                 " Do you want to delete? $item",
                 style: Theme.of(context).textTheme.headline6,
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () => Get.back(),
-                child: Text("Cancel"),
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).appBarTheme.backgroundColor,
-                  onPrimary: Colors.white,
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              
+              children: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text("Cancel"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
                 ),
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                    if(screen == "player"){
+                      context.read(playerProvider).deletePlayer(itemId);
+                    } else if(screen == "match"){
+                    context.read(matchProvider).deleteMatch(itemId);
+                    } else if(screen == "game"){
+                    context.read(gameProvider).deleteGame(itemId);
+                    } else {
+                      print("nothing to delete here");
+                    }
+                  },
+                  child: Text("Delete"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static confirmBackupDialog({
+    required BuildContext context,
+    required String dbFile,
+  }) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "Warning",
+      content: Column(
+        children: [
+           Icon(
+                Icons.dangerous,
+                color: Colors.red,
+                size: 50,
               ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                  if(screen == "player"){
-                    context.read(playerProvider).deletePlayer(itemId);
-                  } else if(screen == "match"){
-                  context.read(matchProvider).deleteMatch(itemId);
-                  } else if(screen == "game"){
-                  context.read(gameProvider).deleteGame(itemId);
-                  } else {
-                    print("nothing to delete here");
-                  }
-                },
-                child: Text("Delete"),
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).appBarTheme.backgroundColor,
-                  onPrimary: Colors.white,
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon(
+              //   Icons.file_download,
+              //   color: Colors.green,
+              // ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    " Are you sure you want to restore?",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Text(
+                    " It will overwrite the current database",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
               ),
             ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text("Cancel"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                     FunctionHelper().restore(
+                            context: context,
+                          );
+                  },
+                  child: Text("Ok"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
