@@ -446,7 +446,7 @@ class PageWidgets {
         child: Card(
           elevation: 3,
           color: _isSelected == false
-              ? Theme.of(context).scaffoldBackgroundColor
+              ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -474,21 +474,29 @@ class PageWidgets {
                     children: [
                       Text(
                         '$_gameName',
-                        style: Theme.of(context).textTheme.headline4,
+                        style: _isSelected == true
+                            ? Theme.of(context).textTheme.headline5
+                            : Theme.of(context).textTheme.headline4,
                       ),
                       _player1 == false && _player2 == false
                           ? Text(
                               '$_player1Name vs $_player2Name',
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: _isSelected == true
+                                  ? Theme.of(context).textTheme.subtitle2
+                                  : Theme.of(context).textTheme.subtitle1,
                             )
                           : _player1 == true
                               ? Text(
                                   '$_player1Name (Winner) vs $_player2Name',
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: _isSelected == true
+                                      ? Theme.of(context).textTheme.subtitle2
+                                      : Theme.of(context).textTheme.subtitle1,
                                 )
                               : Text(
                                   '$_player1Name vs $_player2Name (Winner)',
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: _isSelected == true
+                                      ? Theme.of(context).textTheme.subtitle2
+                                      : Theme.of(context).textTheme.subtitle1,
                                 ),
                     ],
                   ),
@@ -522,7 +530,9 @@ class PageWidgets {
                             ),
                       Text(
                         '$_date',
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: _isSelected == true
+                            ? Theme.of(context).textTheme.subtitle2
+                            : Theme.of(context).textTheme.subtitle1,
                       )
                     ],
                   ),
@@ -530,6 +540,62 @@ class PageWidgets {
               )),
         ),
       ),
+    );
+  }
+
+  static Widget settingsCategoryHeader({
+    required BuildContext context,
+    required String sectionTitle,
+  }) {
+    return Container(
+      color: Theme.of(context).colorScheme.onPrimary,
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: [
+          Text(
+            'Database',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget settingsItemIcon(
+      {required BuildContext context,
+      required String sectionTitle,
+      required String action,
+      Icon icon = const Icon(Icons.file_upload)}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          sectionTitle,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        IconButton(
+          onPressed: () async {
+            if (action == "export") {
+              String url = await FunctionHelper().backupDb(
+                context: context,
+              );
+              BottomSheetWidgets().dbBackupSheet(context: context, url: url);
+            } else if (action == "share") {
+              FunctionHelper().shareDb(
+                context: context,
+              );
+            } else if (action == "import") {
+              PopupDialogWidgets.confirmBackupDialog(
+                context: context,
+                dbFile: "Test",
+              );
+            }
+          },
+          icon: icon,
+          iconSize: 30,
+          color: Theme.of(context).appBarTheme.backgroundColor,
+        ),
+      ],
     );
   }
 }

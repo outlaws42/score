@@ -174,10 +174,11 @@ class FunctionHelper {
   Future<String?> filePickerFile(
     BuildContext context,
   ) async {
+    String sdCard = await getExternalSdCardPath();
     String? _dbFile = await FilesystemPicker.open(
       title: 'Select DB File',
       context: context,
-      rootDirectory: Directory("storage"),
+      rootDirectory: Directory(sdCard),
       fsType: FilesystemType.file,
       allowedExtensions: [".db"],
       pickText: 'Select File ',
@@ -192,7 +193,7 @@ class FunctionHelper {
     String? _dbFile = await FilesystemPicker.open(
       title: 'Select Database Backup Location',
       context: context,
-      rootDirectory: Directory("storage"),
+      rootDirectory: Directory("android"),
       fsType: FilesystemType.folder,
       allowedExtensions: [".db"],
       pickText: 'Select Folder For Backup ',

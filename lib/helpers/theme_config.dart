@@ -64,8 +64,8 @@ class ThemeConfig {
         fontWeight: FontWeight.normal,
       ),
       subtitle2: TextStyle(
-        color: Colors.black87,
-        fontSize: 14.0,
+        color: Colors.white,
+        fontSize: 16.0,
         fontWeight: FontWeight.normal,
       ),
       bodyText1: TextStyle(

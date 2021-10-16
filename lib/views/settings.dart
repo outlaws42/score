@@ -67,21 +67,13 @@ class _SettingsState extends State<Settings> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                
                 // Interface Options(Category)
-                Container(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Interface Options',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ],
-                  ),
+                PageWidgets.settingsCategoryHeader(
+                  context: context,
+                  sectionTitle: "Interface Options",
                 ),
-                // End View Options
-
+               
                 // Dark Mode (Toggle)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,41 +164,17 @@ class _SettingsState extends State<Settings> {
 
                 // Export Import Database
                 // Database (Category)
-                Container(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Database',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ],
-                  ),
+                PageWidgets.settingsCategoryHeader(
+                  context: context,
+                  sectionTitle: "Database",
                 ),
+                
                 // Share Database
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Share Database',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        FunctionHelper().shareDb(
-                          context: context,
-                        );
-                        // context.read(settingsProvider).export();
-
-                        print("Pressed Edit");
-                      },
-                      icon: Icon(Icons.share),
-                      iconSize: 30,
-                      color: Theme.of(context).appBarTheme.backgroundColor,
-                    ),
-                  ],
+                PageWidgets.settingsItemIcon(
+                  context: context,
+                  sectionTitle: "Share Database",
+                  action: "share",
+                  icon: Icon(Icons.share),
                 ),
                 Divider(
                   height: 20,
@@ -214,30 +182,12 @@ class _SettingsState extends State<Settings> {
                   indent: 0,
                   endIndent: 0,
                 ),
-
                 // Export Database
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Export Database',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        String url = await FunctionHelper().backupDb(
-                          context: context,
-                        );
-                        BottomSheetWidgets().dbBackupSheet(context: context, url: url);
-                        // context.read(settingsProvider).export();
-
-                        print("Pressed Edit");
-                      },
-                      icon: Icon(Icons.file_upload),
-                      iconSize: 30,
-                      color: Theme.of(context).appBarTheme.backgroundColor,
-                    ),
-                  ],
+                PageWidgets.settingsItemIcon(
+                  context: context,
+                  sectionTitle: "Export Database",
+                  action: "export",
+                  icon: Icon(Icons.file_upload),
                 ),
                 Divider(
                   height: 20,
@@ -245,32 +195,12 @@ class _SettingsState extends State<Settings> {
                   indent: 0,
                   endIndent: 0,
                 ),
-
-                //Restore Database
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Import Database',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        PopupDialogWidgets.confirmBackupDialog(context: context, dbFile: "Test");
-                        // FunctionHelper().restore(
-                        //   context: context,
-                        // );
-                        // context.read(playerProvider).fetchPlayer();
-                        // context.read(matchProvider).fetchMatch();
-                        // context.read(gameProvider).fetchGame();
-
-                        print("Pressed Edit");
-                      },
-                      icon: Icon(Icons.file_download),
-                      iconSize: 30,
-                      color: Theme.of(context).appBarTheme.backgroundColor,
-                    ),
-                  ],
+                // Import Database
+                PageWidgets.settingsItemIcon(
+                  context: context,
+                  sectionTitle: "Import Database",
+                  action: "import",
+                  icon: Icon(Icons.file_download),
                 ),
                 Divider(
                   height: 20,
@@ -280,17 +210,9 @@ class _SettingsState extends State<Settings> {
                 ),
 
                 // About (Category)
-                Container(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      Text(
-                        'About',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ],
-                  ),
+                PageWidgets.settingsCategoryHeader(
+                  context: context,
+                  sectionTitle: "About",
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
