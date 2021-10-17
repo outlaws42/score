@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
@@ -109,13 +110,13 @@ class FunctionHelper {
 
   Future<String> getExternalSdCardPath() async {
     // Requires: path_provider
-    // Returns the external app Dir if it exists. 
+    // Returns the external app Dir if it exists.
     // If not it returns the internal app dir
     List<Directory>? extDirectories = await getExternalStorageDirectories();
     String rebuiltPath = "";
     List<String> dirs = [];
     if (extDirectories != null && extDirectories.asMap().containsKey(1)) {
-    dirs = extDirectories[1].toString().split("/");
+      dirs = extDirectories[1].toString().split("/");
     } else {
       dirs = extDirectories![0].toString().split("/");
     }
@@ -123,7 +124,7 @@ class FunctionHelper {
       rebuiltPath = rebuiltPath + "/" + dirs[i];
     }
     if (rebuiltPath.length > 0) {
-    rebuiltPath = rebuiltPath.substring(0, rebuiltPath.length - 1);
+      rebuiltPath = rebuiltPath.substring(0, rebuiltPath.length - 1);
     }
     return rebuiltPath;
   }
@@ -202,4 +203,12 @@ class FunctionHelper {
     return _dbFile;
   }
 
+  static license() async{
+    const url = 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt';
+    await launch(
+      url,
+      forceWebView: true,
+      enableJavaScript: true,
+    );
+  }
 }

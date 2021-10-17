@@ -553,7 +553,7 @@ class PageWidgets {
       child: Row(
         children: [
           Text(
-            'Database',
+            sectionTitle,
             style: Theme.of(context).textTheme.headline6,
           ),
         ],
@@ -561,21 +561,35 @@ class PageWidgets {
     );
   }
 
+  static Widget settingHr() {
+    return Divider(
+      height: 5,
+      thickness: 2,
+      indent: 0,
+      endIndent: 0,
+    );
+  }
+
   static Widget settingsItemIcon(
       {required BuildContext context,
-      required String sectionTitle,
+      required String title,
       required String action,
-      Icon icon = const Icon(Icons.file_upload)}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          sectionTitle,
+      Icon icon = const Icon(Icons.file_upload),
+      String subtitle = "",
+      }) {
+    return ListTile(
+      
+        title: Text(
+          title,
           style: Theme.of(context).textTheme.headline6,
         ),
-        IconButton(
-          onPressed: () async {
-            if (action == "export") {
+        subtitle:  Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        trailing: icon,
+        onTap: () async {
+          if (action == "export") {
               String url = await FunctionHelper().backupDb(
                 context: context,
               );
@@ -590,12 +604,8 @@ class PageWidgets {
                 dbFile: "Test",
               );
             }
-          },
-          icon: icon,
-          iconSize: 30,
-          color: Theme.of(context).appBarTheme.backgroundColor,
-        ),
-      ],
+        },
+
     );
   }
 }
