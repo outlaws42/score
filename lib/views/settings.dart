@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:path/path.dart';
 import 'package:score/main.dart';
 // import 'dart:html' as html;
@@ -171,7 +172,7 @@ class _SettingsState extends State<Settings> {
                   subtitle:
                       "This will backup the database in the apps folder. This will be dislaye at the bottom",
                   action: "export",
-                  icon: Icon(Icons.file_upload),
+                  icon: Icon(MdiIcons.databaseExport),
                 ),
                 PageWidgets.settingHr(),
                 // Import Database
@@ -181,7 +182,7 @@ class _SettingsState extends State<Settings> {
                   subtitle:
                       "This will import the selected database overwriting the current database",
                   action: "import",
-                  icon: Icon(Icons.file_download),
+                  icon: Icon(MdiIcons.databaseImport),
                 ),
                 // About (Category)
                 PageWidgets.settingsCategoryHeader(

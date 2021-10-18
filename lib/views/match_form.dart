@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/form_widgets.dart';
+import 'dart:io';
 
 class MatchForm extends StatefulWidget {
   @override
@@ -23,7 +24,6 @@ class _MatchFormState extends State<MatchForm> {
   bool _lowScore = false;
   bool _freePlay = false;
   String? selected;
-
 
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
@@ -93,10 +93,12 @@ class _MatchFormState extends State<MatchForm> {
           // player2Score: 1,
           isCompleted: false,
         );
+    sleep(const Duration(seconds: 1));
     context.read(matchProvider).fetchMatch();
-    int id = context.read(matchProvider).match.length;
-    print("This is id from match_form $id");
-    Get.offAllNamed("/match_current", arguments: [id, "match_form"]);
+    // int id = context.read(matchProvider).match.length;
+    var _id = context.read(matchProvider).match.last.gameName;
+    print("This is id from match_form $_id");
+    Get.offAllNamed("/match_current", arguments: [5, "match_form"]);
   }
 
   void _warnDialog() {
@@ -123,8 +125,9 @@ class _MatchFormState extends State<MatchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Match",
-        style: Theme.of(context).textTheme.headline3,
+        title: Text(
+          "Add Match",
+          style: Theme.of(context).textTheme.headline3,
         ),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
@@ -146,63 +149,63 @@ class _MatchFormState extends State<MatchForm> {
                 FormWidgets.formTextInput(
                   context: context,
                   controller: _nameController,
-                  labelText: "Match Name",
-                  hintText: "The name of match (Optional)",
+                  labelText: "Match Name (Optional)",
+                  hintText: "The name of match",
                   maxLength: 20,
                 ),
 
                 // Game Selection
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('$_game',
+                  child: Card(
+                    elevation: 4,
+                    child: ListTile(
+                      title: Text('$_game',
                           style: Theme.of(context).textTheme.headline4),
-                      IconButton(
-                        icon: Icon(Icons.games),
+                      trailing: Icon(
+                        Icons.games,
                         color: Theme.of(context).appBarTheme.backgroundColor,
-                        onPressed: () => goToGame(),
                       ),
-                    ],
+                      onTap: () => goToGame(),
+                    ),
                   ),
                 ),
 
                 // player1 Selection
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('$_player1',
+                  child: Card(
+                    elevation: 4,
+                    child: ListTile(
+                      title: Text('$_player1',
                           style: Theme.of(context).textTheme.headline4),
-                      IconButton(
-                        icon: Icon(Icons.person_add),
+                      trailing: Icon(
+                        Icons.person_add,
                         color: Theme.of(context).appBarTheme.backgroundColor,
-                        onPressed: () => goToPlay('player1',_id2),
                       ),
-                    ],
+                      onTap: () => goToPlay('player1', _id2),
+                    ),
                   ),
                 ),
 
                 // player2 Selection
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('$_player2',
+                  child: Card(
+                    elevation: 4,
+                    child: ListTile(
+                      title: Text('$_player2',
                           style: Theme.of(context).textTheme.headline4),
-                      IconButton(
-                        icon: Icon(Icons.person_add),
+                      trailing: Icon(
+                        Icons.person_add,
                         color: Theme.of(context).appBarTheme.backgroundColor,
-                        onPressed: () => goToPlay('player2',_id1),
                       ),
-                    ],
+                      onTap: () => goToPlay('player2', _id1),
+                    ),
                   ),
                 ),
-
                 
+
                 // Submit Button
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
