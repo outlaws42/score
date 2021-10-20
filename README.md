@@ -1,17 +1,10 @@
-# scoreboard
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # score
+
+This is a score taking application for mobile. To this point I have only compiled it to Android. 
+So there could be issues with iOS. You create games, players and matches. The app will keep track of player wins
+as well as keeping a list of the matches with winner and final score. Even though it is very usable it is still a work
+in progress.
+
+## License
+
+GPL 2.0
