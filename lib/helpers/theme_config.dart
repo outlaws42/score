@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ThemeConfig {
-  //
   ThemeConfig._();
 
   static final ThemeData lightTheme = ThemeData(
@@ -78,21 +77,11 @@ class ThemeConfig {
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
       ),
-      // caption: TextStyle(
-      //   color: Colors.white,
-      //   fontSize: 20.0,
-      //   fontWeight: FontWeight.bold,
-      // ),
       button: TextStyle(
         color: Colors.white,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
-      // overline: TextStyle(
-      //   color: Colors.white,
-      //   fontSize: 16.0,
-      //   fontWeight: FontWeight.bold,
-      // ),
     ),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
@@ -100,7 +89,7 @@ class ThemeConfig {
         side: BorderSide(color: Color(0xFFE7bd3b), width: 20),
       ),
       padding: EdgeInsets.all(18),
-      buttonColor: Color(0xFFE7bd3b), // blue 0xFF4286f4 yellow 0xFFE7bd3b
+      buttonColor: Color(0xFFE7bd3b),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(),
@@ -116,9 +105,9 @@ class ThemeConfig {
   );
 
   static final ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Color.fromRGBO(35, 38, 37, 1),//Color(0xFF464646), // 0xFF3D3D3D
+    scaffoldBackgroundColor: Color.fromRGBO(35, 38, 37, 1),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.teal,//Color(0xFF464646),
+      backgroundColor: Colors.teal,
       foregroundColor: Colors.white,
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -165,12 +154,12 @@ class ThemeConfig {
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
-        color: Color.fromRGBO(255, 255, 255, .85), // white
+        color: Color.fromRGBO(255, 255, 255, .85), 
         fontSize: 14.0,
         fontWeight: FontWeight.bold,
       ),
       subtitle1: TextStyle(
-        color: Color.fromRGBO(255, 255, 255, .85), // white
+        color: Color.fromRGBO(255, 255, 255, .85), 
         fontSize: 14.0,
         fontWeight: FontWeight.normal,
       ),
@@ -178,10 +167,9 @@ class ThemeConfig {
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18.0),
-        //side: BorderSide(color: Color(0xFFE7bd3b), width: 2),
       ),
       padding: EdgeInsets.all(18),
-      buttonColor: Color(0xFFE7bd3b), // blue 0xFF4286f4 yellow 0xFFE7bd3b
+      buttonColor: Color(0xFFE7bd3b),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(),

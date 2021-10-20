@@ -10,7 +10,6 @@ class FormWidgets {
     String? hintText = 'The name of your game (Required)',
     int maxLength = 20,
     String? blankFieldMessage,
-  
 
   }) {
     return Container(

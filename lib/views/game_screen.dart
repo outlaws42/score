@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import '../controllers/providers.dart';
-// import '../helpers/custom_widgets/page_widgets.dart';
-// import '../helpers/custom_widgets/menu_widgets.dart';
 import '../helpers.dart';
 import './game_list.dart';
 
@@ -46,7 +42,6 @@ class GameScreen extends StatelessWidget {
                     ),
                   ],
               onSelected: (value) {
-                print(value);
                 MenuWidgets.menuSelect(
                   context,
                   value,

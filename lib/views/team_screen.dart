@@ -23,7 +23,6 @@ class TeamScreen extends StatelessWidget {
     if (value == FilterOptions.Home) {
       Get.toNamed("/", arguments: ["team_screen"]);
     }  else if (value == FilterOptions.AddTeam) {
-      // controller.addPlayer();
     }
   }
 
@@ -35,11 +34,9 @@ class TeamScreen extends StatelessWidget {
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
-              print(selectedValue);
               selectSettings(context, selectedValue);
             },
             icon: Icon(Icons.more_vert),
-            // onSelected: (Filter){},
             itemBuilder: (_) => [
               PopupMenuItem(
                 child: ListTile(

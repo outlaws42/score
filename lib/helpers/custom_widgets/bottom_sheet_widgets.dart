@@ -20,10 +20,6 @@ class BottomSheetWidgets {
           child: _wins.length == 0
               ? Column(
                   children: [
-                    // Text(
-                    //     "$playerName",
-                    //     style: Theme.of(buildContext).textTheme.headline2,
-                    //   ),
                     Text(
                       "No wins Yet, Please keep trying",
                       style: Theme.of(buildContext).textTheme.headline2,
@@ -46,7 +42,6 @@ class BottomSheetWidgets {
                         elevation: 3,
                         color: Theme.of(context).scaffoldBackgroundColor,
                         child: ListTile(
-                          // leading: ,
                           title: Text(
                             "${_wins[index].matchName} ${_wins[index].gameName}",
                             style: Theme.of(context).textTheme.headline4,
@@ -90,7 +85,6 @@ class BottomSheetWidgets {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             child: ListTile(
-              // leading: ,
               title: Text(
                 "$game",
                 style: Theme.of(context).textTheme.headline4,
@@ -105,7 +99,6 @@ class BottomSheetWidgets {
               ),
             ),
           ),
-          // }),
         ),
       ),
     );
@@ -114,8 +107,6 @@ class BottomSheetWidgets {
   dbBackupSheet({
     required BuildContext context,
     required String url,
-    // required String description,
-    // required String date,
   }) {
     Get.bottomSheet(
       Container(
@@ -124,7 +115,6 @@ class BottomSheetWidgets {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             child: ListTile(
-              // leading: ,
               title: Text(
                 "The database was backed up at this location",
                 style: Theme.of(context).textTheme.headline4,
@@ -133,13 +123,8 @@ class BottomSheetWidgets {
                 "$url",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              // trailing: Text(
-              //   '$date',
-              //   style: Theme.of(context).textTheme.subtitle1,
-              // ),
             ),
           ),
-          // }),
         ),
       ),
     );

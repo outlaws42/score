@@ -3,14 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/views/match_form.dart';
-// import 'package:provider/provider.dart';
-
-import './controllers/theme_provider.dart';
-// import './controllers/settings_provider.dart';
-// import './controllers/player_provider.dart';
-// import './controllers/game_provider.dart';
 import './helpers/theme_config.dart';
-// import './views/main_screen.dart';
 import './views/match_screen.dart';
 import './views/settings.dart';
 import './views/player_screen.dart';
@@ -24,44 +17,24 @@ import 'views/player_form.dart';
 void main() {
   runApp(
     ProviderScope(
-      // providers: [
-      //   ChangeNotifierProvider<ThemeProvider>(
-      //     create: (ctx) => ThemeProvider(),
-      //   ),
-      //   ChangeNotifierProvider<SettingsProvider>(
-      //     create: (ctx) => SettingsProvider(),
-      //   ),
-      // ChangeNotifierProvider<PlayerProvider>(
-      //   create: (ctx) => PlayerProvider(),
-      // ),
-      // ChangeNotifierProvider<GameProvider>(
-      //   create: (ctx) => GameProvider(),
-      // ),
-      // ],
       child: MyApp(),
     ),
   );
 }
 
-final themeProvider = ChangeNotifierProvider((ref) => ThemeProvider());
-
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final appState = watch(themeProvider);
     context.read(matchProvider).fetchMatch();
     context.read(playerProvider).fetchPlayer();
     context.read(gameProvider).fetchGame();
-    print("Fetch all state when first load");
-    // return Consumer<ThemeProvider>(
-    //   builder: (context, appState, child) {
     return GetMaterialApp(
       title: 'Scoreboard',
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.lightTheme,
       darkTheme: ThemeConfig.darkTheme,
       home: MatchScreen(),
-      themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: ThemeMode.light,
       getPages: [
         GetPage(name: '/match', page: () => MatchScreen()),
         GetPage(name: '/match_current', page: () => MatchCurrentScreen()),
@@ -73,15 +46,6 @@ class MyApp extends ConsumerWidget {
         GetPage(name: '/player_form', page: () => PlayerForm()),
         GetPage(name: '/settings', page: () => Settings()),
       ],
-      //  routes: {
-      //    Settings.routeName: (ctx) => Settings(),
-      //    PlayersScreen.routeName: (ctx) => PlayersScreen(),
-      //    GameScreen.routeName: (ctx) => GameScreen(),
-      //    TeamScreen.routeName: (ctx) => TeamScreen(),
-
-      //               },
     );
-    // },
-    // );
   }
 }

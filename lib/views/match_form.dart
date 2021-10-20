@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/form_widgets.dart';
-import 'dart:io';
 
 class MatchForm extends StatefulWidget {
   @override
@@ -30,13 +29,11 @@ class _MatchFormState extends State<MatchForm> {
       "/games",
       arguments: ['form', ''],
     );
-    print(dataFromGame);
     _game = dataFromGame[0];
     _endScore = dataFromGame[1];
     _gameid = dataFromGame[2];
     _lowScore = dataFromGame[3];
     _freePlay = dataFromGame[4];
-    print(_gameid);
     setState(() {});
   }
 
@@ -52,11 +49,6 @@ class _MatchFormState extends State<MatchForm> {
       _player2 = dataFromPlayer[0];
       _id2 = dataFromPlayer[1];
     }
-    print(dataFromPlayer);
-    print(_player2);
-
-    // var _id = dataFromPlayer[1];
-    // var _ts = dataFromPlayer[2];
     setState(() {});
   }
 
@@ -77,6 +69,9 @@ class _MatchFormState extends State<MatchForm> {
       return;
     }
     int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
+    int _id = context.read(matchProvider).match.length > 0
+        ? context.read(matchProvider).match.last.id + 1
+        : 1;
     context.read(matchProvider).addMatch(
           matchName: name,
           gameName: gameName,
@@ -89,16 +84,10 @@ class _MatchFormState extends State<MatchForm> {
           lowScore: lowScore,
           freePlay: freePlay,
           dateTime: _dtUtcMs,
-          // player1Score: 0,
-          // player2Score: 1,
           isCompleted: false,
         );
-    sleep(const Duration(seconds: 1));
     context.read(matchProvider).fetchMatch();
-    // int id = context.read(matchProvider).match.length;
-    var _id = context.read(matchProvider).match.last.gameName;
-    print("This is id from match_form $_id");
-    Get.offAllNamed("/match_current", arguments: [5, "match_form"]);
+    Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }
 
   void _warnDialog() {
@@ -131,8 +120,6 @@ class _MatchFormState extends State<MatchForm> {
         ),
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
-        // final gameData = watch(gameProvider);
-        // final _isLowScore = gameData.isLowScore;
         return SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -204,7 +191,6 @@ class _MatchFormState extends State<MatchForm> {
                     ),
                   ),
                 ),
-                
 
                 // Submit Button
                 Container(

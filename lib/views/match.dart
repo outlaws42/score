@@ -24,20 +24,16 @@ class Match extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Consumer(builder: (context, watch, child) {
                 final gameData = watch(matchProvider);
-                // final playerData = watch(playerProvider);
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
                 if (_index == -1) {
                   // Get rid of error when it is the only item until db can assing id
                   _index = 0;
                 }
-                // print(
-                //     'Match, This is the index $_index for the current id $matchId');
                 final _isComplete = gameData.match[_index].isComplete;
                 final _gameName = gameData.match[_index].gameName;
                 final _winScore = gameData.match[_index].winScore;
                 final _freePlay = gameData.match[_index].freePlay;
-                // final _lowScore = gameData.match[_index].lowScore;
                 final _player1Id = gameData.match[_index].player1Id;
                 final _player2Id = gameData.match[_index].player2Id;
                 final _player1Score = gameData.match[_index].player1Score;
@@ -72,17 +68,15 @@ class Match extends StatelessWidget {
                                   },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(
-                              // primary: Theme.of(context).appBarTheme.backgroundColor,
+
                               onPrimary: Colors.white,
-                            ), //Text('complete',
-                            //      style: Theme.of(context).textTheme.headline3),
+                            ), 
                           )
                         : Container(
                             height: 0,
                             width: 0,
                           ),
                     // Winning Score/Free Play
-                    // Spacer(),
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 

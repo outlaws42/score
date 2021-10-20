@@ -75,7 +75,6 @@ class _GameFormState extends State<GameForm> {
         text: arguments[4].toString(),
       );
     }
-    print(arguments);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -131,7 +130,6 @@ class _GameFormState extends State<GameForm> {
                         value: _isFreePlay,
                         onChanged: (boolVal) {
                           _freePlayInt = boolVal == false ? 0 : 1;
-                          print(_freePlayInt);
                           context.read(gameProvider).updateFreePlay();
                         },
                         activeTrackColor:
@@ -170,7 +168,6 @@ class _GameFormState extends State<GameForm> {
                               value: _isLowScore,
                               onChanged: (boolVal) {
                                 _lowScoreInt = boolVal == false ? 0 : 1;
-                                print(_lowScoreInt);
                                 context.read(gameProvider).updateLowScore();
                               },
                               activeTrackColor:

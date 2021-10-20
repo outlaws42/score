@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import './match_list.dart';
-// import '../helpers/custom_widgets/page_widgets.dart';
-// import '../helpers/custom_widgets/menu_widgets.dart';
 import '../helpers.dart';
 
 class MatchScreen extends StatelessWidget {
@@ -43,7 +41,6 @@ class MatchScreen extends StatelessWidget {
                       ),
                     ],
                 onSelected: (value) {
-                  print(value);
                   MenuWidgets.menuSelect(
                     context,
                     value,

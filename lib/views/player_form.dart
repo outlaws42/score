@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-// import '../controllers/player_provider.dart';
 import '../helpers/custom_widgets/form_widgets.dart';
 
 class PlayerForm extends StatefulWidget {
@@ -41,14 +40,12 @@ class _PlayerFormState extends State<PlayerForm> {
 
   @override
   Widget build(BuildContext context) {
-    // final form = arguments[0];
     if (arguments[0] == "form_edit") {
        _nameController =
           TextEditingController(text: arguments[2].toString());
       _winsController =
           TextEditingController(text: arguments[3].toString());
     }
-    print(arguments);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -77,14 +74,6 @@ class _PlayerFormState extends State<PlayerForm> {
                   maxLength: 20,
                   blankFieldMessage: "Fill in the Name"),
 
-              // Wins
-              // FormWidgets.formTextInput(
-              //   context: context,
-              //   controller: _winsController,
-              //   labelText: "Wins",
-              //   hintText: 'Players previous wins (optional)',
-              //   maxLength: 2,
-              // ),
               // Submit Button
               Container(
                 margin: EdgeInsets.fromLTRB(0, 20, 0, 0),

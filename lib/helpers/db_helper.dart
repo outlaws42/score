@@ -1,10 +1,6 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
-// import 'package:path_provider/path_provider.dart';
-// import 'package:permission_handler/permission_handler.dart';
-// import 'package:share_plus/share_plus.dart';
 import 'dart:async';
-// import 'dart:io';
 
 class DBHelper {
   static Future<sql.Database> database() async {
@@ -233,35 +229,5 @@ class DBHelper {
       whereArgs: [id],
       
     );
-  }
-
-//   private void exportDB() {
-//     try {
-//         File dbFile = new File(this.getDatabasePath(DATABASE_NAME).getAbsolutePath());
-//         FileInputStream fis = new FileInputStream(dbFile);
-
-//         String outFileName = DirectoryName + File.separator +
-//                 DATABASE_NAME + ".db";
-
-//         // Open the empty db as the output stream
-//         OutputStream output = new FileOutputStream(outFileName);
-
-//         // Transfer bytes from the inputfile to the outputfile
-//         byte[] buffer = new byte[1024];
-//         int length;
-//         while ((length = fis.read(buffer)) > 0) {
-//             output.write(buffer, 0, length);
-//         }
-//         // Close the streams
-//         output.flush();
-//         output.close();
-//         fis.close();
-
-
-//     } catch (IOException e) {
-//         Log.e("dbBackup:", e.getMessage());
-//     }
-// }
-
-  
+  }  
 }

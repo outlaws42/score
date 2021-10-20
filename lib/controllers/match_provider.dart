@@ -14,11 +14,8 @@ class MatchProvider extends ChangeNotifier {
     return [..._matchesWins];
   }
 
-  // int currentColor = Colors.green.value; //4284790262;
-
-  void changeTileColor(Color color, player, id) {
+   void changeTileColor(Color color, player, id) {
     int colorInt = color.value;
-    print(color.value);
     updateColor(id, colorInt, player);
     
   }
@@ -26,7 +23,6 @@ class MatchProvider extends ChangeNotifier {
   void changeCompleteStatus(matchId, _isComplete) {
     _isComplete = !_isComplete;
     int isCompleteInt = _isComplete ==false ? 0 :1;
-    print(isCompleteInt);
     updateIsComplete(matchId, isCompleteInt);
     
   }
@@ -38,11 +34,8 @@ class MatchProvider extends ChangeNotifier {
     addAmount,
   }) {
     score += addAmount;
-    print(score);
     updateScore(id, score, player);
-    // fetchMatch();
-    // notifyListeners();
-  }
+   }
 
   void minus({
     id,
@@ -52,16 +45,11 @@ class MatchProvider extends ChangeNotifier {
   }) {
     if (score != 0){
       score -= minusAmount;
-      print(score);
       updateScore(id, score, player);
     }
-    
-    // fetchMatch();
-    // notifyListeners();
   }
 
   void filtereList(){
-    // var wins = _matches;
     _matchesWins = _matches.where((win) => win.winner.contains('Cara')).toList();
     notifyListeners();
   }
@@ -264,7 +252,6 @@ class MatchProvider extends ChangeNotifier {
     int matchId,
     int isSelected,
   ) async { 
-    print('Update is selected $isSelected');
     DBHelper.update('player_match', matchId, {
       'is_selected': isSelected,
     });

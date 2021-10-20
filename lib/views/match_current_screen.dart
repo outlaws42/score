@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:score/controllers/providers.dart';
-// import '../helpers/custom_widgets/page_widgets.dart';
 import 'player_tile.dart';
 import './match.dart';
 import '../helpers.dart';
@@ -20,7 +19,6 @@ enum FilterOptions {
 
 class MatchCurrentScreen extends StatelessWidget {
   final matchId = Get.arguments;
-  // int matchId = ;
   void selectSettings(BuildContext ctx, value) {
     if (value == FilterOptions.Players) {
       Get.toNamed("/players", arguments: ["match_current_screen", "players"]);
@@ -93,7 +91,6 @@ class MatchCurrentScreen extends StatelessWidget {
                     ),
                   ],
               onSelected: (value) {
-                print(value);
                 MenuWidgets.menuSelect(
                   context,
                   value,
@@ -119,7 +116,6 @@ class MatchCurrentScreen extends StatelessWidget {
           ],
         ),
       ),
-      // }),
     );
   }
 }

@@ -7,7 +7,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-// import 'package:file_picker/file_picker.dart';
 import 'package:filesystem_picker/filesystem_picker.dart';
 import 'dart:async';
 import 'dart:io';
@@ -53,8 +52,6 @@ class FunctionHelper {
           winnerId: playerId,
         );
 
-    // print(
-    //     "winner of match $matchId is $winner");
 
     context.read(playerProvider).plus(
           id: playerId,
@@ -90,7 +87,6 @@ class FunctionHelper {
       String fileName = 'score',
       String fileExt = 'db'}) async {
     var status = await Permission.storage.status;
-    print(status);
     if (status.isDenied) {
       Permission.storage.request();
     }
@@ -102,8 +98,6 @@ class FunctionHelper {
     );
     String sdCard = await getExternalSdCardPath();
     String saveFile = sdCard + "/$fileName$_now.$fileExt";
-    print('This is db dir $dbFile');
-    print(saveFile);
     dbFile.copy(saveFile);
     return saveFile;
   }
@@ -165,7 +159,6 @@ class FunctionHelper {
     final dbFolder = await sql.getDatabasesPath();
     final dbLocation = path.join(dbFolder, fileName);
     String? backupDb = await filePickerFile(context);
-    print(backupDb);
     if (backupDb != null) {
       Uint8List updatedContent = await File(backupDb).readAsBytes();
       File(dbLocation).writeAsBytes(updatedContent);

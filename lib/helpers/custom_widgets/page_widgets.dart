@@ -51,10 +51,6 @@ class PageWidgets {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text(
-            //   'Tap',
-            //   style: Theme.of(context).textTheme.headline5,
-            // ),
             IconButton(
               onPressed: () => Get.toNamed(pageLink, arguments: args),
               icon: Icon(Icons.add_circle),
@@ -124,7 +120,6 @@ class PageWidgets {
     required PlayerProvider playerProv,
   }) {
     List _selectedItems = [];
-    // List _oLPSelectedItems = [];
     List arguments = Get.arguments;
     final _name = player[index].name;
     final _wins = player[index].wins;
@@ -134,33 +129,27 @@ class PageWidgets {
       onTap: () {
         if (arguments[0] == 'player_tile' || arguments[0] == 'form') {
           _selectedItems = [_name, _id];
-          // print(_selectedItems);
           Get.back(result: _selectedItems);
         } else {
-          // print(arguments[0]);
           BottomSheetWidgets().playerSheet(
               buildContext: context,
               playerId: _id,
               matchList: matchList,
               playerName: _name);
         }
-        print("This is onTap");
       },
       onLongPress: () {
         context.read(playerProvider).updateSelected(
               playerId: _id,
               isSelected: _isSelected,
             );
-        print("This is onLongPress");
       },
       child: Container(
           padding: const EdgeInsets.all(2),
-          // margin: const EdgeInsets.all(10),
           constraints: BoxConstraints(
             minHeight: 70,
           ),
           child: Card(
-            // margin: const EdgeInsets.all(10),
             elevation: 3,
             color: _isSelected == false
                 ? Theme.of(context).scaffoldBackgroundColor
@@ -170,7 +159,6 @@ class PageWidgets {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Leading
                   _isSelected == true
                       ? Row(
                           children: [
@@ -178,8 +166,6 @@ class PageWidgets {
                               onPressed: () {
                                 PopupDialogWidgets.warnDialog(
                                     context, _name, _id, "player");
-                                // context.read(playerProvider).deletePlayer(_id);
-                                print("Pressed Delete");
                               },
                               icon: Icon(Icons.delete_forever),
                               iconSize: 30,
@@ -198,8 +184,6 @@ class PageWidgets {
                                   _name,
                                   _wins
                                 ]);
-
-                                print("Pressed Edit");
                               },
                               icon: Icon(Icons.edit),
                               iconSize: 30,
@@ -212,7 +196,6 @@ class PageWidgets {
                           height: 0,
                           width: 0,
                         ),
-                  //Title(Player Name)
                   Text(
                     '$_name',
                     style: _isSelected == false
@@ -222,7 +205,6 @@ class PageWidgets {
                   Spacer(
                     flex: 1,
                   ),
-                  // Trailing
                   PageWidgets().circleContainer(
                     context: context,
                     content: _wins.toString(),
@@ -261,20 +243,15 @@ class PageWidgets {
 
     return GestureDetector(
       onTap: () {
-        print("OnTap");
         if (arguments[0] == 'form') {
           _selectedItems = [_game, _endScore, _id, _lowScore, _freePlay];
-          print(_selectedItems);
           Get.back(result: _selectedItems);
         } else {
-          print(arguments[0]);
           BottomSheetWidgets().gameSheet(
             context: context,
             game: _game,
             description: _description,
             date: _date,
-            // _endScore,
-            // _id,
           );
         }
       },
@@ -283,7 +260,6 @@ class PageWidgets {
               gameId: _id,
               isSelected: _isSelected,
             );
-        print("This is onLongPress");
       },
       child: Container(
         padding: const EdgeInsets.all(2),
@@ -300,7 +276,6 @@ class PageWidgets {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // Leading
                 _isSelected == true
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -309,8 +284,6 @@ class PageWidgets {
                             onPressed: () {
                               PopupDialogWidgets.warnDialog(
                                   context, _game, _id, "game");
-                              // context.read(playerProvider).deletePlayer(_id);
-                              print("Pressed Delete");
                             },
                             icon: Icon(Icons.delete_forever),
                             iconSize: 30,
@@ -332,8 +305,6 @@ class PageWidgets {
                                 _lowScore,
                                 _freePlay
                               ]);
-
-                              print("Pressed Edit");
                             },
                             icon: Icon(Icons.edit),
                             iconSize: 30,
@@ -346,7 +317,6 @@ class PageWidgets {
                         height: 0,
                         width: 0,
                       ),
-                //Title(Player Name)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -424,7 +394,6 @@ class PageWidgets {
     } else if (_isComplete == true && _player2Name == _winner) {
       _player2 = true;
     }
-    print(_player2Name);
     return GestureDetector(
       onTap: () {
         Get.offAllNamed("/match_current", arguments: [
@@ -436,7 +405,6 @@ class PageWidgets {
               matchId: _id,
               isSelected: _isSelected,
             );
-        print("This is onLongPress");
       },
       child: Container(
         padding: const EdgeInsets.all(2),
@@ -461,8 +429,6 @@ class PageWidgets {
                               _id,
                               "match",
                             );
-                            // context.read(playerProvider).deletePlayer(_id);
-                            print("Pressed Delete");
                           },
                           icon: Icon(Icons.delete_forever),
                           iconSize: 30,

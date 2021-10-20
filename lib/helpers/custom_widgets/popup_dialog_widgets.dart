@@ -140,18 +140,14 @@ class PopupDialogWidgets {
             margin: EdgeInsets.fromLTRB(75, 10, 75, 0),
             child: TextFormField(
               maxLength: 3,
-              // textCapitalization: TextCapitalization.words,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               onChanged: (value){
-                print(value);
                 if (score + int.parse(value) > winScore && freePlay == false){
                   isDisabled = true;
-                  print("The Input is to higher then the score to win");
                 }
               },
               onFieldSubmitted: (value) {
-                // int.parse(value) + score > winScore ?
                 isDisabled == true && freePlay== false ? Get.back() :
                 sign == "add"
                     ? context.read(matchProvider).plus(
@@ -165,7 +161,7 @@ class PopupDialogWidgets {
                           score: score,
                           player: player,
                           minusAmount: int.parse(value),
-                        ); //: print("Over Amount");
+                        ); 
                   
                 Get.back();
               },
@@ -178,7 +174,6 @@ class PopupDialogWidgets {
                 labelStyle: TextStyle(
                   color: isDisabled == true ? Colors.red : Theme.of(context).colorScheme.primary,
                 ),
-                // hintText: hintText,
                 hintStyle: TextStyle(
                   color: Theme.of(context).colorScheme.secondaryVariant,
                 ),
@@ -252,10 +247,6 @@ class PopupDialogWidgets {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icon(
-              //   Icons.delete_forever,
-              //   color: Colors.green,
-              // ),
               Text(
                 " Do you want to delete? $item",
                 style: Theme.of(context).textTheme.headline6,
@@ -321,10 +312,6 @@ class PopupDialogWidgets {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icon(
-              //   Icons.file_download,
-              //   color: Colors.green,
-              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

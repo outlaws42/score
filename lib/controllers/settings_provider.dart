@@ -5,7 +5,6 @@ import '../models/settings_model.dart';
 
 class SettingsProvider extends ChangeNotifier {
   List<SettingsModel> _settings = [];
-  // String _version = '';
 
   List<SettingsModel> get settings {
     return [..._settings];
@@ -15,10 +14,7 @@ class SettingsProvider extends ChangeNotifier {
     // Gets version from pubspec.yaml requires package_info_plus package
     PackageInfo packageInfo =  await PackageInfo.fromPlatform();
     String appVersion = packageInfo.version;
-    String appBuild = packageInfo.buildNumber;
-    // String appName = packageInfo.appName;
-    String version = appVersion + " B" + appBuild;
-    return version;
+    return appVersion;
   }
 
   Future<String> getAppName() async {
@@ -66,5 +62,6 @@ class SettingsProvider extends ChangeNotifier {
       'setting': newSetting.setting,
       'active': newSetting.active,
     });
+    fetchSettings();
   }
 }

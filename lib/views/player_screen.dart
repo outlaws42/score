@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import '../helpers/custom_widgets/page_widgets.dart';
-// import '../helpers/custom_widgets/menu_widgets.dart';
 import '../helpers.dart';
 import './player_list.dart';
 
@@ -43,7 +41,6 @@ class PlayersScreen extends StatelessWidget {
                     ),
                   ],
               onSelected: (value) {
-                print(value);
                 MenuWidgets.menuSelect(
                   context,
                   value,

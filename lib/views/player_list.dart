@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
-// import './player_form.dart';
 
 class PlayerList extends ConsumerWidget {
   
@@ -55,8 +54,5 @@ class PlayerList extends ConsumerWidget {
                 );
             },
           );
-    // }
-
-    // );
-  }
+   }
 }

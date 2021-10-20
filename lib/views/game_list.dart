@@ -9,7 +9,6 @@ class GameList extends ConsumerWidget {
   
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    //final firstName = Provider.of<PlayerProvider>(context, listen: false).fetchPlayer();
     final _game = watch(gameProvider).games;
     return _game.length == 0
         ? PageWidgets().noData(
@@ -43,6 +42,5 @@ class GameList extends ConsumerWidget {
                 );
             },
           );
-    // );
   }
 }

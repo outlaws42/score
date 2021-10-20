@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-// This Model is the layout of each individual item in the state.
 
 class GameModel with ChangeNotifier {
   final int id;

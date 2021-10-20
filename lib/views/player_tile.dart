@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
-// import '../helpers/custom_widgets/popup_dialog_widgets.dart';
-// import '../helpers/function_helpers.dart';
 import '../helpers.dart';
 
 class PlayerTile extends StatelessWidget {
@@ -14,60 +12,6 @@ class PlayerTile extends StatelessWidget {
     this.player = "select Player",
     this.matchId = 1,
   });
-
-  // final Color currentColor = Colors.green;
-  // void checkWinner({
-  //   required BuildContext context,
-  //   required int score,
-  //   required String player1Name,
-  //   required String player2Name,
-  //   required int player1Id,
-  //   required int player2Id,
-  //   required int player1Score,
-  //   required int player2Score,
-  //   required int winningScore,
-  //   required bool freePlay,
-  //   required bool lowScore,
-  // }) {
-  //   String winner = "_";
-  //   int playerId = 1;
-  //   // if (freePlay == true) {
-  //   //   return;
-  //   // }
-  //   if (lowScore == false && player1Score > player2Score) {
-  //     playerId = player1Id;
-  //     winner = player1Name;
-  //   } else if (lowScore == false && player1Score < player2Score) {
-  //     playerId = player2Id;
-  //     winner = player1Name;
-  //   } else if (lowScore == true && player1Score < player2Score) {
-  //     playerId = player1Id;
-  //     winner = player1Name;
-  //   } else if (lowScore == true && player1Score > player2Score) {
-  //     playerId = player2Id;
-  //     winner = player2Name;
-      
-  //   }
-  //   var _playerIndex = context
-  //       .read(playerProvider)
-  //       .player
-  //       .indexWhere((element) => element.id == playerId);
-  //   final _wins = context.read(playerProvider).player[_playerIndex].wins;
-  //   context.read(matchProvider).updateWinner(matchId, winner);
-
-  //   // print(
-  //   //     "winner of match $matchId is $winner");
-    
-  //   context.read(playerProvider).plus(
-  //         id: playerId,
-  //         wins: _wins,
-  //         addAmount: 1,
-  //       );
-  //   WinnerConfig.winDialog(
-  //       context,
-  //       winner,
-  //     );
-  // }
 
   void _colorDialog(
     BuildContext context,
@@ -107,12 +51,8 @@ class PlayerTile extends StatelessWidget {
       final _player2Score = matchData.match[_index].player2Score;
       final _player1Id = matchData.match[_index].player1Id;
       final _player2Id = matchData.match[_index].player2Id;
-      // print('This is the index $_index for the current id $arguments');
-      // print('This is the isComplete $_isComplete');
-
       final winScore = matchData.match[_index].winScore;
-      // print('This is the winScore $winScore');
-      final playerName = player == "player1"
+       final playerName = player == "player1"
           ? _player1Name
           : _player2Name;
       final _score = player == "player1"
@@ -121,13 +61,6 @@ class PlayerTile extends StatelessWidget {
       final _color = player == "player1"
           ? matchData.match[_index].player1Color
           : matchData.match[_index].player2Color;
-      // print(matchData.match[_index].player1Score);
-      // print(matchData.match[_index].player2Score);
-      // print("${matchData.match[_index].winner} Won the Game");
-      // if (_score == matchData.match[_index].winScore) {
-      //   context.read(matchProvider).updateWinner(arguments, playerName);
-      //   print("${matchData.match[_index].winner} Won the Game");
-      // }
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),
@@ -139,11 +72,8 @@ class PlayerTile extends StatelessWidget {
             children: [
               // Row Top Name/Menu
               Container(
-                // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Container(
-                  // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   height: 45,
-                  // color: Colors.black12,
                   decoration: BoxDecoration(
                     color: Colors.black12,
                     borderRadius: BorderRadius.only(
@@ -168,7 +98,6 @@ class PlayerTile extends StatelessWidget {
                                 context, matchData, player, matchId, _color),
                         child: Icon(Icons.color_lens),
                         style: ElevatedButton.styleFrom(
-                          // primary: Theme.of(context).appBarTheme.backgroundColor,
                           onPrimary: Colors.white,
                         ),
                       ),
@@ -211,12 +140,6 @@ class PlayerTile extends StatelessWidget {
                               }
                               
                             },
-                      // onPressed: () => context.read(matchProvider).minus(
-                      //       id: arguments,
-                      //       score: _score,
-                      //       player: player,
-                      //       minusAmount: 1,
-                      //     ),
                       onLongPress: _isComplete == true
                           ? null
                           : () => PopupDialogWidgets.mathDialog(
@@ -240,7 +163,6 @@ class PlayerTile extends StatelessWidget {
                       '$_score',
                       style: Theme.of(context).textTheme.headline1,
                     ),
-                    // }),
                     // Plus Button
                     TextButton(
                       onPressed: _isComplete == true
@@ -269,12 +191,6 @@ class PlayerTile extends StatelessWidget {
                               );
                               }
                             },
-                      // onPressed: () => context.read(matchProvider).plus(
-                      //       id: arguments,
-                      //       score: _score,
-                      //       player: player,
-                      //       addAmount: 1,
-                      //     ),
                       onLongPress: _isComplete == true
                           ? null
                           : () => PopupDialogWidgets.mathDialog(

@@ -42,12 +42,10 @@ class Screen {
     bool isPhone = s.shortestSide < 480;
     // All Phones
     if (isPhone) {
-      print('Device: Phone');
       return (s.width - kToolbarHeight - 24) / ratio;
     }
     // IOS Tablet
     else if (Platform.isIOS) {
-      print('Device: iPad');
       return s.width / ratio;
     } else {
       return (s.width - kToolbarHeight) / ratio;
@@ -64,7 +62,6 @@ class Screen {
     double height = calHeight(c);
     double width = calWidth(c);
     double ratio = devicePixelRatio(c);
-    print('calHeight: $height calWidth: $width Ratio: $ratio');
     // Pixel 4, Nexus 4, iPhone 11 pro,
     if (isPhone && ratio > 2.0 && width > 200 && width < 275 ||
         isPhone && ratio > 3.0 && width < 200) {
