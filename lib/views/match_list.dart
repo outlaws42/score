@@ -40,6 +40,7 @@ class MatchList extends ConsumerWidget {
                             match: _match,
                           );
                       },
+                      physics: const AlwaysScrollableScrollPhysics(),
                     ),
                   onRefresh: ()async{
                     await context.read(matchProvider).fetchMatch();

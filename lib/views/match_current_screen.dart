@@ -58,6 +58,11 @@ class MatchCurrentScreen extends StatelessWidget {
         actions: [
           PageWidgets().iconButtonBar(
             context: context,
+            pageLink: "/help_current_match",
+            icon: Icon(Icons.list_alt),
+          ),
+          PageWidgets().iconButtonBar(
+            context: context,
             pageLink: "/match",
             icon: Icon(Icons.list_alt),
           ),

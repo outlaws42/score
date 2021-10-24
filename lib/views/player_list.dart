@@ -53,6 +53,7 @@ class PlayerList extends ConsumerWidget {
                           playerProv: _player,
                         );
                     },
+                    physics: const AlwaysScrollableScrollPhysics(),
                   ),
                   onRefresh: ()async{
                     await context.read(playerProvider).fetchPlayer();

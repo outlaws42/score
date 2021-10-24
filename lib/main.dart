@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:score/controllers/providers.dart';
-import 'package:score/views/match_form.dart';
+import './controllers/providers.dart';
+import './views/help_current_match.dart';
 import './helpers/theme_config.dart';
 import './views/match_screen.dart';
 import './views/settings.dart';
@@ -45,6 +45,7 @@ class MyApp extends ConsumerWidget {
         GetPage(name: '/game_form', page: () => GameForm()),
         GetPage(name: '/player_form', page: () => PlayerForm()),
         GetPage(name: '/settings', page: () => Settings()),
+        GetPage(name: '/help_current_match', page: () => HelpCurrentMatch()),
       ],
     );
   }
