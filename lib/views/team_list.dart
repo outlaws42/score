@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 
-class PlayerList extends ConsumerWidget {
+class TeamList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     List args = Get.arguments;

@@ -5,7 +5,6 @@ import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
 
 class MatchList extends ConsumerWidget {
-  
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _match = watch(matchProvider).match;
@@ -15,30 +14,34 @@ class MatchList extends ConsumerWidget {
             pageName: 'match',
             pageLink: '/match_form',
           )
-        : ListView.builder(
-            itemCount: _match.length,
-            itemBuilder: (ctx, index) {
-              if (index == 0) {
-                return Column(
-                  children: [
-                    PageWidgets().header(
+        : Column(
+            children: [
+              PageWidgets().header(
+                context: context,
+                column1: 'Match',
+                column2: 'Winning Score',
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _match.length,
+                  itemBuilder: (ctx, index) {
+                    if (index == 0) {
+                      return 
+                          PageWidgets().listItemMatch(
+                            context: context,
+                            index: index,
+                            match: _match,
+                          );
+                    } else
+                      return PageWidgets().listItemMatch(
                         context: context,
-                        column1: 'Match',
-                        column2: 'Winning Score'),
-                    PageWidgets().listItemMatch(
-                      context: context,
-                      index: index,
-                      match: _match,
-                    )
-                  ],
-                );
-              } else
-                return PageWidgets().listItemMatch(
-                  context: context,
-                  index: index,
-                  match: _match,
-                );
-            },
+                        index: index,
+                        match: _match,
+                      );
+                  },
+                ),
+              ),
+            ],
           );
   }
 }
