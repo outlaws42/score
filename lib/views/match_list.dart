@@ -22,22 +22,27 @@ class MatchList extends ConsumerWidget {
                 column2: 'Winning Score',
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: _match.length,
-                  itemBuilder: (ctx, index) {
-                    if (index == 0) {
-                      return 
-                          PageWidgets().listItemMatch(
+                child: RefreshIndicator(
+                  child:ListView.builder(
+                      itemCount: _match.length,
+                      itemBuilder: (ctx, index) {
+                        if (index == 0) {
+                          return 
+                              PageWidgets().listItemMatch(
+                                context: context,
+                                index: index,
+                                match: _match,
+                              );
+                        } else
+                          return PageWidgets().listItemMatch(
                             context: context,
                             index: index,
                             match: _match,
                           );
-                    } else
-                      return PageWidgets().listItemMatch(
-                        context: context,
-                        index: index,
-                        match: _match,
-                      );
+                      },
+                    ),
+                  onRefresh: ()async{
+                    await context.read(matchProvider).fetchMatch();
                   },
                 ),
               ),

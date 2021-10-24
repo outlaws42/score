@@ -28,29 +28,34 @@ class PlayerList extends ConsumerWidget {
                 column2: 'Wins',
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: args[0] == "form"
-                      ? _filterPlayer.length
-                      : _player.player.length,
-                  itemBuilder: (contex, index) {
-                    if (index == 0) {
-                      return PageWidgets().listItemPlayer(
-                        context: context,
-                        index: index,
-                        player:
-                            args[0] == "form" ? _filterPlayer : _player.player,
-                        matchList: _matchList,
-                        playerProv: _player,
-                      );
-                    } else
-                      return PageWidgets().listItemPlayer(
-                        context: context,
-                        index: index,
-                        player:
-                            args[0] == "form" ? _filterPlayer : _player.player,
-                        matchList: _matchList,
-                        playerProv: _player,
-                      );
+                child: RefreshIndicator(
+                  child: ListView.builder(
+                    itemCount: args[0] == "form"
+                        ? _filterPlayer.length
+                        : _player.player.length,
+                    itemBuilder: (contex, index) {
+                      if (index == 0) {
+                        return PageWidgets().listItemPlayer(
+                          context: context,
+                          index: index,
+                          player:
+                              args[0] == "form" ? _filterPlayer : _player.player,
+                          matchList: _matchList,
+                          playerProv: _player,
+                        );
+                      } else
+                        return PageWidgets().listItemPlayer(
+                          context: context,
+                          index: index,
+                          player:
+                              args[0] == "form" ? _filterPlayer : _player.player,
+                          matchList: _matchList,
+                          playerProv: _player,
+                        );
+                    },
+                  ),
+                  onRefresh: ()async{
+                    await context.read(playerProvider).fetchPlayer();
                   },
                 ),
               ),
