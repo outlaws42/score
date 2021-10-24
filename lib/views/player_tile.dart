@@ -52,12 +52,8 @@ class PlayerTile extends StatelessWidget {
       final _player1Id = matchData.match[_index].player1Id;
       final _player2Id = matchData.match[_index].player2Id;
       final winScore = matchData.match[_index].winScore;
-       final playerName = player == "player1"
-          ? _player1Name
-          : _player2Name;
-      final _score = player == "player1"
-          ? _player1Score
-          : _player2Score;
+      final playerName = player == "player1" ? _player1Name : _player2Name;
+      final _score = player == "player1" ? _player1Score : _player2Score;
       final _color = player == "player1"
           ? matchData.match[_index].player1Color
           : matchData.match[_index].player2Color;
@@ -122,27 +118,27 @@ class PlayerTile extends StatelessWidget {
                                     player: player,
                                     minusAmount: 1,
                                   );
-                              if(_freePlay == true){
+                              if (_freePlay == true) {
                                 return;
                               }
-                              if(_score + 1 == winScore){
-                               FunctionHelper.checkWinner(
-                                context: context,
-                                player1Name:_player1Name,
-                                player2Name:_player2Name,
-                                matchId: matchId,
-                                player1Id: _player1Id,
-                                player2Id: _player2Id,
-                                player1Score:_player1Score,
-                                player2Score:_player2Score,
-                                lowScore: _lowScore,
-                              );
+                              if (_score + 1 == winScore) {
+                                FunctionHelper.checkWinner(
+                                  context: context,
+                                  player1Name: _player1Name,
+                                  player2Name: _player2Name,
+                                  matchId: matchId,
+                                  player1Id: _player1Id,
+                                  player2Id: _player2Id,
+                                  player1Score: _player1Score,
+                                  player2Score: _player2Score,
+                                  lowScore: _lowScore,
+                                );
                               }
-                              
                             },
                       onLongPress: _isComplete == true
                           ? null
-                          : () => PopupDialogWidgets.mathDialog(
+                          : () async{
+                             await  PopupDialogWidgets.mathDialog(
                                 context: context,
                                 score: _score,
                                 player: player,
@@ -151,9 +147,35 @@ class PlayerTile extends StatelessWidget {
                                 sign: "minus",
                                 winScore: winScore,
                                 freePlay: _freePlay,
-                              ),
+                                // index: _index,
+                                player1Name: _player1Name, 
+                                player2Name: _player2Name,
+                                player1Id: _player1Id,
+                                player2Id: _player2Id,
+                                player1Score: _player1Score,
+                                player2Score: _player2Score,
+                                lowScore: _lowScore,
+                              );
+                              // print('This is score before return $_score');
+                              // if (_freePlay == true) {
+                              //   return;
+                              // }
+                              // print('This is score after return $_score');
+                              // if (_score + 1 == winScore) {
+                                // FunctionHelper.checkWinner(
+                                //   context: context, X
+                                //   player1Name: _player1Name, 
+                                //   player2Name: _player2Name,
+                                //   matchId: matchId, X
+                                //   player1Id: _player1Id,
+                                //   player2Id: _player2Id,
+                                //   player1Score: _player1Score,
+                                //   player2Score: _player2Score,
+                                //   lowScore: _lowScore,
+                                // );
+                              // }
+                            },
                       child: Icon(Icons.remove),
-
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black12,
                         onPrimary: Colors.white,
@@ -174,21 +196,21 @@ class PlayerTile extends StatelessWidget {
                                     player: player,
                                     addAmount: 1,
                                   );
-                              if(_freePlay == true){
+                              if (_freePlay == true) {
                                 return;
                               }
-                              if(_score + 1 == winScore){
-                               FunctionHelper.checkWinner(
-                                context: context,
-                                player1Name:_player1Name,
-                                player2Name:_player2Name,
-                                matchId: matchId,
-                                player1Id: _player1Id,
-                                player2Id: _player2Id,
-                                player1Score:_player1Score,
-                                player2Score:_player2Score,
-                                lowScore: _lowScore,
-                              );
+                              if (_score + 1 == winScore) {
+                                FunctionHelper.checkWinner(
+                                  context: context,
+                                  player1Name: _player1Name,
+                                  player2Name: _player2Name,
+                                  matchId: matchId,
+                                  player1Id: _player1Id,
+                                  player2Id: _player2Id,
+                                  player1Score: _player1Score,
+                                  player2Score: _player2Score,
+                                  lowScore: _lowScore,
+                                );
                               }
                             },
                       onLongPress: _isComplete == true
@@ -202,6 +224,13 @@ class PlayerTile extends StatelessWidget {
                                 sign: "add",
                                 winScore: winScore,
                                 freePlay: _freePlay,
+                                player1Name: _player1Name, 
+                                player2Name: _player2Name,
+                                player1Id: _player1Id,
+                                player2Id: _player2Id,
+                                player1Score: _player1Score,
+                                player2Score: _player2Score,
+                                lowScore: _lowScore,
                               ),
                       child: Icon(Icons.add),
                       style: ElevatedButton.styleFrom(

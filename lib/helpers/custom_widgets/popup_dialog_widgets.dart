@@ -18,6 +18,13 @@ class PopupDialogWidgets {
     required int amount,
     required int winScore,
     required bool freePlay,
+    required String player1Name, 
+    required String player2Name,
+    required int player1Id,
+    required int player2Id,
+    required int player1Score,
+    required int player2Score,
+    required bool lowScore,
   }) {
     bool isDisable = false;
     if (freePlay == true) {
@@ -44,6 +51,27 @@ class PopupDialogWidgets {
                         minusAmount: amount,
                       );
               Get.back();
+               print('This is the score ${score + amount}');
+                if(score + amount== winScore && freePlay==false){
+                  if(playerName == player1Name){
+                    player1Score = player1Score + amount;
+                  } else if(playerName == player2Name){
+                    player2Score = player2Score + amount;
+                  } 
+                  
+                  FunctionHelper.checkWinner(
+                    context: context, 
+                    player1Score: player1Score, 
+                    player2Score: player2Score, 
+                    player1Id: player1Id, 
+                    player2Id: player2Id, 
+                    player1Name: player1Name, 
+                    player2Name: player2Name, 
+                    lowScore: lowScore, 
+                    matchId: id,
+                    );
+                // Get.back();
+                }
             },
       child: sign == "add" ? Text("+$amount") : Text("-$amount"),
       style: ElevatedButton.styleFrom(
@@ -62,7 +90,16 @@ class PopupDialogWidgets {
     required String sign,
     required int winScore,
     required bool freePlay,
+    required String player1Name, 
+    required String player2Name,
+    required int player1Id,
+    required int player2Id,
+    required int player1Score,
+    required int player2Score,
+    required bool lowScore,
   }) {
+  //  int index = 0;
+  //  List match = context.read(matchProvider).match;
     bool isDisabled = false;
     Get.defaultDialog(
       radius: 10.0,
@@ -87,6 +124,13 @@ class PopupDialogWidgets {
                 amount: 5,
                 winScore: winScore,
                 freePlay: freePlay,
+                player1Score: player1Score, 
+                player2Score: player2Score, 
+                player1Id: player1Id, 
+                player2Id: player2Id, 
+                player1Name: player1Name, 
+                player2Name: player2Name, 
+                lowScore: lowScore,
               ),
               // 10 Button
               PopupDialogWidgets.plusMinusButton(
@@ -99,6 +143,13 @@ class PopupDialogWidgets {
                 amount: 10,
                 winScore: winScore,
                 freePlay: freePlay,
+                player1Score: player1Score, 
+                player2Score: player2Score, 
+                player1Id: player1Id, 
+                player2Id: player2Id, 
+                player1Name: player1Name, 
+                player2Name: player2Name, 
+                lowScore: lowScore,
               ),
               // 15 Button
 
@@ -112,6 +163,13 @@ class PopupDialogWidgets {
                 amount: 15,
                 winScore: winScore,
                 freePlay: freePlay,
+                player1Score: player1Score, 
+                player2Score: player2Score, 
+                player1Id: player1Id, 
+                player2Id: player2Id, 
+                player1Name: player1Name, 
+                player2Name: player2Name, 
+                lowScore: lowScore,
               ),
               // 30 Button
               PopupDialogWidgets.plusMinusButton(
@@ -124,6 +182,13 @@ class PopupDialogWidgets {
                 amount: 30,
                 winScore: winScore,
                 freePlay: freePlay,
+                player1Score: player1Score, 
+                player2Score: player2Score, 
+                player1Id: player1Id, 
+                player2Id: player2Id, 
+                player1Name: player1Name, 
+                player2Name: player2Name, 
+                lowScore: lowScore, 
               ),
             ],
           ),
@@ -164,6 +229,28 @@ class PopupDialogWidgets {
                         ); 
                   
                 Get.back();
+                   print('This is the score ${score + int.parse(value)}');
+                if(score + int.parse(value)== winScore && freePlay==false){
+                  if(playerName == player1Name){
+                    player1Score = player1Score + int.parse(value);
+                  } else if(playerName == player2Name){
+                    player2Score = player2Score + int.parse(value);
+                  } 
+                  
+                  FunctionHelper.checkWinner(
+                    context: context, 
+                    player1Score: player1Score, 
+                    player2Score: player2Score, 
+                    player1Id: player1Id, 
+                    player2Id: player2Id, 
+                    player1Name: player1Name, 
+                    player2Name: player2Name, 
+                    lowScore: lowScore, 
+                    matchId: id,
+                    );
+                // Get.back();
+                }
+                
               },
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
