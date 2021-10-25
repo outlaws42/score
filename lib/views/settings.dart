@@ -43,7 +43,7 @@ class _SettingsState extends State<Settings> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              children: [             
+              children: [
                 // Export Import Database
                 // Database (Category)
                 PageWidgets.settingsCategoryHeader(
@@ -56,7 +56,8 @@ class _SettingsState extends State<Settings> {
                   context: context,
                   title: "Share Database",
                   subtitle:
-                      "This gives you some flexibility to where you would backup the database.",
+                      "This option gives you some flexibility" 
+                      "where you want to backup the database.",
                   action: "share",
                   icon: Icon(Icons.share),
                 ),
@@ -66,7 +67,8 @@ class _SettingsState extends State<Settings> {
                   context: context,
                   title: "Export Database",
                   subtitle:
-                      "This will backup the database in the apps folder. This will be dislaye at the bottom",
+                      "This option will backup the database in the apps folder." 
+                      "The path and file name will be dislayed at the bottom once exported",
                   action: "export",
                   icon: Icon(MdiIcons.databaseExport),
                 ),
@@ -76,7 +78,8 @@ class _SettingsState extends State<Settings> {
                   context: context,
                   title: "Import Database",
                   subtitle:
-                      "This will import the selected database overwriting the current database",
+                      "This option will import the selected" 
+                      "database overwriting the current database",
                   action: "import",
                   icon: Icon(MdiIcons.databaseImport),
                 ),
@@ -126,7 +129,6 @@ class _SettingsState extends State<Settings> {
                 ),
 
                 PageWidgets.settingHr(),
-
               ],
             ),
           ),

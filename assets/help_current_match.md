@@ -1,40 +1,24 @@
-# URL Errors
+# Match Screen
 
-## Getting Android versions later then 9 to use clear text (For Garage Door App)
+## Game Bar
 
-- Create a XML file in `my_flutter_project/android/app/src/main/res/xml/network_security_config.xml`
+This bar just below the menu bar will different information depending on what type of game.
 
-- and add the following
+- Free Play Game - Check mark, Game Name and FP for free play  
+FP for Free Play
 
-```dart
-<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
-    </base-config>
-</network-security-config>
-```
+## Player Tile
 
-- Modify AndroidManifest.xml
-- Go to. `flutter_project/android/app/src/main/AndroidManifest.xml`
-- So for `<application>` PROPERTIES you have to add 1 line:
-- `android:networkSecurityConfig="@xml/network_security_config"`
-Note: Remember that you have to add it as property (inside application opening tag):
+### Keeping Score
 
-```xml
-<application
+There is multiple ways to add or subtract from the score in the player tile.
 
-    SOMEWHERE HERE IS OK
+- **Tapping** on the + or - symbols will add or subtract 1.
+- **Long pressing** the + or - will bring up a popup window.
+You can type in an amount or tap one of the buttons with pre-defined amounts.
 
->
-```
+### Change Tile Color
 
-## Local host error
-
-[ERROR:flutter/lib/ui/ui_dart_state.cc(177)] Unhandled Exception: SocketException: OS Error: Connection refused, errno = 111, address = 192.168.1.3, port = 38067
-
-When testing out a app where you connecting to a url and you doing it on the localhost
-use `http://10.0.2.2:port` intead of localhost or the IP of the computer
+The top of the player tile there is a color pallet icon.
+Tap and a popup will apear with color circles.
+Select the color of your choice.

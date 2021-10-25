@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:score/controllers/providers.dart';
@@ -59,7 +60,7 @@ class MatchCurrentScreen extends StatelessWidget {
           PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/help_current_match",
-            icon: Icon(Icons.list_alt),
+            icon: Icon(MdiIcons.help),
           ),
           PageWidgets().iconButtonBar(
             context: context,
