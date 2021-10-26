@@ -25,6 +25,20 @@ class PageWidgets {
     );
   }
 
+  Widget iconButtonBarDocs({
+    required BuildContext context,
+    required String data,
+    required Icon icon,
+    // List args = const ["form"],
+  }) {
+    return IconButton(
+      onPressed: () => PopupDialogWidgets.documentation(context: context, data: data),
+      icon: icon,
+      iconSize: 30,
+      color: Theme.of(context).appBarTheme.foregroundColor,
+    );
+  }
+
   Widget header(
       {required BuildContext context,
       required String column1,

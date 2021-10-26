@@ -76,4 +76,15 @@ class Screen {
       return width;
     }
   }
+
+  static double percentOfSizeRound({
+    // required BuildContext context,
+    required int percent,
+    required double dimension,
+    int decPlaces = 1,
+  }) {
+    double percentInDec = percent / 100;
+    double size = double.parse((percentInDec * dimension).toStringAsFixed(decPlaces));
+    return size;
+  }
 }

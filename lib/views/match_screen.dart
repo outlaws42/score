@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import './match_list.dart';
 import '../helpers.dart';
 
@@ -12,6 +13,11 @@ class MatchScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline3,
           ),
           actions: [
+            PageWidgets().iconButtonBarDocs(
+            context: context,
+            data: "assets/help_match.md",
+            icon: Icon(MdiIcons.help),
+          ),
             PageWidgets().iconButtonBar(
               context: context,
               pageLink: "/match_form",

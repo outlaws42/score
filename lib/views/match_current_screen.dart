@@ -57,9 +57,9 @@ class MatchCurrentScreen extends StatelessWidget {
                 );
         }),
         actions: [
-          PageWidgets().iconButtonBar(
+          PageWidgets().iconButtonBarDocs(
             context: context,
-            pageLink: "/help_current_match",
+            data: "assets/help_current_match.md",
             icon: Icon(MdiIcons.help),
           ),
           PageWidgets().iconButtonBar(

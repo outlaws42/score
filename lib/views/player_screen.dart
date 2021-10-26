@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../helpers.dart';
 import './player_list.dart';
 
@@ -12,6 +13,11 @@ class PlayersScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
+          PageWidgets().iconButtonBarDocs(
+            context: context,
+            data: "assets/help_game.md",
+            icon: Icon(MdiIcons.help),
+          ),
           PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/player_form",
