@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../helpers/custom_widgets/form_widgets.dart';
+import '../helpers.dart';
 
 class PlayerForm extends StatefulWidget {
   @override
@@ -49,10 +49,20 @@ class _PlayerFormState extends State<PlayerForm> {
     }
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 20,
         title: Text(
           arguments[0] == "form_edit" ? "Edit Player" : "Add Player",
           style: Theme.of(context).textTheme.headline3,
         ),
+        actions: [
+          PageWidgets().iconButtonBarDocs(
+            context: context,
+            data: "assets/help_player_form.md",
+            icon: Icon(MdiIcons.help),
+            iconSize: 20,
+            popupHeightPercent: 25,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Form(

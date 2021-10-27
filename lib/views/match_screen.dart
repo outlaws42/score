@@ -8,6 +8,7 @@ class MatchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leadingWidth: 20,
           title: Text(
             "Matches",
             style: Theme.of(context).textTheme.headline3,
@@ -17,6 +18,7 @@ class MatchScreen extends StatelessWidget {
             context: context,
             data: "assets/help_match.md",
             icon: Icon(MdiIcons.help),
+            iconSize: 25,
           ),
             PageWidgets().iconButtonBar(
               context: context,

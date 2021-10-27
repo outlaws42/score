@@ -453,13 +453,16 @@ class PopupDialogWidgets {
   static documentation({
     required BuildContext context,
     required String data,
+    double popupHeightPercent = 75,
+    double popupWidthPercent = 90,
+
   }) {
     var width = Screen.percentOfSizeRound(
-      percent: 90,
+      percent: popupWidthPercent,
       dimension: Screen.width(context),
     );
     var height = Screen.percentOfSizeRound(
-      percent: 80,
+      percent: popupHeightPercent,
       dimension: Screen.height(context),
     );
     print(width);

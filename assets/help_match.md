@@ -1,31 +1,23 @@
 # Match Screen
 
-## Match Bar
+## Menu Bar
 
-This bar just below the menu bar will have different information depending on what type of game.
+From the menu bar you can add a match, read this help and navigate to any of the pages in the application.
 
-- Free Play Game - Check mark, Game Name and FP for free play
-- Free Play/Low Score Wins - Check mark, Game Name and "FP" for free play and "LS" for low score wins
-- High Score Game - Game name, Winning score.
+## Match List
 
-## Player Tile
+The list of matches will be shown here. Each match has a tile in the list. In the "Match" column of the tile will display
+the game name, The players in the match. If the match is completed it will indicate who is the winner.
+The "Winning Score" column will display either the score needed to win the game, "FP" (Free Play) or "FP" "LS"
+(Free Play, Low Score Wins). It will also have the date the match was created.
 
-When a player wins a match all buttons become unclickable finsihed matches can be viewed
-but can't be changed.
+### Match Tile
 
-### Keeping Score
+- You can interact with the match tile by tapping on the tile, this will go to the match
+- Long pressing the tile will add 1 icon at the front of the tile, one to delete the match.
+Long pressing again will hide the extra icon.
 
-There is multiple ways to add or subtract from the score in the player tile.
-
-- Tapping on the **+** or **-** symbols will add or subtract 1.
-- Long pressing the **+** or **-** will bring up a popup window.
-You can type in an amount or tap one of the buttons with pre-defined amounts.
-
-### Change Tile Color
-
-The top of the player tile there is a color pallet icon.
-Tap and a popup will apear with color circles.
-Select the color of your choice.
+---
 
 ## Free Play Game "FP"
 

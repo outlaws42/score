@@ -79,7 +79,7 @@ class Screen {
 
   static double percentOfSizeRound({
     // required BuildContext context,
-    required int percent,
+    required double percent,
     required double dimension,
     int decPlaces = 1,
   }) {

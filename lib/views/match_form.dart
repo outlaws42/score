@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../helpers/custom_widgets/form_widgets.dart';
+import '../helpers.dart';
 
 class MatchForm extends StatefulWidget {
   @override
@@ -115,10 +115,19 @@ class _MatchFormState extends State<MatchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 20,
         title: Text(
           "Add Match",
           style: Theme.of(context).textTheme.headline3,
         ),
+        actions: [
+          PageWidgets().iconButtonBarDocs(
+            context: context,
+            data: "assets/help_match_form.md",
+            icon: Icon(MdiIcons.help),
+            iconSize: 20,
+          ),
+        ],
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         return SingleChildScrollView(
@@ -222,7 +231,7 @@ class _MatchFormState extends State<MatchForm> {
                       primary: Theme.of(context).colorScheme.secondaryVariant,
                     ),
                     icon: Icon(Icons.games),
-                    label: Text('Add Match'),
+                    label: Text('Submit'),
                   ),
                 ),
               ],

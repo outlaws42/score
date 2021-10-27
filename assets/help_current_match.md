@@ -27,6 +27,8 @@ The top of the player tile there is a color pallet icon.
 Tap and a popup will apear with color circles.
 Select the color of your choice.
 
+---
+
 ## Free Play Game "FP"
 
 Game that doesn't have a set winning score. You need to indicate when someone

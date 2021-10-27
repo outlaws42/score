@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
-import '../helpers/custom_widgets/form_widgets.dart';
+import '../helpers.dart';
 
 class GameForm extends StatefulWidget {
   @override
@@ -40,13 +41,13 @@ class _GameFormState extends State<GameForm> {
 
     if (arguments[0] == "form_edit") {
       context.read(gameProvider).updateGame(
-        gameId: arguments[1], 
-        name: name, 
-        description: description, 
-        endScore: endScore, 
-        lowScore: lowScore, 
-        freePlay: freePlay, 
-        );
+            gameId: arguments[1],
+            name: name,
+            description: description,
+            endScore: endScore,
+            lowScore: lowScore,
+            freePlay: freePlay,
+          );
     } else {
       context.read(gameProvider).addGameForm(
             name: name,
@@ -77,10 +78,19 @@ class _GameFormState extends State<GameForm> {
     }
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 20,
         title: Text(
           arguments[0] == "form_edit" ? "Edit Game" : "Add Game",
           style: Theme.of(context).textTheme.headline3,
         ),
+        actions: [
+          PageWidgets().iconButtonBarDocs(
+            context: context,
+            data: "assets/help_game_form.md",
+            icon: Icon(MdiIcons.help),
+            iconSize: 20,
+          ),
+        ],
       ),
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final gameData = watch(gameProvider);
@@ -185,6 +195,9 @@ class _GameFormState extends State<GameForm> {
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: ElevatedButton.icon(
                     onPressed: () {
+                      if (_isFreePlay == true) {
+                        _endscoreController = TextEditingController(text: '21');
+                      }
                       if (_formKey.currentState!.validate()) {
                         _save(
                           _nameController.text,
@@ -208,9 +221,7 @@ class _GameFormState extends State<GameForm> {
                       primary: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     icon: Icon(Icons.games),
-                    label:arguments[0] == "form_edit"
-                      ? Text('Edit Game')
-                      : Text('Add Game'),
+                    label: Text('Submit'),
                   ),
                 ),
               ],

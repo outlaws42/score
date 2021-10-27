@@ -8,6 +8,7 @@ class PlayersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 20,
         title: Text(
           "Players",
           style: Theme.of(context).textTheme.headline3,
@@ -15,8 +16,9 @@ class PlayersScreen extends StatelessWidget {
         actions: [
           PageWidgets().iconButtonBarDocs(
             context: context,
-            data: "assets/help_game.md",
+            data: "assets/help_player.md",
             icon: Icon(MdiIcons.help),
+            iconSize: 25,
           ),
           PageWidgets().iconButtonBar(
             context: context,

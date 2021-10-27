@@ -61,6 +61,7 @@ class MatchCurrentScreen extends StatelessWidget {
             context: context,
             data: "assets/help_current_match.md",
             icon: Icon(MdiIcons.help),
+            iconSize: 25,
           ),
           PageWidgets().iconButtonBar(
             context: context,

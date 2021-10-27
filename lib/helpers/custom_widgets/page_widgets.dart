@@ -15,12 +15,13 @@ class PageWidgets {
     required BuildContext context,
     required String pageLink,
     required Icon icon,
+    double iconSize = 30,
     List args = const ["form"],
   }) {
     return IconButton(
       onPressed: () => Get.toNamed(pageLink, arguments: args),
       icon: icon,
-      iconSize: 30,
+      iconSize: iconSize,
       color: Theme.of(context).appBarTheme.foregroundColor,
     );
   }
@@ -29,12 +30,29 @@ class PageWidgets {
     required BuildContext context,
     required String data,
     required Icon icon,
+    double iconSize = 30,
+    double popupHeightPercent = 75,
+    double popupWidthPercent = 90,
     // List args = const ["form"],
   }) {
+    // return GestureDetector(
+    //   onTap: () => PopupDialogWidgets.documentation(
+    //     context: context,
+    //     data: data,
+    //     popupHeightPercent: popupHeightPercent,
+    //     popupWidthPercent: popupWidthPercent,
+    //   ),
+    //   child : icon
+    // );
     return IconButton(
-      onPressed: () => PopupDialogWidgets.documentation(context: context, data: data),
+      onPressed: () => PopupDialogWidgets.documentation(
+        context: context,
+        data: data,
+        popupHeightPercent: popupHeightPercent,
+        popupWidthPercent: popupWidthPercent,
+      ),
       icon: icon,
-      iconSize: 30,
+      iconSize: iconSize,
       color: Theme.of(context).appBarTheme.foregroundColor,
     );
   }
@@ -550,42 +568,40 @@ class PageWidgets {
     );
   }
 
-  static Widget settingsItemIcon(
-      {required BuildContext context,
-      required String title,
-      required String action,
-      Icon icon = const Icon(Icons.file_upload),
-      String subtitle = "",
-      }) {
+  static Widget settingsItemIcon({
+    required BuildContext context,
+    required String title,
+    required String action,
+    Icon icon = const Icon(Icons.file_upload),
+    String subtitle = "",
+  }) {
     return ListTile(
-      
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        subtitle:  Text(
-          subtitle,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        trailing: icon,
-        onTap: () async {
-          if (action == "export") {
-              String url = await FunctionHelper().backupDb(
-                context: context,
-              );
-              BottomSheetWidgets().dbBackupSheet(context: context, url: url);
-            } else if (action == "share") {
-              FunctionHelper().shareDb(
-                context: context,
-              );
-            } else if (action == "import") {
-              PopupDialogWidgets.confirmBackupDialog(
-                context: context,
-                dbFile: "Test",
-              );
-            }
-        },
-
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.headline6,
+      ),
+      subtitle: Text(
+        subtitle,
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      trailing: icon,
+      onTap: () async {
+        if (action == "export") {
+          String url = await FunctionHelper().backupDb(
+            context: context,
+          );
+          BottomSheetWidgets().dbBackupSheet(context: context, url: url);
+        } else if (action == "share") {
+          FunctionHelper().shareDb(
+            context: context,
+          );
+        } else if (action == "import") {
+          PopupDialogWidgets.confirmBackupDialog(
+            context: context,
+            dbFile: "Test",
+          );
+        }
+      },
     );
   }
 }
