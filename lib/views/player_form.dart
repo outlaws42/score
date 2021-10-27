@@ -49,7 +49,6 @@ class _PlayerFormState extends State<PlayerForm> {
     }
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 20,
         title: Text(
           arguments[0] == "form_edit" ? "Edit Player" : "Add Player",
           style: Theme.of(context).textTheme.headline3,

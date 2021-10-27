@@ -8,7 +8,6 @@ class MatchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leadingWidth: 20,
           title: Text(
             "Matches",
             style: Theme.of(context).textTheme.headline3,

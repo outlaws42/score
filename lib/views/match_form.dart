@@ -115,7 +115,6 @@ class _MatchFormState extends State<MatchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 20,
         title: Text(
           "Add Match",
           style: Theme.of(context).textTheme.headline3,

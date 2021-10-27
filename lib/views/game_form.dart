@@ -78,7 +78,6 @@ class _GameFormState extends State<GameForm> {
     }
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 20,
         title: Text(
           arguments[0] == "form_edit" ? "Edit Game" : "Add Game",
           style: Theme.of(context).textTheme.headline3,

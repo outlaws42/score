@@ -8,7 +8,6 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 20,
         title: Text(
           "Games",
           style: Theme.of(context).textTheme.headline3,
