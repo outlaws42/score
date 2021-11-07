@@ -34,28 +34,20 @@ class PlayerList extends ConsumerWidget {
                         ? _filterPlayer.length
                         : _player.player.length,
                     itemBuilder: (contex, index) {
-                      if (index == 0) {
-                        return PageWidgets().listItemPlayer(
-                          context: context,
-                          index: index,
-                          player:
-                              args[0] == "form" ? _filterPlayer : _player.player,
-                          matchList: _matchList,
-                          playerProv: _player,
-                        );
-                      } else
-                        return PageWidgets().listItemPlayer(
-                          context: context,
-                          index: index,
-                          player:
-                              args[0] == "form" ? _filterPlayer : _player.player,
-                          matchList: _matchList,
-                          playerProv: _player,
-                        );
+                      return PageWidgets().listItemPlayer(
+                        context: context,
+                        index: index,
+                        player:
+                            args[0] == "form" ? _filterPlayer : _player.player,
+                        matchList: _matchList,
+                        playerProv: _player,
+                      );
                     },
-                    physics: const AlwaysScrollableScrollPhysics(),
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
                   ),
-                  onRefresh: ()async{
+                  onRefresh: () async {
                     await context.read(playerProvider).fetchPlayer();
                   },
                 ),

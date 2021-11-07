@@ -26,22 +26,17 @@ class GameList extends ConsumerWidget {
                   child: ListView.builder(
                     itemCount: _game.length,
                     itemBuilder: (ctx, index) {
-                      if (index == 0) {
-                        return PageWidgets().listItemGame(
-                          context: context,
-                          index: index,
-                          game: _game,
-                        );
-                      } else
-                        return PageWidgets().listItemGame(
-                          context: context,
-                          index: index,
-                          game: _game,
-                        );
+                      return PageWidgets().listItemGame(
+                        context: context,
+                        index: index,
+                        game: _game,
+                      );
                     },
-                    physics: const AlwaysScrollableScrollPhysics(),
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
                   ),
-                  onRefresh: ()async{
+                  onRefresh: () async {
                     await context.read(gameProvider).fetchGame();
                   },
                 ),

@@ -52,13 +52,15 @@ class FunctionHelper {
           winnerId: playerId,
         );
 
-
     context.read(playerProvider).plus(
           id: playerId,
           wins: _wins,
           addAmount: 1,
         );
-    PopupDialogWidgets.winDialog(context, winner);
+    PopupDialogWidgets.winDialog(
+      context,
+      winner,
+    );
   }
 
   intUtcToStringFormatDT({
@@ -196,7 +198,7 @@ class FunctionHelper {
     return _dbFile;
   }
 
-  static license() async{
+  static license() async {
     const url = 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt';
     await launch(
       url,

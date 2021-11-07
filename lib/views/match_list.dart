@@ -23,26 +23,20 @@ class MatchList extends ConsumerWidget {
               ),
               Expanded(
                 child: RefreshIndicator(
-                  child:ListView.builder(
-                      itemCount: _match.length,
-                      itemBuilder: (ctx, index) {
-                        if (index == 0) {
-                          return 
-                              PageWidgets().listItemMatch(
-                                context: context,
-                                index: index,
-                                match: _match,
-                              );
-                        } else
-                          return PageWidgets().listItemMatch(
-                            context: context,
-                            index: index,
-                            match: _match,
-                          );
-                      },
-                      physics: const AlwaysScrollableScrollPhysics(),
+                  child: ListView.builder(
+                    itemCount: _match.length,
+                    itemBuilder: (ctx, index) {
+                      return PageWidgets().listItemMatch(
+                        context: context,
+                        index: index,
+                        match: _match,
+                      );
+                    },
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
                     ),
-                  onRefresh: ()async{
+                  ),
+                  onRefresh: () async {
                     await context.read(matchProvider).fetchMatch();
                   },
                 ),

@@ -141,14 +141,14 @@ class _MatchFormState extends State<MatchForm> {
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
-                // Game Name
-                FormWidgets.formTextInput(
-                  context: context,
-                  controller: _nameController,
-                  labelText: "Match Name (Optional)",
-                  hintText: "The name of match",
-                  maxLength: 20,
-                ),
+                // // Game Name
+                // FormWidgets.formTextInput(
+                //   context: context,
+                //   controller: _nameController,
+                //   labelText: "Match Name (Optional)",
+                //   hintText: "The name of match",
+                //   maxLength: 20,
+                // ),
 
                 // Game Selection
                 Container(
