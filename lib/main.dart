@@ -8,7 +8,7 @@ import './views/settings.dart';
 import './views/player_screen.dart';
 import './views/game_screen.dart';
 import './views/team_screen.dart';
-import './views/match_current_screen.dart';
+import './views/match_current_screen_list.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
 import 'views/player_form.dart';
@@ -36,7 +36,7 @@ class MyApp extends ConsumerWidget {
       themeMode: ThemeMode.light,
       getPages: [
         GetPage(name: '/match', page: () => MatchScreen()),
-        GetPage(name: '/match_current', page: () => MatchCurrentScreen()),
+        GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
         GetPage(name: '/games', page: () => GameScreen()),
         GetPage(name: '/players', page: () => PlayersScreen()),
         GetPage(name: '/teams', page: () => TeamScreen()),

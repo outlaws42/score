@@ -3,28 +3,26 @@ import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
 
 class MatchProvider extends ChangeNotifier {
-
   List<MatchModel> _matches = [];
-  List<MatchModel> _matchesWins= [];
+  List<MatchModel> _matchesWins = [];
 
   List<MatchModel> get match {
     return [..._matches];
   }
+
   List<MatchModel> get matchWins {
     return [..._matchesWins];
   }
 
-   void changeTileColor(Color color, player, id) {
+  void changeTileColor(Color color, player, id) {
     int colorInt = color.value;
     updateColor(id, colorInt, player);
-    
   }
 
   void changeCompleteStatus(matchId, _isComplete) {
     _isComplete = !_isComplete;
-    int isCompleteInt = _isComplete ==false ? 0 :1;
+    int isCompleteInt = _isComplete == false ? 0 : 1;
     updateIsComplete(matchId, isCompleteInt);
-    
   }
 
   void plus({
@@ -35,7 +33,7 @@ class MatchProvider extends ChangeNotifier {
   }) {
     score += addAmount;
     updateScore(id, score, player);
-   }
+  }
 
   void minus({
     id,
@@ -43,21 +41,19 @@ class MatchProvider extends ChangeNotifier {
     player,
     minusAmount,
   }) {
-    if (score != 0){
+    if (score != 0) {
       score -= minusAmount;
       updateScore(id, score, player);
     }
   }
 
-  void filtereList(){
-    _matchesWins = _matches.where((win) => win.winner.contains('Cara')).toList();
+  void filtereList() {
+    _matchesWins =
+        _matches.where((win) => win.winner.contains('Cara')).toList();
     notifyListeners();
   }
 
-  void updateSelected({
-    required int matchId,
-    required bool isSelected
-  }) {
+  void updateSelected({required int matchId, required bool isSelected}) {
     isSelected = !isSelected;
     int isSelectedInt = isSelected == false ? 0 : 1;
     updateIsSelected(matchId, isSelectedInt);
@@ -74,18 +70,88 @@ class MatchProvider extends ChangeNotifier {
             gameId: match['game_id'] as int?,
             player1Name: match['player1_name'] as String,
             player2Name: match['player2_name'] as String,
+            playerNameList: [
+              match['player1_name'],
+              match['player2_name'],
+              match['player3_name'],
+              match['player4_name'],
+              match['player5_name'],
+              match['player6_name'],
+              match['player7_name'],
+              match['player8_name'],
+              match['player9_name'],
+              match['player10_name'],        
+            ],
+            player4Name: match['player4_name'] as String?,
+            player5Name: match['player5_name'] as String?,
+            player6Name: match['player6_name'] as String?,
+            player7Name: match['player7_name'] as String?,
+            player8Name: match['player8_name'] as String?,
+            player9Name: match['player9_name'] as String?,
+            player10Name: match['player10_name'] as String?,
             player1Id: match['player1_id'] as int,
             player2Id: match['player2_id'] as int,
-            // playerId3: match['player3_id'] as int?,
-            // playerId4: match['player4_id'] as int?,
-            // playerId5: match['player5_id'] as int?,
+            playerIdList: [
+              match['player1_id'],
+              match['player2_id'],
+              match['player3_id'],
+              match['player4_id'],
+              match['player5_id'],
+              match['player6_id'],
+              match['player7_id'],
+              match['player8_id'],
+              match['player9_id'],
+              match['player10_id'],        
+            ],
+            player4Id: match['player4_id'] as int?,
+            player5Id: match['player5_id'] as int?,
+            player6Id: match['player6_id'] as int?,
+            player7Id: match['player7_id'] as int?,
+            player8Id: match['player8_id'] as int?,
+            player9Id: match['player9_id'] as int?,
+            player10Id: match['player10_id'] as int?,
             player1Score: match['player1_score'] as int,
             player2Score: match['player2_score'] as int,
+            playerScoreList: [
+              match['player1_score'],
+              match['player2_score'],
+              match['player3_score'],
+              match['player4_score'],
+              match['player5_score'],
+              match['player6_score'],
+              match['player7_score'],
+              match['player8_score'],
+              match['player9_score'],
+              match['player10_score'],        
+            ],
+            player4Score: match['player4_score'] as int?,
+            player5Score: match['player5_score'] as int?,
+            player6Score: match['player6_score'] as int?,
+            player7Score: match['player7_score'] as int?,
+            player8Score: match['player8_score'] as int?,
+            player9Score: match['player9_score'] as int?,
+            player10Score: match['player10_score'] as int?,
             player1Color: match['player1_color'] as int,
             player2Color: match['player2_color'] as int,
-            // playerScore3: match['playerscore3'] as int?,
-            // playerScore4: match['playerscore4'] as int?,
-            // playerScore5: match['playerscore5'] as int?,
+            playerColorList: [
+              match['player1_color'],
+              match['player2_color'],
+              match['player3_color'],
+              match['player4_color'],
+              match['player5_color'],
+              match['player6_color'],
+              match['player7_color'],
+              match['player8_color'],
+              match['player9_color'],
+              match['player10_color'],        
+            ],
+            player4Color: match['player4_color'] as int?,
+            player5Color: match['player5_color'] as int?,
+            player6Color: match['player6_color'] as int?,
+            player7Color: match['player7_color'] as int?,
+            player8Color: match['player8_color'] as int?,
+            player9Color: match['player9_color'] as int?,
+            player10Color: match['player10_color'] as int?,
             winnerId: match['winner_id'] as int,
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
@@ -102,7 +168,7 @@ class MatchProvider extends ChangeNotifier {
 
   Future<void> fetchMatchByWinnerId({
     required int winnerId,
-    }) async {
+  }) async {
     final dataList = await DBHelper.getDataByWinnerId('player_match', winnerId);
     _matchesWins = dataList
         .map(
@@ -251,7 +317,7 @@ class MatchProvider extends ChangeNotifier {
   Future<void> updateIsSelected(
     int matchId,
     int isSelected,
-  ) async { 
+  ) async {
     DBHelper.update('player_match', matchId, {
       'is_selected': isSelected,
     });
@@ -262,7 +328,9 @@ class MatchProvider extends ChangeNotifier {
   Future<void> deleteMatch(
     int id,
   ) async {
-    DBHelper.remove('player_match',id,
+    DBHelper.remove(
+      'player_match',
+      id,
     );
     fetchMatch();
     notifyListeners();
@@ -281,6 +349,7 @@ class MatchProvider extends ChangeNotifier {
     fetchMatch();
     notifyListeners();
   }
+
   Future<void> updateIsComplete(
     int matchId,
     int isComplete,
