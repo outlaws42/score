@@ -129,6 +129,7 @@ class MatchCurrentScreenList extends StatelessWidget {
                   return PlayerTileUpdate(
                     player: _playerList[index],
                     matchId: matchId[0],
+                    playerIndex: index,
                   );
                 },
                 physics: const BouncingScrollPhysics(

@@ -15,18 +15,18 @@ class PopupDialogWidgets {
     required int score,
     required String player,
     required int id,
-    required String playerName,
+    // required String playerName,
     required String sign,
     required int amount,
     required int winScore,
     required bool freePlay,
-    required String player1Name,
-    required String player2Name,
-    required int player1Id,
-    required int player2Id,
-    required int player1Score,
-    required int player2Score,
-    required bool lowScore,
+    // required String player1Name,
+    // required String player2Name,
+    // required int player1Id,
+    // required int player2Id,
+    // required int player1Score,
+    // required int player2Score,
+    // required bool lowScore,
   }) {
     bool isDisable = false;
     if (freePlay == true) {
@@ -53,27 +53,27 @@ class PopupDialogWidgets {
                         minusAmount: amount,
                       );
               Get.back();
-              print('This is the score ${score + amount}');
-              if (score + amount == winScore && freePlay == false) {
-                if (playerName == player1Name) {
-                  player1Score = player1Score + amount;
-                } else if (playerName == player2Name) {
-                  player2Score = player2Score + amount;
-                }
+              // print('This is the score ${score + amount}');
+              // if (score + amount == winScore && freePlay == false) {
+              //   if (playerName == player1Name) {
+              //     player1Score = player1Score + amount;
+              //   } else if (playerName == player2Name) {
+              //     player2Score = player2Score + amount;
+              //   }
 
-                FunctionHelper.checkWinner(
-                  context: context,
-                  player1Score: player1Score,
-                  player2Score: player2Score,
-                  player1Id: player1Id,
-                  player2Id: player2Id,
-                  player1Name: player1Name,
-                  player2Name: player2Name,
-                  lowScore: lowScore,
-                  matchId: id,
-                );
-                // Get.back();
-              }
+              //   FunctionHelper.checkWinner(
+              //     context: context,
+              //     player1Score: player1Score,
+              //     player2Score: player2Score,
+              //     player1Id: player1Id,
+              //     player2Id: player2Id,
+              //     player1Name: player1Name,
+              //     player2Name: player2Name,
+              //     lowScore: lowScore,
+              //     matchId: id,
+              //   );
+              //   // Get.back();
+              // }
             },
       child: sign == "add" ? Text("+$amount") : Text("-$amount"),
       style: ElevatedButton.styleFrom(
@@ -87,17 +87,18 @@ class PopupDialogWidgets {
     required BuildContext context,
     required int score,
     required String player,
+    required int playerIndex,
     required int id,
-    required String playerName,
+    // required String playerName,
     required String sign,
     required int winScore,
     required bool freePlay,
-    required String player1Name,
-    required String player2Name,
-    required int player1Id,
-    required int player2Id,
-    required int player1Score,
-    required int player2Score,
+    // required String player1Name,
+    // required String player2Name,
+    // required int player1Id,
+    // required int player2Id,
+    // required int player1Score,
+    // required int player2Score,
     required bool lowScore,
   }) {
     //  int index = 0;
@@ -121,18 +122,18 @@ class PopupDialogWidgets {
                 score: score,
                 player: player,
                 id: id,
-                playerName: playerName,
+                // playerName: playerName,
                 sign: sign,
                 amount: 5,
                 winScore: winScore,
                 freePlay: freePlay,
-                player1Score: player1Score,
-                player2Score: player2Score,
-                player1Id: player1Id,
-                player2Id: player2Id,
-                player1Name: player1Name,
-                player2Name: player2Name,
-                lowScore: lowScore,
+                // player1Score: player1Score,
+                // player2Score: player2Score,
+                // player1Id: player1Id,
+                // player2Id: player2Id,
+                // player1Name: player1Name,
+                // player2Name: player2Name,
+                // lowScore: lowScore,
               ),
               // 10 Button
               PopupDialogWidgets.plusMinusButton(
@@ -140,18 +141,18 @@ class PopupDialogWidgets {
                 score: score,
                 player: player,
                 id: id,
-                playerName: playerName,
+                // playerName: playerName,
                 sign: sign,
                 amount: 10,
                 winScore: winScore,
                 freePlay: freePlay,
-                player1Score: player1Score,
-                player2Score: player2Score,
-                player1Id: player1Id,
-                player2Id: player2Id,
-                player1Name: player1Name,
-                player2Name: player2Name,
-                lowScore: lowScore,
+                // player1Score: player1Score,
+                // player2Score: player2Score,
+                // player1Id: player1Id,
+                // player2Id: player2Id,
+                // player1Name: player1Name,
+                // player2Name: player2Name,
+                // lowScore: lowScore,
               ),
               // 15 Button
 
@@ -160,18 +161,18 @@ class PopupDialogWidgets {
                 score: score,
                 player: player,
                 id: id,
-                playerName: playerName,
+                // playerName: playerName,
                 sign: sign,
                 amount: 15,
                 winScore: winScore,
                 freePlay: freePlay,
-                player1Score: player1Score,
-                player2Score: player2Score,
-                player1Id: player1Id,
-                player2Id: player2Id,
-                player1Name: player1Name,
-                player2Name: player2Name,
-                lowScore: lowScore,
+                // player1Score: player1Score,
+                // player2Score: player2Score,
+                // player1Id: player1Id,
+                // player2Id: player2Id,
+                // player1Name: player1Name,
+                // player2Name: player2Name,
+                // lowScore: lowScore,
               ),
               // 30 Button
               PopupDialogWidgets.plusMinusButton(
@@ -179,18 +180,18 @@ class PopupDialogWidgets {
                 score: score,
                 player: player,
                 id: id,
-                playerName: playerName,
+                // playerName: playerName,
                 sign: sign,
                 amount: 30,
                 winScore: winScore,
                 freePlay: freePlay,
-                player1Score: player1Score,
-                player2Score: player2Score,
-                player1Id: player1Id,
-                player2Id: player2Id,
-                player1Name: player1Name,
-                player2Name: player2Name,
-                lowScore: lowScore,
+                // player1Score: player1Score,
+                // player2Score: player2Score,
+                // player1Id: player1Id,
+                // player2Id: player2Id,
+                // player1Name: player1Name,
+                // player2Name: player2Name,
+                // lowScore: lowScore,
               ),
             ],
           ),
@@ -232,27 +233,27 @@ class PopupDialogWidgets {
                             );
 
                 Get.back();
-                print('This is the score ${score + int.parse(value)}');
-                if (score + int.parse(value) == winScore && freePlay == false) {
-                  if (playerName == player1Name) {
-                    player1Score = player1Score + int.parse(value);
-                  } else if (playerName == player2Name) {
-                    player2Score = player2Score + int.parse(value);
-                  }
+                // print('This is the score ${score + int.parse(value)}');
+                // if (score + int.parse(value) == winScore && freePlay == false) {
+                //   if (playerName == player1Name) {
+                //     player1Score = player1Score + int.parse(value);
+                //   } else if (playerName == player2Name) {
+                //     player2Score = player2Score + int.parse(value);
+                //   }
 
-                  FunctionHelper.checkWinner(
-                    context: context,
-                    player1Score: player1Score,
-                    player2Score: player2Score,
-                    player1Id: player1Id,
-                    player2Id: player2Id,
-                    player1Name: player1Name,
-                    player2Name: player2Name,
-                    lowScore: lowScore,
-                    matchId: id,
-                  );
-                  // Get.back();
-                }
+                //   FunctionHelper.checkWinner(
+                //     context: context,
+                //     player1Score: player1Score,
+                //     player2Score: player2Score,
+                //     player1Id: player1Id,
+                //     player2Id: player2Id,
+                //     player1Name: player1Name,
+                //     player2Name: player2Name,
+                //     lowScore: lowScore,
+                //     matchId: id,
+                //   );
+                //   // Get.back();
+                // }
               },
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,

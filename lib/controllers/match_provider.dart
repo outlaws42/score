@@ -28,22 +28,34 @@ class MatchProvider extends ChangeNotifier {
   void plus({
     id,
     score,
+    playerIndex,
     player,
     addAmount,
   }) {
     score += addAmount;
-    updateScore(id, score, player);
+    updateScore2(
+      id,
+      score,
+      playerIndex,
+      player,
+    );
   }
 
   void minus({
     id,
     score,
+    playerIndex,
     player,
     minusAmount,
   }) {
     if (score != 0) {
       score -= minusAmount;
-      updateScore(id, score, player);
+      updateScore2(
+        id,
+        score,
+        playerIndex,
+        player,
+      );
     }
   }
 
@@ -80,7 +92,7 @@ class MatchProvider extends ChangeNotifier {
               match['player7_name'],
               match['player8_name'],
               match['player9_name'],
-              match['player10_name'],        
+              match['player10_name'],
             ],
             player4Name: match['player4_name'] as String?,
             player5Name: match['player5_name'] as String?,
@@ -101,7 +113,7 @@ class MatchProvider extends ChangeNotifier {
               match['player7_id'],
               match['player8_id'],
               match['player9_id'],
-              match['player10_id'],        
+              match['player10_id'],
             ],
             player4Id: match['player4_id'] as int?,
             player5Id: match['player5_id'] as int?,
@@ -122,7 +134,7 @@ class MatchProvider extends ChangeNotifier {
               match['player7_score'],
               match['player8_score'],
               match['player9_score'],
-              match['player10_score'],        
+              match['player10_score'],
             ],
             player4Score: match['player4_score'] as int?,
             player5Score: match['player5_score'] as int?,
@@ -143,7 +155,7 @@ class MatchProvider extends ChangeNotifier {
               match['player7_color'],
               match['player8_color'],
               match['player9_color'],
-              match['player10_color'],        
+              match['player10_color'],
             ],
             player4Color: match['player4_color'] as int?,
             player5Color: match['player5_color'] as int?,
@@ -166,43 +178,43 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchMatchByWinnerId({
-    required int winnerId,
-  }) async {
-    final dataList = await DBHelper.getDataByWinnerId('player_match', winnerId);
-    _matchesWins = dataList
-        .map(
-          (match) => MatchModel(
-            id: match['id'] as int,
-            matchName: match['match_name'] as String?,
-            gameName: match['game_name'] as String,
-            gameId: match['game_id'] as int?,
-            player1Name: match['player1_name'] as String,
-            player2Name: match['player2_name'] as String,
-            player1Id: match['player1_id'] as int,
-            player2Id: match['player2_id'] as int,
-            // playerId3: match['player3_id'] as int?,
-            // playerId4: match['player4_id'] as int?,
-            // playerId5: match['player5_id'] as int?,
-            player1Score: match['player1_score'] as int,
-            player2Score: match['player2_score'] as int,
-            player1Color: match['player1_color'] as int,
-            player2Color: match['player2_color'] as int,
-            // playerScore3: match['playerscore3'] as int?,
-            // playerScore4: match['playerscore4'] as int?,
-            // playerScore5: match['playerscore5'] as int?,
-            winnerId: match['winner_id'] as int,
-            winner: match['winner'] as String,
-            winScore: match['win_score'] as int,
-            dateTime: match['date_time'] as int,
-            lowScore: match['low_score'] == 0 ? false : true,
-            freePlay: match['free_play'] == 0 ? false : true,
-            isComplete: match['is_complete'] == 0 ? false : true,
-          ),
-        )
-        .toList();
-    notifyListeners();
-  }
+  // Future<void> fetchMatchByWinnerId({
+  //   required int winnerId,
+  // }) async {
+  //   final dataList = await DBHelper.getDataByWinnerId('player_match', winnerId);
+  //   _matchesWins = dataList
+  //       .map(
+  //         (match) => MatchModel(
+  //           id: match['id'] as int,
+  //           matchName: match['match_name'] as String?,
+  //           gameName: match['game_name'] as String,
+  //           gameId: match['game_id'] as int?,
+  //           player1Name: match['player1_name'] as String,
+  //           player2Name: match['player2_name'] as String,
+  //           player1Id: match['player1_id'] as int,
+  //           player2Id: match['player2_id'] as int,
+  //           // playerId3: match['player3_id'] as int?,
+  //           // playerId4: match['player4_id'] as int?,
+  //           // playerId5: match['player5_id'] as int?,
+  //           player1Score: match['player1_score'] as int,
+  //           player2Score: match['player2_score'] as int,
+  //           player1Color: match['player1_color'] as int,
+  //           player2Color: match['player2_color'] as int,
+  //           // playerScore3: match['playerscore3'] as int?,
+  //           // playerScore4: match['playerscore4'] as int?,
+  //           // playerScore5: match['playerscore5'] as int?,
+  //           winnerId: match['winner_id'] as int,
+  //           winner: match['winner'] as String,
+  //           winScore: match['win_score'] as int,
+  //           dateTime: match['date_time'] as int,
+  //           lowScore: match['low_score'] == 0 ? false : true,
+  //           freePlay: match['free_play'] == 0 ? false : true,
+  //           isComplete: match['is_complete'] == 0 ? false : true,
+  //         ),
+  //       )
+  //       .toList();
+  //   notifyListeners();
+  // }
 
   Future<void> addMatch({
     // int id,
@@ -288,6 +300,35 @@ class MatchProvider extends ChangeNotifier {
         },
       );
     }
+    fetchMatch();
+    notifyListeners();
+  }
+
+  Future<void> updateScore2(
+    int id,
+    int score,
+    int playerIndex,
+    String player,
+  ) async {
+    int playerNumber = playerIndex + 1;
+    print('This is the player number $playerNumber');
+    // if (player == "player1") {
+    DBHelper.update(
+      'player_match',
+      id,
+      {
+        'player${playerNumber}_score': score,
+      },
+    );
+    // } else {
+    //   DBHelper.update(
+    //     'player_match',
+    //     id,
+    //     {
+    //       'player2_score': score,
+    //     },
+    //   );
+    // }
     fetchMatch();
     notifyListeners();
   }

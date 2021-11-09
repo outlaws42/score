@@ -8,9 +8,11 @@ import '../helpers.dart';
 class PlayerTileUpdate extends StatelessWidget {
   final String player;
   final int matchId;
+  final int playerIndex;
   PlayerTileUpdate({
-    this.player = "",
-    this.matchId = 1,
+    required this.player,
+    required this.matchId,
+    required this.playerIndex
   });
 
   void _colorDialog(
@@ -52,11 +54,13 @@ class PlayerTileUpdate extends StatelessWidget {
       final _player1Id = matchData.match[_index].player1Id;
       final _player2Id = matchData.match[_index].player2Id;
       final winScore = matchData.match[_index].winScore;
-      final playerName = player == "player1" ? _player1Name : _player2Name;
-      final _score = player == "player1" ? _player1Score : _player2Score;
-      final _color = player == "player1"
-          ? matchData.match[_index].player1Color
-          : matchData.match[_index].player2Color;
+      final playerName = matchData.match[_index].playerNameList[playerIndex];
+      // final _score = player == "player1" ? _player1Score : _player2Score;
+      final _score = matchData.match[_index].playerScoreList[playerIndex];
+      // final _color = player == "player1"
+      //     ? matchData.match[_index].player1Color
+      //     : matchData.match[_index].player2Color;
+      final _color = matchData.match[_index].playerColorList[playerIndex];
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),
@@ -82,7 +86,7 @@ class PlayerTileUpdate extends StatelessWidget {
                     children: [
                       // Select Player
                       Text(
-                        '$player',
+                        '$playerName',
                         style: Theme.of(context).textTheme.headline3,
                       ),
 
@@ -115,6 +119,7 @@ class PlayerTileUpdate extends StatelessWidget {
                               context.read(matchProvider).minus(
                                     id: matchId,
                                     score: _score,
+                                    playerIndex: playerIndex,
                                     player: player,
                                     minusAmount: 1,
                                   );
@@ -142,18 +147,19 @@ class PlayerTileUpdate extends StatelessWidget {
                                 context: context,
                                 score: _score,
                                 player: player,
+                                playerIndex: playerIndex,
                                 id: matchId,
-                                playerName: playerName,
+                                // playerName: playerName,
                                 sign: "minus",
                                 winScore: winScore,
                                 freePlay: _freePlay,
                                 // index: _index,
-                                player1Name: _player1Name, 
-                                player2Name: _player2Name,
-                                player1Id: _player1Id,
-                                player2Id: _player2Id,
-                                player1Score: _player1Score,
-                                player2Score: _player2Score,
+                                // player1Name: _player1Name, 
+                                // player2Name: _player2Name,
+                                // player1Id: _player1Id,
+                                // player2Id: _player2Id,
+                                // player1Score: _player1Score,
+                                // player2Score: _player2Score,
                                 lowScore: _lowScore,
                               );
                               // print('This is score before return $_score');
@@ -193,6 +199,7 @@ class PlayerTileUpdate extends StatelessWidget {
                               context.read(matchProvider).plus(
                                     id: matchId,
                                     score: _score,
+                                    playerIndex: playerIndex,
                                     player: player,
                                     addAmount: 1,
                                   );
@@ -219,17 +226,18 @@ class PlayerTileUpdate extends StatelessWidget {
                                 context: context,
                                 score: _score,
                                 player: player,
+                                playerIndex: playerIndex,
                                 id: matchId,
-                                playerName: playerName,
+                                // playerName: playerName,
                                 sign: "add",
                                 winScore: winScore,
                                 freePlay: _freePlay,
-                                player1Name: _player1Name, 
-                                player2Name: _player2Name,
-                                player1Id: _player1Id,
-                                player2Id: _player2Id,
-                                player1Score: _player1Score,
-                                player2Score: _player2Score,
+                                // player1Name: _player1Name, 
+                                // player2Name: _player2Name,
+                                // player1Id: _player1Id,
+                                // player2Id: _player2Id,
+                                // player1Score: _player1Score,
+                                // player2Score: _player2Score,
                                 lowScore: _lowScore,
                               ),
                       child: Icon(Icons.add),
