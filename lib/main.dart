@@ -6,6 +6,7 @@ import './helpers/theme_config.dart';
 import './views/match_screen.dart';
 import './views/settings.dart';
 import './views/player_screen.dart';
+import './views/player_select_screen.dart';
 import './views/game_screen.dart';
 import './views/team_screen.dart';
 import './views/match_current_screen_list.dart';
@@ -39,6 +40,7 @@ class MyApp extends ConsumerWidget {
         GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
         GetPage(name: '/games', page: () => GameScreen()),
         GetPage(name: '/players', page: () => PlayersScreen()),
+        GetPage(name: '/players_select', page: () => PlayersSelectScreen()),
         GetPage(name: '/teams', page: () => TeamScreen()),
         GetPage(name: '/match_form', page: () => MatchForm()),
         GetPage(name: '/game_form', page: () => GameForm()),

@@ -14,6 +14,7 @@ class PopupDialogWidgets {
     required BuildContext context,
     required int score,
     required String player,
+    required int playerIndex,
     required int id,
     // required String playerName,
     required String sign,
@@ -43,12 +44,14 @@ class PopupDialogWidgets {
                   ? context.read(matchProvider).plus(
                         id: id,
                         score: score,
+                        playerIndex: playerIndex,
                         player: player,
                         addAmount: amount,
                       )
                   : context.read(matchProvider).minus(
                         id: id,
                         score: score,
+                        playerIndex: playerIndex,
                         player: player,
                         minusAmount: amount,
                       );
@@ -121,6 +124,7 @@ class PopupDialogWidgets {
                 context: context,
                 score: score,
                 player: player,
+                playerIndex: playerIndex,
                 id: id,
                 // playerName: playerName,
                 sign: sign,
@@ -140,6 +144,7 @@ class PopupDialogWidgets {
                 context: context,
                 score: score,
                 player: player,
+                playerIndex: playerIndex,
                 id: id,
                 // playerName: playerName,
                 sign: sign,
@@ -160,6 +165,7 @@ class PopupDialogWidgets {
                 context: context,
                 score: score,
                 player: player,
+                playerIndex: playerIndex,
                 id: id,
                 // playerName: playerName,
                 sign: sign,
@@ -179,6 +185,7 @@ class PopupDialogWidgets {
                 context: context,
                 score: score,
                 player: player,
+                playerIndex: playerIndex,
                 id: id,
                 // playerName: playerName,
                 sign: sign,
@@ -222,12 +229,14 @@ class PopupDialogWidgets {
                         ? context.read(matchProvider).plus(
                               id: id,
                               score: score,
+                              playerIndex: playerIndex,
                               player: player,
                               addAmount: int.parse(value),
                             )
                         : context.read(matchProvider).minus(
                               id: id,
                               score: score,
+                              playerIndex: playerIndex,
                               player: player,
                               minusAmount: int.parse(value),
                             );

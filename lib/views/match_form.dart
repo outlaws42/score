@@ -40,17 +40,17 @@ class _MatchFormState extends State<MatchForm> {
 
   void goToPlay(String player, otherId) async {
     var dataFromPlayer = await Get.toNamed(
-      "/players",
+      "/players_select",
       arguments: ['form', '$otherId'],
     );
-    if (player == "player1") {
-      _player1 = dataFromPlayer[0];
-      _id1 = dataFromPlayer[1];
-    } else if (player == "player2") {
-      _player2 = dataFromPlayer[0];
-      _id2 = dataFromPlayer[1];
-    }
-    setState(() {});
+    // if (player == "player1") {
+    //   _player1 = dataFromPlayer[0];
+    //   _id1 = dataFromPlayer[1];
+    // } else if (player == "player2") {
+    //   _player2 = dataFromPlayer[0];
+    //   _id2 = dataFromPlayer[1];
+    // }
+    // setState(() {});
   }
 
   void save({
@@ -185,21 +185,21 @@ class _MatchFormState extends State<MatchForm> {
                 ),
 
                 // player2 Selection
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Card(
-                    elevation: 4,
-                    child: ListTile(
-                      title: Text('$_player2',
-                          style: Theme.of(context).textTheme.headline4),
-                      trailing: Icon(
-                        Icons.person_add,
-                        color: Theme.of(context).appBarTheme.backgroundColor,
-                      ),
-                      onTap: () => goToPlay('player2', _id1),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                //   child: Card(
+                //     elevation: 4,
+                //     child: ListTile(
+                //       title: Text('$_player2',
+                //           style: Theme.of(context).textTheme.headline4),
+                //       trailing: Icon(
+                //         Icons.person_add,
+                //         color: Theme.of(context).appBarTheme.backgroundColor,
+                //       ),
+                //       onTap: () => goToPlay('player2', _id1),
+                //     ),
+                //   ),
+                // ),
 
                 // Submit Button
                 Container(

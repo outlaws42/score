@@ -14,9 +14,19 @@ class MatchProvider extends ChangeNotifier {
     return [..._matchesWins];
   }
 
-  void changeTileColor(Color color, player, id) {
+  void changeTileColor({
+    required Color color,
+    required int playerIndex,
+    required String player,
+    required int id,
+  }) {
     int colorInt = color.value;
-    updateColor(id, colorInt, player);
+    updateColor(
+      id: id,
+      color: colorInt,
+      playerIndex: playerIndex,
+      player: player,
+    );
   }
 
   void changeCompleteStatus(matchId, _isComplete) {
@@ -33,7 +43,7 @@ class MatchProvider extends ChangeNotifier {
     addAmount,
   }) {
     score += addAmount;
-    updateScore2(
+    updateScore(
       id,
       score,
       playerIndex,
@@ -50,7 +60,7 @@ class MatchProvider extends ChangeNotifier {
   }) {
     if (score != 0) {
       score -= minusAmount;
-      updateScore2(
+      updateScore(
         id,
         score,
         playerIndex,
@@ -94,15 +104,15 @@ class MatchProvider extends ChangeNotifier {
               match['player9_name'],
               match['player10_name'],
             ],
-            player4Name: match['player4_name'] as String?,
-            player5Name: match['player5_name'] as String?,
-            player6Name: match['player6_name'] as String?,
-            player7Name: match['player7_name'] as String?,
-            player8Name: match['player8_name'] as String?,
-            player9Name: match['player9_name'] as String?,
-            player10Name: match['player10_name'] as String?,
-            player1Id: match['player1_id'] as int,
-            player2Id: match['player2_id'] as int,
+            // player4Name: match['player4_name'] as String?,
+            // player5Name: match['player5_name'] as String?,
+            // player6Name: match['player6_name'] as String?,
+            // player7Name: match['player7_name'] as String?,
+            // player8Name: match['player8_name'] as String?,
+            // player9Name: match['player9_name'] as String?,
+            // player10Name: match['player10_name'] as String?,
+            // player1Id: match['player1_id'] as int,
+            // player2Id: match['player2_id'] as int,
             playerIdList: [
               match['player1_id'],
               match['player2_id'],
@@ -115,13 +125,13 @@ class MatchProvider extends ChangeNotifier {
               match['player9_id'],
               match['player10_id'],
             ],
-            player4Id: match['player4_id'] as int?,
-            player5Id: match['player5_id'] as int?,
-            player6Id: match['player6_id'] as int?,
-            player7Id: match['player7_id'] as int?,
-            player8Id: match['player8_id'] as int?,
-            player9Id: match['player9_id'] as int?,
-            player10Id: match['player10_id'] as int?,
+            // player4Id: match['player4_id'] as int?,
+            // player5Id: match['player5_id'] as int?,
+            // player6Id: match['player6_id'] as int?,
+            // player7Id: match['player7_id'] as int?,
+            // player8Id: match['player8_id'] as int?,
+            // player9Id: match['player9_id'] as int?,
+            // player10Id: match['player10_id'] as int?,
             player1Score: match['player1_score'] as int,
             player2Score: match['player2_score'] as int,
             playerScoreList: [
@@ -136,13 +146,13 @@ class MatchProvider extends ChangeNotifier {
               match['player9_score'],
               match['player10_score'],
             ],
-            player4Score: match['player4_score'] as int?,
-            player5Score: match['player5_score'] as int?,
-            player6Score: match['player6_score'] as int?,
-            player7Score: match['player7_score'] as int?,
-            player8Score: match['player8_score'] as int?,
-            player9Score: match['player9_score'] as int?,
-            player10Score: match['player10_score'] as int?,
+            // player4Score: match['player4_score'] as int?,
+            // player5Score: match['player5_score'] as int?,
+            // player6Score: match['player6_score'] as int?,
+            // player7Score: match['player7_score'] as int?,
+            // player8Score: match['player8_score'] as int?,
+            // player9Score: match['player9_score'] as int?,
+            // player10Score: match['player10_score'] as int?,
             player1Color: match['player1_color'] as int,
             player2Color: match['player2_color'] as int,
             playerColorList: [
@@ -157,13 +167,13 @@ class MatchProvider extends ChangeNotifier {
               match['player9_color'],
               match['player10_color'],
             ],
-            player4Color: match['player4_color'] as int?,
-            player5Color: match['player5_color'] as int?,
-            player6Color: match['player6_color'] as int?,
-            player7Color: match['player7_color'] as int?,
-            player8Color: match['player8_color'] as int?,
-            player9Color: match['player9_color'] as int?,
-            player10Color: match['player10_color'] as int?,
+            // player4Color: match['player4_color'] as int?,
+            // player5Color: match['player5_color'] as int?,
+            // player6Color: match['player6_color'] as int?,
+            // player7Color: match['player7_color'] as int?,
+            // player8Color: match['player8_color'] as int?,
+            // player9Color: match['player9_color'] as int?,
+            // player10Color: match['player10_color'] as int?,
             winnerId: match['winner_id'] as int,
             winner: match['winner'] as String,
             winScore: match['win_score'] as int,
@@ -227,6 +237,10 @@ class MatchProvider extends ChangeNotifier {
     int player2Id = 0,
     // int player1Score = 0,
     // int player2Score = 0,
+    // required List playerNameList,
+    // required List playerIdList,
+    // required List playerScoreList,
+    // required List playerColorList,
     int endScore = 0,
     int dateTime = 0,
     bool lowScore = false,
@@ -241,6 +255,10 @@ class MatchProvider extends ChangeNotifier {
       gameId: gameId,
       player1Name: player1Name,
       player2Name: player2Name,
+      // playerNameList: playerNameList,
+      // playerIdList: playerIdList,
+      // playerScoreList: [],
+      // playerColorList: playerColorList,
       player1Id: player1Id,
       player2Id: player2Id,
       player1Score: 0,
@@ -258,6 +276,7 @@ class MatchProvider extends ChangeNotifier {
     );
     _matches.add(newMatch);
     notifyListeners();
+    // var numberPlayers = newMatch.playerIdList.length;
     DBHelper.insert('player_match', {
       // 'id': newPlayer.id,
       'match_name': newMatch.matchName,
@@ -282,29 +301,29 @@ class MatchProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> updateScore(
-    int id,
-    int score,
-    String player,
-  ) async {
-    if (player == "player1") {
-      DBHelper.update('player_match', id, {
-        'player1_score': score,
-      });
-    } else {
-      DBHelper.update(
-        'player_match',
-        id,
-        {
-          'player2_score': score,
-        },
-      );
-    }
-    fetchMatch();
-    notifyListeners();
-  }
+  // Future<void> updateScore(
+  //   int id,
+  //   int score,
+  //   String player,
+  // ) async {
+  //   if (player == "player1") {
+  //     DBHelper.update('player_match', id, {
+  //       'player1_score': score,
+  //     });
+  //   } else {
+  //     DBHelper.update(
+  //       'player_match',
+  //       id,
+  //       {
+  //         'player2_score': score,
+  //       },
+  //     );
+  //   }
+  //   fetchMatch();
+  //   notifyListeners();
+  // }
 
-  Future<void> updateScore2(
+  Future<void> updateScore(
     int id,
     int score,
     int playerIndex,
@@ -312,7 +331,6 @@ class MatchProvider extends ChangeNotifier {
   ) async {
     int playerNumber = playerIndex + 1;
     print('This is the player number $playerNumber');
-    // if (player == "player1") {
     DBHelper.update(
       'player_match',
       id,
@@ -320,37 +338,52 @@ class MatchProvider extends ChangeNotifier {
         'player${playerNumber}_score': score,
       },
     );
+    fetchMatch();
+    notifyListeners();
+  }
+
+  // Future<void> updateColor(
+  //   int id,
+  //   int color,
+  //   String player,
+  // ) async {
+  //   if (player == "player1") {
+  //     DBHelper.update('player_match', id, {
+  //       'player1_color': color,
+  //     });
+  //   } else {
+  //     DBHelper.update(
+  //       'player_match',
+  //       id,
+  //       {
+  //         'player2_color': color,
+  //       },
+  //     );
+  //   }
+  //   fetchMatch();
+  //   notifyListeners();
+  // }
+
+  Future<void> updateColor({
+    required int id,
+    required int color,
+    required int playerIndex,
+    required String player,
+  }) async {
+    int playerNumber = playerIndex + 1;
+    // if (player == "player1") {
+    DBHelper.update('player_match', id, {
+      'player${playerNumber}_color': color,
+    });
     // } else {
     //   DBHelper.update(
     //     'player_match',
     //     id,
     //     {
-    //       'player2_score': score,
+    //       'player2_color': color,
     //     },
     //   );
     // }
-    fetchMatch();
-    notifyListeners();
-  }
-
-  Future<void> updateColor(
-    int id,
-    int color,
-    String player,
-  ) async {
-    if (player == "player1") {
-      DBHelper.update('player_match', id, {
-        'player1_color': color,
-      });
-    } else {
-      DBHelper.update(
-        'player_match',
-        id,
-        {
-          'player2_color': color,
-        },
-      );
-    }
     fetchMatch();
     notifyListeners();
   }

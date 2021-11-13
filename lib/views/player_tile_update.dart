@@ -12,23 +12,29 @@ class PlayerTileUpdate extends StatelessWidget {
   PlayerTileUpdate({
     required this.player,
     required this.matchId,
-    required this.playerIndex
+    required this.playerIndex,
   });
 
-  void _colorDialog(
-    BuildContext context,
+  void _colorDialog({
+    required BuildContext context,
     matchData,
     player,
+    playerIndex,
     id,
     playerColor,
-  ) {
+  }) {
     Get.defaultDialog(
       radius: 10.0,
       title: "Select Color",
       content: BlockPicker(
         pickerColor: Color(playerColor).withOpacity(1),
         onColorChanged: (color) {
-          matchData.changeTileColor(color, player, id);
+          matchData.changeTileColor(
+            color: color,
+            player: player,
+            playerIndex: playerIndex,
+            id: id,
+          );
           Get.back();
         },
       ),
@@ -95,7 +101,13 @@ class PlayerTileUpdate extends StatelessWidget {
                         onPressed: _isComplete == true
                             ? null
                             : () => _colorDialog(
-                                context, matchData, player, matchId, _color),
+                                  context: context,
+                                  matchData: matchData,
+                                  player: player,
+                                  playerIndex: playerIndex,
+                                  id: matchId,
+                                  playerColor: _color,
+                                ),
                         child: Icon(Icons.color_lens),
                         style: ElevatedButton.styleFrom(
                           onPrimary: Colors.white,
@@ -142,8 +154,8 @@ class PlayerTileUpdate extends StatelessWidget {
                             },
                       onLongPress: _isComplete == true
                           ? null
-                          : () async{
-                             await  PopupDialogWidgets.mathDialog(
+                          : () async {
+                              await PopupDialogWidgets.mathDialog(
                                 context: context,
                                 score: _score,
                                 player: player,
@@ -154,7 +166,7 @@ class PlayerTileUpdate extends StatelessWidget {
                                 winScore: winScore,
                                 freePlay: _freePlay,
                                 // index: _index,
-                                // player1Name: _player1Name, 
+                                // player1Name: _player1Name,
                                 // player2Name: _player2Name,
                                 // player1Id: _player1Id,
                                 // player2Id: _player2Id,
@@ -168,17 +180,17 @@ class PlayerTileUpdate extends StatelessWidget {
                               // }
                               // print('This is score after return $_score');
                               // if (_score + 1 == winScore) {
-                                // FunctionHelper.checkWinner(
-                                //   context: context, X
-                                //   player1Name: _player1Name, 
-                                //   player2Name: _player2Name,
-                                //   matchId: matchId, X
-                                //   player1Id: _player1Id,
-                                //   player2Id: _player2Id,
-                                //   player1Score: _player1Score,
-                                //   player2Score: _player2Score,
-                                //   lowScore: _lowScore,
-                                // );
+                              // FunctionHelper.checkWinner(
+                              //   context: context, X
+                              //   player1Name: _player1Name,
+                              //   player2Name: _player2Name,
+                              //   matchId: matchId, X
+                              //   player1Id: _player1Id,
+                              //   player2Id: _player2Id,
+                              //   player1Score: _player1Score,
+                              //   player2Score: _player2Score,
+                              //   lowScore: _lowScore,
+                              // );
                               // }
                             },
                       child: Icon(Icons.remove),
@@ -232,7 +244,7 @@ class PlayerTileUpdate extends StatelessWidget {
                                 sign: "add",
                                 winScore: winScore,
                                 freePlay: _freePlay,
-                                // player1Name: _player1Name, 
+                                // player1Name: _player1Name,
                                 // player2Name: _player2Name,
                                 // player1Id: _player1Id,
                                 // player2Id: _player2Id,

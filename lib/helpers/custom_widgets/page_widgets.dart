@@ -72,6 +72,28 @@ class PageWidgets {
     );
   }
 
+  Widget headerButton(
+      {required BuildContext context,
+      required String column1,
+      required String column2}) {
+    return Card(
+      elevation: 6,
+      color: Theme.of(context).appBarTheme.backgroundColor,
+      child: ListTile(
+        leading: TextButton(
+          onPressed: () {},
+          child: Icon(Icons.done),
+          style: ElevatedButton.styleFrom(
+            onPrimary: Colors.white,
+          ),
+        ),
+        title: Text('$column1', style: Theme.of(context).textTheme.headline3),
+        trailing:
+            Text('$column2', style: Theme.of(context).textTheme.headline3),
+      ),
+    );
+  }
+
   Widget noData({
     required BuildContext context,
     required String pageName,
@@ -175,6 +197,23 @@ class PageWidgets {
               playerId: _id,
               isSelected: _isSelected,
             );
+        _selectedItems = [_name, _id];
+        print('This is selectedItems $_selectedItems');
+        if (_isSelected == true) {
+          context.read(playerProvider).addSelectedPlayer(
+                playerName: _name,
+                playerId: _id,
+              );
+        }
+        print(context.read(playerProvider).selectedPlayers);
+
+        if (_isSelected == false) {
+          context.read(playerProvider).removeSelectedPlayer(
+                playerName: _name,
+                playerId: _id,
+              );
+        }
+        print(context.read(playerProvider).selectedPlayers);
       },
       child: Container(
           padding: const EdgeInsets.all(2),
@@ -602,6 +641,97 @@ class PageWidgets {
           );
         }
       },
+    );
+  }
+
+  Widget selectPlayer({
+    required BuildContext context,
+    required int index,
+    required List<PlayerModel> player,
+    required List<MatchModel> matchList,
+    required PlayerProvider playerProv,
+  }) {
+    // List _selectedItems = [];
+    // List arguments = Get.arguments;
+
+    final _name = player[index].name;
+    final _wins = player[index].wins;
+    final _id = player[index].id;
+    bool _isSelected = player[index].isSelected;
+    // print(_isSelected);
+    return GestureDetector(
+      onTap: () {
+        context.read(playerProvider).updateGamePlayers(
+              playerName: _name,
+              playerId: _id,
+              isSelected: _isSelected,
+            );
+
+        // if (arguments[0] == 'player_tile' || arguments[0] == 'form') {
+        //   _selectedItems = [_name, _id];
+        //   Get.back(result: _selectedItems);
+        // } else {
+        //   BottomSheetWidgets().playerSheet(
+        //       buildContext: context,
+        //       playerId: _id,
+        //       matchList: matchList,
+        //       playerName: _name);
+        // }
+      },
+      // onLongPress: () {
+      //   context.read(playerProvider).updateSelected(
+      //         playerId: _id,
+      //         isSelected: _isSelected,
+      //       );
+      //   // print(player[index].isSelected);
+      // },
+      child: Container(
+        padding: const EdgeInsets.all(2),
+        constraints: BoxConstraints(
+          minHeight: 70,
+        ),
+        child: Card(
+          elevation: 3,
+          color: _isSelected == false
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Theme.of(context).appBarTheme.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Switch(
+                  value: _isSelected,
+                  onChanged: (boolVal) {
+                    // _freePlayInt = boolVal == false ? 0 : 1;
+                    context.read(playerProvider).updateGamePlayers(
+                          playerName: _name,
+                          playerId: _id,
+                          isSelected: _isSelected,
+                        );
+                    // print(_isSelected);
+                  },
+                  activeTrackColor: Theme.of(context).colorScheme.secondary,
+                  activeColor: Theme.of(context).colorScheme.primaryVariant,
+                ),
+                Text(
+                  '$_name',
+                  style: _isSelected == false
+                      ? Theme.of(context).textTheme.headline4
+                      : Theme.of(context).textTheme.headline5,
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                PageWidgets().circleContainer(
+                  context: context,
+                  content: _wins.toString(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

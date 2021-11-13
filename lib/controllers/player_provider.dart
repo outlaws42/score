@@ -9,11 +9,80 @@ class PlayerProvider extends ChangeNotifier {
     return [..._players];
   }
 
-  void updateSelected({required int playerId, required bool isSelected}) {
+  List _selectedPlayers = [];
+
+  List get selectedPlayers {
+    return [..._selectedPlayers];
+  }
+
+  void addSelectedPlayer({
+    playerName,
+    playerId,
+  }) {
+    _selectedPlayers.addAll([playerName, playerId]);
+    notifyListeners();
+  }
+
+  void removeSelectedPlayer({
+    playerName,
+    playerId,
+  }) {
+    _selectedPlayers.remove(playerName);
+    _selectedPlayers.remove(playerId);
+    notifyListeners();
+  }
+  // add state
+  // for (var i in _player) {
+
+  // }
+  // bool isFreePlay = false;
+
+  // void updateFreePlay({index,}) {
+  //   isFreePlay = !isFreePlay;
+  //   notifyListeners();
+  // }
+
+  void updateSelected({
+    required int playerId,
+    required bool isSelected,
+  }) {
     bool selected = isSelected;
     selected = !selected;
+    print(selected);
     int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, isSelectedInt);
+    notifyListeners();
+  }
+
+  void updateGamePlayers({
+    required int playerId,
+    required String playerName,
+    required bool isSelected,
+  }) {
+    print("isSelected: $isSelected");
+    bool selected = isSelected;
+    if (isSelected == true || _selectedPlayers.length < 20){
+      selected = !selected;
+    }
+    
+    print(selected);
+    print(_selectedPlayers.length);
+    if (selected == true && _selectedPlayers.length < 20) {
+      addSelectedPlayer(
+        playerName: playerName,
+        playerId: playerId,
+      );
+    } else if (selected == false && _selectedPlayers.contains(playerId)) {
+      removeSelectedPlayer(
+        playerName: playerName,
+        playerId: playerId,
+      );
+    }
+    print(_selectedPlayers.length);
+    print(_selectedPlayers);
+    int isSelectedInt = selected == false ? 0 : 1;
+    updateIsSelected(playerId, isSelectedInt);
+    notifyListeners();
   }
 
   void plus({
@@ -47,10 +116,11 @@ class PlayerProvider extends ChangeNotifier {
     required int dateTime,
   }) async {
     final newPlayer = PlayerModel(
-        name: name,
-        wins: wins,
-        dateTime: dateTime,
-        isSelected: false);
+      name: name,
+      wins: wins,
+      dateTime: dateTime,
+      isSelected: false,
+    );
     _players.add(newPlayer);
     notifyListeners();
     DBHelper.insert('player', {
