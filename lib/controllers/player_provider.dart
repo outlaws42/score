@@ -51,7 +51,7 @@ class PlayerProvider extends ChangeNotifier {
     print(selected);
     int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, isSelectedInt);
-    notifyListeners();
+    // notifyListeners();
   }
 
   void updateGamePlayers({
@@ -61,10 +61,10 @@ class PlayerProvider extends ChangeNotifier {
   }) {
     print("isSelected: $isSelected");
     bool selected = isSelected;
-    if (isSelected == true || _selectedPlayers.length < 20){
+    if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
     }
-    
+
     print(selected);
     print(_selectedPlayers.length);
     if (selected == true && _selectedPlayers.length < 20) {
@@ -83,6 +83,32 @@ class PlayerProvider extends ChangeNotifier {
     int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, isSelectedInt);
     notifyListeners();
+  }
+
+  filterListBy({
+    String filter = "id",
+  }) {
+    List playersNames = [];
+    List playersIds = [];
+    for (var item in _selectedPlayers) {
+      if (item is String) {
+        playersNames.add(item);
+      }
+      if (item is int) {
+        playersIds.add(item);
+      }
+    }
+    if (filter == "id") {
+      return playersIds;
+    } else if (filter == "name"){
+      return playersNames;
+    } 
+    
+  }
+
+  removeAllPlayers() {
+    var _length = _selectedPlayers.length;
+    _selectedPlayers.removeRange(0, _length);
   }
 
   void plus({

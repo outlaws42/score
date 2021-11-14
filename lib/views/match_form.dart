@@ -24,6 +24,8 @@ class _MatchFormState extends State<MatchForm> {
   bool _lowScore = false;
   bool _freePlay = false;
   String? selected;
+  List _gamePlayers = [];
+  List _gamePlayersId = [];
 
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
@@ -38,11 +40,18 @@ class _MatchFormState extends State<MatchForm> {
     setState(() {});
   }
 
-  void goToPlay(String player, otherId) async {
+  void goToPlay() async {
     var dataFromPlayer = await Get.toNamed(
       "/players_select",
-      arguments: ['form', '$otherId'],
+      arguments: ['form'],
     );
+    for (var item in dataFromPlayer) {
+      if (item is String) {
+        _gamePlayers.add(item);
+      } else if (item is int) {
+        _gamePlayersId.add(item);
+      }
+    }
     // if (player == "player1") {
     //   _player1 = dataFromPlayer[0];
     //   _id1 = dataFromPlayer[1];
@@ -50,7 +59,8 @@ class _MatchFormState extends State<MatchForm> {
     //   _player2 = dataFromPlayer[0];
     //   _id2 = dataFromPlayer[1];
     // }
-    // setState(() {});
+    // _gamePlayers = dataFromPlayer;
+    setState(() {});
   }
 
   void save({
@@ -168,21 +178,81 @@ class _MatchFormState extends State<MatchForm> {
                 ),
 
                 // player1 Selection
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Card(
-                    elevation: 4,
-                    child: ListTile(
-                      title: Text('$_player1',
-                          style: Theme.of(context).textTheme.headline4),
-                      trailing: Icon(
-                        Icons.person_add,
-                        color: Theme.of(context).appBarTheme.backgroundColor,
+                _gamePlayers.length == 0
+                    ? Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Card(
+                          elevation: 4,
+                          child: ListTile(
+                              title: Text('Select Players',
+                                  style: Theme.of(context).textTheme.headline4),
+                              trailing: Icon(
+                                Icons.person_add,
+                                color: Theme.of(context)
+                                    .appBarTheme
+                                    .backgroundColor,
+                              ),
+                              onTap: () {
+                                var _player =
+                                    context.read(playerProvider).player;
+                                print(_player.length);
+                                for (var index = 0;
+                                    index < _player.length;
+                                    index++) {
+                                  if (_player[index].isSelected == true) {
+                                    context.read(playerProvider).updateSelected(
+                                        playerId: _player[index].id,
+                                        isSelected: true,
+                                      );
+                                  }    
+                                }
+                                _gamePlayers = [];
+                                _gamePlayersId = [];
+                                goToPlay();
+                              }),
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Card(
+                              elevation: 4,
+                              child: ListTile(
+                                  title: Text('Select Players',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4),
+                                  trailing: Icon(
+                                    Icons.person_add,
+                                    color: Theme.of(context)
+                                        .appBarTheme
+                                        .backgroundColor,
+                                  ),
+                                  onTap: () {
+                                    _gamePlayers = [];
+                                    _gamePlayersId = [];
+                                    goToPlay();
+                                  }),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 175,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: _gamePlayers.length,
+                              itemBuilder: (ctx, index) {
+                                return ListTile(
+                                  title: Text(_gamePlayers[index]),
+                                );
+                              },
+                              physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics(),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      onTap: () => goToPlay('player1', _id2),
-                    ),
-                  ),
-                ),
 
                 // player2 Selection
                 // Container(

@@ -76,20 +76,42 @@ class PageWidgets {
       {required BuildContext context,
       required String column1,
       required String column2}) {
+    final quantityPlayers = context.read(playerProvider).selectedPlayers.length;
     return Card(
       elevation: 6,
       color: Theme.of(context).appBarTheme.backgroundColor,
       child: ListTile(
         leading: TextButton(
-          onPressed: () {},
+          onPressed: quantityPlayers >= 4
+              ? () async{
+                  var _playersSelect =
+                      context.read(playerProvider).selectedPlayers;
+                  Get.back(result: _playersSelect);
+                  var _playerSelectIds = context.read(playerProvider).filterListBy(filter: "id");
+                  for (var item in _playerSelectIds) {
+                    context.read(playerProvider).updateSelected(
+                        playerId: item,
+                        isSelected: true,
+                      );
+                  }
+                context.read(playerProvider).removeAllPlayers();
+                // Get.back(result: _playersSelect);
+                  
+                }
+              : null,
           child: Icon(Icons.done),
           style: ElevatedButton.styleFrom(
             onPrimary: Colors.white,
           ),
         ),
-        title: Text('$column1', style: Theme.of(context).textTheme.headline3),
-        trailing:
-            Text('$column2', style: Theme.of(context).textTheme.headline3),
+        title: Text(
+          '$column1',
+          style: Theme.of(context).textTheme.headline3,
+        ),
+        trailing: Text(
+          '$column2',
+          style: Theme.of(context).textTheme.headline3,
+        ),
       ),
     );
   }
