@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:objectbox/objectbox.dart';
+import 'package:score/models/match_model.dart';
 
-
+@Entity()
 class GameModel with ChangeNotifier {
   final int id;
   final String name;
@@ -10,6 +12,8 @@ class GameModel with ChangeNotifier {
   final bool freePlay;
   final bool isSelected;
   int dateTime;
+
+  final matches = ToMany<MatchModel>();
 
   GameModel({
     this.id=0,

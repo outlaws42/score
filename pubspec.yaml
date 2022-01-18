@@ -24,10 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-  sqflite: ^2.0.0+3
+  #sqflite: ^2.0.0+3
   path: ^1.8.0
   path_provider: ^2.0.0
   package_info_plus: ^1.2.0
+  # Get for the linking system
   get: ^4.3.8
   flutter_colorpicker: ^0.5.0
   permission_handler: ^8.2.2
@@ -40,10 +41,16 @@ dependencies:
   # For reading markdown files
   flutter_markdown: ^0.6.8
 
+  ## Objectbox Database 
+  objectbox: ^1.3.0
+  objectbox_flutter_libs: ^1.3.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+
+  # For state management
   flutter_riverpod: ^0.14.0+3
 
 dev_dependencies:
@@ -51,7 +58,9 @@ dev_dependencies:
     sdk: flutter
   # flutter_launcher_icons: ^0.8.1
 
-
+  # Objectbox Database
+  build_runner: ^2.1.7
+  objectbox_generator: ^1.3.0
 
 # flutter_icons:
 #   android: true
