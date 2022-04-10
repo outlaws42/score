@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
 
@@ -188,6 +189,17 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchMatchHttp(
+    String baseName,
+    String portName,
+    String currentName,
+  ) async{
+    final url = Uri.parse('http://$baseName:$portName/weather/$currentName');
+
+    // final List<MatchModel> loadMatches = [];
+    final response = await http.get(url);
+    print(response.body);
+  }
   // Future<void> fetchMatchByWinnerId({
   //   required int winnerId,
   // }) async {
