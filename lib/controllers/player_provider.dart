@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import '../helpers/db_helper.dart';
 import '../models/player_model.dart';
 
@@ -135,6 +137,35 @@ class PlayerProvider extends ChangeNotifier {
         .toList();
     notifyListeners();
   }
+
+  Future<void> fetchPlayerHttp({
+    String baseName='10.0.2.2',
+    String portName='5000',
+    String currentName='players',
+  }) async {
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    final response = await http.get(url);
+      print(response.body);
+    final List<PlayerModel> loadCurrent = [];
+    final extractedData = json.decode(response.body[0]) as Map<String,dynamic>;
+    print(extractedData);
+    extractedData[0].forEach((key, value) {
+        loadCurrent.add(
+          PlayerModel(
+            id: value['_id'],
+            dateTime: value['datetime'],
+            isSelected: value['is_selected'],
+            name: value['name'],
+            wins: 0,
+          ),
+        );
+      });
+    print(loadCurrent);
+    // _players = loadCurrent;
+    // notifyListeners();
+  }
+
+
 
   Future<void> addPlayerForm({
     required String name,

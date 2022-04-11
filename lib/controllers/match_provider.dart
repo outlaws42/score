@@ -194,7 +194,7 @@ class MatchProvider extends ChangeNotifier {
     String portName,
     String currentName,
   ) async{
-    final url = Uri.parse('http://$baseName:$portName/weather/$currentName');
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
 
     // final List<MatchModel> loadMatches = [];
     final response = await http.get(url);
