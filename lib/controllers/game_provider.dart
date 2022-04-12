@@ -25,7 +25,7 @@ class GameProvider extends ChangeNotifier {
   }
 
   void updateSelected({
-    required int gameId,
+    required String gameId,
     required bool isSelected
   }) {
     bool selected = isSelected;
@@ -39,7 +39,7 @@ class GameProvider extends ChangeNotifier {
     _games = dataList
         .map(
           (game) => GameModel(
-            id: game['id'] as int,
+            id: game['id'] as String,
             name: game['name'] as String,
             description: game['description'] as String,
             endScore: game['end_score'] as int?,
@@ -85,27 +85,27 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> updateIsSelected(
-    int gameId,
+    String gameId,
     int isSelected,
   ) async { 
-    DBHelper.update('game', gameId, {
-      'is_selected': isSelected,
-    });
+    // DBHelper.update('game', gameId, {
+    //   'is_selected': isSelected,
+    // });
     fetchGame();
     notifyListeners();
   }
 
   Future<void> deleteGame(
-    int id,
+    String id,
   ) async {
-    DBHelper.remove('game',id,
-    );
+    // DBHelper.remove('game',id,
+    // );
     fetchGame();
     notifyListeners();
   }
   
   Future<void> updateGame({
-   required int gameId,
+   required String gameId,
    required String name,
    required String description,
    required int? endScore,
@@ -113,14 +113,14 @@ class GameProvider extends ChangeNotifier {
    required int freePlay,
   }
   ) async { 
-    DBHelper.update('game', gameId, {
-      'name': name,
-      'description': description,
-      'end_score': endScore,
-      'low_score': lowScore,
-      'free_play': freePlay,
-      'is_selected': 0,
-    });
+    // DBHelper.update('game', gameId, {
+    //   'name': name,
+    //   'description': description,
+    //   'end_score': endScore,
+    //   'low_score': lowScore,
+    //   'free_play': freePlay,
+    //   'is_selected': 0,
+    // });
     fetchGame();
     notifyListeners();
   }

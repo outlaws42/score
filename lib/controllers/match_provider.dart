@@ -76,7 +76,7 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelected({required int matchId, required bool isSelected}) {
+  void updateSelected({required String matchId, required bool isSelected}) {
     isSelected = !isSelected;
     int isSelectedInt = isSelected == false ? 0 : 1;
     updateIsSelected(matchId, isSelectedInt);
@@ -87,7 +87,7 @@ class MatchProvider extends ChangeNotifier {
     _matches = dataList
         .map(
           (match) => MatchModel(
-            id: match['id'] as int,
+            id: match['id'] as String,
             matchName: match['match_name'] as String?,
             gameName: match['game_name'] as String,
             gameId: match['game_id'] as int?,
@@ -245,8 +245,8 @@ class MatchProvider extends ChangeNotifier {
     int? gameId,
     required String player1Name,
     required String player2Name,
-    int player1Id = 0,
-    int player2Id = 0,
+    String player1Id = "",
+    String player2Id = "",
     // int player1Score = 0,
     // int player2Score = 0,
     // required List playerNameList,
@@ -336,20 +336,20 @@ class MatchProvider extends ChangeNotifier {
   // }
 
   Future<void> updateScore(
-    int id,
+    String id,
     int score,
     int playerIndex,
     String player,
   ) async {
     int playerNumber = playerIndex + 1;
     print('This is the player number $playerNumber');
-    DBHelper.update(
-      'player_match',
-      id,
-      {
-        'player${playerNumber}_score': score,
-      },
-    );
+    // DBHelper.update(
+    //   'player_match',
+    //   id,
+    //   {
+    //     'player${playerNumber}_score': score,
+    //   },
+    // );
     fetchMatch();
     notifyListeners();
   }
@@ -384,9 +384,9 @@ class MatchProvider extends ChangeNotifier {
   }) async {
     int playerNumber = playerIndex + 1;
     // if (player == "player1") {
-    DBHelper.update('player_match', id, {
-      'player${playerNumber}_color': color,
-    });
+    // DBHelper.update('player_match', id, {
+    //   'player${playerNumber}_color': color,
+    // });
     // } else {
     //   DBHelper.update(
     //     'player_match',
@@ -401,48 +401,48 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> updateIsSelected(
-    int matchId,
+    String matchId,
     int isSelected,
   ) async {
-    DBHelper.update('player_match', matchId, {
-      'is_selected': isSelected,
-    });
+    // DBHelper.update('player_match', matchId, {
+    //   'is_selected': isSelected,
+    // });
     fetchMatch();
     notifyListeners();
   }
 
   Future<void> deleteMatch(
-    int id,
+    String id,
   ) async {
-    DBHelper.remove(
-      'player_match',
-      id,
-    );
+    // DBHelper.remove(
+    //   'player_match',
+    //   id,
+    // );
     fetchMatch();
     notifyListeners();
   }
 
   Future<void> updateWinner({
-    required int matchId,
-    required int winnerId,
+    required String matchId,
+    required String winnerId,
     required String winnerName,
   }) async {
-    DBHelper.update('player_match', matchId, {
-      'winner': winnerName,
-      'winner_id': winnerId,
-      'is_complete': 1,
-    });
+    // DBHelper.update('player_match', matchId, {
+    //   'winner': winnerName,
+    //   'winner_id': winnerId,
+    //   'is_complete': 1,
+    // });
     fetchMatch();
     notifyListeners();
   }
 
   Future<void> updateIsComplete(
-    int matchId,
+    String matchId,
     int isComplete,
   ) async {
-    DBHelper.update('player_match', matchId, {
-      'is_complete': isComplete,
-    });
+    // DBHelper.update('player_match', matchId, {
+    //   'is_complete': isComplete,
+    // });
     fetchMatch();
     notifyListeners();
   }

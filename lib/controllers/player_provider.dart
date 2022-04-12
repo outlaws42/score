@@ -45,7 +45,7 @@ class PlayerProvider extends ChangeNotifier {
   // }
 
   void updateSelected({
-    required int playerId,
+    required String playerId,
     required bool isSelected,
   }) {
     bool selected = isSelected;
@@ -57,7 +57,7 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   void updateGamePlayers({
-    required int playerId,
+    required String playerId,
     required String playerName,
     required bool isSelected,
   }) {
@@ -127,7 +127,7 @@ class PlayerProvider extends ChangeNotifier {
     _players = dataList
         .map(
           (player) => PlayerModel(
-            id: player['id'] as int,
+            id: player['id'] as String,
             name: player['name'] as String,
             wins: player['wins'] as int,
             dateTime: player['date_time'] as int,
@@ -147,7 +147,7 @@ class PlayerProvider extends ChangeNotifier {
     final response = await http.get(url);
       print(response.body);
     final List<PlayerModel> loadCurrent = [];
-    final extractedData = json.decode(response.body[0]) as Map<String,dynamic>;
+    final extractedData = json.decode(response.body) as List<dynamic>;
     print(extractedData);
     extractedData[0].forEach((key, value) {
         loadCurrent.add(
@@ -189,68 +189,68 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> updatePlayer(
-    int id,
+    String id,
     int score,
     String player,
   ) async {
-    if (player == "player1") {
-      DBHelper.update('player_match', id, {
-        'player1_score': score,
-      });
-    } else
-      DBHelper.update('player_match', id, {
-        'player2_score': score,
-      });
+    // if (player == "player1") {
+    //   DBHelper.update('player_match', id, {
+    //     'player1_score': score,
+    //   });
+    // } else
+    //   DBHelper.update('player_match', id, {
+    //     'player2_score': score,
+    //   });
   }
 
   Future<void> updatePlayerWins(
-    int playerId,
+    String playerId,
     int win,
   ) async {
-    DBHelper.update(
-      'player',
-      playerId,
-      {
-        'wins': win,
-      },
-    );
+    // DBHelper.update(
+    //   'player',
+    //   playerId,
+    //   {
+    //     'wins': win,
+    //   },
+    // );
     fetchPlayer();
     notifyListeners();
   }
 
   Future<void> updateIsSelected(
-    int playerId,
+    String playerId,
     int isSelected,
   ) async {
-    DBHelper.update('player', playerId, {
-      'is_selected': isSelected,
-    });
+    // DBHelper.update('player', playerId, {
+    //   'is_selected': isSelected,
+    // });
     fetchPlayer();
     notifyListeners();
   }
 
   Future<void> deletePlayer(
-    int playerId,
+    String playerId,
   ) async {
-    DBHelper.remove(
-      'player',
-      playerId,
-    );
+    // DBHelper.remove(
+    //   'player',
+    //   playerId,
+    // );
     fetchPlayer();
     notifyListeners();
   }
 
   Future<void> updatePlayerName(
-    int playerId,
+    String playerId,
     String name,
   ) async {
-    DBHelper.update(
-      'player',
-      playerId,
-      {
-        'name': name,
-      },
-    );
+    // DBHelper.update(
+    //   'player',
+    //   playerId,
+    //   {
+    //     'name': name,
+    //   },
+    // );
     fetchPlayer();
     notifyListeners();
   }

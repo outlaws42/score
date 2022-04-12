@@ -19,15 +19,15 @@ class FunctionHelper {
     required BuildContext context,
     required int player1Score,
     required int player2Score,
-    required int player1Id,
-    required int player2Id,
+    required String player1Id,
+    required String player2Id,
     required String player1Name,
     required String player2Name,
     required bool lowScore,
-    required int matchId,
+    required String matchId,
   }) {
     String winner = "_";
-    int playerId = 1;
+    String playerId = "_";
     if (lowScore == false && player1Score > player2Score) {
       winner = player1Name;
       playerId = player1Id;

@@ -6,7 +6,7 @@ import '../function_helpers.dart';
 class BottomSheetWidgets {
   playerSheet({
     required BuildContext buildContext,
-    required int playerId,
+    required String playerId,
     required List<MatchModel> matchList,
     required String playerName,
   }) {

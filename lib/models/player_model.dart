@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 
 class PlayerModel with ChangeNotifier {
-  final int id;
+  final String id;
   final String name;
   final int wins;
   final int tempScore;
@@ -10,7 +10,7 @@ class PlayerModel with ChangeNotifier {
   final bool isSelected;
 
   PlayerModel({
-    this.id = 0,
+    this.id = "_",
     this.name = "_",
     this.wins = 0,
     this.tempScore = 0,

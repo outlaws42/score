@@ -15,7 +15,7 @@ class PopupDialogWidgets {
     required int score,
     required String player,
     required int playerIndex,
-    required int id,
+    required String id,
     // required String playerName,
     required String sign,
     required int amount,
@@ -91,7 +91,7 @@ class PopupDialogWidgets {
     required int score,
     required String player,
     required int playerIndex,
-    required int id,
+    required String id,
     // required String playerName,
     required String sign,
     required int winScore,
@@ -332,7 +332,7 @@ class PopupDialogWidgets {
   static warnDialog(
     BuildContext context,
     String item,
-    int itemId,
+    String itemId,
     String screen,
   ) {
     Get.defaultDialog(

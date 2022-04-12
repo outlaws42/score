@@ -7,7 +7,7 @@ import '../helpers.dart';
 
 class PlayerTileUpdate extends StatelessWidget {
   final String player;
-  final int matchId;
+  final String matchId;
   final int playerIndex;
   PlayerTileUpdate({
     required this.player,

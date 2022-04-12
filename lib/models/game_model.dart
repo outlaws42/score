@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 
 class GameModel with ChangeNotifier {
-  final int id;
+  final String id;
   final String name;
   final String description;
   final int? endScore;
@@ -12,7 +12,7 @@ class GameModel with ChangeNotifier {
   int dateTime;
 
   GameModel({
-    this.id=0,
+    this.id="_",
     this.name ="game",
     this.description = 'This game will test you',
     this.endScore,

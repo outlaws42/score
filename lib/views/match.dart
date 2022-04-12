@@ -5,9 +5,9 @@ import 'package:score/helpers/function_helpers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 
 class Match extends StatelessWidget {
-  final int matchId;
+  final String matchId;
   Match({
-    this.matchId = 1,
+    this.matchId = "_",
   });
 
   @override

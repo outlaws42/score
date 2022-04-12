@@ -7,10 +7,10 @@ import '../helpers.dart';
 
 class PlayerTile extends StatelessWidget {
   final String player;
-  final int matchId;
+  final String matchId;
   PlayerTile({
     this.player = "select Player",
-    this.matchId = 1,
+    this.matchId = "",
   });
 
   void _colorDialog(

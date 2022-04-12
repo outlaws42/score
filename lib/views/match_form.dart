@@ -17,8 +17,8 @@ class _MatchFormState extends State<MatchForm> {
   String _game = 'Select Game';
   String _player1 = 'Select Player1';
   String _player2 = 'Select Player2';
-  int _id1 = 0;
-  int _id2 = 0;
+  String _id1 = "";
+  String _id2 = "";
   int _endScore = 0;
   int _gameid = 0;
   bool _lowScore = false;
@@ -69,8 +69,8 @@ class _MatchFormState extends State<MatchForm> {
     int? gameId,
     required String player1Name,
     required String player2Name,
-    int player1Id = 0,
-    int player2Id = 0,
+    String player1Id = "",
+    String player2Id = "",
     int endScore = 0,
     bool lowScore = false,
     bool freePlay = false,
@@ -80,9 +80,10 @@ class _MatchFormState extends State<MatchForm> {
       return;
     }
     int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
-    int _id = context.read(matchProvider).match.length > 0
-        ? context.read(matchProvider).match.last.id + 1
-        : 1;
+    // int _id = context.read(matchProvider).match.length > 0
+    //     ? context.read(matchProvider).match.last.id + 1
+    //     : 1;
+    String _id = "";
     context.read(matchProvider).addMatch(
           matchName: name,
           gameName: gameName,
