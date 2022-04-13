@@ -122,23 +122,23 @@ class PlayerProvider extends ChangeNotifier {
     updatePlayerWins(id, wins);
   }
 
-  Future<void> fetchPlayer() async {
-    final dataList = await DBHelper.getData('player');
-    _players = dataList
-        .map(
-          (player) => PlayerModel(
-            id: player['id'] as String,
-            name: player['name'] as String,
-            wins: player['wins'] as int,
-            dateTime: player['date_time'] as int,
-            isSelected: player['is_selected'] == 0 ? false : true,
-          ),
-        )
-        .toList();
-    notifyListeners();
-  }
+  // Future<void> fetchPlayer() async {
+  //   final dataList = await DBHelper.getData('player');
+  //   _players = dataList
+  //       .map(
+  //         (player) => PlayerModel(
+  //           id: player['id'] as String,
+  //           name: player['name'] as String,
+  //           wins: player['wins'] as int,
+  //           dateTime: player['date_time'] as int,
+  //           isSelected: player['is_selected'] == 0 ? false : true,
+  //         ),
+  //       )
+  //       .toList();
+  //   notifyListeners();
+  // }
 
-  Future<void> fetchPlayerHttp({
+  Future<void> fetchPlayer({
     String baseName='10.0.2.2',
     String portName='5000',
     String currentName='players',
@@ -147,22 +147,32 @@ class PlayerProvider extends ChangeNotifier {
     final response = await http.get(url);
       print(response.body);
     final List<PlayerModel> loadCurrent = [];
-    final extractedData = json.decode(response.body) as List<dynamic>;
-    print(extractedData);
-    extractedData[0].forEach((key, value) {
-        loadCurrent.add(
-          PlayerModel(
-            id: value['_id'],
-            dateTime: value['datetime'],
-            isSelected: value['is_selected'],
-            name: value['name'],
-            wins: 0,
-          ),
+    final json = jsonDecode(response.body);
+    // final test = PlayerModel.fromJson(json);
+    if (json != null) {
+    json.forEach((value){
+      loadCurrent.add(
+        PlayerModel.fromJson(value)
         );
-      });
+
+    });
+    }
+    // print(test);
+    // extractedData[0].forEach((value) {
+    //     loadCurrent.add(
+    //       PlayerModel(
+    //         id: value['_id'],
+            // dateTime: value['datetime.date'],
+    //         isSelected: value['is_selected'],
+    //         name: value['name'],
+    //         wins: 0,
+    //       ),
+    //     );
+    //   }
+    //   );
     print(loadCurrent);
-    // _players = loadCurrent;
-    // notifyListeners();
+    _players = loadCurrent;
+    notifyListeners();
   }
 
 
