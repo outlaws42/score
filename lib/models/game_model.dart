@@ -21,4 +21,15 @@ class GameModel with ChangeNotifier {
     this.isSelected = false,
     this.dateTime = 0,
   });
+
+  factory GameModel.fromJson(Map<String, dynamic> json) {
+    return GameModel(
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      isSelected: json['is_selected'] as bool,
+      lowScore: json['low_score'] as bool,
+      dateTime:  json['datetime'] as int,
+    );
+  }
 }
