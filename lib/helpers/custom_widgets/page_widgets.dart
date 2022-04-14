@@ -430,28 +430,28 @@ class PageWidgets {
                 Spacer(
                   flex: 1,
                 ),
-                _freePlay == true
-                    ? Row(
+                // _freePlay == true
+                    Row(
                         children: [
-                          PageWidgets().circleContainer(
-                            context: context,
-                            content: 'FP',
-                          ),
+                          // PageWidgets().circleContainer(
+                          //   context: context,
+                          //   content: 'FP',
+                          // ),
                           _lowScore == true
                               ? PageWidgets().circleContainer(
                                   context: context,
                                   content: 'LS',
                                 )
-                              : Container(
-                                  height: 0,
-                                  width: 0,
-                                ),
+                              : PageWidgets().circleContainer(
+                            context: context,
+                            content: 'HS',
+                          ),
                         ],
                       )
-                    : PageWidgets().circleContainer(
-                        context: context,
-                        content: _endScore.toString(),
-                      ),
+                    // : PageWidgets().circleContainer(
+                    //     context: context,
+                    //     content: _endScore.toString(),
+                    //   ),
               ],
             ),
           ),

@@ -19,7 +19,7 @@ class GameList extends ConsumerWidget {
               PageWidgets().header(
                 context: context,
                 column1: 'Game',
-                column2: 'Winning Score',
+                column2: 'Win Mode',
               ),
               Expanded(
                 child: RefreshIndicator(
