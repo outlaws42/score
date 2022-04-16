@@ -33,19 +33,17 @@ class Match extends StatelessWidget {
                 final _isComplete = gameData.match[_index].isComplete;
                 final _gameName = gameData.match[_index].gameName;
                 final _winScore = gameData.match[_index].winScore;
-                final _freePlay = gameData.match[_index].freePlay;
-                final _player1Id = gameData.match[_index].player1Id;
-                final _player2Id = gameData.match[_index].player2Id;
-                final _player1Score = gameData.match[_index].player1Score;
-                final _player2Score = gameData.match[_index].player2Score;
-                bool scoreCheck = _player1Score - _player2Score > 0 ||
-                    _player2Score - _player1Score > 0;
+                // final _freePlay = gameData.match[_index].freePlay;
+                final _player1Id = gameData.match[_index].players;
+                final _player2Id = gameData.match[_index].players;
+                final _player1Score = gameData.match[_index].players;
+                final _player2Score = gameData.match[_index].players;
+                bool scoreCheck = true;
                 final _lowScore = gameData.match[_index].lowScore;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _freePlay == true
-                        ? TextButton(
+                    TextButton(
                             onPressed: _isComplete == true ||
                                     scoreCheck == false
                                 ? null
@@ -53,44 +51,38 @@ class Match extends StatelessWidget {
                                     FunctionHelper.checkWinner(
                                         context: context,
                                         player1Score:
-                                            gameData.match[_index].player1Score,
+                                            0, // gameData.match[_index].player1Score,
                                         player2Score:
-                                            gameData.match[_index].player2Score,
-                                        player1Id: _player1Id,
-                                        player2Id: _player2Id,
+                                            0, // gameData.match[_index].player2Score,
+                                        player1Id: '0', // _player1Id,
+                                        player2Id: '2', //_player2Id,
                                         player1Name:
-                                            gameData.match[_index].player1Name,
+                                            'Troy', // gameData.match[_index].players,
                                         player2Name:
-                                            gameData.match[_index].player2Name,
+                                            'Cara',// gameData.match[_index].player2Name,
                                         lowScore:
                                             gameData.match[_index].lowScore,
                                         matchId: matchId);
                                   },
                             child: Icon(Icons.done),
                             style: ElevatedButton.styleFrom(
-
                               onPrimary: Colors.white,
-                            ), 
-                          )
-                        : Container(
-                            height: 0,
-                            width: 0,
+                            ),
                           ),
+                        // : Container(
+                        //     height: 0,
+                        //     width: 0,
+                        //   ),
                     // Winning Score/Free Play
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 
                     // Win Score/Free Play
                     Spacer(),
-                    _freePlay == true
-                        ? PageWidgets().circleOulineContainer(
-                            context: context,
-                            content: 'FP',
-                          )
-                        : PageWidgets().circleOulineContainer(
-                            context: context,
-                            content: _winScore.toString(),
-                          ),
+                    PageWidgets().circleOulineContainer(
+                      context: context,
+                      content: _winScore.toString(),
+                    ),
                     _lowScore == true
                         ? PageWidgets().circleOulineContainer(
                             context: context,

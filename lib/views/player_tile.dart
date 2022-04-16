@@ -42,21 +42,21 @@ class PlayerTile extends StatelessWidget {
       if (_index == -1) {
         _index = 0;
       }
-      final _freePlay = matchData.match[_index].freePlay;
-      final _lowScore = matchData.match[_index].lowScore;
+      final _freePlay = true; //matchData.match[_index].freePlay;
+      final _lowScore = false; //matchData.match[_index].lowScore;
       final _isComplete = matchData.match[_index].isComplete;
-      final _player1Name = matchData.match[_index].player1Name;
-      final _player2Name = matchData.match[_index].player2Name;
-      final _player1Score = matchData.match[_index].player1Score;
-      final _player2Score = matchData.match[_index].player2Score;
-      final _player1Id = matchData.match[_index].player1Id;
-      final _player2Id = matchData.match[_index].player2Id;
+      final _player1Name = 'Troy'; //matchData.match[_index].player1Name;
+      final _player2Name = 'Cara'; //matchData.match[_index].player2Name;
+      final _player1Score = 0; //matchData.match[_index].player1Score;
+      final _player2Score = 0; //matchData.match[_index].player2Score;
+      final _player1Id = '0'; //matchData.match[_index].player1Id;
+      final _player2Id = '1'; //matchData.match[_index].player2Id;
       final winScore = matchData.match[_index].winScore;
       final playerName = player == "player1" ? _player1Name : _player2Name;
       final _score = player == "player1" ? _player1Score : _player2Score;
       final _color = player == "player1"
-          ? matchData.match[_index].player1Color
-          : matchData.match[_index].player2Color;
+          ? 0 //matchData.match[_index].player1Color
+          : 1; //matchData.match[_index].player2Color;
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),

@@ -69,8 +69,12 @@ class FunctionHelper {
   }) {
     // requires
     // import 'package:intl/intl.dart';
-    DateTime _dts = DateTime.fromMillisecondsSinceEpoch(dateTimeUtcInt);
-    String formatDt = DateFormat(format).format(_dts);
+    DateTime _dateTime =
+        DateTime.fromMillisecondsSinceEpoch(dateTimeUtcInt * 1000);
+    DateTime _dateTimeLocal = DateFormat("yyyy-MM-dd HH:mm:ss")
+        .parse(_dateTime.toString(), true)
+        .toLocal();
+    String formatDt = DateFormat(format).format(_dateTimeLocal);
     return formatDt;
   }
 

@@ -467,10 +467,10 @@ class PageWidgets {
   }) {
     final _id = match[index].id;
     final _gameName = match[index].gameName;
-    final _player1Name = match[index].player1Name;
-    final _player2Name = match[index].player2Name;
+    final _player1Name = match[index].players[0].playerName;
+    final _player2Name = match[index].players[1].playerName;
     final _endScore = match[index].winScore;
-    final _freePlay = match[index].freePlay;
+    final _freePlay = true; //match[index].freePlay;
     final _lowScore = match[index].lowScore;
     final _winner = match[index].winner;
     final _isComplete = match[index].isComplete;

@@ -45,13 +45,8 @@ class MatchCurrentScreen extends StatelessWidget {
             // Get rid of error when it is the only item until db can assing id
             _index = 0;
           }
-          final _matchName = _matches[_index].matchName;
-          return _matchName != ""
-              ? Text(
-                  "$_matchName",
-                  style: Theme.of(context).textTheme.headline3,
-                )
-              : Text(
+          // final _matchName = _matches[_index].matchName;
+          return Text(
                   "Player Match",
                   style: Theme.of(context).textTheme.headline3,
                 );
