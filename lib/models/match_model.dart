@@ -82,23 +82,23 @@ class MatchModel with ChangeNotifier {
     dateTime = json['datetime'];
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['_id'] = this.id;
-  //   if (this.players != null) {
-  //     data['players'] = this.players.map((v) => v.toJson()).toList();
-  //   }
-  //   data['game_id'] = this.gameId;
-  //   data['game'] = this.gameName;
-  //   data['winner'] = this.winner;
-  //   data['winner_id'] = this.winnerId;
-  //   data['win_score'] = this.winScore;
-  //   data['low_score'] = this.lowScore;
-  //   data['is_selected'] = this.isSelected;
-  //   data['is_complete'] = this.isComplete;
-  //   data['datetime'] = this.dateTime;
-  //   return data;
-  // }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.id;
+    if (this.players != null) {
+      data['players'] = this.players.map((v) => v.toJson()).toList();
+    }
+    data['game_id'] = this.gameId;
+    data['game'] = this.gameName;
+    data['winner'] = this.winner;
+    data['winner_id'] = this.winnerId;
+    data['win_score'] = this.winScore;
+    data['low_score'] = this.lowScore;
+    data['is_selected'] = this.isSelected;
+    data['is_complete'] = this.isComplete;
+    data['datetime'] = this.dateTime;
+    return data;
+  }
 
   // factory MatchModel.fromJson(Map<String, dynamic> json) {
   //   return MatchModel(

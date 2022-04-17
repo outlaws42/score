@@ -478,7 +478,7 @@ class PageWidgets {
     final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: match[index].dateTime,
     );
-
+    match[index].players.indexWhere((element) => false);
     bool _player1 = false;
     bool _player2 = false;
 
@@ -537,6 +537,8 @@ class PageWidgets {
                             ? Theme.of(context).textTheme.headline5
                             : Theme.of(context).textTheme.headline4,
                       ),
+                      for (var i = 0; i<match[index].players.length;i++) Text(match[index].players[i].playerName),
+                      // for (var player in match[index].players) Text(player.playerName),
                       _player1 == false && _player2 == false
                           ? Text(
                               '$_player1Name vs $_player2Name',
