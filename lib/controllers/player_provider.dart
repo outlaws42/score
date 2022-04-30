@@ -50,7 +50,7 @@ class PlayerProvider extends ChangeNotifier {
   }) {
     bool selected = isSelected;
     selected = !selected;
-    print(selected);
+    // print(selected);
     int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, isSelectedInt);
     // notifyListeners();
@@ -61,14 +61,14 @@ class PlayerProvider extends ChangeNotifier {
     required String playerName,
     required bool isSelected,
   }) {
-    print("isSelected: $isSelected");
+    // print("isSelected: $isSelected");
     bool selected = isSelected;
     if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
     }
 
-    print(selected);
-    print(_selectedPlayers.length);
+    // print(selected);
+    // print(_selectedPlayers.length);
     if (selected == true && _selectedPlayers.length < 20) {
       addSelectedPlayer(
         playerName: playerName,
@@ -80,8 +80,8 @@ class PlayerProvider extends ChangeNotifier {
         playerId: playerId,
       );
     }
-    print(_selectedPlayers.length);
-    print(_selectedPlayers);
+    // print(_selectedPlayers.length);
+    // print(_selectedPlayers);
     int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, isSelectedInt);
     notifyListeners();
@@ -140,12 +140,12 @@ class PlayerProvider extends ChangeNotifier {
 
   Future<void> fetchPlayer({
     String baseName='10.0.2.2',
-    String portName='5000',
+    String portName='5001',
     String currentName='players',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-      print(response.body);
+      // print(response.body);
     final List<PlayerModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
@@ -170,7 +170,7 @@ class PlayerProvider extends ChangeNotifier {
     //     );
     //   }
     //   );
-    print(loadCurrent);
+    // print(loadCurrent);
     _players = loadCurrent;
     notifyListeners();
   }

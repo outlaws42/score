@@ -13,8 +13,9 @@ class PlayerList extends ConsumerWidget {
     final _matchList = watch(matchProvider).match;
     // final _playerL = watch(playerProvider).fetchPlayerHttp();
     var _filterPlayer = args[0] == "form"
-        ? _player.player.where((win) => win.id != int.parse(args[1])).toList()
+        ? _player.player.where((win) => win.id != args[1]).toList()
         : _player.player;
+    print(_filterPlayer.length);
     return _player.player.length == 0
         ? PageWidgets().noData(
             context: context,

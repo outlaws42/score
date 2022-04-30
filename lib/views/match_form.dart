@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
+import 'package:score/models/match_model.dart';
+import 'package:score/views/match.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
@@ -20,7 +22,7 @@ class _MatchFormState extends State<MatchForm> {
   String _id1 = "";
   String _id2 = "";
   int _endScore = 0;
-  int _gameid = 0;
+  String _gameid = "";
   bool _lowScore = false;
   bool _freePlay = false;
   String? selected;
@@ -33,17 +35,18 @@ class _MatchFormState extends State<MatchForm> {
       arguments: ['form', ''],
     );
     _game = dataFromGame[0];
-    _endScore = dataFromGame[1];
-    _gameid = dataFromGame[2];
-    _lowScore = dataFromGame[3];
-    _freePlay = dataFromGame[4];
+    // _endScore = dataFromGame[1];
+    _gameid = dataFromGame[1];
+    _lowScore = dataFromGame[2];
+    // _freePlay = dataFromGame[4];
+    print('$_game, $_gameid, $_lowScore');
     setState(() {});
   }
 
   void goToPlay() async {
     var dataFromPlayer = await Get.toNamed(
       "/players_select",
-      arguments: ['form'],
+      arguments: ['form',''],
     );
     for (var item in dataFromPlayer) {
       if (item is String) {
@@ -66,7 +69,7 @@ class _MatchFormState extends State<MatchForm> {
   void save({
     String name = "",
     String? gameName,
-    int? gameId,
+    String gameId = "",
     required String player1Name,
     required String player2Name,
     String player1Id = "",
@@ -98,6 +101,11 @@ class _MatchFormState extends State<MatchForm> {
           dateTime: _dtUtcMs,
           isCompleted: false,
         );
+    // context.read(matchProvider).addMatchHttp(
+    //   match: MatchModel(
+    //     gameName: gameName
+    //     players: 
+    //     ));
     context.read(matchProvider).fetchMatch();
     Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }

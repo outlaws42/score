@@ -214,29 +214,29 @@ class PageWidgets {
               playerName: _name);
         }
       },
-      onLongPress: () {
-        context.read(playerProvider).updateSelected(
-              playerId: _id,
-              isSelected: _isSelected,
-            );
-        _selectedItems = [_name, _id];
-        print('This is selectedItems $_selectedItems');
-        if (_isSelected == true) {
-          context.read(playerProvider).addSelectedPlayer(
-                playerName: _name,
-                playerId: _id,
-              );
-        }
-        print(context.read(playerProvider).selectedPlayers);
+      // onLongPress: () {
+      //   context.read(playerProvider).updateSelected(
+      //         playerId: _id,
+      //         isSelected: _isSelected,
+      //       );
+      //   _selectedItems = [_name, _id];
+      //   print('This is selectedItems $_selectedItems');
+      //   if (_isSelected == true) {
+      //     context.read(playerProvider).addSelectedPlayer(
+      //           playerName: _name,
+      //           playerId: _id,
+      //         );
+      //   }
+      //   print(context.read(playerProvider).selectedPlayers);
 
-        if (_isSelected == false) {
-          context.read(playerProvider).removeSelectedPlayer(
-                playerName: _name,
-                playerId: _id,
-              );
-        }
-        print(context.read(playerProvider).selectedPlayers);
-      },
+      //   if (_isSelected == false) {
+      //     context.read(playerProvider).removeSelectedPlayer(
+      //           playerName: _name,
+      //           playerId: _id,
+      //         );
+      //   }
+      //   print(context.read(playerProvider).selectedPlayers);
+      // },
       child: Container(
           padding: const EdgeInsets.all(2),
           constraints: BoxConstraints(
@@ -321,7 +321,7 @@ class PageWidgets {
     final _description = game[index].description;
     final _endScore = game[index].endScore;
     final _lowScore = game[index].lowScore;
-    final _freePlay = game[index].freePlay;
+    // final _freePlay = game[index].freePlay;
     bool _isSelected = game[index].isSelected;
     final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: game[index].dateTime,
@@ -337,7 +337,7 @@ class PageWidgets {
     return GestureDetector(
       onTap: () {
         if (arguments[0] == 'form') {
-          _selectedItems = [_game, _endScore, _id, _lowScore, _freePlay];
+          _selectedItems = [_game, _id, _lowScore,];
           Get.back(result: _selectedItems);
         } else {
           BottomSheetWidgets().gameSheet(
@@ -396,7 +396,7 @@ class PageWidgets {
                                 _description,
                                 _endScore,
                                 _lowScore,
-                                _freePlay
+                                // _freePlay
                               ]);
                             },
                             icon: Icon(Icons.edit),

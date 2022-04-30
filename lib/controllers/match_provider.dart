@@ -192,12 +192,12 @@ class MatchProvider extends ChangeNotifier {
 
   Future<void> fetchMatch({
     String baseName='10.0.2.2',
-    String portName='5000',
+    String portName='5001',
     String currentName='matches',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-      print(response.body);
+      // print(response.body);
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
@@ -222,7 +222,7 @@ class MatchProvider extends ChangeNotifier {
     //     );
     //   }
     //   );
-    print(loadCurrent);
+    // print(loadCurrent);
     _matches = loadCurrent;
     notifyListeners();
   }
@@ -237,19 +237,22 @@ class MatchProvider extends ChangeNotifier {
     http.post(url, body: jsonEncode({
       'game': match.gameName,
       'players': match.players
-    }));
-    final newMatch = MatchModel(
-      gameName: match.gameName,
-      gameId: match.gameId,
-      players: match.players,
-      winner: match.winner,
-      winnerId: match.winnerId,
-      winScore: match.winScore,
-      lowScore: match.lowScore,
-      dateTime: match.dateTime,
-      isComplete: false,
-      isSelected: false
-    );
+    }),
+    ).then((response){
+      print(jsonDecode(response.body));
+    });
+    // final newMatch = MatchModel(
+    //   gameName: match.gameName,
+    //   gameId: match.gameId,
+    //   players: match.players,
+    //   winner: match.winner,
+    //   winnerId: match.winnerId,
+    //   winScore: match.winScore,
+    //   lowScore: match.lowScore,
+    //   dateTime: match.dateTime,
+    //   isComplete: false,
+    //   isSelected: false
+    // );
 
     notifyListeners();
   }
@@ -259,7 +262,7 @@ class MatchProvider extends ChangeNotifier {
     // int id,
     String matchName = "",
     String gameName = "",
-    int? gameId,
+    String gameId = "",
     required String player1Name,
     required String player2Name,
     String player1Id = "",
@@ -359,7 +362,7 @@ class MatchProvider extends ChangeNotifier {
     String player,
   ) async {
     int playerNumber = playerIndex + 1;
-    print('This is the player number $playerNumber');
+    // print('This is the player number $playerNumber');
     // DBHelper.update(
     //   'player_match',
     //   id,

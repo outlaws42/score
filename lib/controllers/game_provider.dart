@@ -57,12 +57,12 @@ class GameProvider extends ChangeNotifier {
 
   Future<void> fetchGame({
     String baseName='10.0.2.2',
-    String portName='5000',
+    String portName='5001',
     String currentName='games',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-      print(response.body);
+      // print(response.body);
     final List<GameModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
@@ -74,7 +74,7 @@ class GameProvider extends ChangeNotifier {
 
     });
     }
-    print(loadCurrent);
+    // print(loadCurrent);
     _games = loadCurrent;
     notifyListeners();
   }
