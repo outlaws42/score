@@ -227,6 +227,34 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addMatchHttp({
+    String baseName='10.0.2.2',
+    String portName='5001',
+    String currentName='add_match',
+    required MatchModel match,
+  }) async {
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http.post(url, body: jsonEncode({
+      'game': match.gameName,
+      'players': match.players
+    }));
+    final newMatch = MatchModel(
+      gameName: match.gameName,
+      gameId: match.gameId,
+      players: match.players,
+      winner: match.winner,
+      winnerId: match.winnerId,
+      winScore: match.winScore,
+      lowScore: match.lowScore,
+      dateTime: match.dateTime,
+      isComplete: false,
+      isSelected: false
+    );
+
+    notifyListeners();
+  }
+
+
   Future<void> addMatch({
     // int id,
     String matchName = "",
