@@ -7,7 +7,7 @@ class PlayerModel with ChangeNotifier {
   final int wins;
   final int tempScore;
   final int dateTime;
-  final bool isSelected;
+  late bool isSelected;
 
   PlayerModel({
     this.id = "_",

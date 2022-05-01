@@ -82,7 +82,7 @@ class PageWidgets {
       color: Theme.of(context).appBarTheme.backgroundColor,
       child: ListTile(
         leading: TextButton(
-          onPressed: quantityPlayers >= 4
+          onPressed: quantityPlayers >= 2
               ? () async{
                   var _playersSelect =
                       context.read(playerProvider).selectedPlayers;

@@ -258,28 +258,28 @@ class MatchProvider extends ChangeNotifier {
   }
 
 
-  Future<void> addMatch({
-    // int id,
-    String matchName = "",
-    String gameName = "",
-    String gameId = "",
-    required String player1Name,
-    required String player2Name,
-    String player1Id = "",
-    String player2Id = "",
-    // int player1Score = 0,
-    // int player2Score = 0,
-    // required List playerNameList,
-    // required List playerIdList,
-    // required List playerScoreList,
-    // required List playerColorList,
-    int endScore = 0,
-    int dateTime = 0,
-    bool lowScore = false,
-    bool freePlay = false,
-    bool isCompleted = false,
-    bool isSelected = false,
-  }) async {
+  // Future<void> addMatch({
+  //   // int id,
+  //   String matchName = "",
+  //   String gameName = "",
+  //   String gameId = "",
+  //   required String player1Name,
+  //   required String player2Name,
+  //   String player1Id = "",
+  //   String player2Id = "",
+  //   // int player1Score = 0,
+  //   // int player2Score = 0,
+  //   // required List playerNameList,
+  //   // required List playerIdList,
+  //   // required List playerScoreList,
+  //   // required List playerColorList,
+  //   int endScore = 0,
+  //   int dateTime = 0,
+  //   bool lowScore = false,
+  //   bool freePlay = false,
+  //   bool isCompleted = false,
+  //   bool isSelected = false,
+  // }) async {
     // final newMatch = MatchModel(
     //   // id: id,
     //   matchName: matchName,
@@ -331,7 +331,7 @@ class MatchProvider extends ChangeNotifier {
     //   'is_complete': newMatch.isComplete == false ? 0 : 1,
     //   'is_selected': newMatch.isSelected == false ? 0 : 1,
     // });
-  }
+  // }
 
   // Future<void> updateScore(
   //   int id,

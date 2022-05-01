@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
+import 'package:score/controllers/match_provider.dart';
 import 'package:score/models/match_model.dart';
 import 'package:score/views/match.dart';
 import '../controllers/providers.dart';
@@ -48,12 +49,9 @@ class _MatchFormState extends State<MatchForm> {
       "/players_select",
       arguments: ['form',''],
     );
+    print('dataFromPlayer: $dataFromPlayer');
     for (var item in dataFromPlayer) {
-      if (item is String) {
-        _gamePlayers.add(item);
-      } else if (item is int) {
-        _gamePlayersId.add(item);
-      }
+      _gamePlayers.add(item);
     }
     // if (player == "player1") {
     //   _player1 = dataFromPlayer[0];
@@ -67,40 +65,45 @@ class _MatchFormState extends State<MatchForm> {
   }
 
   void save({
-    String name = "",
-    String? gameName,
-    String gameId = "",
-    required String player1Name,
-    required String player2Name,
-    String player1Id = "",
-    String player2Id = "",
-    int endScore = 0,
+    // String name = "",
+    required String gameName,
+    required String gameId,
+    required List players,
+    // required String player1Name,
+    // required String player2Name,
+    // String player1Id = "",
+    // String player2Id = "",
+    // int endScore = 0,
     bool lowScore = false,
-    bool freePlay = false,
+    // bool freePlay = false,
   }) {
     // Save all fields
-    if (gameName == null || gameName.isEmpty) {
-      return;
-    }
+    // if (gameName == null || gameName.isEmpty) {
+    //   return;
+    // }
     int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     // int _id = context.read(matchProvider).match.length > 0
     //     ? context.read(matchProvider).match.last.id + 1
     //     : 1;
     String _id = "";
-    context.read(matchProvider).addMatch(
-          matchName: name,
-          gameName: gameName,
-          gameId: gameId,
-          player1Name: player1Name,
-          player2Name: player2Name,
-          player1Id: player1Id,
-          player2Id: player2Id,
-          endScore: endScore,
-          lowScore: lowScore,
-          freePlay: freePlay,
-          dateTime: _dtUtcMs,
-          isCompleted: false,
-        );
+    context.read(matchProvider).addMatchHttp( 
+      match: MatchModel(
+        gameName: gameName,
+        // players: players,
+      ));
+        //   matchName: name,
+        //   gameName: gameName,
+        //   gameId: gameId,
+        //   player1Name: player1Name,
+        //   player2Name: player2Name,
+        //   player1Id: player1Id,
+        //   player2Id: player2Id,
+        //   endScore: endScore,
+        //   lowScore: lowScore,
+        //   freePlay: freePlay,
+        //   dateTime: _dtUtcMs,
+        //   isCompleted: false,
+        // );
     // context.read(matchProvider).addMatchHttp(
     //   match: MatchModel(
     //     gameName: gameName
@@ -202,21 +205,21 @@ class _MatchFormState extends State<MatchForm> {
                                     .backgroundColor,
                               ),
                               onTap: () {
-                                var _player =
-                                    context.read(playerProvider).player;
-                                print(_player.length);
-                                for (var index = 0;
-                                    index < _player.length;
-                                    index++) {
-                                  if (_player[index].isSelected == true) {
-                                    context.read(playerProvider).updateSelected(
-                                        playerId: _player[index].id,
-                                        isSelected: true,
-                                      );
-                                  }    
-                                }
-                                _gamePlayers = [];
-                                _gamePlayersId = [];
+                                // var _player =
+                                //     context.read(playerProvider).player;
+                                // print(_player.length);
+                                // for (var index = 0;
+                                //     index < _player.length;
+                                //     index++) {
+                                //   if (_player[index].isSelected == true) {
+                                //     context.read(playerProvider).updateSelected(
+                                //         playerId: _player[index].id,
+                                //         isSelected: true,
+                                //       );
+                                //   }    
+                                // }
+                                // _gamePlayers = [];
+                                // _gamePlayersId = [];
                                 goToPlay();
                               }),
                         ),
@@ -252,7 +255,7 @@ class _MatchFormState extends State<MatchForm> {
                               itemCount: _gamePlayers.length,
                               itemBuilder: (ctx, index) {
                                 return ListTile(
-                                  title: Text(_gamePlayers[index]),
+                                  title: Text(_gamePlayers[index]['player_name']),
                                 );
                               },
                               physics: const BouncingScrollPhysics(
@@ -286,19 +289,22 @@ class _MatchFormState extends State<MatchForm> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate() &&
-                          _game != "Select Player" &&
-                          _player1 != "Select Player1" &&
-                          _player2 != "Select Player2") {
+                          _game != "Select Game" &&
+                          _gamePlayers.length >= 2
+                          // _player1 != "Select Player1" &&
+                          // _player2 != "Select Player2"
+                          ) {
                         save(
-                          name: _nameController.text,
+                          // name: _nameController.text,
                           gameName: _game,
-                          player1Name: _player1,
-                          player2Name: _player2,
-                          player1Id: _id1,
-                          player2Id: _id2,
-                          endScore: _endScore,
+                          players: _gamePlayers,
+                          // player1Name: _player1,
+                          // player2Name: _player2,
+                          // player1Id: _id1,
+                          // player2Id: _id2,
+                          // endScore: _endScore,
                           lowScore: _lowScore,
-                          freePlay: _freePlay,
+                          // freePlay: _freePlay,
                           gameId: _gameid,
                         );
                       } else

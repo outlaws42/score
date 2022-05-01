@@ -21,7 +21,13 @@ class PlayerProvider extends ChangeNotifier {
     playerName,
     playerId,
   }) {
-    _selectedPlayers.addAll([playerName, playerId]);
+    _selectedPlayers.addAll([{
+      "player_name": playerName, 
+      "player_id":playerId,
+      "score": 0,
+      "color": 0,
+
+      }]);
     notifyListeners();
   }
 
@@ -29,8 +35,8 @@ class PlayerProvider extends ChangeNotifier {
     playerName,
     playerId,
   }) {
-    _selectedPlayers.remove(playerName);
-    _selectedPlayers.remove(playerId);
+    _selectedPlayers.removeWhere((element) => element["player_id"] == playerId);
+    // _selectedPlayers.remove(playerId);
     notifyListeners();
   }
   // add state
@@ -50,9 +56,9 @@ class PlayerProvider extends ChangeNotifier {
   }) {
     bool selected = isSelected;
     selected = !selected;
-    // print(selected);
-    int isSelectedInt = selected == false ? 0 : 1;
-    updateIsSelected(playerId, isSelectedInt);
+    print(selected);
+    // int isSelectedInt = selected == false ? 0 : 1;
+    updateIsSelected(playerId, selected);
     // notifyListeners();
   }
 
@@ -61,10 +67,11 @@ class PlayerProvider extends ChangeNotifier {
     required String playerName,
     required bool isSelected,
   }) {
-    // print("isSelected: $isSelected");
+    print("isSelected: $isSelected");
     bool selected = isSelected;
     if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
+      print("Selected: $selected");
     }
 
     // print(selected);
@@ -74,16 +81,17 @@ class PlayerProvider extends ChangeNotifier {
         playerName: playerName,
         playerId: playerId,
       );
-    } else if (selected == false && _selectedPlayers.contains(playerId)) {
+      // && _selectedPlayers.contains(playerId)
+    } else if (selected == false) {
       removeSelectedPlayer(
         playerName: playerName,
         playerId: playerId,
       );
     }
-    // print(_selectedPlayers.length);
-    // print(_selectedPlayers);
-    int isSelectedInt = selected == false ? 0 : 1;
-    updateIsSelected(playerId, isSelectedInt);
+    print(_selectedPlayers.length);
+    print(_selectedPlayers);
+    // int isSelectedInt = selected == false ? 0 : 1;
+    updateIsSelected(playerId, selected);
     notifyListeners();
   }
 
@@ -102,10 +110,9 @@ class PlayerProvider extends ChangeNotifier {
     }
     if (filter == "id") {
       return playersIds;
-    } else if (filter == "name"){
+    } else if (filter == "name") {
       return playersNames;
-    } 
-    
+    }
   }
 
   removeAllPlayers() {
@@ -139,30 +146,27 @@ class PlayerProvider extends ChangeNotifier {
   // }
 
   Future<void> fetchPlayer({
-    String baseName='10.0.2.2',
-    String portName='5001',
-    String currentName='players',
+    String baseName = '10.0.2.2',
+    String portName = '5001',
+    String currentName = 'players',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-      // print(response.body);
+    // print(response.body);
     final List<PlayerModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
     if (json != null) {
-    json.forEach((value){
-      loadCurrent.add(
-        PlayerModel.fromJson(value)
-        );
-
-    });
+      json.forEach((value) {
+        loadCurrent.add(PlayerModel.fromJson(value));
+      });
     }
     // print(test);
     // extractedData[0].forEach((value) {
     //     loadCurrent.add(
     //       PlayerModel(
     //         id: value['_id'],
-            // dateTime: value['datetime.date'],
+    // dateTime: value['datetime.date'],
     //         isSelected: value['is_selected'],
     //         name: value['name'],
     //         wins: 0,
@@ -174,8 +178,6 @@ class PlayerProvider extends ChangeNotifier {
     _players = loadCurrent;
     notifyListeners();
   }
-
-
 
   Future<void> addPlayerForm({
     required String name,
@@ -230,13 +232,17 @@ class PlayerProvider extends ChangeNotifier {
 
   Future<void> updateIsSelected(
     String playerId,
-    int isSelected,
+    bool isSelected,
   ) async {
+    final playerIsSelected =
+        _players.firstWhere((element) => element.id == playerId);
+    playerIsSelected.isSelected = isSelected;
+
     // DBHelper.update('player', playerId, {
     //   'is_selected': isSelected,
     // });
-    fetchPlayer();
-    notifyListeners();
+    // fetchPlayer();
+    // notifyListeners();
   }
 
   Future<void> deletePlayer(
