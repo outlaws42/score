@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
+import '../controllers/player_provider.dart';
+import '../controllers/providers.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];
@@ -191,8 +195,8 @@ class MatchProvider extends ChangeNotifier {
   // }
 
   Future<void> fetchMatch({
-    String baseName='10.0.2.2',
-    String portName='5001',
+    String baseName='192.168.1.9',
+    String portName='3000',
     String currentName='matches',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
@@ -228,18 +232,20 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> addMatchHttp({
-    String baseName='10.0.2.2',
-    String portName='5001',
+    String baseName='192.168.1.9',
+    String portName='3000',
     String currentName='add_match',
-    required MatchModel match,
+    required String gameName,
+    required List players 
   }) async {
+
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     http.post(url, body: jsonEncode({
-      'game': match.gameName,
-      'players': match.players
+      'game': gameName,
+      'players': players
     }),
     ).then((response){
-      print(jsonDecode(response.body));
+      print('This is the response: ${jsonDecode(response.body)}');
     });
     // final newMatch = MatchModel(
     //   gameName: match.gameName,

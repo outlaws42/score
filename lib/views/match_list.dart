@@ -9,6 +9,7 @@ class MatchList extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final _match = watch(matchProvider).match;
     // final _matchh = watch(matchProvider).fetchMatchHttp('10.0.2.2', '5000', 'matches');
+    print('match length: ${_match.length}');
     return _match.length == 0
         ? PageWidgets().noData(
             context: context,

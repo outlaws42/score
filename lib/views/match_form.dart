@@ -16,6 +16,7 @@ class MatchForm extends StatefulWidget {
 class _MatchFormState extends State<MatchForm> {
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _player = (playerProvider); 
 
   String _game = 'Select Game';
   String _player1 = 'Select Player1';
@@ -68,7 +69,8 @@ class _MatchFormState extends State<MatchForm> {
     // String name = "",
     required String gameName,
     required String gameId,
-    required List players,
+    required List<dynamic> players, // List<Map<String, dynamic>>
+    // required List players,
     // required String player1Name,
     // required String player2Name,
     // String player1Id = "",
@@ -86,11 +88,12 @@ class _MatchFormState extends State<MatchForm> {
     //     ? context.read(matchProvider).match.last.id + 1
     //     : 1;
     String _id = "";
-    context.read(matchProvider).addMatchHttp( 
-      match: MatchModel(
-        gameName: gameName,
-        // players: players,
-      ));
+    // final _selectPlayers = context.read(playerProvider).selectedPlayers;
+    // print('_selectedPlayers Length ${_selectPlayers.length}');
+    context.read(matchProvider).addMatchHttp(
+      gameName: gameName,
+      players: players,
+      );
         //   matchName: name,
         //   gameName: gameName,
         //   gameId: gameId,
@@ -298,6 +301,7 @@ class _MatchFormState extends State<MatchForm> {
                           // name: _nameController.text,
                           gameName: _game,
                           players: _gamePlayers,
+                          // players: _gamePlayers,
                           // player1Name: _player1,
                           // player2Name: _player2,
                           // player1Id: _id1,

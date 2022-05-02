@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:score/models/match_model.dart';
 import '../helpers/db_helper.dart';
 import '../models/player_model.dart';
 
@@ -27,7 +28,20 @@ class PlayerProvider extends ChangeNotifier {
       "score": 0,
       "color": 0,
 
-      }]);
+    }]
+    // Player(
+    //   playerId: playerId,
+    //   playerName: playerName,
+    //   score: 0,
+    //   color: 0,
+    // )
+      
+      // "player_name": playerName, 
+      // "player_id":playerId,
+      // "score": 0,
+      // "color": 0,
+
+      );
     notifyListeners();
   }
 
@@ -35,7 +49,7 @@ class PlayerProvider extends ChangeNotifier {
     playerName,
     playerId,
   }) {
-    _selectedPlayers.removeWhere((element) => element["player_id"] == playerId);
+    _selectedPlayers.removeWhere((element) => element['player_id'] == playerId);
     // _selectedPlayers.remove(playerId);
     notifyListeners();
   }
@@ -146,8 +160,8 @@ class PlayerProvider extends ChangeNotifier {
   // }
 
   Future<void> fetchPlayer({
-    String baseName = '10.0.2.2',
-    String portName = '5001',
+    String baseName = '192.168.1.9', //10.0.2.2
+    String portName = '3000',
     String currentName = 'players',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');

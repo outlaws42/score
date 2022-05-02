@@ -56,8 +56,8 @@ class GameProvider extends ChangeNotifier {
   // }
 
   Future<void> fetchGame({
-    String baseName='10.0.2.2',
-    String portName='5001',
+    String baseName='192.168.1.9',
+    String portName='3000',
     String currentName='games',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
