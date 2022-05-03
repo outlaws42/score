@@ -38,10 +38,10 @@ class MatchCurrentScreenList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text(
-                  "Player Match",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
+        title: Text(
+          "Player Match",
+          style: Theme.of(context).textTheme.headline3,
+        ),
         // }),
         actions: [
           PageWidgets().iconButtonBarDocs(
@@ -93,29 +93,28 @@ class MatchCurrentScreenList extends StatelessWidget {
               })
         ],
       ),
-      body: Consumer(builder: (context, watch, child){
+      body: Consumer(builder: (context, watch, child) {
         final _matches = watch(matchProvider).match;
-          var _index = _matches.indexWhere((match) => match.id == matchId[0]);
-          if (_index == -1) {
-            // Get rid of error when it is the only item until db can assing id
-            _index = 0;
-          }
-          
-          final _matchPlayersId = _matches[_index].players;
-          final _matchPlayersName = _matches[_index].players;
-          final _matchPlayersScore = _matches[_index].players;
-          final _matchPlayersColor = _matches[_index].players;
-          // print("${_matchPlayersName[0]}, ${_matchPlayersId[0]}," 
-          // " ${_matchPlayersScore[0]}, ${_matchPlayersColor[0]}");
+        var _index = _matches.indexWhere((match) => match.id == matchId[0]);
+        if (_index == -1) {
+          // Get rid of error when it is the only item until db can assing id
+          _index = 0;
+        }
 
-          List _playerList = [];
-          for (var item in _matchPlayersName){
-            if (item != null){
-              _playerList.add(item);
-            }
-            
+        final _matchPlayersId = _matches[_index].players;
+        final _matchPlayersName = _matches[_index].players;
+        final _matchPlayersScore = _matches[_index].players;
+        final _matchPlayersColor = _matches[_index].players;
+        // print("${_matchPlayersName[0]}, ${_matchPlayersId[0]},"
+        // " ${_matchPlayersScore[0]}, ${_matchPlayersColor[0]}");
+
+        List _playerList = [];
+        for (var item in _matchPlayersName) {
+          if (item != null) {
+            _playerList.add(item);
           }
-          print(_playerList);
+        }
+        print('_playerList Length (match_current_screen_list): ${_playerList.length}');
         return Column(
           children: [
             Match(
@@ -126,15 +125,20 @@ class MatchCurrentScreenList extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: _playerList.length,
                 itemBuilder: (ctx, index) {
-                  return PlayerTileUpdate(
-                    player: _playerList[index],
+                  return
+                  // ListTile(
+                  //   title: Text(
+                  //       '_playerList Length (match_current_screen_list): ${_matches[_index].players[index].playerName}'),);
+                  PlayerTileUpdate(
+                    player: _matches[_index].players[index].playerName,
                     matchId: matchId[0],
                     playerIndex: index,
+                    playerScore: _matches[_index].players[index].score,
                   );
                 },
                 physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
               ),
             ),
             // PlayerTile(

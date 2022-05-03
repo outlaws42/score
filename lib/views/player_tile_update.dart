@@ -9,10 +9,12 @@ class PlayerTileUpdate extends StatelessWidget {
   final String player;
   final String matchId;
   final int playerIndex;
+  final int playerScore;
   PlayerTileUpdate({
     required this.player,
     required this.matchId,
     required this.playerIndex,
+    required this.playerScore,
   });
 
   void _colorDialog({
@@ -62,7 +64,7 @@ class PlayerTileUpdate extends StatelessWidget {
       final winScore = matchData.match[_index].winScore;
       final playerName = 'Troy'; //matchData.match[_index].playerNameList[playerIndex];
       // final _score = player == "player1" ? _player1Score : _player2Score;
-      final _score = 1; //matchData.match[_index].playerScoreList[playerIndex];
+      final _score = playerScore; //matchData.match[_index].playerScoreList[playerIndex];
       // final _color = player == "player1"
       //     ? matchData.match[_index].player1Color
       //     : matchData.match[_index].player2Color;
@@ -92,7 +94,7 @@ class PlayerTileUpdate extends StatelessWidget {
                     children: [
                       // Select Player
                       Text(
-                        '$playerName',
+                        '$player',
                         style: Theme.of(context).textTheme.headline3,
                       ),
 

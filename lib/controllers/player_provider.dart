@@ -70,7 +70,7 @@ class PlayerProvider extends ChangeNotifier {
   }) {
     bool selected = isSelected;
     selected = !selected;
-    print(selected);
+    // print(selected);
     // int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, selected);
     // notifyListeners();
@@ -81,7 +81,7 @@ class PlayerProvider extends ChangeNotifier {
     required String playerName,
     required bool isSelected,
   }) {
-    print("isSelected: $isSelected");
+    // print("isSelected: $isSelected");
     bool selected = isSelected;
     if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
@@ -102,8 +102,8 @@ class PlayerProvider extends ChangeNotifier {
         playerId: playerId,
       );
     }
-    print(_selectedPlayers.length);
-    print(_selectedPlayers);
+    // print(_selectedPlayers.length);
+    // print(_selectedPlayers);
     // int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, selected);
     notifyListeners();
