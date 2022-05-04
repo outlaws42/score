@@ -108,13 +108,13 @@ class MatchCurrentScreenList extends StatelessWidget {
         // print("${_matchPlayersName[0]}, ${_matchPlayersId[0]},"
         // " ${_matchPlayersScore[0]}, ${_matchPlayersColor[0]}");
 
-        List _playerList = [];
-        for (var item in _matchPlayersName) {
-          if (item != null) {
-            _playerList.add(item);
-          }
-        }
-        print('_playerList Length (match_current_screen_list): ${_playerList.length}');
+        // List _playerList = [];
+        // for (var item in _matchPlayersName) {
+        //   if (item != null) {
+        //     _playerList.add(item);
+        //   }
+        // }
+        // print('_playerList Length (match_current_screen_list): ${_playerList.length}');
         return Column(
           children: [
             Match(
@@ -123,7 +123,7 @@ class MatchCurrentScreenList extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: _playerList.length,
+                itemCount: _matches[_index].players.length,
                 itemBuilder: (ctx, index) {
                   return
                   // ListTile(
@@ -134,6 +134,7 @@ class MatchCurrentScreenList extends StatelessWidget {
                     matchId: matchId[0],
                     playerIndex: index,
                     playerScore: _matches[_index].players[index].score,
+                    playerColor: _matches[_index].players[index].color,
                   );
                 },
                 physics: const BouncingScrollPhysics(

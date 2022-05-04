@@ -24,7 +24,7 @@ class MatchProvider extends ChangeNotifier {
     required Color color,
     required int playerIndex,
     required String player,
-    required int id,
+    required String id,
   }) {
     int colorInt = color.value;
     updateColor(
@@ -260,8 +260,10 @@ class MatchProvider extends ChangeNotifier {
     int playerIndex,
     String player,
   ) async {
-    int playerNumber = playerIndex + 1;
-    print(playerNumber);
+    print('playerIndex: $playerIndex');
+    print('player: $player');
+    print('score: $score');
+    print('matchid: $id');
     // print('This is the player number $playerNumber');
     // DBHelper.update(
     //   'player_match',
@@ -270,7 +272,10 @@ class MatchProvider extends ChangeNotifier {
     //     'player${playerNumber}_score': score,
     //   },
     // );
-    fetchMatch();
+    var matchIndex = _matches.indexWhere((element) => element.id == id);
+    print(matchIndex);
+    _matches[matchIndex].players[playerIndex].score = score;
+    // fetchMatch();
     notifyListeners();
   }
 
@@ -297,12 +302,16 @@ class MatchProvider extends ChangeNotifier {
   // }
 
   Future<void> updateColor({
-    required int id,
+    required String id,
     required int color,
     required int playerIndex,
     required String player,
   }) async {
-    int playerNumber = playerIndex + 1;
+    print('playerIndex: $playerIndex');
+    print('player: $player');
+    print('color: $color');
+    print('matchid: $id');
+    // int playerNumber = playerIndex + 1;
     // if (player == "player1") {
     // DBHelper.update('player_match', id, {
     //   'player${playerNumber}_color': color,
@@ -316,7 +325,10 @@ class MatchProvider extends ChangeNotifier {
     //     },
     //   );
     // }
-    fetchMatch();
+    // fetchMatch();
+    var matchIndex = _matches.indexWhere((element) => element.id == id);
+    print(matchIndex);
+    _matches[matchIndex].players[playerIndex].color = color;
     notifyListeners();
   }
 

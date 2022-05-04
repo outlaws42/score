@@ -10,11 +10,13 @@ class PlayerTileUpdate extends StatelessWidget {
   final String matchId;
   final int playerIndex;
   final int playerScore;
+  final int playerColor;
   PlayerTileUpdate({
     required this.player,
     required this.matchId,
     required this.playerIndex,
     required this.playerScore,
+    required this.playerColor,
   });
 
   void _colorDialog({
@@ -68,7 +70,8 @@ class PlayerTileUpdate extends StatelessWidget {
       // final _color = player == "player1"
       //     ? matchData.match[_index].player1Color
       //     : matchData.match[_index].player2Color;
-      final _color = 0; //matchData.match[_index].playerColorList[playerIndex];
+      final _color = matchData.match[_index].players[playerIndex].color;
+      
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),

@@ -26,7 +26,7 @@ class PlayerProvider extends ChangeNotifier {
       "player_name": playerName, 
       "player_id":playerId,
       "score": 0,
-      "color": 0,
+      "color": 4282339765,
 
     }]
     // Player(
