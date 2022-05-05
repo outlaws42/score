@@ -83,20 +83,20 @@ class PageWidgets {
       child: ListTile(
         leading: TextButton(
           onPressed: quantityPlayers >= 2
-              ? () async{
+              ? () async {
                   var _playersSelect =
                       context.read(playerProvider).selectedPlayers;
                   Get.back(result: _playersSelect);
-                  var _playerSelectIds = context.read(playerProvider).filterListBy(filter: "id");
+                  var _playerSelectIds =
+                      context.read(playerProvider).filterListBy(filter: "id");
                   for (var item in _playerSelectIds) {
                     context.read(playerProvider).updateSelected(
-                        playerId: item,
-                        isSelected: true,
-                      );
+                          playerId: item,
+                          isSelected: true,
+                        );
                   }
-                context.read(playerProvider).removeAllPlayers();
-                // Get.back(result: _playersSelect);
-                  
+                  context.read(playerProvider).removeAllPlayers();
+                  // Get.back(result: _playersSelect);
                 }
               : null,
           child: Icon(Icons.done),
@@ -337,7 +337,11 @@ class PageWidgets {
     return GestureDetector(
       onTap: () {
         if (arguments[0] == 'form') {
-          _selectedItems = [_game, _id, _lowScore,];
+          _selectedItems = [
+            _game,
+            _id,
+            _lowScore,
+          ];
           Get.back(result: _selectedItems);
         } else {
           BottomSheetWidgets().gameSheet(
@@ -431,27 +435,27 @@ class PageWidgets {
                   flex: 1,
                 ),
                 // _freePlay == true
-                    Row(
-                        children: [
-                          // PageWidgets().circleContainer(
-                          //   context: context,
-                          //   content: 'FP',
-                          // ),
-                          _lowScore == true
-                              ? PageWidgets().circleContainer(
-                                  context: context,
-                                  content: 'LS',
-                                )
-                              : PageWidgets().circleContainer(
+                Row(
+                  children: [
+                    // PageWidgets().circleContainer(
+                    //   context: context,
+                    //   content: 'FP',
+                    // ),
+                    _lowScore == true
+                        ? PageWidgets().circleContainer(
+                            context: context,
+                            content: 'LS',
+                          )
+                        : PageWidgets().circleContainer(
                             context: context,
                             content: 'HS',
                           ),
-                        ],
-                      )
-                    // : PageWidgets().circleContainer(
-                    //     context: context,
-                    //     content: _endScore.toString(),
-                    //   ),
+                  ],
+                )
+                // : PageWidgets().circleContainer(
+                //     context: context,
+                //     content: _endScore.toString(),
+                //   ),
               ],
             ),
           ),
@@ -464,6 +468,7 @@ class PageWidgets {
     required BuildContext context,
     required int index,
     required List<MatchModel> match,
+    required List players,
   }) {
     final _id = match[index].id;
     final _gameName = match[index].gameName;
@@ -478,9 +483,7 @@ class PageWidgets {
     final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: match[index].dateTime,
     );
-    // print('Match players length: ${match[index].players.length}');
-    // print('Match players: ${match[index].players.asMap().entries.map((e)=> e.key).toList()}');
-    // match[index].players.indexWhere((element) => false);
+
     bool _player1 = false;
     bool _player2 = false;
 
@@ -539,15 +542,24 @@ class PageWidgets {
                             ? Theme.of(context).textTheme.headline5
                             : Theme.of(context).textTheme.headline4,
                       ),
-                      for (var i = 0; i<match[index].players.length;i++) Text(match[index].players[i].playerName),
-                      // for (var player in match[index].players) Text(player.playerName),
                       _player1 == false && _player2 == false
-                          ?  Text(
-                              '$_player1Name vs $_player2Name',
-                              style: _isSelected == true
-                                  ? Theme.of(context).textTheme.subtitle2
-                                  : Theme.of(context).textTheme.subtitle1,
+                          ? Row(
+                              children: [
+                                for (var player in players)
+                                  Text(
+                                    '$player, ',
+                                    style: _isSelected == true
+                                       ? Theme.of(context).textTheme.subtitle2
+                                       : Theme.of(context).textTheme.subtitle1,
+                                  )
+                              ],
                             )
+                          // ?  Text(
+                          //     '$players',
+                          //     style: _isSelected == true
+                          //         ? Theme.of(context).textTheme.subtitle2
+                          //         : Theme.of(context).textTheme.subtitle1,
+                          //   )
                           : _player1 == true
                               ? Text(
                                   '$_player1Name (Winner) vs $_player2Name',

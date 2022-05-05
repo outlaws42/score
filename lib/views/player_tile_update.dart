@@ -57,21 +57,21 @@ class PlayerTileUpdate extends StatelessWidget {
       final _freePlay = true; //matchData.match[_index].freePlay;
       final _lowScore = matchData.match[_index].lowScore;
       final _isComplete = matchData.match[_index].isComplete;
-      final _player1Name = 'Troy' ; //matchData.match[_index].player1Name;
-      final _player2Name = 'Cara'; //matchData.match[_index].player2Name;
-      final _player1Score = 0; //matchData.match[_index].player1Score;
-      final _player2Score = 0; //matchData.match[_index].player2Score;
-      final _player1Id = '0'; //matchData.match[_index].player1Id;
-      final _player2Id = '1'; //matchData.match[_index].player2Id;
+      // final _player1Name = 'Troy' ; //matchData.match[_index].player1Name;
+      // final _player2Name = 'Cara'; //matchData.match[_index].player2Name;
+      // final _player1Score = 0; //matchData.match[_index].player1Score;
+      // final _player2Score = 0; //matchData.match[_index].player2Score;
+      // final _player1Id = '0'; //matchData.match[_index].player1Id;
+      // final _player2Id = '1'; //matchData.match[_index].player2Id;
       final winScore = matchData.match[_index].winScore;
-      final playerName = 'Troy'; //matchData.match[_index].playerNameList[playerIndex];
+      // final playerName = 'Troy'; //matchData.match[_index].playerNameList[playerIndex];
       // final _score = player == "player1" ? _player1Score : _player2Score;
       final _score = playerScore; //matchData.match[_index].playerScoreList[playerIndex];
       // final _color = player == "player1"
       //     ? matchData.match[_index].player1Color
       //     : matchData.match[_index].player2Color;
       final _color = matchData.match[_index].players[playerIndex].color;
-      
+
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),
@@ -140,23 +140,24 @@ class PlayerTileUpdate extends StatelessWidget {
                                     player: player,
                                     minusAmount: 1,
                                   );
-                              if (_freePlay == true) {
-                                return;
-                              }
-                              if (_score + 1 == winScore) {
-                                FunctionHelper.checkWinner(
-                                  context: context,
-                                  player1Name: _player1Name,
-                                  player2Name: _player2Name,
-                                  matchId: matchId,
-                                  player1Id: _player1Id,
-                                  player2Id: _player2Id,
-                                  player1Score: _player1Score,
-                                  player2Score: _player2Score,
-                                  lowScore: _lowScore,
-                                );
-                              }
+                              // if (_freePlay == true) {
+                              //   return;
+                              // }
+                              // if (_score + 1 == winScore) {
+                              //   FunctionHelper.checkWinner(
+                              //     context: context,
+                              //     player1Name: _player1Name,
+                              //     player2Name: _player2Name,
+                              //     matchId: matchId,
+                              //     player1Id: _player1Id,
+                              //     player2Id: _player2Id,
+                              //     player1Score: _player1Score,
+                              //     player2Score: _player2Score,
+                              //     lowScore: _lowScore,
+                              //   );
+                              // }
                             },
+                      // Score minus button long press pop up dialog     
                       onLongPress: _isComplete == true
                           ? null
                           : () async {
@@ -166,17 +167,9 @@ class PlayerTileUpdate extends StatelessWidget {
                                 player: player,
                                 playerIndex: playerIndex,
                                 id: matchId,
-                                // playerName: playerName,
                                 sign: "minus",
                                 winScore: winScore,
                                 freePlay: _freePlay,
-                                // index: _index,
-                                // player1Name: _player1Name,
-                                // player2Name: _player2Name,
-                                // player1Id: _player1Id,
-                                // player2Id: _player2Id,
-                                // player1Score: _player1Score,
-                                // player2Score: _player2Score,
                                 lowScore: _lowScore,
                               );
                               // print('This is score before return $_score');
@@ -220,23 +213,24 @@ class PlayerTileUpdate extends StatelessWidget {
                                     player: player,
                                     addAmount: 1,
                                   );
-                              if (_freePlay == true) {
-                                return;
-                              }
-                              if (_score + 1 == winScore) {
-                                FunctionHelper.checkWinner(
-                                  context: context,
-                                  player1Name: _player1Name,
-                                  player2Name: _player2Name,
-                                  matchId: matchId,
-                                  player1Id: _player1Id,
-                                  player2Id: _player2Id,
-                                  player1Score: _player1Score,
-                                  player2Score: _player2Score,
-                                  lowScore: _lowScore,
-                                );
-                              }
+                              // if (_freePlay == true) {
+                              //   return;
+                              // }
+                              // if (_score + 1 == winScore) {
+                              //   FunctionHelper.checkWinner(
+                              //     context: context,
+                              //     player1Name: _player1Name,
+                              //     player2Name: _player2Name,
+                              //     matchId: matchId,
+                              //     player1Id: _player1Id,
+                              //     player2Id: _player2Id,
+                              //     player1Score: _player1Score,
+                              //     player2Score: _player2Score,
+                              //     lowScore: _lowScore,
+                              //   );
+                              // }
                             },
+                      // Score Plus button long press pop up dialog 
                       onLongPress: _isComplete == true
                           ? null
                           : () => PopupDialogWidgets.mathDialog(

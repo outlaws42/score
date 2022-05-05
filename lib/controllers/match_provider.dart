@@ -327,7 +327,6 @@ class MatchProvider extends ChangeNotifier {
     // }
     // fetchMatch();
     var matchIndex = _matches.indexWhere((element) => element.id == id);
-    print(matchIndex);
     _matches[matchIndex].players[playerIndex].color = color;
     notifyListeners();
   }

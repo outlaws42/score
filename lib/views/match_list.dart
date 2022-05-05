@@ -10,6 +10,7 @@ class MatchList extends ConsumerWidget {
     final _match = watch(matchProvider).match;
     // final _matchh = watch(matchProvider).fetchMatchHttp('10.0.2.2', '5000', 'matches');
     // print('match length: ${_match.length}');
+
     return _match.length == 0
         ? PageWidgets().noData(
             context: context,
@@ -28,11 +29,15 @@ class MatchList extends ConsumerWidget {
                   child: ListView.builder(
                     itemCount: _match.length,
                     itemBuilder: (ctx, index) {
+                      var _players = [];
+                      for (var i in _match[index].players)
+                        _players.add(i.playerName);
+
                       return PageWidgets().listItemMatch(
-                        context: context,
-                        index: index,
-                        match: _match,
-                      );
+                          context: context,
+                          index: index,
+                          match: _match,
+                          players: _players);
                     },
                     physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics(),
