@@ -363,7 +363,9 @@ class MatchProvider extends ChangeNotifier {
     //   'winner_id': winnerId,
     //   'is_complete': 1,
     // });
-    fetchMatch();
+    int matchIndex = _matches.indexWhere((element) => element.id == matchId);
+    _matches[matchIndex].winner = winnerName;
+    _matches[matchIndex].winnerId = winnerId;
     notifyListeners();
   }
 

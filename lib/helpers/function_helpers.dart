@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,40 +27,61 @@ class FunctionHelper {
     required bool lowScore,
     required String matchId,
   }) {
-    String winner = "_";
-    String playerId = "_";
-    if (lowScore == false && player1Score > player2Score) {
-      winner = player1Name;
-      playerId = player1Id;
-    } else if (lowScore == false && player1Score < player2Score) {
-      winner = player2Name;
-      playerId = player2Id;
-    } else if (lowScore == true && player1Score < player2Score) {
-      winner = player1Name;
-      playerId = player1Id;
-    } else if (lowScore == true && player1Score > player2Score) {
-      winner = player2Name;
-      playerId = player2Id;
+
+    var _match = context.read(matchProvider).match;
+    print('This is the lowScore: $lowScore');
+    var _matchIndex = _match.indexWhere((element) => element.id == matchId);
+    var _players = _match[_matchIndex].players;
+
+    int _winScore= 0;
+    if (lowScore == true) {
+      _winScore = _players.map((abc) => abc.score).reduce(min);
+    } else {
+      _winScore = _players.map((abc) => abc.score).reduce(max);
     }
+
+    print('This is the winScore: $_winScore');
+    var _matchPlayerIndex = _players.indexWhere((element) => element.score == _winScore);
+    String _winner = _players[_matchPlayerIndex].playerName;
+    String _playerId = _players[_matchPlayerIndex].playerId;
+    print('This is the winner: $_winner');
+    print('This is the winners Id: $_playerId');
+    for (var i in _match[_matchIndex].players) print(i.score);
+
+    // String winner = "_";
+    // String playerId = "_";
+    // if (lowScore == false && player1Score > player2Score) {
+    //   winner = player1Name;
+    //   playerId = player1Id;
+    // } else if (lowScore == false && player1Score < player2Score) {
+    //   winner = player2Name;
+    //   playerId = player2Id;
+    // } else if (lowScore == true && player1Score < player2Score) {
+    //   winner = player1Name;
+    //   playerId = player1Id;
+    // } else if (lowScore == true && player1Score > player2Score) {
+    //   winner = player2Name;
+    //   playerId = player2Id;
+    // }
     var _playerIndex = context
         .read(playerProvider)
         .player
-        .indexWhere((element) => element.id == playerId);
+        .indexWhere((element) => element.id == _playerId);
     final _wins = context.read(playerProvider).player[_playerIndex].wins;
     context.read(matchProvider).updateWinner(
           matchId: matchId,
-          winnerName: winner,
-          winnerId: playerId,
+          winnerName: _winner,
+          winnerId: _playerId,
         );
 
     context.read(playerProvider).plus(
-          id: playerId,
+          id: _playerId,
           wins: _wins,
           addAmount: 1,
         );
     PopupDialogWidgets.winDialog(
       context,
-      winner,
+      _winner,
     );
   }
 

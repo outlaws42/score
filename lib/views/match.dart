@@ -40,6 +40,7 @@ class Match extends StatelessWidget {
                 final _player2Score = gameData.match[_index].players;
                 bool scoreCheck = true;
                 final _lowScore = gameData.match[_index].lowScore;
+                print('This is the matchId: $matchId');
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
