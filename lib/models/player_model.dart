@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 
 class PlayerModel with ChangeNotifier {
   final String id;
-  final String name;
-  final int wins;
-  final int tempScore;
+  late String name;
+  late int wins;
+  late int tempScore;
   final int dateTime;
   late bool isSelected;
 

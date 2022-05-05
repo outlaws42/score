@@ -240,7 +240,8 @@ class PlayerProvider extends ChangeNotifier {
     //     'wins': win,
     //   },
     // );
-    fetchPlayer();
+    int matchIndex = _players.indexWhere((element) => element.id == playerId);
+    _players[matchIndex].wins = win;
     notifyListeners();
   }
 
