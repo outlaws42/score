@@ -82,7 +82,7 @@ class Match extends StatelessWidget {
                     Spacer(),
                     PageWidgets().circleOulineContainer(
                       context: context,
-                      content: _winScore.toString(),
+                      content: 'HS',
                     ),
                     _lowScore == true
                         ? PageWidgets().circleOulineContainer(

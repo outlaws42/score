@@ -40,12 +40,12 @@ class FunctionHelper {
       _winScore = _players.map((abc) => abc.score).reduce(max);
     }
 
-    print('This is the winScore: $_winScore');
+    // print('This is the winScore: $_winScore');
     var _matchPlayerIndex = _players.indexWhere((element) => element.score == _winScore);
     String _winner = _players[_matchPlayerIndex].playerName;
     String _playerId = _players[_matchPlayerIndex].playerId;
-    print('This is the winner: $_winner');
-    print('This is the winners Id: $_playerId');
+    // print('This is the winner: $_winner');
+    // print('This is the winners Id: $_playerId');
     for (var i in _match[_matchIndex].players) print(i.score);
 
     // String winner = "_";
