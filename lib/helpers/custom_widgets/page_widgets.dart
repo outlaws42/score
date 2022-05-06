@@ -87,10 +87,15 @@ class PageWidgets {
                   var _playersSelect =
                       context.read(playerProvider).selectedPlayers;
                   Get.back(result: _playersSelect);
-                  var _playerSelectIds =
-                      context.read(playerProvider).filterListBy(filter: "id");
+
+                  var _playerSelectIds = [];
+                  for (var i in _playersSelect) {
+                    _playerSelectIds.add(i['player_id']);
+                  }
+                  // var _playerSelectIds =
+                  //     context.read(playerProvider).filterListBy(filter: "id");
                   print('_playerSelectIds: $_playerSelectIds');
-                  print('_playerSelect: $_playersSelect');
+                  // print('_playerSelect: $_playersSelect');
                   for (var item in _playerSelectIds) {
                     context.read(playerProvider).updateSelected(
                           playerId: item,
