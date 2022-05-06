@@ -89,6 +89,8 @@ class PageWidgets {
                   Get.back(result: _playersSelect);
                   var _playerSelectIds =
                       context.read(playerProvider).filterListBy(filter: "id");
+                  print('_playerSelectIds: $_playerSelectIds');
+                  print('_playerSelect: $_playersSelect');
                   for (var item in _playerSelectIds) {
                     context.read(playerProvider).updateSelected(
                           playerId: item,
@@ -472,10 +474,10 @@ class PageWidgets {
   }) {
     final _id = match[index].id;
     final _gameName = match[index].gameName;
-    final _player1Name = match[index].players[0].playerName;
-    final _player2Name = match[index].players[1].playerName;
-    final _endScore = match[index].winScore;
-    final _freePlay = true; //match[index].freePlay;
+    // final _player1Name = match[index].players[0].playerName;
+    // final _player2Name = match[index].players[1].playerName;
+    // final _endScore = match[index].winScore;
+    // final _freePlay = true; //match[index].freePlay;
     final _lowScore = match[index].lowScore;
     final _winner = match[index].winner;
     final _isComplete = match[index].isComplete;
@@ -484,14 +486,14 @@ class PageWidgets {
       dateTimeUtcInt: match[index].dateTime,
     );
 
-    bool _player1 = false;
-    bool _player2 = false;
+    // bool _player1 = false;
+    // bool _player2 = false;
 
-    if (_isComplete == true && _player1Name == _winner) {
-      _player1 = true;
-    } else if (_isComplete == true && _player2Name == _winner) {
-      _player2 = true;
-    }
+    // if (_isComplete == true && _player1Name == _winner) {
+    //   _player1 = true;
+    // } else if (_isComplete == true && _player2Name == _winner) {
+    //   _player2 = true;
+    // }
     return GestureDetector(
       onTap: () {
         Get.offAllNamed("/match_current", arguments: [
@@ -515,104 +517,92 @@ class PageWidgets {
               ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-              child: Row(
-                children: [
-                  _isSelected == true
-                      ? IconButton(
-                          onPressed: () {
-                            PopupDialogWidgets.warnDialog(
-                              context,
-                              _gameName,
-                              _id,
-                              "match",
-                            );
-                          },
-                          icon: Icon(Icons.delete_forever),
-                          iconSize: 30,
-                          color: Theme.of(context).appBarTheme.foregroundColor,
-                        )
-                      : Container(height: 0, width: 0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '$_gameName',
-                        style: _isSelected == true
-                            ? Theme.of(context).textTheme.headline5
-                            : Theme.of(context).textTheme.headline4,
-                      ),
-                      _player1 == false && _player2 == false
-                          ? Row(
-                              children: [
-                                for (var player in players)
-                                  Text(
-                                    '$player, ',
-                                    style: _isSelected == true
-                                       ? Theme.of(context).textTheme.subtitle2
-                                       : Theme.of(context).textTheme.subtitle1,
-                                  )
-                              ],
-                            )
-                          // ?  Text(
-                          //     '$players',
-                          //     style: _isSelected == true
-                          //         ? Theme.of(context).textTheme.subtitle2
-                          //         : Theme.of(context).textTheme.subtitle1,
-                          //   )
-                          : _player1 == true
-                              ? Text(
-                                  '$_player1Name (Winner) vs $_player2Name',
-                                  style: _isSelected == true
-                                      ? Theme.of(context).textTheme.subtitle2
-                                      : Theme.of(context).textTheme.subtitle1,
-                                )
-                              : Text(
-                                  '$_player1Name vs $_player2Name (Winner)',
-                                  style: _isSelected == true
-                                      ? Theme.of(context).textTheme.subtitle2
-                                      : Theme.of(context).textTheme.subtitle1,
-                                ),
-                    ],
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _freePlay == true
-                          ? Row(
-                              children: [
-                                PageWidgets().circleContainer(
-                                  context: context,
-                                  content: 'FP',
-                                ),
-                                _lowScore == true
-                                    ? PageWidgets().circleContainer(
-                                        context: context,
-                                        content: 'LS',
-                                      )
-                                    : Container(
-                                        height: 0,
-                                        width: 0,
-                                      ),
-                              ],
-                            )
-                          : PageWidgets().circleContainer(
-                              context: context,
-                              content: _endScore.toString(),
-                            ),
-                      Text(
-                        '$_date',
-                        style: _isSelected == true
-                            ? Theme.of(context).textTheme.subtitle2
-                            : Theme.of(context).textTheme.subtitle1,
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+            child: Row(
+              children: [
+                _isSelected == true
+                    ? IconButton(
+                        onPressed: () {
+                          PopupDialogWidgets.warnDialog(
+                            context,
+                            _gameName,
+                            _id,
+                            "match",
+                          );
+                        },
+                        icon: Icon(Icons.delete_forever),
+                        iconSize: 30,
+                        color: Theme.of(context).appBarTheme.foregroundColor,
                       )
-                    ],
-                  ),
-                ],
-              )),
+                    : Container(height: 0, width: 0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$_gameName',
+                      style: _isSelected == true
+                          ? Theme.of(context).textTheme.headline5
+                          : Theme.of(context).textTheme.headline4,
+                    ),
+                    // _player1 == false && _player2 == false
+                    Row(
+                      children: [
+                        for (var player in players)
+                          Text(
+                            '$player, ',
+                            style: _isSelected == true
+                                ? Theme.of(context).textTheme.subtitle2
+                                : Theme.of(context).textTheme.subtitle1,
+                          )
+                      ],
+                    ),
+                    // ?  Text(
+                    //     '$players',
+                    //     style: _isSelected == true
+                    //         ? Theme.of(context).textTheme.subtitle2
+                    //         : Theme.of(context).textTheme.subtitle1,
+                    //   )
+                    // : _player1 == true
+                    //     ? Text(
+                    //         '$_player1Name (Winner) vs $_player2Name',
+                    //         style: _isSelected == true
+                    //             ? Theme.of(context).textTheme.subtitle2
+                    //             : Theme.of(context).textTheme.subtitle1,
+                    //       )
+                    //     : Text(
+                    //         '$_player1Name vs $_player2Name (Winner)',
+                    //         style: _isSelected == true
+                    //             ? Theme.of(context).textTheme.subtitle2
+                    //             : Theme.of(context).textTheme.subtitle1,
+                    //       ),
+                  ],
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _lowScore == true
+                        ? PageWidgets().circleContainer(
+                            context: context,
+                            content: 'LS',
+                          )
+                        : PageWidgets().circleContainer(
+                            context: context,
+                            content: 'HS',
+                          ),
+                    Text(
+                      '$_date',
+                      style: _isSelected == true
+                          ? Theme.of(context).textTheme.subtitle2
+                          : Theme.of(context).textTheme.subtitle1,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

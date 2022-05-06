@@ -18,12 +18,12 @@ import './custom_widgets/popup_dialog_widgets.dart';
 class FunctionHelper {
   static checkWinner({
     required BuildContext context,
-    required int player1Score,
-    required int player2Score,
-    required String player1Id,
-    required String player2Id,
-    required String player1Name,
-    required String player2Name,
+    // required int player1Score,
+    // required int player2Score,
+    // required String player1Id,
+    // required String player2Id,
+    // required String player1Name,
+    // required String player2Name,
     required bool lowScore,
     required String matchId,
   }) {
