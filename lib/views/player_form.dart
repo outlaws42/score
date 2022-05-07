@@ -31,8 +31,8 @@ class _PlayerFormState extends State<PlayerForm> {
     } else {
       controller.addPlayerForm(
         name: name,
-        wins: wins,
-        dateTime: _dtUtcMs,
+        // wins: wins,
+        // dateTime: _dtUtcMs,
       );
       controller.fetchPlayer();
     }

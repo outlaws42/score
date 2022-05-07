@@ -78,70 +78,105 @@ class GameProvider extends ChangeNotifier {
     _games = loadCurrent;
     notifyListeners();
   }
-
-  Future<void> addGameForm({
-    String name="game",
-    String description = 'This game will challenge you',
-    int? endScore,
-    bool lowScore=false,
-    bool freePlay = false,
-    bool isSelected = false,
-    int dateTime = 0,
-  }) async {
-    final newGame = GameModel(
-      name: name,
-      description: description,
-      endScore: endScore,
-      lowScore: lowScore,
-      freePlay: freePlay,
-      isSelected: isSelected,
-      dateTime: dateTime,
-    );
-    _games.add(newGame);
-    notifyListeners();
-    DBHelper.insert('game', {
-      'name': newGame.name,
-      'description': newGame.description,
-      'end_score': newGame.endScore,
-      'low_score': newGame.lowScore== false ? 0 : 1,
-      'free_play': newGame.freePlay== false ? 0 : 1,
-      'is_selected': newGame.isSelected,
-      'date_time': newGame.dateTime,
-    });
-  }
-
-
   Future<void> addGame({
-    String name="game",
-    String description = 'This game will challenge you',
-    int? endScore,
-    bool lowScore=false,
-    bool freePlay = false,
-    bool isSelected = false,
-    int dateTime = 0,
+    String baseName = '192.168.1.9',
+    String portName = '3000',
+    String currentName = 'add_game',
+    required String name,
+    required String description,
+    bool lowScore = false,
+    // required List players
   }) async {
-    final url = Uri.parse('http://10.0.2.2:5000/score_api/add_game'); 
-    final newGame = GameModel(
-      name: name,
-      description: description,
-      endScore: endScore,
-      lowScore: lowScore,
-      freePlay: freePlay,
-      isSelected: isSelected,
-      dateTime: dateTime,
-    );
-    _games.add(newGame);
-    notifyListeners();
-    DBHelper.insert('game', {
-      'name': newGame.name,
-      'description': newGame.description,
-      'end_score': newGame.endScore,
-      'low_score': newGame.lowScore== false ? 0 : 1,
-      'free_play': newGame.freePlay== false ? 0 : 1,
-      'is_selected': newGame.isSelected,
-      'date_time': newGame.dateTime,
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http
+        .post(
+      url,
+      body: jsonEncode({
+        'name': name,
+        'description': description,
+        'low_score': lowScore,
+
+        // 'players': players
+      }),
+    )
+        .then((response) {
+      print('This is the response: ${jsonDecode(response.body)}');
+      final newGame = GameModel(
+        id: jsonDecode(response.body)['_id'],
+        name: jsonDecode(response.body)['name'],
+        description: jsonDecode(response.body)['description'],
+        lowScore: jsonDecode(response.body)['low_score'],
+        dateTime: jsonDecode(response.body)['datetime'],
+        isSelected: jsonDecode(response.body)['is_selected'],
+      );
+      _games.add(newGame);
+      notifyListeners();
     });
   }
+
+  // Future<void> addGameForm({
+  //   String name="game",
+  //   String description = 'This game will challenge you',
+  //   int? endScore,
+  //   bool lowScore=false,
+  //   bool freePlay = false,
+  //   bool isSelected = false,
+  //   int dateTime = 0,
+  // }) async {
+  //   final newGame = GameModel(
+  //     name: name,
+  //     description: description,
+  //     endScore: endScore,
+  //     lowScore: lowScore,
+  //     freePlay: freePlay,
+  //     isSelected: isSelected,
+  //     dateTime: dateTime,
+  //   );
+  //   _games.add(newGame);
+  //   notifyListeners();
+  //   DBHelper.insert('game', {
+  //     'name': newGame.name,
+  //     'description': newGame.description,
+  //     'end_score': newGame.endScore,
+  //     'low_score': newGame.lowScore== false ? 0 : 1,
+  //     'free_play': newGame.freePlay== false ? 0 : 1,
+  //     'is_selected': newGame.isSelected,
+  //     'date_time': newGame.dateTime,
+  //   });
+  // }
+
+
+  // Future<void> addGame({
+  //   String name="game",
+  //   String description = 'This game will challenge you',
+  //   int? endScore,
+  //   bool lowScore=false,
+  //   bool freePlay = false,
+  //   bool isSelected = false,
+  //   int dateTime = 0,
+  // }) async {
+  //   final url = Uri.parse('http://10.0.2.2:5000/score_api/add_game'); 
+  //   final newGame = GameModel(
+  //     name: name,
+  //     description: description,
+  //     endScore: endScore,
+  //     lowScore: lowScore,
+  //     freePlay: freePlay,
+  //     isSelected: isSelected,
+  //     dateTime: dateTime,
+  //   );
+  //   _games.add(newGame);
+  //   notifyListeners();
+  //   DBHelper.insert('game', {
+  //     'name': newGame.name,
+  //     'description': newGame.description,
+  //     'end_score': newGame.endScore,
+  //     'low_score': newGame.lowScore== false ? 0 : 1,
+  //     'free_play': newGame.freePlay== false ? 0 : 1,
+  //     'is_selected': newGame.isSelected,
+  //     'date_time': newGame.dateTime,
+  //   });
+  // }
 
   Future<void> updateIsSelected(
     String gameId,
@@ -167,9 +202,9 @@ class GameProvider extends ChangeNotifier {
    required String gameId,
    required String name,
    required String description,
-   required int? endScore,
+  //  required int? endScore,
    required int lowScore,
-   required int freePlay,
+  //  required int freePlay,
   }
   ) async { 
     // DBHelper.update('game', gameId, {

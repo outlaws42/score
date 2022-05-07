@@ -16,17 +16,17 @@ class MatchForm extends StatefulWidget {
 class _MatchFormState extends State<MatchForm> {
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final _player = (playerProvider); 
+  final _player = (playerProvider);
 
   String _game = 'Select Game';
-  String _player1 = 'Select Player1';
-  String _player2 = 'Select Player2';
-  String _id1 = "";
-  String _id2 = "";
-  int _endScore = 0;
+  // String _player1 = 'Select Player1';
+  // String _player2 = 'Select Player2';
+  // String _id1 = "";
+  // String _id2 = "";
+  // int _endScore = 0;
   String _gameid = "";
   bool _lowScore = false;
-  bool _freePlay = false;
+  // bool _freePlay = false;
   String? selected;
   List _gamePlayers = [];
   List _gamePlayersId = [];
@@ -41,16 +41,16 @@ class _MatchFormState extends State<MatchForm> {
     _gameid = dataFromGame[1];
     _lowScore = dataFromGame[2];
     // _freePlay = dataFromGame[4];
-    print('$_game, $_gameid, $_lowScore');
+    // print('$_game, $_gameid, $_lowScore');
     setState(() {});
   }
 
   void goToPlay() async {
     var dataFromPlayer = await Get.toNamed(
       "/players_select",
-      arguments: ['form',''],
+      arguments: ['form', ''],
     );
-    print('dataFromPlayer: $dataFromPlayer');
+    // print('dataFromPlayer: $dataFromPlayer');
     for (var item in dataFromPlayer) {
       _gamePlayers.add(item);
     }
@@ -83,37 +83,62 @@ class _MatchFormState extends State<MatchForm> {
     // if (gameName == null || gameName.isEmpty) {
     //   return;
     // }
-    int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
-    // int _id = context.read(matchProvider).match.length > 0
-    //     ? context.read(matchProvider).match.last.id + 1
+    // int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
+    // int _date = context.read(matchProvider).match.length > 0
+    //     ? context.read(matchProvider).match.last.dateTime
     //     : 1;
-    String _id = "";
+    // var ind = context.read(matchProvider).match.indexWhere((match) => match.dateTime == _date);
+
+    // String _id = context.read(matchProvider).match[ind].id;
+    // print('Latest Date $_id');
+
     // final _selectPlayers = context.read(playerProvider).selectedPlayers;
     // print('_selectedPlayers Length ${_selectPlayers.length}');
     context.read(matchProvider).addMatchHttp(
-      gameName: gameName,
-      players: players,
-      );
-        //   matchName: name,
-        //   gameName: gameName,
-        //   gameId: gameId,
-        //   player1Name: player1Name,
-        //   player2Name: player2Name,
-        //   player1Id: player1Id,
-        //   player2Id: player2Id,
-        //   endScore: endScore,
-        //   lowScore: lowScore,
-        //   freePlay: freePlay,
-        //   dateTime: _dtUtcMs,
-        //   isCompleted: false,
-        // );
+          gameName: gameName,
+          players: players,
+        );
+    //   matchName: name,
+    //   gameName: gameName,
+    //   gameId: gameId,
+    //   player1Name: player1Name,
+    //   player2Name: player2Name,
+    //   player1Id: player1Id,
+    //   player2Id: player2Id,
+    //   endScore: endScore,
+    //   lowScore: lowScore,
+    //   freePlay: freePlay,
+    //   dateTime: _dtUtcMs,
+    //   isCompleted: false,
+    // );
     // context.read(matchProvider).addMatchHttp(
     //   match: MatchModel(
     //     gameName: gameName
-    //     players: 
+    //     players:
     //     ));
-    context.read(matchProvider).fetchMatch();
-    Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
+
+    // Link with latest match id
+    context.read(matchProvider).fetchMatch().then((value) {
+      int _date = context.read(matchProvider).match.length > 0
+          ? context.read(matchProvider).match.last.dateTime
+          : 1;
+      var _index = context
+          .read(matchProvider)
+          .match
+          .indexWhere((match) => match.dateTime == _date);
+
+      String _id = context.read(matchProvider).match[_index].id;
+      Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
+    });
+
+    // int _date = context.read(matchProvider).match.length > 0
+    //     ? context.read(matchProvider).match.last.dateTime
+    //     : 1;
+    // var ind = context.read(matchProvider).match.indexWhere((match) => match.dateTime == _date);
+
+    // String _id = context.read(matchProvider).match[ind].id;
+    // print('Latest id: $_id');
+    // Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }
 
   void _warnDialog() {
@@ -122,7 +147,7 @@ class _MatchFormState extends State<MatchForm> {
       title: "Warning",
       content: Column(
         children: [
-          Text("You need to select a game and 2 players"),
+          Text("You need to select a game and  at least 2 players"),
           TextButton(
             onPressed: () => Get.back(),
             child: Text("Ok"),
@@ -219,7 +244,7 @@ class _MatchFormState extends State<MatchForm> {
                                 //         playerId: _player[index].id,
                                 //         isSelected: true,
                                 //       );
-                                //   }    
+                                //   }
                                 // }
                                 // _gamePlayers = [];
                                 // _gamePlayersId = [];
@@ -234,31 +259,32 @@ class _MatchFormState extends State<MatchForm> {
                             child: Card(
                               elevation: 4,
                               child: ListTile(
-                                  title: Text('Select Players',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4),
-                                  trailing: Icon(
-                                    Icons.person_add,
-                                    color: Theme.of(context)
-                                        .appBarTheme
-                                        .backgroundColor,
-                                  ),
-                                  onTap: () {
-                                    _gamePlayers = [];
-                                    _gamePlayersId = [];
-                                    goToPlay();
-                                  }),
+                                title: Text('Selected Players',
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                                trailing: Icon(
+                                  Icons.person_add,
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
+                                ),
+                                onTap: () {
+                                  _gamePlayers = [];
+                                  _gamePlayersId = [];
+                                  goToPlay();
+                                },
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 175,
+                            height: 250,
                             child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: _gamePlayers.length,
                               itemBuilder: (ctx, index) {
                                 return ListTile(
-                                  title: Text(_gamePlayers[index]['player_name']),
+                                  title:
+                                      Text(_gamePlayers[index]['player_name']),
                                 );
                               },
                               physics: const BouncingScrollPhysics(
@@ -292,8 +318,8 @@ class _MatchFormState extends State<MatchForm> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate() &&
-                          _game != "Select Game" &&
-                          _gamePlayers.length >= 2
+                              _game != "Select Game" &&
+                              _gamePlayers.length >= 2
                           // _player1 != "Select Player1" &&
                           // _player2 != "Select Player2"
                           ) {

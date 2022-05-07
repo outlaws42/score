@@ -16,48 +16,48 @@ class _GameFormState extends State<GameForm> {
   TextEditingController _descriptionController = TextEditingController(
     text: "This game will challenge you",
   );
-  TextEditingController _endscoreController = TextEditingController(text: '21');
+  // TextEditingController _endscoreController = TextEditingController(text: '21');
   // final _lowScoreController = TextEditingController(text: '0');
 
   int _lowScoreInt = 0;
-  int _freePlayInt = 0;
+  // int _freePlayInt = 0;
 
   final _formKey = GlobalKey<FormState>();
 
   void _save(
     String name,
     String description,
-    int endScore,
+    // int endScore,
     int lowScore,
-    int freePlay,
+    // int freePlay,
   ) {
     // Save for each field save
     if (name.isEmpty) {
       return;
     }
     final lowScoreSwitch = lowScore == 0 ? false : true;
-    final freePlaySwitch = freePlay == 0 ? false : true;
-    int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
+    // final freePlaySwitch = freePlay == 0 ? false : true;
+    // int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
 
     if (arguments[0] == "form_edit") {
       context.read(gameProvider).updateGame(
             gameId: arguments[1],
             name: name,
             description: description,
-            endScore: endScore,
+            // endScore: endScore,
             lowScore: lowScore,
-            freePlay: freePlay,
+            // freePlay: freePlay,
           );
     } else {
-      context.read(gameProvider).addGameForm(
+      context.read(gameProvider).addGame(
             name: name,
             description: description,
-            endScore: endScore,
+            // endScore: endScore,
             lowScore: lowScoreSwitch,
-            freePlay: freePlaySwitch,
-            dateTime: _dtUtcMs,
+            // freePlay: freePlaySwitch,
+            // dateTime: _dtUtcMs,
           );
-      context.read(gameProvider).fetchGame();
+      // context.read(gameProvider).fetchGame();
     }
 
     Get.back(result: "game_form");
@@ -72,9 +72,9 @@ class _GameFormState extends State<GameForm> {
       _descriptionController = TextEditingController(
         text: arguments[3].toString(),
       );
-      _endscoreController = TextEditingController(
-        text: arguments[4].toString(),
-      );
+      // _endscoreController = TextEditingController(
+        // text: arguments[4].toString(),
+      // );
     }
     return Scaffold(
       appBar: AppBar(
@@ -95,8 +95,8 @@ class _GameFormState extends State<GameForm> {
         final gameData = watch(gameProvider);
         final _isLowScore =
             arguments[0] == 'form_edit' ? arguments[5] : gameData.isLowScore;
-        final _isFreePlay =
-            arguments[0] == 'form_edit' ? arguments[6] : gameData.isFreePlay;
+        // final _isFreePlay =
+        //     arguments[0] == 'form_edit' ? arguments[6] : gameData.isFreePlay;
         return SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -126,45 +126,45 @@ class _GameFormState extends State<GameForm> {
                   maxLength: 200,
                 ),
                 // Free Playe (Toggle)
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Free Play',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      Switch(
-                        value: _isFreePlay,
-                        onChanged: (boolVal) {
-                          _freePlayInt = boolVal == false ? 0 : 1;
-                          context.read(gameProvider).updateFreePlay();
-                        },
-                        activeTrackColor:
-                            Theme.of(context).colorScheme.secondary,
-                        activeColor:
-                            Theme.of(context).colorScheme.primaryVariant,
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(
+                //         'Free Play',
+                //         style: Theme.of(context).textTheme.headline6,
+                //       ),
+                //       Switch(
+                //         value: _isFreePlay,
+                //         onChanged: (boolVal) {
+                //           _freePlayInt = boolVal == false ? 0 : 1;
+                //           context.read(gameProvider).updateFreePlay();
+                //         },
+                //         activeTrackColor:
+                //             Theme.of(context).colorScheme.secondary,
+                //         activeColor:
+                //             Theme.of(context).colorScheme.primaryVariant,
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 // End Score
-                _isFreePlay == false
-                    ? FormWidgets.formTextInputValidation(
-                        context: context,
-                        controller: _endscoreController,
-                        labelText: "Winning Points",
-                        hintText:
-                            'How many points needed to win the game (Required)',
-                        maxLength: 20,
-                        blankFieldMessage: "Please fill in the winning score")
-                    : Container(),
+                // _isFreePlay == false
+                //     ? FormWidgets.formTextInputValidation(
+                //         context: context,
+                //         controller: _endscoreController,
+                //         labelText: "Winning Points",
+                //         hintText:
+                //             'How many points needed to win the game (Required)',
+                //         maxLength: 20,
+                //         blankFieldMessage: "Please fill in the winning score")
+                //     : Container(),
 
                 // Low Score Wins (Toggle)
-                _isFreePlay == true
-                    ? Container(
+                // _isFreePlay == true
+                    Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,33 +186,33 @@ class _GameFormState extends State<GameForm> {
                             ),
                           ],
                         ),
-                      )
-                    : Container(),
+                      ),
+                    // : Container(),
 
                 // Submit Button
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      if (_isFreePlay == true) {
-                        _endscoreController = TextEditingController(text: '21');
-                      }
+                      // if (_isFreePlay == true) {
+                      //   _endscoreController = TextEditingController(text: '21');
+                      // }
                       if (_formKey.currentState!.validate()) {
                         _save(
                           _nameController.text,
                           _descriptionController.text,
-                          int.parse(
-                            _endscoreController.text,
-                          ),
+                          // int.parse(
+                            // _endscoreController.text,
+                          // ),
                           _lowScoreInt,
-                          _freePlayInt,
+                          // _freePlayInt,
                         );
                         if (_isLowScore == true) {
                           context.read(gameProvider).updateLowScore();
                         }
-                        if (_isFreePlay == true) {
-                          context.read(gameProvider).updateFreePlay();
-                        }
+                        // if (_isFreePlay == true) {
+                        //   context.read(gameProvider).updateFreePlay();
+                        // }
                       }
                     },
                     style: ElevatedButton.styleFrom(

@@ -138,6 +138,21 @@ class MatchProvider extends ChangeNotifier {
       'players': players
     }),
     ).then((response){
+      print('response body: ${jsonDecode(response.body)}');
+      final List<MatchModel> loadCurrent = [];
+    final json = jsonDecode(response.body);
+    // final test = PlayerModel.fromJson(json);
+    if (json != null) {
+    json.forEach((value){
+      loadCurrent.add(
+        MatchModel.fromJson(value)
+        );
+
+    });
+    }
+    _matches = loadCurrent;
+    notifyListeners();
+
       // print('This is the response: ${jsonDecode(response.body)}');
     });
     // final newMatch = MatchModel(
@@ -153,7 +168,7 @@ class MatchProvider extends ChangeNotifier {
     //   isSelected: false
     // );
 
-    notifyListeners();
+    // notifyListeners();
   }
 
 
@@ -260,10 +275,10 @@ class MatchProvider extends ChangeNotifier {
     int playerIndex,
     String player,
   ) async {
-    print('playerIndex: $playerIndex');
-    print('player: $player');
-    print('score: $score');
-    print('matchid: $id');
+    // print('playerIndex: $playerIndex');
+    // print('player: $player');
+    // print('score: $score');
+    // print('matchid: $id');
     // print('This is the player number $playerNumber');
     // DBHelper.update(
     //   'player_match',
@@ -272,8 +287,8 @@ class MatchProvider extends ChangeNotifier {
     //     'player${playerNumber}_score': score,
     //   },
     // );
-    var matchIndex = _matches.indexWhere((element) => element.id == id);
-    print(matchIndex);
+    int matchIndex = getMatchIndex(id);
+    // print(matchIndex);
     _matches[matchIndex].players[playerIndex].score = score;
     // fetchMatch();
     notifyListeners();
@@ -307,10 +322,10 @@ class MatchProvider extends ChangeNotifier {
     required int playerIndex,
     required String player,
   }) async {
-    print('playerIndex: $playerIndex');
-    print('player: $player');
-    print('color: $color');
-    print('matchid: $id');
+    // print('playerIndex: $playerIndex');
+    // print('player: $player');
+    // print('color: $color');
+    // print('matchid: $id');
     // int playerNumber = playerIndex + 1;
     // if (player == "player1") {
     // DBHelper.update('player_match', id, {
@@ -326,7 +341,7 @@ class MatchProvider extends ChangeNotifier {
     //   );
     // }
     // fetchMatch();
-    var matchIndex = _matches.indexWhere((element) => element.id == id);
+    int matchIndex = getMatchIndex(id);
     _matches[matchIndex].players[playerIndex].color = color;
     notifyListeners();
   }
@@ -363,7 +378,7 @@ class MatchProvider extends ChangeNotifier {
     //   'winner_id': winnerId,
     //   'is_complete': 1,
     // });
-    int matchIndex = _matches.indexWhere((element) => element.id == matchId);
+    int matchIndex = getMatchIndex(matchId);
     _matches[matchIndex].winner = winnerName;
     _matches[matchIndex].winnerId = winnerId;
     _matches[matchIndex].isComplete = true;
@@ -377,7 +392,12 @@ class MatchProvider extends ChangeNotifier {
     // DBHelper.update('player_match', matchId, {
     //   'is_complete': isComplete,
     // });
-    fetchMatch();
     notifyListeners();
   }
+
+  getMatchIndex(String matchId) {
+  return _matches.indexWhere((element) => element.id == matchId);
+  }
 }
+
+

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:score/models/match_model.dart';
@@ -22,26 +23,44 @@ class PlayerProvider extends ChangeNotifier {
     playerName,
     playerId,
   }) {
-    _selectedPlayers.addAll([{
-      "player_name": playerName, 
-      "player_id":playerId,
-      "score": 0,
-      "color": 4282339765,
 
-    }]
-    // Player(
-    //   playerId: playerId,
-    //   playerName: playerName,
-    //   score: 0,
-    //   color: 0,
-    // )
-      
-      // "player_name": playerName, 
-      // "player_id":playerId,
-      // "score": 0,
-      // "color": 0,
+    final _random = Random();
+    final randomColor = Color.fromARGB(
+      _random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
+    );
+    String colorString = randomColor.toString();
+    String valueString = colorString.split('(0x')[1].split(')')[0];
+    int value = int.parse(valueString, radix: 16);
 
-      );
+    // final color =int.parse(randomColor, radix: 16);
+    print(value);
+
+    _selectedPlayers.addAll([
+      {
+        "player_name": playerName,
+        "player_id": playerId,
+        "score": 0,
+        "color": value,
+      }
+    ]
+    
+        // Player(
+        //   playerId: playerId,
+        //   playerName: playerName,
+        //   score: 0,
+        //   color: 0,
+        // )
+
+        // "player_name": playerName,
+        // "player_id":playerId,
+        // "score": 0,
+        // "color": 0,
+
+        );
+    print('This is _selectedPlayers: $_selectedPlayers');
     notifyListeners();
   }
 
@@ -194,25 +213,55 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> addPlayerForm({
+    String baseName = '192.168.1.9',
+    String portName = '3000',
+    String currentName = 'add_player',
     required String name,
-    required int wins,
-    required int dateTime,
+    // required List players
   }) async {
-    final newPlayer = PlayerModel(
-      name: name,
-      wins: wins,
-      dateTime: dateTime,
-      isSelected: false,
-    );
-    _players.add(newPlayer);
-    notifyListeners();
-    DBHelper.insert('player', {
-      'name': newPlayer.name,
-      'wins': newPlayer.wins,
-      'date_time': newPlayer.dateTime,
-      'is_selected': newPlayer.isSelected,
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http
+        .post(
+      url,
+      body: jsonEncode({
+        'name': name,
+        // 'players': players
+      }),
+    )
+        .then((response) {
+      // print('This is the response: ${jsonDecode(response.body)}');
+      final newPlayer = PlayerModel(
+        id: jsonDecode(response.body)['_id'],
+        name: jsonDecode(response.body)['name'],
+        wins: jsonDecode(response.body)['wins'],
+        dateTime: jsonDecode(response.body)['datetime'],
+        isSelected: jsonDecode(response.body)['is_selected'],
+      );
+      _players.add(newPlayer);
+      notifyListeners();
     });
   }
+
+  // Future<void> addPlayerForm({
+  //   required String name,
+  //   required int wins,
+  //   required int dateTime,
+  // }) async {
+  //   final newPlayer = PlayerModel(
+  //     name: name,
+  //     wins: wins,
+  //     dateTime: dateTime,
+  //     isSelected: false,
+  //   );
+  //   _players.add(newPlayer);
+  //   notifyListeners();
+  //   // DBHelper.insert('player', {
+  //   //   'name': newPlayer.name,
+  //   //   'wins': newPlayer.wins,
+  //   //   'date_time': newPlayer.dateTime,
+  //   //   'is_selected': newPlayer.isSelected,
+  //   // });
+  // }
 
   Future<void> updatePlayer(
     String id,
