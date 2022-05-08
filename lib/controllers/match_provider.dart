@@ -139,21 +139,19 @@ class MatchProvider extends ChangeNotifier {
     }),
     ).then((response){
       print('response body: ${jsonDecode(response.body)}');
-      final List<MatchModel> loadCurrent = [];
-    final json = jsonDecode(response.body);
-    // final test = PlayerModel.fromJson(json);
-    if (json != null) {
-    json.forEach((value){
-      loadCurrent.add(
-        MatchModel.fromJson(value)
-        );
+    //   final List<MatchModel> loadCurrent = [];
+    // final json = jsonDecode(response.body);
+    // // final test = PlayerModel.fromJson(json);
+    // if (json != null) {
+    // json.forEach((value){
+    //   loadCurrent.add(
+    //     MatchModel.fromJson(value)
+    //     );
 
-    });
-    }
-    _matches = loadCurrent;
-    notifyListeners();
-
-      // print('This is the response: ${jsonDecode(response.body)}');
+    // });
+    // }
+    // _matches = loadCurrent;
+    // notifyListeners();
     });
     // final newMatch = MatchModel(
     //   gameName: match.gameName,
@@ -168,7 +166,7 @@ class MatchProvider extends ChangeNotifier {
     //   isSelected: false
     // );
 
-    // notifyListeners();
+    notifyListeners();
   }
 
 
@@ -289,10 +287,39 @@ class MatchProvider extends ChangeNotifier {
     // );
     int matchIndex = getMatchIndex(id);
     // print(matchIndex);
+    String playerId = _matches[matchIndex].players[playerIndex].playerId;
     _matches[matchIndex].players[playerIndex].score = score;
     // fetchMatch();
+    updateMatch(id: id, player: player, score: score );
     notifyListeners();
   }
+
+
+Future<void> updateMatch({
+    String baseName='192.168.1.9',
+    String portName='3000',
+    String currentName='update_match',
+    required String id,
+    required String player, 
+    required int score,
+  }) async {
+
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http.post(url, body: jsonEncode({
+      '_id': id,
+      'player': player,
+      'score': score
+    }),
+    ).then((response){
+      print('response body: ${jsonDecode(response.body)}');
+    });
+    notifyListeners();
+  }
+
+
+
+
+
 
   // Future<void> updateColor(
   //   int id,
