@@ -263,20 +263,20 @@ class PlayerProvider extends ChangeNotifier {
   //   // });
   // }
 
-  Future<void> updatePlayer(
-    String id,
-    int score,
-    String player,
-  ) async {
-    // if (player == "player1") {
-    //   DBHelper.update('player_match', id, {
-    //     'player1_score': score,
-    //   });
-    // } else
-    //   DBHelper.update('player_match', id, {
-    //     'player2_score': score,
-    //   });
-  }
+  // Future<void> updatePlayer(
+  //   String id,
+  //   int score,
+  //   String player,
+  // ) async {
+  //   // if (player == "player1") {
+  //   //   DBHelper.update('player_match', id, {
+  //   //     'player1_score': score,
+  //   //   });
+  //   // } else
+  //   //   DBHelper.update('player_match', id, {
+  //   //     'player2_score': score,
+  //   //   });
+  // }
 
   Future<void> updatePlayerWins(
     String playerId,
@@ -289,8 +289,9 @@ class PlayerProvider extends ChangeNotifier {
     //     'wins': win,
     //   },
     // );
-    int matchIndex = _players.indexWhere((element) => element.id == playerId);
-    _players[matchIndex].wins = win;
+    int playerIndex = _players.indexWhere((element) => element.id == playerId);
+    _players[playerIndex].wins = win;
+    updatePlayer(id: playerId, number: win, type: 'wins');
     notifyListeners();
   }
 
@@ -332,6 +333,38 @@ class PlayerProvider extends ChangeNotifier {
     //   },
     // );
     fetchPlayer();
+    notifyListeners();
+  }
+
+  Future<void> updatePlayer({
+    String baseName = '192.168.1.9',
+    String portName = '3000',
+    String currentName = 'update_player',
+    required String id,
+    required String type,
+    String playerId = "_",
+    int number = 0,
+    String text = "_",
+    String text2 = "_",
+    bool toggle = false,
+  }) async {
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http
+        .post(
+      url,
+      body: jsonEncode({
+        '_id': id,
+        'playerId': playerId,
+        'number': number,
+        'toggle': toggle,
+        'text': text,
+        'text2': text2,
+        'type': type
+      }),
+    )
+        .then((response) {
+      print('response body: ${jsonDecode(response.body)}');
+    });
     notifyListeners();
   }
 }

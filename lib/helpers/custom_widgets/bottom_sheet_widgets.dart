@@ -11,6 +11,10 @@ class BottomSheetWidgets {
     required String playerName,
   }) {
     var _wins = matchList.where((win) => win.winnerId == playerId).toList();
+    var _winsIndex = matchList.indexWhere((win) => win.winnerId == playerId);
+    var _player = matchList[_winsIndex].players.where((win) => win.playerId == playerId).toList();
+
+    print(_player);
 
     Get.bottomSheet(
       Container(
@@ -31,43 +35,50 @@ class BottomSheetWidgets {
                     ),
                   ],
                 )
-                : Text("Temp Place Holder text")
-              // : ListView.builder(
-              //     itemCount: _wins.length,
-              //     itemBuilder: (context, index) {
-              //       final _date = FunctionHelper().intUtcToStringFormatDT(
-              //         dateTimeUtcInt: _wins[index].dateTime,
-              //       );
-              //       return Container(
-              //         child: Card(
-              //           elevation: 3,
-              //           color: Theme.of(context).scaffoldBackgroundColor,
-              //           child: ListTile(
-              //             title: Text(
-              //               "${_wins[index].matchName} ${_wins[index].gameName}",
-              //               style: Theme.of(context).textTheme.headline4,
-              //             ),
-              //             subtitle: Column(
-              //               mainAxisAlignment: MainAxisAlignment.start,
-              //               children: [
-              //                 Text(
-              //                   "${_wins[index].player1Name}:  ${_wins[index].player1Score}",
-              //                   style: Theme.of(context).textTheme.subtitle1,
-              //                 ),
-              //                 Text(
-              //                   "${_wins[index].player2Name}: ${_wins[index].player2Score}",
-              //                   style: Theme.of(context).textTheme.subtitle1,
-              //                 ),
-              //               ],
-              //             ),
-              //             trailing: Text(
-              //               '$_date',
-              //               style: Theme.of(context).textTheme.subtitle1,
-              //             ),
-              //           ),
-              //         ),
-              //       );
-              //     }),
+                // : Text("Temp Place Holder text")
+              : ListView.builder(
+                  itemCount: _wins.length,
+                  itemBuilder: (context, index) {
+                    var _players = [];
+                      for (var i in matchList[index].players){
+                        _players.add(i.playerName);
+                        _players.add(i.score);
+                      }
+
+
+                    final _date = FunctionHelper().intUtcToStringFormatDT(
+                      dateTimeUtcInt: _wins[index].dateTime,
+                    );
+                    return Container(
+                      child: Card(
+                        elevation: 3,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: ListTile(
+                          title: Text(
+                            "${_wins[index].gameName}",
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          subtitle: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "$_players",
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                              // Text(
+                              //   "${_wins[index].player2Name}: ${_wins[index].player2Score}",
+                              //   style: Theme.of(context).textTheme.subtitle1,
+                              // ),
+                            ],
+                          ),
+                          trailing: Text(
+                            '$_date',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
         ),
       ),
     );

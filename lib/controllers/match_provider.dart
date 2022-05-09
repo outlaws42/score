@@ -88,30 +88,27 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchMatch({
-    String baseName='192.168.1.9',
-    String portName='3000',
-    String currentName='matches',
+    String baseName = '192.168.1.9',
+    String portName = '3000',
+    String currentName = 'matches',
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-      // print(response.body);
+    // print(response.body);
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
     if (json != null) {
-    json.forEach((value){
-      loadCurrent.add(
-        MatchModel.fromJson(value)
-        );
-
-    });
+      json.forEach((value) {
+        loadCurrent.add(MatchModel.fromJson(value));
+      });
     }
     // print(test);
     // extractedData[0].forEach((value) {
     //     loadCurrent.add(
     //       PlayerModel(
     //         id: value['_id'],
-            // dateTime: value['datetime.date'],
+    // dateTime: value['datetime.date'],
     //         isSelected: value['is_selected'],
     //         name: value['name'],
     //         wins: 0,
@@ -124,34 +121,33 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addMatchHttp({
-    String baseName='192.168.1.9',
-    String portName='3000',
-    String currentName='add_match',
-    required String gameName,
-    required List players 
-  }) async {
-
+  Future<void> addMatchHttp(
+      {String baseName = '192.168.1.9',
+      String portName = '3000',
+      String currentName = 'add_match',
+      required String gameName,
+      required List players}) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
-    http.post(url, body: jsonEncode({
-      'game': gameName,
-      'players': players
-    }),
-    ).then((response){
+    http
+        .post(
+      url,
+      body: jsonEncode({'game': gameName, 'players': players}),
+    )
+        .then((response) {
       print('response body: ${jsonDecode(response.body)}');
-    //   final List<MatchModel> loadCurrent = [];
-    // final json = jsonDecode(response.body);
-    // // final test = PlayerModel.fromJson(json);
-    // if (json != null) {
-    // json.forEach((value){
-    //   loadCurrent.add(
-    //     MatchModel.fromJson(value)
-    //     );
+      //   final List<MatchModel> loadCurrent = [];
+      // final json = jsonDecode(response.body);
+      // // final test = PlayerModel.fromJson(json);
+      // if (json != null) {
+      // json.forEach((value){
+      //   loadCurrent.add(
+      //     MatchModel.fromJson(value)
+      //     );
 
-    // });
-    // }
-    // _matches = loadCurrent;
-    // notifyListeners();
+      // });
+      // }
+      // _matches = loadCurrent;
+      // notifyListeners();
     });
     // final newMatch = MatchModel(
     //   gameName: match.gameName,
@@ -168,7 +164,6 @@ class MatchProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
 
   // Future<void> addMatch({
   //   // int id,
@@ -192,57 +187,57 @@ class MatchProvider extends ChangeNotifier {
   //   bool isCompleted = false,
   //   bool isSelected = false,
   // }) async {
-    // final newMatch = MatchModel(
-    //   // id: id,
-    //   matchName: matchName,
-    //   gameName: gameName,
-    //   gameId: gameId,
-    //   player1Name: player1Name,
-    //   player2Name: player2Name,
-    //   // playerNameList: playerNameList,
-    //   // playerIdList: playerIdList,
-    //   // playerScoreList: [],
-    //   // playerColorList: playerColorList,
-    //   player1Id: player1Id,
-    //   player2Id: player2Id,
-    //   player1Score: 0,
-    //   player2Score: 0,
-    //   player1Color: 4282339765,
-    //   player2Color: 4278228616,
-    //   winner: "_",
-    //   winnerId: 0,
-    //   dateTime: dateTime,
-    //   winScore: endScore,
-    //   lowScore: lowScore,
-    //   freePlay: freePlay,
-    //   isComplete: isCompleted,
-    //   isSelected: isSelected,
-    // );
-    // _matches.add(newMatch);
-    // notifyListeners();
-    // // var numberPlayers = newMatch.playerIdList.length;
-    // DBHelper.insert('player_match', {
-    //   // 'id': newPlayer.id,
-    //   'match_name': newMatch.matchName,
-    //   'game_name': newMatch.gameName,
-    //   'game_id': newMatch.gameId,
-    //   'player1_name': newMatch.player1Name,
-    //   'player2_name': newMatch.player2Name,
-    //   'player1_id': newMatch.player1Id,
-    //   'player2_id': newMatch.player2Id,
-    //   'player1_score': newMatch.player1Score,
-    //   'player2_score': newMatch.player2Score,
-    //   'player1_color': newMatch.player1Color,
-    //   'player2_color': newMatch.player2Color,
-    //   'winner_id': newMatch.winnerId,
-    //   'winner': newMatch.winner,
-    //   'win_score': newMatch.winScore,
-    //   'date_time': newMatch.dateTime,
-    //   'low_score': newMatch.lowScore == false ? 0 : 1,
-    //   'free_play': newMatch.freePlay == false ? 0 : 1,
-    //   'is_complete': newMatch.isComplete == false ? 0 : 1,
-    //   'is_selected': newMatch.isSelected == false ? 0 : 1,
-    // });
+  // final newMatch = MatchModel(
+  //   // id: id,
+  //   matchName: matchName,
+  //   gameName: gameName,
+  //   gameId: gameId,
+  //   player1Name: player1Name,
+  //   player2Name: player2Name,
+  //   // playerNameList: playerNameList,
+  //   // playerIdList: playerIdList,
+  //   // playerScoreList: [],
+  //   // playerColorList: playerColorList,
+  //   player1Id: player1Id,
+  //   player2Id: player2Id,
+  //   player1Score: 0,
+  //   player2Score: 0,
+  //   player1Color: 4282339765,
+  //   player2Color: 4278228616,
+  //   winner: "_",
+  //   winnerId: 0,
+  //   dateTime: dateTime,
+  //   winScore: endScore,
+  //   lowScore: lowScore,
+  //   freePlay: freePlay,
+  //   isComplete: isCompleted,
+  //   isSelected: isSelected,
+  // );
+  // _matches.add(newMatch);
+  // notifyListeners();
+  // // var numberPlayers = newMatch.playerIdList.length;
+  // DBHelper.insert('player_match', {
+  //   // 'id': newPlayer.id,
+  //   'match_name': newMatch.matchName,
+  //   'game_name': newMatch.gameName,
+  //   'game_id': newMatch.gameId,
+  //   'player1_name': newMatch.player1Name,
+  //   'player2_name': newMatch.player2Name,
+  //   'player1_id': newMatch.player1Id,
+  //   'player2_id': newMatch.player2Id,
+  //   'player1_score': newMatch.player1Score,
+  //   'player2_score': newMatch.player2Score,
+  //   'player1_color': newMatch.player1Color,
+  //   'player2_color': newMatch.player2Color,
+  //   'winner_id': newMatch.winnerId,
+  //   'winner': newMatch.winner,
+  //   'win_score': newMatch.winScore,
+  //   'date_time': newMatch.dateTime,
+  //   'low_score': newMatch.lowScore == false ? 0 : 1,
+  //   'free_play': newMatch.freePlay == false ? 0 : 1,
+  //   'is_complete': newMatch.isComplete == false ? 0 : 1,
+  //   'is_selected': newMatch.isSelected == false ? 0 : 1,
+  // });
   // }
 
   // Future<void> updateScore(
@@ -290,36 +285,16 @@ class MatchProvider extends ChangeNotifier {
     String playerId = _matches[matchIndex].players[playerIndex].playerId;
     _matches[matchIndex].players[playerIndex].score = score;
     // fetchMatch();
-    updateMatch(id: id, player: player, score: score );
+    updateMatch(
+      id: id,
+      playerId: playerId,
+      number: score,
+      type: 'score',
+    );
     notifyListeners();
   }
 
-
-Future<void> updateMatch({
-    String baseName='192.168.1.9',
-    String portName='3000',
-    String currentName='update_match',
-    required String id,
-    required String player, 
-    required int score,
-  }) async {
-
-    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
-    http.post(url, body: jsonEncode({
-      '_id': id,
-      'player': player,
-      'score': score
-    }),
-    ).then((response){
-      print('response body: ${jsonDecode(response.body)}');
-    });
-    notifyListeners();
-  }
-
-
-
-
-
+  
 
   // Future<void> updateColor(
   //   int id,
@@ -369,7 +344,14 @@ Future<void> updateMatch({
     // }
     // fetchMatch();
     int matchIndex = getMatchIndex(id);
+    String playerId = _matches[matchIndex].players[playerIndex].playerId;
     _matches[matchIndex].players[playerIndex].color = color;
+    updateMatch(
+      id: id,
+      playerId: playerId,
+      number: color,
+      type: 'color',
+    );
     notifyListeners();
   }
 
@@ -409,6 +391,13 @@ Future<void> updateMatch({
     _matches[matchIndex].winner = winnerName;
     _matches[matchIndex].winnerId = winnerId;
     _matches[matchIndex].isComplete = true;
+    updateMatch(
+      id: matchId,
+      text: winnerId,
+      text2: winnerName,
+      toggle: true,
+      type: 'winner',
+    );
     notifyListeners();
   }
 
@@ -423,8 +412,38 @@ Future<void> updateMatch({
   }
 
   getMatchIndex(String matchId) {
-  return _matches.indexWhere((element) => element.id == matchId);
+    return _matches.indexWhere((element) => element.id == matchId);
+  }
+
+  Future<void> updateMatch({
+    String baseName = '192.168.1.9',
+    String portName = '3000',
+    String currentName = 'update_match',
+    required String id,
+    required String type,
+    String playerId = "_",
+    int number = 0,
+    String text = "_",
+    String text2 = "_",
+    bool toggle = false,
+  }) async {
+    final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
+    http
+        .post(
+      url,
+      body: jsonEncode({
+        '_id': id,
+        'playerId': playerId,
+        'number': number,
+        'toggle': toggle,
+        'text': text,
+        'text2': text2,
+        'type': type
+      }),
+    )
+        .then((response) {
+      print('response body: ${jsonDecode(response.body)}');
+    });
+    notifyListeners();
   }
 }
-
-
