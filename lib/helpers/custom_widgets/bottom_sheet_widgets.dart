@@ -11,10 +11,13 @@ class BottomSheetWidgets {
     required String playerName,
   }) {
     var _wins = matchList.where((win) => win.winnerId == playerId).toList();
-    var _winsIndex = matchList.indexWhere((win) => win.winnerId == playerId);
-    var _player = matchList[_winsIndex].players.where((win) => win.playerId == playerId).toList();
+    // var _winsIndex = matchList.indexWhere((win) => win.winnerId == playerId);
+    // var _player = matchList[_winsIndex]
+    //     .players
+    //     .where((win) => win.playerId == playerId)
+    //     .toList();
 
-    print(_player);
+    // print(_player);
 
     Get.bottomSheet(
       Container(
@@ -35,17 +38,11 @@ class BottomSheetWidgets {
                     ),
                   ],
                 )
-                // : Text("Temp Place Holder text")
+              // Build list for players
               : ListView.builder(
+                  shrinkWrap: true,
                   itemCount: _wins.length,
                   itemBuilder: (context, index) {
-                    var _players = [];
-                      for (var i in matchList[index].players){
-                        _players.add(i.playerName);
-                        _players.add(i.score);
-                      }
-
-
                     final _date = FunctionHelper().intUtcToStringFormatDT(
                       dateTimeUtcInt: _wins[index].dateTime,
                     );
@@ -59,16 +56,23 @@ class BottomSheetWidgets {
                             style: Theme.of(context).textTheme.headline4,
                           ),
                           subtitle: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                "$_players",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                              // Text(
-                              //   "${_wins[index].player2Name}: ${_wins[index].player2Score}",
-                              //   style: Theme.of(context).textTheme.subtitle1,
-                              // ),
+                              // Build list of players in the match of wins by player
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: _wins[index].players.length,
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      child: Text(
+                                        "${_wins[index].players[i].playerName} : ${_wins[index].players[i].score} ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    );
+                                  })
+
                             ],
                           ),
                           trailing: Text(
