@@ -38,6 +38,12 @@ class Match extends StatelessWidget {
                 // final _player2Id = gameData.match[_index].players;
                 // final _player1Score = gameData.match[_index].players;
                 // final _player2Score = gameData.match[_index].players;
+                var play = [];
+                for(var i in gameData.match[_index].players){
+                  play.add(i.score);
+                  // print(i.score);
+                }
+                print(play);
                 bool scoreCheck = true;
                 final _lowScore = gameData.match[_index].lowScore;
                 print('This is the matchId: $matchId');

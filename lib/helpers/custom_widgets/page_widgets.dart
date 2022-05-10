@@ -172,6 +172,29 @@ class PageWidgets {
     );
   }
 
+  Widget squareContainer({
+    required BuildContext context,
+    required String content,
+  }) {
+    return Container(
+      alignment: Alignment.center,
+      height: 30,
+      width: 75,
+      margin: EdgeInsets.all(2),
+      decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Theme.of(context).appBarTheme.backgroundColor,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(color: Colors.black26, blurRadius: 5.0),
+          ]),
+      child: Text(
+        content,
+        style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
+
   Widget circleOulineContainer({
     required BuildContext context,
     required String content,
@@ -543,11 +566,49 @@ class PageWidgets {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '$_gameName',
-                      style: _isSelected == true
-                          ? Theme.of(context).textTheme.headline5
-                          : Theme.of(context).textTheme.headline4,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          // child: PageWidgets().squareContainer(
+                          //     context: context,
+                          //     content: '$_gameName'
+                          // )
+                          child: Text(
+                            '$_gameName        ',
+                            style: _isSelected == true
+                                ? Theme.of(context).textTheme.headline5
+                                : Theme.of(context).textTheme.headline4,
+                          ),
+                        ),
+                        _isComplete == true
+                        ? Container(
+                          child: PageWidgets().squareContainer(
+                              context: context,
+                              content: '$_winner'
+                          )
+                        ) 
+                        // ? Text(
+                        //   'Complete ($_winner)',
+                        //   style: _isSelected == true
+                        //       ? Theme.of(context).textTheme.subtitle2
+                        //       : Theme.of(context).textTheme.subtitle1,
+                        // )
+                        : Container(),
+
+                        // _isComplete == true
+                        // ? PageWidgets().squareContainer(
+                        //       context: context,
+                        //       content: _winner.toString()
+                        //   )
+                        // // ? Text(
+                        // //   ' | $_winner',
+                        // //   style: _isSelected == true
+                        // //       ? Theme.of(context).textTheme.subtitle2
+                        // //       : Theme.of(context).textTheme.subtitle1,
+                        // // )
+                        // : Container()
+                      ],
                     ),
                     // _player1 == false && _player2 == false
                     Row(
@@ -561,25 +622,6 @@ class PageWidgets {
                           )
                       ],
                     ),
-                    // ?  Text(
-                    //     '$players',
-                    //     style: _isSelected == true
-                    //         ? Theme.of(context).textTheme.subtitle2
-                    //         : Theme.of(context).textTheme.subtitle1,
-                    //   )
-                    // : _player1 == true
-                    //     ? Text(
-                    //         '$_player1Name (Winner) vs $_player2Name',
-                    //         style: _isSelected == true
-                    //             ? Theme.of(context).textTheme.subtitle2
-                    //             : Theme.of(context).textTheme.subtitle1,
-                    //       )
-                    //     : Text(
-                    //         '$_player1Name vs $_player2Name (Winner)',
-                    //         style: _isSelected == true
-                    //             ? Theme.of(context).textTheme.subtitle2
-                    //             : Theme.of(context).textTheme.subtitle1,
-                    //       ),
                   ],
                 ),
                 Spacer(
