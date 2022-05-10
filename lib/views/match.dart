@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
@@ -32,21 +33,43 @@ class Match extends StatelessWidget {
                 }
                 final _isComplete = gameData.match[_index].isComplete;
                 final _gameName = gameData.match[_index].gameName;
+                final _players = gameData.match[_index].players;
+                final _lowScore = gameData.match[_index].lowScore;
+
                 // final _winScore = gameData.match[_index].winScore;
                 // final _freePlay = gameData.match[_index].freePlay;
                 // final _player1Id = gameData.match[_index].players;
                 // final _player2Id = gameData.match[_index].players;
                 // final _player1Score = gameData.match[_index].players;
                 // final _player2Score = gameData.match[_index].players;
-                var play = [];
-                for(var i in gameData.match[_index].players){
-                  play.add(i.score);
-                  // print(i.score);
+                // var play = [];
+                // for(var i in gameData.match[_index].players){
+                //   play.add(i.score);
+                //   // print(i.score);
+                // }
+                int _winScore = 0;
+                bool scoreCheck = false;
+ 
+                 if (_lowScore == true) {
+                  _winScore = _players.map((abc) => abc.score).reduce(min);
+                } else {
+                  _winScore = _players.map((abc) => abc.score).reduce(max);
                 }
-                print(play);
-                bool scoreCheck = true;
-                final _lowScore = gameData.match[_index].lowScore;
-                print('This is the matchId: $matchId');
+                
+                // int res = gameData.match[_index].players.map((element) => element.score == _winScore ? 1 : 0).reduce((value, element) => value + element);
+                var _winScoreTimes = _players.where((element) => element.score == _winScore);
+                print('indexScore Length: ${_winScoreTimes.length}');
+                // print('res: ${res}');
+                if (_winScoreTimes.length > 1 ) {
+                  scoreCheck = false;
+                } else {
+                  scoreCheck = true;
+                }
+                // print(_winScore);
+                // print('indexScore ${indexScore.length}');
+                // bool scoreCheck = true;
+                // final _lowScore = gameData.match[_index].lowScore;
+                // print('This is the matchId: $matchId');
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

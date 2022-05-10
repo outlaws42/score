@@ -95,6 +95,7 @@ class _GameFormState extends State<GameForm> {
         final gameData = watch(gameProvider);
         final _isLowScore =
             arguments[0] == 'form_edit' ? arguments[5] : gameData.isLowScore;
+        gameData.games.where((element) => element.name == _nameController.text);
         // final _isFreePlay =
         //     arguments[0] == 'form_edit' ? arguments[6] : gameData.isFreePlay;
         return SingleChildScrollView(
