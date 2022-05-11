@@ -6,8 +6,9 @@ From the menu bar you can add a match, read this help and navigate to any of the
 
 ## Match List
 
-The list of matches will be shown here. Each match has a tile in the list. In the "Match" column of the tile will display
-the game name, The players in the match. If the match is completed it will indicate who is the winner.
+The list of matches will be shown here. Each match has a tile in the list. In the "Match" column of the tile will display the game name, The players in the match. If the match is completed it will Be indicate with the winning players name.
+
+
 The "Winning Score" column will display either the score needed to win the game, "FP" (Free Play) or "FP" "LS"
 (Free Play, Low Score Wins). It will also have the date the match was created.
 
