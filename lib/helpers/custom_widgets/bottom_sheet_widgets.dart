@@ -11,14 +11,7 @@ class BottomSheetWidgets {
     required String playerName,
   }) {
     var _wins = matchList.where((win) => win.winnerId == playerId).toList();
-    // var _winsIndex = matchList.indexWhere((win) => win.winnerId == playerId);
-    // var _player = matchList[_winsIndex]
-    //     .players
-    //     .where((win) => win.playerId == playerId)
-    //     .toList();
-
-    // print(_player);
-
+    
     Get.bottomSheet(
       Container(
         color: Colors.white,

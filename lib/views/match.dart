@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
@@ -27,13 +27,13 @@ class Match extends StatelessWidget {
                 final gameData = watch(matchProvider);
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
-                if (_index == -1) {
-                  // Get rid of error when it is the only item until db can assing id
-                  _index = 0;
-                }
+                // if (_index == -1) {
+                //   // Get rid of error when it is the only item until db can assing id
+                //   _index = 0;
+                // }
                 final _isComplete = gameData.match[_index].isComplete;
                 final _gameName = gameData.match[_index].gameName;
-                final _players = gameData.match[_index].players;
+                // final _players = gameData.match[_index].players;
                 final _lowScore = gameData.match[_index].lowScore;
 
                 // final _winScore = gameData.match[_index].winScore;
@@ -62,15 +62,20 @@ class Match extends StatelessWidget {
                 // }
 
                 // int res = gameData.match[_index].players.map((element) => element.score == _winScore ? 1 : 0).reduce((value, element) => value + element);
-                var _winScoreTimes =
-                    _players.where((element) => element.score == _winScore);
-                print('indexScore Length: ${_winScoreTimes.length}');
-                // print('res: ${res}');
-                if (_winScoreTimes.length > 1) {
-                  scoreCheck = false;
-                } else {
-                  scoreCheck = true;
-                }
+                scoreCheck = FunctionHelper.checkWinningScoreDuplicate(
+                  context: context,
+                  index: _index,
+                  winScore: _winScore,
+                );
+                // var _winScoreTimes =
+                //     _players.where((element) => element.score == _winScore);
+                // print('indexScore Length: ${_winScoreTimes.length}');
+                // // print('res: ${res}');
+                // if (_winScoreTimes.length > 1) {
+                //   scoreCheck = false;
+                // } else {
+                //   scoreCheck = true;
+                // }
                 // print(_winScore);
                 // print('indexScore ${indexScore.length}');
                 // bool scoreCheck = true;
@@ -84,19 +89,21 @@ class Match extends StatelessWidget {
                           ? null
                           : () {
                               FunctionHelper.checkWinner(
-                                  context: context,
-                                  // player1Score:
-                                  //     0, // gameData.match[_index].player1Score,
-                                  // player2Score:
-                                  //     0, // gameData.match[_index].player2Score,
-                                  // player1Id: '0', // _player1Id,
-                                  // player2Id: '2', //_player2Id,
-                                  // player1Name:
-                                  //     'Troy', // gameData.match[_index].players,
-                                  // player2Name:
-                                  //     'Cara',// gameData.match[_index].player2Name,
-                                  lowScore: gameData.match[_index].lowScore,
-                                  matchId: matchId);
+                                context: context,
+                                // player1Score:
+                                //     0, // gameData.match[_index].player1Score,
+                                // player2Score:
+                                //     0, // gameData.match[_index].player2Score,
+                                // player1Id: '0', // _player1Id,
+                                // player2Id: '2', //_player2Id,
+                                // player1Name:
+                                //     'Troy', // gameData.match[_index].players,
+                                // player2Name:
+                                //     'Cara',// gameData.match[_index].player2Name,
+                                lowScore: gameData.match[_index].lowScore,
+                                matchId: matchId,
+                                matchIndex: _index,
+                              );
                             },
                       child: Icon(Icons.done),
                       style: ElevatedButton.styleFrom(
@@ -107,7 +114,7 @@ class Match extends StatelessWidget {
                     //     height: 0,
                     //     width: 0,
                     //   ),
-                    // Winning Score/Free Play
+                    // Game Name
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 

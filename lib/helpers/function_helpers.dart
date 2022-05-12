@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:score/models/match_model.dart';
+// import 'package:score/models/match_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -17,54 +17,27 @@ import '../controllers/providers.dart';
 import './custom_widgets/popup_dialog_widgets.dart';
 
 class FunctionHelper {
+
   static checkWinner({
     required BuildContext context,
-    // required int player1Score,
-    // required int player2Score,
-    // required String player1Id,
-    // required String player2Id,
-    // required String player1Name,
-    // required String player2Name,
     required bool lowScore,
     required String matchId,
+    required int matchIndex,
   }) {
-    var _match = context.read(matchProvider).match;
-    print('This is the lowScore: $lowScore');
-    var _matchIndex = _match.indexWhere((element) => element.id == matchId);
-    var _players = _match[_matchIndex].players;
-
+    var _players = context.read(matchProvider).match[matchIndex].players;
     int _winScore = 0;
 
     _winScore = checkWinningScore(
       lowScore: lowScore,
       context: context,
-      index: _matchIndex,
+      index: matchIndex,
     );
 
-    // print('This is the winScore: $_winScore');
     var _matchPlayerIndex =
         _players.indexWhere((element) => element.score == _winScore);
     String _winner = _players[_matchPlayerIndex].playerName;
     String _playerId = _players[_matchPlayerIndex].playerId;
-    // print('This is the winner: $_winner');
-    // print('This is the winners Id: $_playerId');
-    for (var i in _match[_matchIndex].players) print(i.score);
 
-    // String winner = "_";
-    // String playerId = "_";
-    // if (lowScore == false && player1Score > player2Score) {
-    //   winner = player1Name;
-    //   playerId = player1Id;
-    // } else if (lowScore == false && player1Score < player2Score) {
-    //   winner = player2Name;
-    //   playerId = player2Id;
-    // } else if (lowScore == true && player1Score < player2Score) {
-    //   winner = player1Name;
-    //   playerId = player1Id;
-    // } else if (lowScore == true && player1Score > player2Score) {
-    //   winner = player2Name;
-    //   playerId = player2Id;
-    // }
     var _playerIndex = context
         .read(playerProvider)
         .player
@@ -92,9 +65,12 @@ class FunctionHelper {
     required bool lowScore,
     required int index,
   }) {
-    var _match = context.read(matchProvider).match;
-    var _players = _match[index].players;
+    // Checks the players score in the list to see wich one 
+    // is highest or lowest depending on  whether the game 
+    // is a low score or high score game.
+    // returns the winning score.
 
+    final _players = context.read(matchProvider).match[index].players;
     int _winScore;
 
     if (lowScore == true) {
@@ -103,6 +79,49 @@ class FunctionHelper {
       _winScore = _players.map((abc) => abc.score).reduce(max);
     }
     return _winScore;
+  }
+
+  static checkWinningScoreDuplicate({
+    required BuildContext context,
+    required int index,
+    required int winScore,
+  }) {
+    // Takes the winning score
+    // Check and see if more than one player has the winning score
+    // returns a false if the winning score  is in our list more than once
+
+    final _players = context.read(matchProvider).match[index].players;
+    bool _scoreCheck = false;
+    
+    final _winScoreTimes =
+        _players.where((element) => element.score == winScore);
+    if (_winScoreTimes.length > 1) {
+      _scoreCheck = false;
+    } else {
+      _scoreCheck = true;
+    }
+    return _scoreCheck;
+  }
+
+  static randomColor(){
+    // Create integer random color
+    final _random = Random();
+    final randomColor = Color.fromARGB(
+      _random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
+    );
+    return randomColor;
+  }
+  static convertColorInt({required Color color}) {
+
+    // Takes a color and returns a integer color.
+    String colorString = color.toString();
+    String valueString = colorString.split('(0x')[1].split(')')[0];
+    int value = int.parse(valueString, radix: 16);
+    return value;
+
   }
 
   intUtcToStringFormatDT({

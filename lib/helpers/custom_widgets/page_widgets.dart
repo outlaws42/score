@@ -33,17 +33,8 @@ class PageWidgets {
     double iconSize = 30,
     double popupHeightPercent = 75,
     double popupWidthPercent = 90,
-    // List args = const ["form"],
   }) {
-    // return GestureDetector(
-    //   onTap: () => PopupDialogWidgets.documentation(
-    //     context: context,
-    //     data: data,
-    //     popupHeightPercent: popupHeightPercent,
-    //     popupWidthPercent: popupWidthPercent,
-    //   ),
-    //   child : icon
-    // );
+    
     return IconButton(
       onPressed: () => PopupDialogWidgets.documentation(
         context: context,
@@ -92,8 +83,7 @@ class PageWidgets {
                   for (var i in _playersSelect) {
                     _playerSelectIds.add(i['player_id']);
                   }
-                  // var _playerSelectIds =
-                  //     context.read(playerProvider).filterListBy(filter: "id");
+
                   print('_playerSelectIds: $_playerSelectIds');
                   // print('_playerSelect: $_playersSelect');
                   for (var item in _playerSelectIds) {
@@ -103,7 +93,6 @@ class PageWidgets {
                         );
                   }
                   context.read(playerProvider).removeAllPlayers();
-                  // Get.back(result: _playersSelect);
                 }
               : null,
           child: Icon(Icons.done),
@@ -244,29 +233,6 @@ class PageWidgets {
               playerName: _name);
         }
       },
-      // onLongPress: () {
-      //   context.read(playerProvider).updateSelected(
-      //         playerId: _id,
-      //         isSelected: _isSelected,
-      //       );
-      //   _selectedItems = [_name, _id];
-      //   print('This is selectedItems $_selectedItems');
-      //   if (_isSelected == true) {
-      //     context.read(playerProvider).addSelectedPlayer(
-      //           playerName: _name,
-      //           playerId: _id,
-      //         );
-      //   }
-      //   print(context.read(playerProvider).selectedPlayers);
-
-      //   if (_isSelected == false) {
-      //     context.read(playerProvider).removeSelectedPlayer(
-      //           playerName: _name,
-      //           playerId: _id,
-      //         );
-      //   }
-      //   print(context.read(playerProvider).selectedPlayers);
-      // },
       child: Container(
           padding: const EdgeInsets.all(2),
           constraints: BoxConstraints(
@@ -467,10 +433,6 @@ class PageWidgets {
                 // _freePlay == true
                 Row(
                   children: [
-                    // PageWidgets().circleContainer(
-                    //   context: context,
-                    //   content: 'FP',
-                    // ),
                     _lowScore == true
                         ? PageWidgets().circleContainer(
                             context: context,
@@ -482,10 +444,6 @@ class PageWidgets {
                           ),
                   ],
                 )
-                // : PageWidgets().circleContainer(
-                //     context: context,
-                //     content: _endScore.toString(),
-                //   ),
               ],
             ),
           ),
@@ -502,10 +460,6 @@ class PageWidgets {
   }) {
     final _id = match[index].id;
     final _gameName = match[index].gameName;
-    // final _player1Name = match[index].players[0].playerName;
-    // final _player2Name = match[index].players[1].playerName;
-    // final _endScore = match[index].winScore;
-    // final _freePlay = true; //match[index].freePlay;
     final _lowScore = match[index].lowScore;
     final _winner = match[index].winner;
     final _isComplete = match[index].isComplete;
@@ -514,14 +468,6 @@ class PageWidgets {
       dateTimeUtcInt: match[index].dateTime,
     );
 
-    // bool _player1 = false;
-    // bool _player2 = false;
-
-    // if (_isComplete == true && _player1Name == _winner) {
-    //   _player1 = true;
-    // } else if (_isComplete == true && _player2Name == _winner) {
-    //   _player2 = true;
-    // }
     return GestureDetector(
       onTap: () {
         Get.offAllNamed("/match_current", arguments: [
@@ -570,10 +516,7 @@ class PageWidgets {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          // child: PageWidgets().squareContainer(
-                          //     context: context,
-                          //     content: '$_gameName'
-                          // )
+
                           child: Text(
                             '$_gameName        ',
                             style: _isSelected == true
@@ -588,29 +531,11 @@ class PageWidgets {
                               content: '$_winner'
                           )
                         ) 
-                        // ? Text(
-                        //   'Complete ($_winner)',
-                        //   style: _isSelected == true
-                        //       ? Theme.of(context).textTheme.subtitle2
-                        //       : Theme.of(context).textTheme.subtitle1,
-                        // )
+                        
                         : Container(),
 
-                        // _isComplete == true
-                        // ? PageWidgets().squareContainer(
-                        //       context: context,
-                        //       content: _winner.toString()
-                        //   )
-                        // // ? Text(
-                        // //   ' | $_winner',
-                        // //   style: _isSelected == true
-                        // //       ? Theme.of(context).textTheme.subtitle2
-                        // //       : Theme.of(context).textTheme.subtitle1,
-                        // // )
-                        // : Container()
                       ],
                     ),
-                    // _player1 == false && _player2 == false
                     Row(
                       children: [
                         for (var player in players)
@@ -726,14 +651,11 @@ class PageWidgets {
     required List<MatchModel> matchList,
     required PlayerProvider playerProv,
   }) {
-    // List _selectedItems = [];
-    // List arguments = Get.arguments;
 
     final _name = player[index].name;
     final _wins = player[index].wins;
     final _id = player[index].id;
     bool _isSelected = player[index].isSelected;
-    // print(_isSelected);
     return GestureDetector(
       onTap: () {
         context.read(playerProvider).updateGamePlayers(
@@ -741,25 +663,7 @@ class PageWidgets {
               playerId: _id,
               isSelected: _isSelected,
             );
-
-        // if (arguments[0] == 'player_tile' || arguments[0] == 'form') {
-        //   _selectedItems = [_name, _id];
-        //   Get.back(result: _selectedItems);
-        // } else {
-        //   BottomSheetWidgets().playerSheet(
-        //       buildContext: context,
-        //       playerId: _id,
-        //       matchList: matchList,
-        //       playerName: _name);
-        // }
       },
-      // onLongPress: () {
-      //   context.read(playerProvider).updateSelected(
-      //         playerId: _id,
-      //         isSelected: _isSelected,
-      //       );
-      //   // print(player[index].isSelected);
-      // },
       child: Container(
         padding: const EdgeInsets.all(2),
         constraints: BoxConstraints(
