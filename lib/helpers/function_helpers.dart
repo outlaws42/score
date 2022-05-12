@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:score/models/match_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -27,21 +28,22 @@ class FunctionHelper {
     required bool lowScore,
     required String matchId,
   }) {
-
     var _match = context.read(matchProvider).match;
     print('This is the lowScore: $lowScore');
     var _matchIndex = _match.indexWhere((element) => element.id == matchId);
     var _players = _match[_matchIndex].players;
 
-    int _winScore= 0;
-    if (lowScore == true) {
-      _winScore = _players.map((abc) => abc.score).reduce(min);
-    } else {
-      _winScore = _players.map((abc) => abc.score).reduce(max);
-    }
+    int _winScore = 0;
+
+    _winScore = checkWinningScore(
+      lowScore: lowScore,
+      context: context,
+      index: _matchIndex,
+    );
 
     // print('This is the winScore: $_winScore');
-    var _matchPlayerIndex = _players.indexWhere((element) => element.score == _winScore);
+    var _matchPlayerIndex =
+        _players.indexWhere((element) => element.score == _winScore);
     String _winner = _players[_matchPlayerIndex].playerName;
     String _playerId = _players[_matchPlayerIndex].playerId;
     // print('This is the winner: $_winner');
@@ -83,6 +85,24 @@ class FunctionHelper {
       context,
       _winner,
     );
+  }
+
+  static checkWinningScore({
+    required BuildContext context,
+    required bool lowScore,
+    required int index,
+  }) {
+    var _match = context.read(matchProvider).match;
+    var _players = _match[index].players;
+
+    int _winScore;
+
+    if (lowScore == true) {
+      _winScore = _players.map((abc) => abc.score).reduce(min);
+    } else {
+      _winScore = _players.map((abc) => abc.score).reduce(max);
+    }
+    return _winScore;
   }
 
   intUtcToStringFormatDT({

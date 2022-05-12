@@ -49,18 +49,24 @@ class Match extends StatelessWidget {
                 // }
                 int _winScore = 0;
                 bool scoreCheck = false;
- 
-                 if (_lowScore == true) {
-                  _winScore = _players.map((abc) => abc.score).reduce(min);
-                } else {
-                  _winScore = _players.map((abc) => abc.score).reduce(max);
-                }
-                
+
+                _winScore = FunctionHelper.checkWinningScore(
+                  context: context,
+                  lowScore: _lowScore,
+                  index: _index,
+                );
+                // if (_lowScore == true) {
+                //   _winScore = _players.map((abc) => abc.score).reduce(min);
+                // } else {
+                //   _winScore = _players.map((abc) => abc.score).reduce(max);
+                // }
+
                 // int res = gameData.match[_index].players.map((element) => element.score == _winScore ? 1 : 0).reduce((value, element) => value + element);
-                var _winScoreTimes = _players.where((element) => element.score == _winScore);
+                var _winScoreTimes =
+                    _players.where((element) => element.score == _winScore);
                 print('indexScore Length: ${_winScoreTimes.length}');
                 // print('res: ${res}');
-                if (_winScoreTimes.length > 1 ) {
+                if (_winScoreTimes.length > 1) {
                   scoreCheck = false;
                 } else {
                   scoreCheck = true;
@@ -74,51 +80,49 @@ class Match extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                            onPressed: _isComplete == true ||
-                                    scoreCheck == false
-                                ? null
-                                : () {
-                                    FunctionHelper.checkWinner(
-                                        context: context,
-                                        // player1Score:
-                                        //     0, // gameData.match[_index].player1Score,
-                                        // player2Score:
-                                        //     0, // gameData.match[_index].player2Score,
-                                        // player1Id: '0', // _player1Id,
-                                        // player2Id: '2', //_player2Id,
-                                        // player1Name:
-                                        //     'Troy', // gameData.match[_index].players,
-                                        // player2Name:
-                                        //     'Cara',// gameData.match[_index].player2Name,
-                                        lowScore:
-                                            gameData.match[_index].lowScore,
-                                        matchId: matchId);
-                                  },
-                            child: Icon(Icons.done),
-                            style: ElevatedButton.styleFrom(
-                              onPrimary: Colors.white,
-                            ),
-                          ),
-                        // : Container(
-                        //     height: 0,
-                        //     width: 0,
-                        //   ),
+                      onPressed: _isComplete == true || scoreCheck == false
+                          ? null
+                          : () {
+                              FunctionHelper.checkWinner(
+                                  context: context,
+                                  // player1Score:
+                                  //     0, // gameData.match[_index].player1Score,
+                                  // player2Score:
+                                  //     0, // gameData.match[_index].player2Score,
+                                  // player1Id: '0', // _player1Id,
+                                  // player2Id: '2', //_player2Id,
+                                  // player1Name:
+                                  //     'Troy', // gameData.match[_index].players,
+                                  // player2Name:
+                                  //     'Cara',// gameData.match[_index].player2Name,
+                                  lowScore: gameData.match[_index].lowScore,
+                                  matchId: matchId);
+                            },
+                      child: Icon(Icons.done),
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.white,
+                      ),
+                    ),
+                    // : Container(
+                    //     height: 0,
+                    //     width: 0,
+                    //   ),
                     // Winning Score/Free Play
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 
                     // Low Score/High Score
                     Spacer(),
-                    
+
                     _lowScore == true
                         ? PageWidgets().circleOulineContainer(
                             context: context,
                             content: 'LS',
                           )
                         : PageWidgets().circleOulineContainer(
-                      context: context,
-                      content: 'HS',
-                    ),
+                            context: context,
+                            content: 'HS',
+                          ),
                   ],
                 );
               }),
