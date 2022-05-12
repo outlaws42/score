@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:get/get.dart';
+// import 'package:flutter/widgets.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 
 class PlayerList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    List args = Get.arguments;
+    // List args = Get.arguments;
     final _player = watch(playerProvider);
     final _matchList = watch(matchProvider).match;
     // final _playerL = watch(playerProvider).fetchPlayerHttp();

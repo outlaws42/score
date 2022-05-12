@@ -7,7 +7,7 @@ class GameModel with ChangeNotifier {
   final String description;
   final int? endScore;
   final bool lowScore;
-  final bool freePlay;
+  // final bool freePlay;
   final bool isSelected;
   int dateTime;
 
@@ -17,7 +17,7 @@ class GameModel with ChangeNotifier {
     this.description = 'This game will test you',
     this.endScore,
     this.lowScore = false,
-    this.freePlay = false,
+    // this.freePlay = false,
     this.isSelected = false,
     this.dateTime = 0,
   });

@@ -101,10 +101,10 @@ class MatchCurrentScreenList extends StatelessWidget {
           _index = 0;
         }
 
-        final _matchPlayersId = _matches[_index].players;
-        final _matchPlayersName = _matches[_index].players;
-        final _matchPlayersScore = _matches[_index].players;
-        final _matchPlayersColor = _matches[_index].players;
+        // final _matchPlayersId = _matches[_index].players;
+        // final _matchPlayersName = _matches[_index].players;
+        // final _matchPlayersScore = _matches[_index].players;
+        // final _matchPlayersColor = _matches[_index].players;
         // print("${_matchPlayersName[0]}, ${_matchPlayersId[0]},"
         // " ${_matchPlayersScore[0]}, ${_matchPlayersColor[0]}");
 

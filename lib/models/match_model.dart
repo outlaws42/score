@@ -41,7 +41,7 @@ class MatchModel with ChangeNotifier {
   late String gameId;
   late String winner;
   late String winnerId;
-  late int winScore;
+  // late int winScore;
   late bool lowScore;
   late int dateTime;
   late bool isComplete;
@@ -55,7 +55,7 @@ class MatchModel with ChangeNotifier {
     this.gameId= "_",
     this.winner = "",
     this.winnerId = "_",
-    this.winScore = 0,
+    // this.winScore = 0,
     this.lowScore = false,
     this.dateTime = 0,
     this.isComplete = false,
@@ -75,7 +75,7 @@ class MatchModel with ChangeNotifier {
     gameName = json['game'];
     winner = json['winner'];
     winnerId = json['winner_id'];
-    winScore = json['win_score'];
+    // winScore = json['win_score'];
     lowScore = json['low_score'];
     isSelected = json['is_selected'];
     isComplete = json['is_complete'];
@@ -85,14 +85,14 @@ class MatchModel with ChangeNotifier {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.id;
-    if (this.players != null) {
+    // if (this.players != null) {
       data['players'] = this.players.map((v) => v.toJson()).toList();
-    }
+    // }
     data['game_id'] = this.gameId;
     data['game'] = this.gameName;
     data['winner'] = this.winner;
     data['winner_id'] = this.winnerId;
-    data['win_score'] = this.winScore;
+    // data['win_score'] = this.winScore;
     data['low_score'] = this.lowScore;
     data['is_selected'] = this.isSelected;
     data['is_complete'] = this.isComplete;

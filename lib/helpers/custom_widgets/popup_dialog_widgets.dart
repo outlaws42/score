@@ -16,14 +16,13 @@ class PopupDialogWidgets {
     required String id,
     required String sign,
     required int amount,
-    required int winScore,
-    required bool freePlay,
+    // required int winScore,
+    // required bool freePlay,
   }) {
     bool isDisable = false;
-    if (freePlay == true) {
-      isDisable = false;
-    } else if (amount + score > winScore && sign == "add" ||
-        score - amount < 0 && sign == "minus") {
+    // if (freePlay == true) {
+    //   isDisable = false;
+    if (score - amount < 0 && sign == "minus") {
       isDisable = true;
     }
     return TextButton(
@@ -63,8 +62,8 @@ class PopupDialogWidgets {
     required String id,
     // required String playerName,
     required String sign,
-    required int winScore,
-    required bool freePlay,
+    // required int winScore,
+    // required bool freePlay,
     required bool lowScore,
   }) {
     //  int index = 0;
@@ -75,10 +74,10 @@ class PopupDialogWidgets {
       title: sign == "add" ? "Add Amount" : "Subtract Amount",
       content: Column(
         children: [
-          Text(
-            freePlay == true ? "" : 'Points left to win ${winScore - score}',
-            style: Theme.of(context).textTheme.headline6,
-          ),
+          // Text(
+          //   freePlay == true ? "" : 'Points left to win ${winScore - score}',
+          //   style: Theme.of(context).textTheme.headline6,
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -91,8 +90,8 @@ class PopupDialogWidgets {
                 id: id,
                 sign: sign,
                 amount: 5,
-                winScore: winScore,
-                freePlay: freePlay,
+                // winScore: winScore,
+                // freePlay: freePlay,
                   ),
               // 10 Button
               PopupDialogWidgets.plusMinusButton(
@@ -104,8 +103,8 @@ class PopupDialogWidgets {
                 // playerName: playerName,
                 sign: sign,
                 amount: 10,
-                winScore: winScore,
-                freePlay: freePlay,
+                // winScore: winScore,
+                // freePlay: freePlay,
               ),
               // 15 Button
 
@@ -117,8 +116,8 @@ class PopupDialogWidgets {
                 id: id,
                 sign: sign,
                 amount: 15,
-                winScore: winScore,
-                freePlay: freePlay,
+                // winScore: winScore,
+                // freePlay: freePlay,
               ),
               // 30 Button
               PopupDialogWidgets.plusMinusButton(
@@ -129,8 +128,8 @@ class PopupDialogWidgets {
                 id: id,
                 sign: sign,
                 amount: 30,
-                winScore: winScore,
-                freePlay: freePlay,
+                // winScore: winScore,
+                // freePlay: freePlay,
               ),
             ],
           ),
@@ -150,14 +149,14 @@ class PopupDialogWidgets {
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               onChanged: (value) {
-                if (score + int.parse(value) > winScore && freePlay == false) {
-                  isDisabled = true;
-                }
+                // if (score + int.parse(value) > winScore && freePlay == false) {
+                //   isDisabled = true;
+                // }
               },
               onFieldSubmitted: (value) {
-                isDisabled == true && freePlay == false
-                    ? Get.back()
-                    : sign == "add"
+                // isDisabled == true && freePlay == false
+                //     ? Get.back()
+                    sign == "add"
                         ? context.read(matchProvider).plus(
                               id: id,
                               score: score,
