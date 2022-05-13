@@ -14,9 +14,9 @@ class MatchForm extends StatefulWidget {
 }
 
 class _MatchFormState extends State<MatchForm> {
-  final _nameController = TextEditingController();
+  // final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final _player = (playerProvider);
+  // final _player = (playerProvider);
 
   String _game = 'Select Game';
   // String _player1 = 'Select Player1';
@@ -339,7 +339,7 @@ class _MatchFormState extends State<MatchForm> {
                     },
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.white,
-                      primary: Theme.of(context).colorScheme.secondaryVariant,
+                      primary: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                     icon: Icon(Icons.games),
                     label: Text('Submit'),

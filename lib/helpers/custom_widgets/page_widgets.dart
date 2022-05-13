@@ -691,7 +691,7 @@ class PageWidgets {
                     // print(_isSelected);
                   },
                   activeTrackColor: Theme.of(context).colorScheme.secondary,
-                  activeColor: Theme.of(context).colorScheme.primaryVariant,
+                  activeColor: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 Text(
                   '$_name',

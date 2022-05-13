@@ -184,7 +184,7 @@ class _GameFormState extends State<GameForm> {
                               activeTrackColor:
                                   Theme.of(context).colorScheme.secondary,
                               activeColor:
-                                  Theme.of(context).colorScheme.primaryVariant,
+                                  Theme.of(context).colorScheme.primaryContainer,
                             ),
                           ],
                         ),

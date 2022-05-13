@@ -186,11 +186,11 @@ class PopupDialogWidgets {
                       : Theme.of(context).colorScheme.primary,
                 ),
                 hintStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
+                  color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primaryVariant,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(10.0),
