@@ -29,7 +29,7 @@ class _MatchFormState extends State<MatchForm> {
   // bool _freePlay = false;
   String? selected;
   List _gamePlayers = [];
-  List _gamePlayersId = [];
+  // List _gamePlayersId = [];
 
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
@@ -267,7 +267,7 @@ class _MatchFormState extends State<MatchForm> {
                                 ),
                                 onTap: () {
                                   _gamePlayers = [];
-                                  _gamePlayersId = [];
+                                  // _gamePlayersId = [];
                                   goToPlay();
                                 },
                               ),
