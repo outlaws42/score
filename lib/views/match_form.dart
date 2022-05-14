@@ -65,77 +65,30 @@ class _MatchFormState extends State<MatchForm> {
     setState(() {});
   }
 
-  void save({
-    // String name = "",
+  Future<void> save({
     required String gameName,
     required String gameId,
     required List<dynamic> players, // List<Map<String, dynamic>>
-    // required List players,
-    // required String player1Name,
-    // required String player2Name,
-    // String player1Id = "",
-    // String player2Id = "",
-    // int endScore = 0,
     bool lowScore = false,
-    // bool freePlay = false,
-  }) {
-    // Save all fields
-    // if (gameName == null || gameName.isEmpty) {
-    //   return;
-    // }
-    // int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
-    // int _date = context.read(matchProvider).match.length > 0
-    //     ? context.read(matchProvider).match.last.dateTime
-    //     : 1;
-    // var ind = context.read(matchProvider).match.indexWhere((match) => match.dateTime == _date);
-
-    // String _id = context.read(matchProvider).match[ind].id;
-    // print('Latest Date $_id');
-
-    // final _selectPlayers = context.read(playerProvider).selectedPlayers;
-    // print('_selectedPlayers Length ${_selectPlayers.length}');
-    context.read(matchProvider).addMatchHttp(
+  }) async {
+    await context
+        .read(matchProvider)
+        .addMatchHttp(
           gameName: gameName,
           players: players,
-        ).then((value) {
-          context.read(matchProvider).fetchMatch().then((value) {
-      print('This is match from match form: ${context.read(matchProvider).match}');
-      int _date = context.read(matchProvider).match.length > 0
-          ? context.read(matchProvider).match.last.dateTime
-          : 1;
-      var _index = context
-          .read(matchProvider)
-          .match
-          .indexWhere((match) => match.dateTime == _date);
+        );
+            int _date = context.read(matchProvider).match.length > 0
+                ? context.read(matchProvider).match.last.dateTime
+                : 1;
+            var _index = context
+                .read(matchProvider)
+                .match
+                .indexWhere((match) => match.dateTime == _date);
+            print(
+                'This is match from match form: ${context.read(matchProvider).match[_index].id}');
 
-      String _id = context.read(matchProvider).match[_index].id;
-      Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
-    });
-        });
-
-    // Link with latest match id
-    // context.read(matchProvider).fetchMatch().then((value) {
-    //   print('This is match from match form: ${context.read(matchProvider).match}');
-    //   int _date = context.read(matchProvider).match.length > 0
-    //       ? context.read(matchProvider).match.last.dateTime
-    //       : 1;
-    //   var _index = context
-    //       .read(matchProvider)
-    //       .match
-    //       .indexWhere((match) => match.dateTime == _date);
-
-    //   String _id = context.read(matchProvider).match[_index].id;
-    //   Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
-    // });
-
-  //   int _date = context.read(matchProvider).match.length > 0
-  //       ? context.read(matchProvider).match.last.dateTime
-  //       : 1;
-  //   var ind = context.read(matchProvider).match.indexWhere((match) => match.dateTime == _date);
-
-  //   String _id = context.read(matchProvider).match[ind].id;
-  //   print('Latest id: $_id');
-  //   Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
+            String _id = context.read(matchProvider).match[_index].id;
+            Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }
 
   void _warnDialog() {

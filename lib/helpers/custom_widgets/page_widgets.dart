@@ -490,6 +490,7 @@ class PageWidgets {
           color: _isSelected == false
               ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
+   
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
@@ -511,11 +512,10 @@ class PageWidgets {
                     : Container(height: 0, width: 0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
+                  children: [ Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Container(
 
                           child: Text(
                             '$_gameName        ',
@@ -524,46 +524,81 @@ class PageWidgets {
                                 : Theme.of(context).textTheme.headline4,
                           ),
                         ),
-                        _isComplete == true
+
+                         _isComplete == true
                         ? Container(
+                          height: 35,
+                          width: 75,
                           child: PageWidgets().squareContainer(
                               context: context,
                               content: '$_winner'
                           )
                         ) 
                         
-                        : Container(),
-
-                      ],
-                    ),
-                    Row(
-                      children: [
+                        : Container(height: 35,
+                          width: 75,),
+                        // Spacer(),
+                         _lowScore == true
+                        ? Container(
+                          height: 35,
+                          width: 75,
+                          child: PageWidgets().circleContainer(
+                              context: context,
+                              content: 'LS',
+                            ),
+                        )
+                        : Container(
+                          height: 35,
+                          width: 75,
+                          child: PageWidgets().circleContainer(
+                              context: context,
+                              content: 'HS',
+                            ),
+                        ),            
+                  ],),
+                      
                         for (var player in players)
                           Text(
-                            '$player, ',
+                            '$player',
                             style: _isSelected == true
                                 ? Theme.of(context).textTheme.subtitle2
                                 : Theme.of(context).textTheme.subtitle1,
                           )
-                      ],
-                    ),
                   ],
                 ),
+                // Spacer(
+                //   flex: 1,
+                // ),
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //   _isComplete == true
+                //         ? Container(
+                //           child: PageWidgets().squareContainer(
+                //               context: context,
+                //               content: '$_winner'
+                //           )
+                //         ) 
+                        
+                //         : Container(),
+                //    Container(height: 20,)
+                // ],),
                 Spacer(
-                  flex: 1,
+                  flex: 5,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    _lowScore == true
-                        ? PageWidgets().circleContainer(
-                            context: context,
-                            content: 'LS',
-                          )
-                        : PageWidgets().circleContainer(
-                            context: context,
-                            content: 'HS',
-                          ),
+                    // _lowScore == true
+                    //     ? PageWidgets().circleContainer(
+                    //         context: context,
+                    //         content: 'LS',
+                    //       )
+                    //     : PageWidgets().circleContainer(
+                    //         context: context,
+                    //         content: 'HS',
+                    //       ),
                     Text(
                       '$_date',
                       style: _isSelected == true

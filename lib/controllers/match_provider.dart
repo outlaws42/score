@@ -107,23 +107,24 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addMatchHttp(
+   Future<void> addMatchHttp(
       {String baseName = '192.168.1.9',
       String portName = '3000',
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
-    http
+    await http
         .post(
       url,
       body: jsonEncode({'game': gameName, 'players': players}),
-    )
-        .then((response) {
-      print('response body: ${jsonDecode(response.body)}');
-      fetchMatch();
-    });
-    notifyListeners();
+    );
+
+      // print('response body: ${jsonDecode(response.body)}');
+      await fetchMatch();
+      notifyListeners();
+
+    // notifyListeners();
   }
 
   Future<void> updateScore(
