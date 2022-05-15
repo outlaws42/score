@@ -1,12 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-// import 'package:path/path.dart';
-// import '../helpers/db_helper.dart';
 import '../models/match_model.dart';
-// import '../controllers/player_provider.dart';
-// import '../controllers/providers.dart';
+
 
 class MatchProvider extends ChangeNotifier {
 
@@ -95,10 +91,8 @@ class MatchProvider extends ChangeNotifier {
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     final response = await http.get(url);
-    // print(response.body);
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
-    // final test = PlayerModel.fromJson(json);
     if (json != null) {
       json.forEach((value) {
         loadCurrent.add(MatchModel.fromJson(value));
@@ -120,12 +114,8 @@ class MatchProvider extends ChangeNotifier {
       url,
       body: jsonEncode({'game': gameName, 'players': players}),
     );
-
-      // print('response body: ${jsonDecode(response.body)}');
       await fetchMatch();
       notifyListeners();
-
-    // notifyListeners();
   }
 
   Future<void> updateScore(
@@ -170,9 +160,6 @@ class MatchProvider extends ChangeNotifier {
     String matchId,
     int isSelected,
   ) async {
-    // DBHelper.update('player_match', matchId, {
-    //   'is_selected': isSelected,
-    // });
     fetchMatch();
     notifyListeners();
   }
@@ -180,10 +167,6 @@ class MatchProvider extends ChangeNotifier {
   Future<void> deleteMatch(
     String id,
   ) async {
-    // DBHelper.remove(
-    //   'player_match',
-    //   id,
-    // );
     fetchMatch();
     notifyListeners();
   }
@@ -193,11 +176,6 @@ class MatchProvider extends ChangeNotifier {
     required String winnerId,
     required String winnerName,
   }) async {
-    // DBHelper.update('player_match', matchId, {
-    //   'winner': winnerName,
-    //   'winner_id': winnerId,
-    //   'is_complete': 1,
-    // });
     int matchIndex = getMatchIndex(matchId);
     _matches[matchIndex].winner = winnerName;
     _matches[matchIndex].winnerId = winnerId;
@@ -216,9 +194,6 @@ class MatchProvider extends ChangeNotifier {
     String matchId,
     int isComplete,
   ) async {
-    // DBHelper.update('player_match', matchId, {
-    //   'is_complete': isComplete,
-    // });
     notifyListeners();
   }
 

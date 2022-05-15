@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-// import '../helpers/db_helper.dart';
 import '../models/game_model.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -17,14 +16,6 @@ class GameProvider extends ChangeNotifier {
     isLowScore = !isLowScore;
     notifyListeners();
   }
-
-
-  // bool isFreePlay = false;
-
-  // void updateFreePlay() {
-  //   isFreePlay = !isFreePlay;
-  //   notifyListeners();
-  // }
 
   void updateSelected({
     required String gameId,
@@ -65,7 +56,6 @@ class GameProvider extends ChangeNotifier {
     required String name,
     required String description,
     bool lowScore = false,
-    // required List players
   }) async {
     final url = Uri.parse('http://$baseName:$portName/score_api/$currentName');
     http

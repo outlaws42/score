@@ -50,10 +50,7 @@ class PlayerProvider extends ChangeNotifier {
   }) {
     bool selected = isSelected;
     selected = !selected;
-    // print(selected);
-    // int isSelectedInt = selected == false ? 0 : 1;
     updateIsSelected(playerId, selected);
-    // notifyListeners();
   }
 
   void updateGamePlayers({
@@ -61,7 +58,6 @@ class PlayerProvider extends ChangeNotifier {
     required String playerName,
     required bool isSelected,
   }) {
-    // print("isSelected: $isSelected");
     bool selected = isSelected;
     if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
@@ -187,10 +183,6 @@ class PlayerProvider extends ChangeNotifier {
   Future<void> deletePlayer(
     String playerId,
   ) async {
-    // DBHelper.remove(
-    //   'player',
-    //   playerId,
-    // );
     fetchPlayer();
     notifyListeners();
   }
@@ -199,13 +191,6 @@ class PlayerProvider extends ChangeNotifier {
     String playerId,
     String name,
   ) async {
-    // DBHelper.update(
-    //   'player',
-    //   playerId,
-    //   {
-    //     'name': name,
-    //   },
-    // );
     fetchPlayer();
     notifyListeners();
   }
