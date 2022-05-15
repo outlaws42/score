@@ -6,9 +6,11 @@ From the menu bar you can add a match, read this help and navigate to any of the
 
 ## Match List
 
-The list of matches will be shown here. Each match has a tile in the list. In the "Match" column of the tile will display the game name, The players in the match. If the match is completed it will Be indicate with the winning players name.
+The list of matches will be shown here. Each match has a tile in the list. In the "**Match**" column of the tile will display the game name, The players in the match. 
 
-The "Winning Mode" column will either display "LS" (Low Score Wins) or "HS" (High Score Wins)
+In the center of the tile if the match is completed the word **Complete**  will be displayed along with the **winning players name**.
+
+The "**Winning Mode**" column will either display "**LS**" (Low Score Wins) or "**HS**" (High Score Wins)
 It will also have the date the match was created.
 
 ### Match Tile

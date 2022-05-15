@@ -7,7 +7,9 @@ import '../controllers/providers.dart';
 class MatchList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final _match = watch(matchProvider).match;
+    final _match = watch(matchProvider).match.toList();
+    _match.sort((a, b) => b.isComplete ? -1 : 1 );
+    // _match.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     // final _matchh = watch(matchProvider).fetchMatchHttp('10.0.2.2', '5000', 'matches');
     // print('match length: ${_match.length}');
 

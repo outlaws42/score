@@ -34,7 +34,6 @@ class PageWidgets {
     double popupHeightPercent = 75,
     double popupWidthPercent = 90,
   }) {
-    
     return IconButton(
       onPressed: () => PopupDialogWidgets.documentation(
         context: context,
@@ -487,126 +486,110 @@ class PageWidgets {
         ),
         child: Card(
           elevation: 3,
-          color: _isSelected == false
-              ? Theme.of(context).appBarTheme.foregroundColor
-              : Theme.of(context).appBarTheme.backgroundColor,
-   
+          color: Theme.of(context).appBarTheme.foregroundColor,
+          // : Theme.of(context).appBarTheme.backgroundColor,
+
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _isSelected == true
-                    ? IconButton(
-                        onPressed: () {
-                          PopupDialogWidgets.warnDialog(
-                            context,
-                            _gameName,
-                            _id,
-                            "match",
-                          );
-                        },
-                        icon: Icon(Icons.delete_forever),
-                        iconSize: 30,
-                        color: Theme.of(context).appBarTheme.foregroundColor,
-                      )
-                    : Container(height: 0, width: 0),
+                // 1st column (Game and players)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [ Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                  children: [
                     Container(
-
-                          child: Text(
-                            '$_gameName        ',
-                            style: _isSelected == true
-                                ? Theme.of(context).textTheme.headline5
-                                : Theme.of(context).textTheme.headline4,
-                          ),
-                        ),
-
-                         _isComplete == true
-                        ? Container(
-                          height: 35,
-                          width: 75,
-                          child: PageWidgets().squareContainer(
-                              context: context,
-                              content: '$_winner'
-                          )
-                        ) 
-                        
-                        : Container(height: 35,
-                          width: 75,),
-                        // Spacer(),
-                         _lowScore == true
-                        ? Container(
-                          height: 35,
-                          width: 75,
-                          child: PageWidgets().circleContainer(
-                              context: context,
-                              content: 'LS',
-                            ),
-                        )
-                        : Container(
-                          height: 35,
-                          width: 75,
-                          child: PageWidgets().circleContainer(
-                              context: context,
-                              content: 'HS',
-                            ),
-                        ),            
-                  ],),
-                      
-                        for (var player in players)
-                          Text(
-                            '$player',
-                            style: _isSelected == true
-                                ? Theme.of(context).textTheme.subtitle2
-                                : Theme.of(context).textTheme.subtitle1,
-                          )
+                      height: 35,
+                      width: 105,
+                      child: Text(
+                        '$_gameName        ',
+                        style: _isSelected == true
+                            ? Theme.of(context).textTheme.headline5
+                            : Theme.of(context).textTheme.headline4,
+                      ),
+                    ),
+                    for (var player in players)
+                      Text(
+                        '$player',
+                        style: _isSelected == true
+                            ? Theme.of(context).textTheme.subtitle2
+                            : Theme.of(context).textTheme.subtitle1,
+                      ),
                   ],
                 ),
-                // Spacer(
-                //   flex: 1,
-                // ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //   _isComplete == true
-                //         ? Container(
-                //           child: PageWidgets().squareContainer(
-                //               context: context,
-                //               content: '$_winner'
-                //           )
-                //         ) 
-                        
-                //         : Container(),
-                //    Container(height: 20,)
-                // ],),
+                Spacer(
+                  flex: 5,
+                ),
+                // 2nd column (Winner and complete)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _isComplete == true
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 35,
+                                width: 75,
+                                child: PageWidgets().squareContainer(
+                                    context: context, content: '$_winner'),
+                              ),
+                              Container(
+                                height: 35,
+                                width: 75,
+                                child: Text(
+                                  'Complete',
+                                  style: _isSelected == true
+                                      ? Theme.of(context).textTheme.subtitle2
+                                      : Theme.of(context).textTheme.subtitle1,
+                                ),
+                              )
+                            ],
+                          )
+                        : Container(
+                            height: 35,
+                            width: 75,
+                          ),
+                    // Container(
+                    //   height: 35,
+                    //   width: 75,
+                    // ),
+                  ],
+                ),
                 Spacer(
                   flex: 5,
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // _lowScore == true
-                    //     ? PageWidgets().circleContainer(
-                    //         context: context,
-                    //         content: 'LS',
-                    //       )
-                    //     : PageWidgets().circleContainer(
-                    //         context: context,
-                    //         content: 'HS',
-                    //       ),
-                    Text(
-                      '$_date',
-                      style: _isSelected == true
-                          ? Theme.of(context).textTheme.subtitle2
-                          : Theme.of(context).textTheme.subtitle1,
+                    _lowScore == true
+                        ? Container(
+                            height: 35,
+                            width: 105,
+                            child: PageWidgets().circleContainer(
+                              context: context,
+                              content: 'LS',
+                            ),
+                          )
+                        : Container(
+                            height: 35,
+                            width: 105,
+                            child: PageWidgets().circleContainer(
+                              context: context,
+                              content: 'HS',
+                            ),
+                          ),
+                    Container(
+                      height: 35,
+                      width: 105,
+                      child: Text(
+                        '$_date',
+                        style: _isSelected == true
+                            ? Theme.of(context).textTheme.subtitle2
+                            : Theme.of(context).textTheme.subtitle1,
+                      ),
                     )
                   ],
-                ),
+                )
               ],
             ),
           ),
@@ -686,7 +669,6 @@ class PageWidgets {
     required List<MatchModel> matchList,
     required PlayerProvider playerProv,
   }) {
-
     final _name = player[index].name;
     final _wins = player[index].wins;
     final _id = player[index].id;
