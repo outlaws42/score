@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import './controllers/providers.dart';
 import './helpers/theme_config.dart';
 import './views/match_screen.dart';
@@ -14,7 +15,7 @@ import './views/match_form.dart';
 import './views/game_form.dart';
 import 'views/player_form.dart';
 
-void main() {
+void main() async{
   runApp(
     ProviderScope(
       child: MyApp(),

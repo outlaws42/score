@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/db_helper.dart';
 import '../models/settings_model.dart';
 
 class SettingsProvider extends ChangeNotifier {
+  // late SharedPreferences  prefs;
   List<SettingsModel> _settings = [];
 
   List<SettingsModel> get settings {
@@ -63,5 +65,27 @@ class SettingsProvider extends ChangeNotifier {
       'active': newSetting.active,
     });
     fetchSettings();
+  }
+
+  getSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    notifyListeners();
+  }
+  saveIp () async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("ip", "192.168.1.9");
+    prefs.setString("port", "3000");
+    print('sharedPrefernces $prefs');
+    notifyListeners();
+  }
+  getIp () async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String ip = prefs.getString("ip").toString();
+    String port = prefs.getString("port").toString();
+    print('this is ip and port $ip $port');
+    notifyListeners();
+    return ip;
   }
 }
