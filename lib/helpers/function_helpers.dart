@@ -8,10 +8,10 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:filesystem_picker/filesystem_picker.dart';
+// import 'package:filesystem_picker/filesystem_picker.dart';
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
+// import 'dart:typed_data';
 import '../controllers/providers.dart';
 import './custom_widgets/popup_dialog_widgets.dart';
 
@@ -218,49 +218,49 @@ class FunctionHelper {
     Share.shareFiles([file.path], text: text);
   }
 
-  Future<void> restore({
-    required BuildContext context,
-    String fileName = 'score.db',
-  }) async {
-    final dbFolder = await sql.getDatabasesPath();
-    final dbLocation = path.join(dbFolder, fileName);
-    String? backupDb = await filePickerFile(context);
-    if (backupDb != null) {
-      Uint8List updatedContent = await File(backupDb).readAsBytes();
-      File(dbLocation).writeAsBytes(updatedContent);
-    }
-  }
+  // Future<void> restore({
+  //   required BuildContext context,
+  //   String fileName = 'score.db',
+  // }) async {
+  //   final dbFolder = await sql.getDatabasesPath();
+  //   final dbLocation = path.join(dbFolder, fileName);
+  //   String? backupDb = await filePickerFile(context);
+  //   if (backupDb != null) {
+  //     Uint8List updatedContent = await File(backupDb).readAsBytes();
+  //     File(dbLocation).writeAsBytes(updatedContent);
+  //   }
+  // }
 
-  Future<String?> filePickerFile(
-    BuildContext context,
-  ) async {
-    String sdCard = await getExternalSdCardPath();
-    String? _dbFile = await FilesystemPicker.open(
-      title: 'Select DB File',
-      context: context,
-      rootDirectory: Directory(sdCard),
-      fsType: FilesystemType.file,
-      allowedExtensions: [".db"],
-      pickText: 'Select File ',
-      folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
-    );
-    return _dbFile;
-  }
+  // Future<String?> filePickerFile(
+  //   BuildContext context,
+  // ) async {
+  //   String sdCard = await getExternalSdCardPath();
+  //   String? _dbFile = await FilesystemPicker.open(
+  //     title: 'Select DB File',
+  //     context: context,
+  //     rootDirectory: Directory(sdCard),
+  //     fsType: FilesystemType.file,
+  //     allowedExtensions: [".db"],
+  //     pickText: 'Select File ',
+  //     folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
+  //   );
+  //   return _dbFile;
+  // }
 
-  Future<String?> filePickerFolder(
-    BuildContext context,
-  ) async {
-    String? _dbFile = await FilesystemPicker.open(
-      title: 'Select Database Backup Location',
-      context: context,
-      rootDirectory: Directory("android"),
-      fsType: FilesystemType.folder,
-      allowedExtensions: [".db"],
-      pickText: 'Select Folder For Backup ',
-      folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
-    );
-    return _dbFile;
-  }
+  // Future<String?> filePickerFolder(
+  //   BuildContext context,
+  // ) async {
+  //   String? _dbFile = await FilesystemPicker.open(
+  //     title: 'Select Database Backup Location',
+  //     context: context,
+  //     rootDirectory: Directory("android"),
+  //     fsType: FilesystemType.folder,
+  //     allowedExtensions: [".db"],
+  //     pickText: 'Select Folder For Backup ',
+  //     folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
+  //   );
+  //   return _dbFile;
+  // }
 
   static license() async {
     const url = 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt';

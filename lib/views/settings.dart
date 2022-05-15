@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../controllers/settings_provider.dart';
 import '../helpers.dart';
 
@@ -46,43 +46,43 @@ class _SettingsState extends State<Settings> {
               children: [
                 // Export Import Database
                 // Database (Category)
-                PageWidgets.settingsCategoryHeader(
-                  context: context,
-                  sectionTitle: "Database",
-                ),
+                // PageWidgets.settingsCategoryHeader(
+                //   context: context,
+                //   sectionTitle: "Database",
+                // ),
 
                 // Share Database
-                PageWidgets.settingsItemIcon(
-                  context: context,
-                  title: "Share Database",
-                  subtitle:
-                      "This option gives you some flexibility" 
-                      "where you want to backup the database.",
-                  action: "share",
-                  icon: Icon(Icons.share),
-                ),
-                PageWidgets.settingHr(),
-                // Export Database
-                PageWidgets.settingsItemIcon(
-                  context: context,
-                  title: "Export Database",
-                  subtitle:
-                      "This option will backup the database in the apps folder." 
-                      "The path and file name will be dislayed at the bottom once exported",
-                  action: "export",
-                  icon: Icon(MdiIcons.databaseExport),
-                ),
-                PageWidgets.settingHr(),
-                // Import Database
-                PageWidgets.settingsItemIcon(
-                  context: context,
-                  title: "Import Database",
-                  subtitle:
-                      "This option will import the selected" 
-                      "database overwriting the current database",
-                  action: "import",
-                  icon: Icon(MdiIcons.databaseImport),
-                ),
+                // PageWidgets.settingsItemIcon(
+                //   context: context,
+                //   title: "Share Database",
+                //   subtitle:
+                //       "This option gives you some flexibility" 
+                //       "where you want to backup the database.",
+                //   action: "share",
+                //   icon: Icon(Icons.share),
+                // ),
+                // PageWidgets.settingHr(),
+                // // Export Database
+                // PageWidgets.settingsItemIcon(
+                //   context: context,
+                //   title: "Export Database",
+                //   subtitle:
+                //       "This option will backup the database in the apps folder." 
+                //       "The path and file name will be dislayed at the bottom once exported",
+                //   action: "export",
+                //   icon: Icon(MdiIcons.databaseExport),
+                // ),
+                // PageWidgets.settingHr(),
+                // // Import Database
+                // PageWidgets.settingsItemIcon(
+                //   context: context,
+                //   title: "Import Database",
+                //   subtitle:
+                //       "This option will import the selected" 
+                //       "database overwriting the current database",
+                //   action: "import",
+                //   icon: Icon(MdiIcons.databaseImport),
+                // ),
                 // About (Category)
                 PageWidgets.settingsCategoryHeader(
                   context: context,

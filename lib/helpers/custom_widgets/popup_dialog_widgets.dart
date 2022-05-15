@@ -5,7 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../screen.dart';
 import '../../controllers/providers.dart';
-import '../function_helpers.dart';
+// import '../function_helpers.dart';
 
 class PopupDialogWidgets {
   static Widget plusMinusButton({
@@ -325,9 +325,9 @@ class PopupDialogWidgets {
                 TextButton(
                   onPressed: () {
                     Get.back();
-                    FunctionHelper().restore(
-                      context: context,
-                    );
+                    // FunctionHelper().restore(
+                    //   context: context,
+                    // );
                   },
                   child: Text("Ok"),
                   style: ElevatedButton.styleFrom(
