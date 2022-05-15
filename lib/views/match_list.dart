@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
@@ -9,9 +8,6 @@ class MatchList extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final _match = watch(matchProvider).match.toList();
     _match.sort((a, b) => b.isComplete ? -1 : 1 );
-    // _match.sort((a, b) => b.dateTime.compareTo(a.dateTime));
-    // final _matchh = watch(matchProvider).fetchMatchHttp('10.0.2.2', '5000', 'matches');
-    // print('match length: ${_match.length}');
 
     return _match.length == 0
         ? PageWidgets().noData(

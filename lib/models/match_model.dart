@@ -41,12 +41,10 @@ class MatchModel with ChangeNotifier {
   late String gameId;
   late String winner;
   late String winnerId;
-  // late int winScore;
   late bool lowScore;
   late int dateTime;
   late bool isComplete;
   late bool isSelected;
-  // final bool freePlay;
 
   MatchModel({
     this.id = "_",
@@ -55,12 +53,10 @@ class MatchModel with ChangeNotifier {
     this.gameId= "_",
     this.winner = "",
     this.winnerId = "_",
-    // this.winScore = 0,
     this.lowScore = false,
     this.dateTime = 0,
     this.isComplete = false,
     this.isSelected = false,
-    // this.freePlay = false,
   });
 
   MatchModel.fromJson(Map<String, dynamic> json) {
@@ -75,7 +71,6 @@ class MatchModel with ChangeNotifier {
     gameName = json['game'];
     winner = json['winner'];
     winnerId = json['winner_id'];
-    // winScore = json['win_score'];
     lowScore = json['low_score'];
     isSelected = json['is_selected'];
     isComplete = json['is_complete'];
@@ -85,35 +80,15 @@ class MatchModel with ChangeNotifier {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.id;
-    // if (this.players != null) {
-      data['players'] = this.players.map((v) => v.toJson()).toList();
-    // }
+    data['players'] = this.players.map((v) => v.toJson()).toList();
     data['game_id'] = this.gameId;
     data['game'] = this.gameName;
     data['winner'] = this.winner;
     data['winner_id'] = this.winnerId;
-    // data['win_score'] = this.winScore;
     data['low_score'] = this.lowScore;
     data['is_selected'] = this.isSelected;
     data['is_complete'] = this.isComplete;
     data['datetime'] = this.dateTime;
     return data;
   }
-
-  // factory MatchModel.fromJson(Map<String, dynamic> json) {
-  //   return MatchModel(
-  //     id: json['_id'] as String,
-  //     gameName: json['game'] as String,
-  //     gameId: json['game_id'] as String,
-      
-  //     players: json['players'] as List<Player>,
-  //     winner: json['winner'] as String,
-  //     winnerId: json['winner_id'] as String,
-  //     winScore: json['win_score'] as int,
-  //     isComplete: json['is_complete'] as bool,
-  //     isSelected: json['is_selected'] as bool,
-  //     lowScore: json['low_score'] as bool,
-  //     dateTime:  json['datetime'] as int,
-  //   );
-  // }
 }

@@ -24,15 +24,12 @@ class _PlayerFormState extends State<PlayerForm> {
     if (name.isEmpty) {
       return;
     }
-    // int _dtUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
     var controller = context.read(playerProvider);
     if (arguments[0] == "form_edit") {
       controller.updatePlayerName(arguments[1], name);
     } else {
       controller.addPlayerForm(
         name: name,
-        // wins: wins,
-        // dateTime: _dtUtcMs,
       );
       controller.fetchPlayer();
     }

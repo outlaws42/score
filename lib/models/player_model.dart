@@ -17,7 +17,6 @@ class PlayerModel with ChangeNotifier {
     this.isSelected = false,
     this.dateTime = 0,
   });
-  // : this.dateTime = dateTime ?? DateTime.now();
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) {
     return PlayerModel(

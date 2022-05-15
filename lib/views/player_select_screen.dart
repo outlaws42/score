@@ -24,36 +24,6 @@ class PlayersSelectScreen extends StatelessWidget {
             pageLink: "/player_form",
             icon: Icon(Icons.person_add),
           ),
-          // PopupMenuButton(
-          //     iconSize: 30,
-          //     icon: Icon(Icons.menu),
-          //     itemBuilder: (BuildContext context) => <PopupMenuItem>[
-          //           MenuWidgets.menuItem(
-          //             context: context,
-          //             menuTitle: "Matches",
-          //             icon: Icon(Icons.list_alt),
-          //             value: 1,
-          //           ),
-          //           MenuWidgets.menuItem(
-          //             context: context,
-          //             menuTitle: "Games",
-          //             icon: Icon(Icons.games),
-          //             value: 3,
-          //           ),
-          //           MenuWidgets.menuItem(
-          //             context: context,
-          //             menuTitle: "Settings",
-          //             icon: Icon(Icons.settings),
-          //             value: 10,
-          //           ),
-          //         ],
-          //     onSelected: (value) {
-          //       MenuWidgets.menuSelect(
-          //         context,
-          //         value,
-          //         "player_screen",
-          //       );
-          //     })
         ],
       ),
       body: PlayerSelectList(),

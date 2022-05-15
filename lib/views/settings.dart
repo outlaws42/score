@@ -27,8 +27,6 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final ver = context.read(settingsProvider).getVersionNumber();
-    // context.read(settingsProvider).saveIp();
-    context.read(settingsProvider).getIp();
     return Scaffold(
       appBar: AppBar(
         title: Text(

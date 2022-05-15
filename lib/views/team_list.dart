@@ -8,12 +8,8 @@ import '../helpers/custom_widgets/page_widgets.dart';
 class TeamList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    // List args = Get.arguments;
     final _player = watch(playerProvider);
     final _matchList = watch(matchProvider).match;
-    // var _filterPlayer = args[0] == "form"
-    //     ? _player.player.where((win) => win.id != int.parse(args[1])).toList()
-    //     : _player.player;
     return _player.player.length == 0
         ? PageWidgets().noData(
             context: context,
@@ -29,17 +25,14 @@ class TeamList extends ConsumerWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: // args[0] == "form"
-                      // ? _filterPlayer.length
+                  itemCount: 
                       _player.player.length,
                   itemBuilder: (contex, index) {
                     if (index == 0) {
                       return PageWidgets().listItemPlayer(
                         context: context,
                         index: index,
-                        player:
-                            // args[0] == "form" ? _filterPlayer : 
-                            _player.player,
+                        player:_player.player,
                         matchList: _matchList,
                         playerProv: _player,
                       );
@@ -48,7 +41,6 @@ class TeamList extends ConsumerWidget {
                         context: context,
                         index: index,
                         player:
-                            // args[0] == "form" ? _filterPlayer : 
                             _player.player,
                         matchList: _matchList,
                         playerProv: _player,
