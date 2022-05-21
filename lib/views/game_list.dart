@@ -8,6 +8,7 @@ class GameList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _game = watch(gameProvider).games;
+    _game.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     return _game.length == 0
         ? PageWidgets().noData(
             context: context,

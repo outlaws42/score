@@ -7,6 +7,8 @@ class PlayerList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _player = watch(playerProvider);
+    final _playersSort = _player.player;
+    _playersSort.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     final _matchList = watch(matchProvider).match;
     return _player.player.length == 0
         ? PageWidgets().noData(
@@ -29,7 +31,7 @@ class PlayerList extends ConsumerWidget {
                       return PageWidgets().listItemPlayer(
                         context: context,
                         index: index,
-                        player:_player.player,
+                        player:_playersSort,
                         matchList: _matchList,
                         playerProv: _player,
                       );
