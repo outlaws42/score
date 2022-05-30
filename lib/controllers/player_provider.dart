@@ -115,7 +115,7 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> fetchPlayer({
-    String baseName = 'www.eldrway.com', //10.0.2.2
+    String baseName = '192.168.1.9:3000', //10.0.2.2
     String portName = '3000',
     String currentName = 'players',
   }) async {
@@ -134,7 +134,7 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> addPlayerForm({
-    String baseName = 'www.eldrway.com',
+    String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'add_player',
     required String name,
@@ -196,7 +196,7 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> updatePlayer({
-    String baseName = 'www.eldrway.com',
+    String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'update_player',
     required String id,

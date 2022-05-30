@@ -14,6 +14,7 @@ import './views/match_current_screen_list.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
 import 'views/player_form.dart';
+import './views/auth2_screen.dart';
 
 void main() async{
   runApp(
@@ -26,15 +27,15 @@ void main() async{
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    context.read(matchProvider).fetchMatch();
-    context.read(playerProvider).fetchPlayer();
-    context.read(gameProvider).fetchGame();
+    // context.read(matchProvider).fetchMatch();
+    // context.read(playerProvider).fetchPlayer();
+    // context.read(gameProvider).fetchGame();
     return GetMaterialApp(
       title: 'Scoreboard',
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.lightTheme,
       darkTheme: ThemeConfig.darkTheme,
-      home: MatchScreen(),
+      home: Auth2Screen(),
       themeMode: ThemeMode.light,
       getPages: [
         GetPage(name: '/match', page: () => MatchScreen()),

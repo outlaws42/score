@@ -28,7 +28,7 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> fetchGame({
-    String baseName='www.eldrway.com',
+    String baseName='192.168.1.9:3000',
     String portName='3000',
     String currentName='games',
   }) async {
@@ -50,7 +50,7 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> addGame({
-    String baseName = 'www.eldrway.com',
+    String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'add_game',
     required String name,

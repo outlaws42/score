@@ -85,25 +85,25 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchMatch({
-    String baseName = 'www.eldrway.com',
+    String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'matches',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
-    final response = await http.get(url);
-    final List<MatchModel> loadCurrent = [];
-    final json = jsonDecode(response.body);
-    if (json != null) {
-      json.forEach((value) {
-        loadCurrent.add(MatchModel.fromJson(value));
-      });
-    }
-    _matches = loadCurrent;
-    notifyListeners();
+    // final url = Uri.parse('https://$baseName/score_api/$currentName');
+    // final response = await http.get(url);
+    // final List<MatchModel> loadCurrent = [];
+    // final json = jsonDecode(response.body);
+    // if (json != null) {
+    //   json.forEach((value) {
+    //     loadCurrent.add(MatchModel.fromJson(value));
+    //   });
+    // }
+    // _matches = loadCurrent;
+    // notifyListeners();
   }
 
    Future<void> addMatchHttp(
-      {String baseName = 'www.eldrway.com',
+      {String baseName = '192.168.1.9:3000',
       String portName = '3000',
       String currentName = 'add_match',
       required String gameName,
@@ -202,7 +202,7 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> updateMatch({
-    String baseName = 'www.eldrway.com',
+    String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'update_match',
     required String id,
