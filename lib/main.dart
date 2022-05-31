@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:http/io_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -17,11 +19,27 @@ import 'views/player_form.dart';
 import './views/auth2_screen.dart';
 
 void main() async{
+  HttpOverrides.global = new DevHttpOverrides();
+  // final context = SecurityContext.defaultContext;
+  // // modify context as needed
+  // final httpClient = HttpClient(context: context);
+  // final client = IOClient(httpClient);
+
+  // await client.get(Uri.parse('https://192.168.1.9:3000/score_api/matches'));
+
   runApp(
     ProviderScope(
       child: MyApp(),
     ),
   );
+}
+
+class DevHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MyApp extends ConsumerWidget {
