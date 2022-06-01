@@ -37,7 +37,13 @@ class AuthProvider with ChangeNotifier {
       "Accept": "application/json",
       "Authorization": "Basic $credentials"
     };
-    http.Response response = await http.get(url, headers: headers);
-    print(jsonDecode(response.body));
+    try{
+      http.Response response = await http.get(url, headers: headers);
+      print(jsonDecode(response.body));
+    } catch(error){
+      throw error;
+    }
+    
+    // print(jsonDecode(response.body));
   }
 }

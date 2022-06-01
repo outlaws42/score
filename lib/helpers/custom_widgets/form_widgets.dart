@@ -9,6 +9,8 @@ class FormWidgets {
     String? hintText = 'The name of your game (Required)',
     int maxLength = 20,
     String? blankFieldMessage,
+    String obscureCharacter = '*',
+    bool obscure = false,
 
   }) {
     return Container(
@@ -21,6 +23,8 @@ class FormWidgets {
           }
           return null;
         },
+        obscuringCharacter: obscureCharacter,
+        obscureText: obscure,
         maxLength: maxLength,
         textCapitalization: TextCapitalization.words,
         textInputAction: TextInputAction.next,

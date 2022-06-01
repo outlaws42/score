@@ -16,16 +16,11 @@ import './views/match_current_screen_list.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
 import 'views/player_form.dart';
-import './views/auth2_screen.dart';
+import 'views/auth_screen.dart';
 
 void main() async{
+  // Temp for dev to overide signed certs. Remove for production
   HttpOverrides.global = new DevHttpOverrides();
-  // final context = SecurityContext.defaultContext;
-  // // modify context as needed
-  // final httpClient = HttpClient(context: context);
-  // final client = IOClient(httpClient);
-
-  // await client.get(Uri.parse('https://192.168.1.9:3000/score_api/matches'));
 
   runApp(
     ProviderScope(
@@ -35,6 +30,7 @@ void main() async{
 }
 
 class DevHttpOverrides extends HttpOverrides {
+  // Temp for dev to overife signed certs. Remove fo production
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
@@ -53,7 +49,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.lightTheme,
       darkTheme: ThemeConfig.darkTheme,
-      home: Auth2Screen(),
+      home: AuthScreen(),
       themeMode: ThemeMode.light,
       getPages: [
         GetPage(name: '/match', page: () => MatchScreen()),
