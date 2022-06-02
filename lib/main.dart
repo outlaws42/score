@@ -44,12 +44,13 @@ class MyApp extends ConsumerWidget {
     // context.read(matchProvider).fetchMatch();
     // context.read(playerProvider).fetchPlayer();
     // context.read(gameProvider).fetchGame();
+    final auth = context.read(authProvider).isAuth;
     return GetMaterialApp(
       title: 'Scoreboard',
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.lightTheme,
       darkTheme: ThemeConfig.darkTheme,
-      home: AuthScreen(),
+      home: auth ? MatchScreen() : AuthScreen(),
       themeMode: ThemeMode.light,
       getPages: [
         GetPage(name: '/match', page: () => MatchScreen()),

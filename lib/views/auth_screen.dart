@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
+import '../models/http_exception.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
@@ -21,40 +22,45 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('An Error Occured!!'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: (){
-              Navigator.of(ctx).pop();
-            },
-            child: Text('Ok'),
-          ),
-        ],
-      ),
+  void _showErrorDialog(String message) {
+    Get.defaultDialog(
+      title: 'An Error Ocurred',
+      content: Text(message),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text('Ok'),
+        ),
+      ],
     );
   }
 
-  void _save(String email, String password, provider) {
+  Future<void> _save(provider) async {
     // Save for each field save
-    if (email.isEmpty) {
+    if (_emailController.text.isEmpty) {
       return;
     }
-    provider.login(email, password);
-    // var controller = context.read(playerProvider);
-    // if (arguments[0] == "form_edit") {
-    //   controller.updatePlayerName(arguments[1], name);
-    // } else {
-    //   controller.addPlayerForm(
-    //     name: name,
-    //   );
-    //   controller.fetchPlayer();
-    // }
-    // Get.back(result: "player_form");
+    try {
+      if (_formKey.currentState!.validate()) {
+        await provider.login(
+          _emailController.text,
+          _passwordController.text,
+        );
+      }
+    } on HttpException catch (error) {
+      var errorMessage = 'Authentication Failed';
+      if (error.toString().contains('USER_NOT_FOUND')) {
+        errorMessage = 'This is not a valid user';
+      } else if (error.toString().contains('LOGIN_NOT_FOUND')) {
+        errorMessage = 'Please provide a email and password';
+      }
+      _showErrorDialog(errorMessage);
+    } catch (error) {
+      var errorMessage = 'Could not authenticate you. Please try again later';
+      _showErrorDialog(errorMessage);
+    }
   }
 
   @override
@@ -189,19 +195,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                                   child: ElevatedButton.icon(
                                     onPressed: () {
-                                      try {
-                                        if (_formKey.currentState!.validate()) {
-                                          _save(
-                                            _emailController.text,
-                                            _passwordController.text,
-                                            value,
-                                          );
-                                        }
-                                      } catch (error) {
-                                        var errorMessage =
-                                            'Could not authenticate you. Please try again later';
-                                        showErrorDialog(errorMessage);
-                                      }
+                                      _save(value);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       onPrimary: Colors.white,

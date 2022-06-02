@@ -3,11 +3,25 @@ import 'dart:io';
 import 'package:http/io_client.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import '../models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
   late String _token;
-  late DateTime _expiryDate;
+  DateTime _expiryDate = DateTime.now().subtract(Duration(days: 1));
   late String _userId;
+
+  bool get isAuth {
+    return token != null;
+  }
+
+  String? get token {
+    if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null) {
+      return _token;
+    }
+    return null;
+  }
 
   Future<void> signup(
     String email,
@@ -37,13 +51,33 @@ class AuthProvider with ChangeNotifier {
       "Accept": "application/json",
       "Authorization": "Basic $credentials"
     };
-    try{
+    try {
       http.Response response = await http.get(url, headers: headers);
-      print(jsonDecode(response.body));
-    } catch(error){
-      throw error;
+      final responseData = jsonDecode(response.body);
+      print(responseData);
+       print('token: ${responseData['token']}');
+      print(responseData['id']);
+      print('exp: ${responseData['exp']}');
+      // if (responseData['error'] != null) {
+      //   throw HttpException(responseData['error']['message']);
+      // }
+      _token = responseData['token'];
+      _userId = responseData['id'];
+      _expiryDate = DateTime.now().add(
+        Duration(
+          days: responseData['exp'],
+        ),
+      );
+      // print(_token);
+      // print(_userId);
+      // print(_expiryDate);
+      notifyListeners();
+
+    } catch (error) {
+      print(error);
+      // throw error;
     }
-    
+
     // print(jsonDecode(response.body));
   }
 }
