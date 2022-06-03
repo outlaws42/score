@@ -89,17 +89,17 @@ class MatchProvider extends ChangeNotifier {
     String portName = '3000',
     String currentName = 'matches',
   }) async {
-    // final url = Uri.parse('https://$baseName/score_api/$currentName');
-    // final response = await http.get(url);
-    // final List<MatchModel> loadCurrent = [];
-    // final json = jsonDecode(response.body);
-    // if (json != null) {
-    //   json.forEach((value) {
-    //     loadCurrent.add(MatchModel.fromJson(value));
-    //   });
-    // }
-    // _matches = loadCurrent;
-    // notifyListeners();
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final response = await http.get(url);
+    final List<MatchModel> loadCurrent = [];
+    final json = jsonDecode(response.body);
+    if (json != null) {
+      json.forEach((value) {
+        loadCurrent.add(MatchModel.fromJson(value));
+      });
+    }
+    _matches = loadCurrent;
+    notifyListeners();
   }
 
    Future<void> addMatchHttp(

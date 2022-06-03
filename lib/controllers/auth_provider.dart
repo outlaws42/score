@@ -1,23 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
-  late String _token;
-  DateTime _expiryDate = DateTime.now().subtract(Duration(days: 1));
-  late String _userId;
+  String? _token;
+  // DateTime _expiryDate = DateTime.now().subtract(Duration(days: 1));
+ bool? _hasExpired;
+  // late String _userId;
 
   bool get isAuth {
     return token != null;
   }
 
   String? get token {
-    if (_expiryDate != null &&
-        _expiryDate.isAfter(DateTime.now()) &&
-        _token != null) {
+    // if (_expiryDate != null &&
+    //     _expiryDate.isAfter(DateTime.now()) &&
+    //     _token != null) {
+    //   return _token;
+    // }
+    if (_hasExpired != null && _hasExpired == false && _token != null) {
       return _token;
     }
     return null;
@@ -54,25 +59,32 @@ class AuthProvider with ChangeNotifier {
     try {
       http.Response response = await http.get(url, headers: headers);
       final responseData = jsonDecode(response.body);
-      print(responseData);
-       print('token: ${responseData['token']}');
-      print(responseData['id']);
-      print('exp: ${responseData['exp']}');
-      // if (responseData['error'] != null) {
-      //   throw HttpException(responseData['error']['message']);
-      // }
+      // final responseHeader = jsonDecode(response);
+      // print(responseHeader);
+      
+      // DateTime expirationDate =
+      //     JwtDecoder.getExpirationDate(responseData['token']);
+
+      // print('token: ${responseData['token']}');
+      print('exp: $_hasExpired');
+      // print('expDate: $expirationDate');
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
       _token = responseData['token'];
-      _userId = responseData['id'];
-      _expiryDate = DateTime.now().add(
-        Duration(
-          days: responseData['exp'],
-        ),
-      );
+      _hasExpired = JwtDecoder.isExpired(_token.toString());
+      // _userId = responseData['id'];
+      // _expiryDate = DateTime.now().add(
+      //   Duration(
+      //     days: responseData['exp'],
+      //   ),
+      // );
+      print('token: ${responseData['token']}');
+      print('exp: $_hasExpired');
       // print(_token);
       // print(_userId);
       // print(_expiryDate);
       notifyListeners();
-
     } catch (error) {
       print(error);
       // throw error;
