@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -85,6 +86,10 @@ class AuthProvider with ChangeNotifier {
       // print(_userId);
       // print(_expiryDate);
       notifyListeners();
+      // Store token in SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      final userToken = jsonEncode({'token': _token,});
+      prefs.setString('userToken', userToken);
     } catch (error) {
       print(error);
       // throw error;
