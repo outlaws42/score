@@ -66,7 +66,7 @@ class AuthProvider with ChangeNotifier {
       //     JwtDecoder.getExpirationDate(responseData['token']);
 
       // print('token: ${responseData['token']}');
-      print('exp: $_hasExpired');
+      // print('exp: $_hasExpired');
       // print('expDate: $expirationDate');
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
@@ -80,7 +80,7 @@ class AuthProvider with ChangeNotifier {
       //   ),
       // );
       print('token: ${responseData['token']}');
-      print('exp: $_hasExpired');
+      // print('exp: $_hasExpired');
       // print(_token);
       // print(_userId);
       // print(_expiryDate);

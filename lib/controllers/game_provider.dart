@@ -10,6 +10,10 @@ class GameProvider extends ChangeNotifier {
     return [..._games];
   }
 
+  final String authToken;
+
+  GameProvider(this.authToken);
+
   bool isLowScore = false;
 
   void updateLowScore() {
@@ -17,10 +21,7 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelected({
-    required String gameId,
-    required bool isSelected
-  }) {
+  void updateSelected({required String gameId, required bool isSelected}) {
     bool selected = isSelected;
     selected = !selected;
     int isSelectedInt = selected == false ? 0 : 1;
@@ -28,27 +29,30 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> fetchGame({
-    String baseName='192.168.1.9:3000',
-    String portName='3000',
-    String currentName='games',
+    String baseName = '192.168.1.9:3000',
+    String portName = '3000',
+    String currentName = 'games',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
-    final response = await http.get(url);
-      // print(response.body);
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final response = await http.get(
+      url,
+      headers: {
+        'x-access-token': authToken
+      },
+    );
+    // print(response.body);
     final List<GameModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     // final test = PlayerModel.fromJson(json);
     if (json != null) {
-    json.forEach((value){
-      loadCurrent.add(
-        GameModel.fromJson(value)
-        );
-
-    });
+      json.forEach((value) {
+        loadCurrent.add(GameModel.fromJson(value));
+      });
     }
     _games = loadCurrent;
     notifyListeners();
   }
+
   Future<void> addGame({
     String baseName = '192.168.1.9:3000',
     String portName = '3000',
@@ -57,10 +61,13 @@ class GameProvider extends ChangeNotifier {
     required String description,
     bool lowScore = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
     http
         .post(
       url,
+      headers: {
+        'x-access-token': authToken
+      },
       body: jsonEncode({
         'name': name,
         'description': description,
@@ -87,7 +94,7 @@ class GameProvider extends ChangeNotifier {
   Future<void> updateIsSelected(
     String gameId,
     int isSelected,
-  ) async { 
+  ) async {
     // DBHelper.update('game', gameId, {
     //   'is_selected': isSelected,
     // });
@@ -103,14 +110,13 @@ class GameProvider extends ChangeNotifier {
     fetchGame();
     notifyListeners();
   }
-  
+
   Future<void> updateGame({
-   required String gameId,
-   required String name,
-   required String description,
-   required int lowScore,
-  }
-  ) async { 
+    required String gameId,
+    required String name,
+    required String description,
+    required int lowScore,
+  }) async {
     // DBHelper.update('game', gameId, {
     //   'name': name,
     //   'description': description,

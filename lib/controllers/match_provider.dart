@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/match_model.dart';
 
-
 class MatchProvider extends ChangeNotifier {
-
   List<MatchModel> _matches = [];
   List<MatchModel> _matchesWins = [];
 
@@ -16,6 +14,10 @@ class MatchProvider extends ChangeNotifier {
   List<MatchModel> get matchWins {
     return [..._matchesWins];
   }
+
+  final String authToken;
+
+  MatchProvider(this.authToken);
 
   void changeTileColor({
     required Color color,
@@ -89,8 +91,11 @@ class MatchProvider extends ChangeNotifier {
     String portName = '3000',
     String currentName = 'matches',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
-    final response = await http.get(url);
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final response = await http.get(
+      url,
+      headers: {'x-access-token': authToken},
+    );
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     if (json != null) {
@@ -102,20 +107,20 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-   Future<void> addMatchHttp(
+  Future<void> addMatchHttp(
       {String baseName = '192.168.1.9:3000',
       String portName = '3000',
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
-    await http
-        .post(
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    await http.post(
       url,
+      headers: {'x-access-token': authToken},
       body: jsonEncode({'game': gameName, 'players': players}),
     );
-      await fetchMatch();
-      notifyListeners();
+    await fetchMatch();
+    notifyListeners();
   }
 
   Future<void> updateScore(
@@ -213,10 +218,13 @@ class MatchProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
     http
         .post(
       url,
+      headers: {
+        'x-access-token': authToken
+      },
       body: jsonEncode({
         '_id': id,
         'playerId': playerId,

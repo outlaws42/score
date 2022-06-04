@@ -17,13 +17,17 @@ class PlayerProvider extends ChangeNotifier {
     return [..._selectedPlayers];
   }
 
+  final String authToken;
+
+  PlayerProvider(this.authToken);
+
   void addSelectedPlayer({
     playerName,
     playerId,
   }) {
     Color _randomColor = FunctionHelper.randomColor();
-    int intColor = FunctionHelper.convertColorInt(color: _randomColor); 
-    
+    int intColor = FunctionHelper.convertColorInt(color: _randomColor);
+
     _selectedPlayers.addAll([
       {
         "player_name": playerName,
@@ -31,8 +35,7 @@ class PlayerProvider extends ChangeNotifier {
         "score": 0,
         "color": intColor,
       }
-    ]
-        );
+    ]);
     notifyListeners();
   }
 
@@ -43,7 +46,7 @@ class PlayerProvider extends ChangeNotifier {
     _selectedPlayers.removeWhere((element) => element['player_id'] == playerId);
     notifyListeners();
   }
-  
+
   void updateSelected({
     required String playerId,
     required bool isSelected,
@@ -69,7 +72,6 @@ class PlayerProvider extends ChangeNotifier {
         playerName: playerName,
         playerId: playerId,
       );
-
     } else if (selected == false) {
       removeSelectedPlayer(
         playerName: playerName,
@@ -119,8 +121,13 @@ class PlayerProvider extends ChangeNotifier {
     String portName = '3000',
     String currentName = 'players',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
-    final response = await http.get(url);
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final response = await http.get(
+      url,
+      headers: {
+        'x-access-token': authToken
+      },
+    );
     final List<PlayerModel> loadCurrent = [];
     final json = jsonDecode(response.body);
 
@@ -139,16 +146,18 @@ class PlayerProvider extends ChangeNotifier {
     String currentName = 'add_player',
     required String name,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
     http
         .post(
       url,
+      headers: {
+        'x-access-token': authToken
+      },
       body: jsonEncode({
         'name': name,
       }),
     )
         .then((response) {
-
       final newPlayer = PlayerModel(
         id: jsonDecode(response.body)['_id'],
         name: jsonDecode(response.body)['name'],
@@ -165,7 +174,7 @@ class PlayerProvider extends ChangeNotifier {
     String playerId,
     int win,
   ) async {
-     int playerIndex = _players.indexWhere((element) => element.id == playerId);
+    int playerIndex = _players.indexWhere((element) => element.id == playerId);
     _players[playerIndex].wins = win;
     updatePlayer(id: playerId, number: win, type: 'wins');
     notifyListeners();
@@ -207,10 +216,13 @@ class PlayerProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
     http
         .post(
       url,
+      headers: {
+        'x-access-token': authToken
+      },
       body: jsonEncode({
         '_id': id,
         'playerId': playerId,

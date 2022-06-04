@@ -51,6 +51,9 @@ class MyApp extends StatelessWidget {
       builder: (context, auth, _) {
         final _authSwitch = auth(authProvider).isAuth; 
         print('This is main authSwitch: $_authSwitch');
+        context.read(matchProvider).fetchMatch();
+        context.read(gameProvider).fetchGame();
+        context.read(playerProvider).fetchPlayer();
         return GetMaterialApp(
           title: 'Scoreboard',
           debugShowCheckedModeBanner: false,
