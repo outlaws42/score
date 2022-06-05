@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
@@ -9,20 +7,13 @@ import '../models/http_exception.dart';
 
 class AuthProvider with ChangeNotifier {
   String? _token;
-  // DateTime _expiryDate = DateTime.now().subtract(Duration(days: 1));
- bool? _hasExpired;
-  // late String _userId;
+  bool? _hasExpired;
 
   bool get isAuth {
     return token != null;
   }
 
   String? get token {
-    // if (_expiryDate != null &&
-    //     _expiryDate.isAfter(DateTime.now()) &&
-    //     _token != null) {
-    //   return _token;
-    // }
     if (_hasExpired != null && _hasExpired == false && _token != null) {
       return _token;
     }
@@ -60,41 +51,39 @@ class AuthProvider with ChangeNotifier {
     try {
       http.Response response = await http.get(url, headers: headers);
       final responseData = jsonDecode(response.body);
-      // final responseHeader = jsonDecode(response);
-      // print(responseHeader);
-      
-      // DateTime expirationDate =
-      //     JwtDecoder.getExpirationDate(responseData['token']);
-
-      // print('token: ${responseData['token']}');
-      // print('exp: $_hasExpired');
-      // print('expDate: $expirationDate');
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
       _token = responseData['token'];
       _hasExpired = JwtDecoder.isExpired(_token.toString());
-      // _userId = responseData['id'];
-      // _expiryDate = DateTime.now().add(
-      //   Duration(
-      //     days: responseData['exp'],
-      //   ),
-      // );
-      print('token: ${responseData['token']}');
-      // print('exp: $_hasExpired');
-      // print(_token);
-      // print(_userId);
-      // print(_expiryDate);
       notifyListeners();
       // Store token in SharedPreferences
       final prefs = await SharedPreferences.getInstance();
-      final userToken = jsonEncode({'token': _token,});
+      final userToken = jsonEncode({
+        'token': _token,
+      });
       prefs.setString('userToken', userToken);
     } catch (error) {
-      print(error);
-      // throw error;
+      throw error;
+    }
+  }
+
+  Future<bool> tryAutoLogin() async {
+    // This gets the token from SharedPreferences if present
+    // then populates the token to authenticate.
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('userToken')) {
+      return false;
+    }
+    final extractedUserData =
+        jsonDecode(prefs.getString('userToken').toString());
+    if (JwtDecoder.isExpired(extractedUserData['token'].toString()) == false) {
+      _token = extractedUserData['token'].toString();
+      _hasExpired = JwtDecoder.isExpired(extractedUserData['token'].toString());
+      notifyListeners();
+      return true;
     }
 
-    // print(jsonDecode(response.body));
+    return false;
   }
 }

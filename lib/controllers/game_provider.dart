@@ -40,10 +40,8 @@ class GameProvider extends ChangeNotifier {
         'x-access-token': authToken
       },
     );
-    // print(response.body);
     final List<GameModel> loadCurrent = [];
     final json = jsonDecode(response.body);
-    // final test = PlayerModel.fromJson(json);
     if (json != null) {
       json.forEach((value) {
         loadCurrent.add(GameModel.fromJson(value));
