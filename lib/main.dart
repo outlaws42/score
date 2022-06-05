@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
     return Consumer(builder: (context, auth, _) {
       final _authSwitch = auth(authProvider).isAuth;
       if (_authSwitch == true) {
-        context.read(matchProvider).fetchMatch();
+        // context.read(matchProvider).fetchMatch();
         context.read(gameProvider).fetchGame();
         context.read(playerProvider).fetchPlayer();
       }
