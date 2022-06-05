@@ -86,7 +86,7 @@ class MatchProvider extends ChangeNotifier {
     updateIsSelected(matchId, isSelectedInt);
   }
 
-  Future<void> fetchMatch({
+  Future<bool> fetchMatch({
     String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'matches',
@@ -105,6 +105,8 @@ class MatchProvider extends ChangeNotifier {
     }
     _matches = loadCurrent;
     notifyListeners();
+    
+    return true;
   }
 
   Future<void> addMatchHttp(
