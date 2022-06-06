@@ -15,7 +15,6 @@ class _MatchListState extends State<MatchList> {
   void initState() { 
     super.initState();
 
-    // must use listen false here
     _matches = context.read(matchProvider).fetchMatch();
   }
 
