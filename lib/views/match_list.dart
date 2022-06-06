@@ -26,7 +26,7 @@ class _MatchListState extends State<MatchList> {
         future: _matches,
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
-            return SplashScreen();
+            return Center(child: CircularProgressIndicator());
           }
           return _match.length == 0
               ? PageWidgets().noData(

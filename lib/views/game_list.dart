@@ -28,7 +28,7 @@ class _GameListState extends State<GameList> {
           future: _games,
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
-            return SplashScreen();
+            return Center(child: CircularProgressIndicator());
           }
             return _game.length == 0
                 ? PageWidgets().noData(
