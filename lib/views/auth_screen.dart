@@ -1,8 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get/get.dart';
 import '../models/http_exception.dart';
 import '../controllers/providers.dart';
@@ -14,7 +11,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  // List arguments = Get.arguments;
 
   var _emailController = TextEditingController();
 
@@ -65,15 +61,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Map<String, String> _authData = {'email': '', 'password': '',};
-    // context.read(authProvider).signup(_authData['email'], _authData['password']);
     final deviceSize = MediaQuery.of(context).size;
-    // if (arguments[0] == "form_edit") {
-    //    _nameController =
-    //       TextEditingController(text: arguments[2].toString());
-    //   _winsController =
-    //       TextEditingController(text: arguments[3].toString());
-    // }
+
     return Consumer(
       builder: (context, ref, child) {
         final value = ref(authProvider);
@@ -81,15 +70,6 @@ class _AuthScreenState extends State<AuthScreen> {
           body: Stack(children: [
             Container(
               decoration: BoxDecoration(color: Colors.black54
-                  // gradient: LinearGradient(
-                  //   colors: [
-                  //     Color.fromARGB(255, 234, 227, 237).withOpacity(0.5),
-                  //     Color.fromARGB(255, 67, 58, 49).withOpacity(0.9),
-                  //   ],
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  //   stops: [0, 1],
-                  // ),
                   ),
             ),
             SingleChildScrollView(
@@ -100,34 +80,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Flexible(
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(bottom: 20.0),
-                    //     padding:
-                    //         EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                    //     // transform: Matrix4.rotationZ(-8 * pi / 180)
-                    //     //   ..translate(-10.0),
-                    //     // ..translate(-10.0),
-                    //     decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(20),
-                    //       color: Theme.of(context).appBarTheme.backgroundColor,
-                    //       boxShadow: [
-                    //         BoxShadow(
-                    //           blurRadius: 8,
-                    //           color: Colors.black26,
-                    //           offset: Offset(0, 2),
-                    //         )
-                    //       ],
-                    //     ),
-                    //     child: Text('Score',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 50,
-                    //           fontFamily: 'Anton',
-                    //           fontWeight: FontWeight.normal,
-                    //         )),
-                    //   ),
-                    // ),
                     Flexible(
                       flex: deviceSize.width > 600 ? 2 : 1,
                       child: Card(
@@ -148,9 +100,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                   margin: EdgeInsets.only(bottom: 20.0),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 50.0),
-                                  // transform: Matrix4.rotationZ(-8 * pi / 180)
-                                  //   ..translate(-10.0),
-                                  // ..translate(-10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: Theme.of(context)

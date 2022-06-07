@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:score/views/splash_screen.dart';
 import '../helpers.dart';
 import './player_list.dart';
 

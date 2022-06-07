@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'package:http/io_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:score/controllers/auth_provider.dart';
 import './views/splash_screen.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import './controllers/providers.dart';
 import './helpers/theme_config.dart';
 import './views/match_screen.dart';
@@ -48,11 +45,6 @@ class MyApp extends StatelessWidget {
   ) {
     return Consumer(builder: (context, auth, _) {
       final _authSwitch = auth(authProvider).isAuth;
-      // if (_authSwitch == true) {
-        // context.read(matchProvider).fetchMatch();
-        // context.read(gameProvider).fetchGame();
-        // context.read(playerProvider).fetchPlayer();
-      // }
 
       return GetMaterialApp(
         title: 'Scoreboard',

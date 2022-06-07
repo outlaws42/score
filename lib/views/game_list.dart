@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
-import './splash_screen.dart';
 
 class GameList extends StatefulWidget {
   @override

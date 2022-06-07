@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:score/views/splash_screen.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 import '../controllers/providers.dart';
 
