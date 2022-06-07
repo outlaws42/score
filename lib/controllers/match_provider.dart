@@ -86,7 +86,7 @@ class MatchProvider extends ChangeNotifier {
     updateIsSelected(matchId, isSelectedInt);
   }
 
-  Future<bool> fetchMatch({
+  Future<void> fetchMatch({
     String baseName = '192.168.1.9:3000',
     String portName = '3000',
     String currentName = 'matches',
@@ -105,8 +105,6 @@ class MatchProvider extends ChangeNotifier {
     }
     _matches = loadCurrent;
     notifyListeners();
-    
-    return true;
   }
 
   Future<void> addMatchHttp(
@@ -171,9 +169,17 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteMatch(
-    String id,
-  ) async {
+  Future<void> deleteMatch({
+    String baseName = '192.168.1.9:3000',
+    String currentName = 'remove_match',
+    String id = '_',
+  }) async {
+    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    await http.delete(
+      url,
+      headers: {'x-access-token': authToken},
+      body: jsonEncode({'id': id,}),
+    );
     fetchMatch();
     notifyListeners();
   }
