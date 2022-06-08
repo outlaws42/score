@@ -181,6 +181,7 @@ class MatchProvider extends ChangeNotifier {
   }) async {
     int matchIndex = getMatchIndex(id);
     _matches.removeAt(matchIndex);
+    notifyListeners();
     final url = Uri.parse('http://$baseName/score_api/$currentName');
     await http.delete(
       url,
@@ -190,7 +191,6 @@ class MatchProvider extends ChangeNotifier {
       }),
     );
     // fetchMatch();
-    notifyListeners();
   }
 
   Future<void> updateWinner({
