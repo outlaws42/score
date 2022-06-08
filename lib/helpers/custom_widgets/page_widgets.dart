@@ -9,6 +9,7 @@ import '../../models/player_model.dart';
 import '../../models/game_model.dart';
 import '../function_helpers.dart';
 import './bottom_sheet_widgets.dart';
+import './popup_dialog_widgets.dart';
 
 class PageWidgets {
   Widget iconButtonBar({
@@ -474,10 +475,12 @@ class PageWidgets {
         ]);
       },
       onLongPress: () {
-        context.read(matchProvider).updateSelected(
-              matchId: _id,
-              isSelected: _isSelected,
-            );
+        if (_isComplete == false) {
+          context.read(matchProvider).updateSelected(
+                matchId: _id,
+                isSelected: _isSelected,
+              );
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(2),
@@ -486,14 +489,35 @@ class PageWidgets {
         ),
         child: Card(
           elevation: 3,
-          color: Theme.of(context).appBarTheme.foregroundColor,
-          // : Theme.of(context).appBarTheme.backgroundColor,
-
+          color: _isSelected == false
+              ? Theme.of(context).appBarTheme.foregroundColor
+              : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                _isSelected == true
+                    ? Column(
+                        children: [
+                          Container(
+                            height: 75,
+                            width: 55,
+                            child: IconButton(
+                              // label: Text('Delete'),
+                              icon: Icon(
+                                Icons.delete_forever,
+                                color: Colors.red,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                PopupDialogWidgets.warnDialog(context, _gameName, _id, 'match');
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : Container(),
                 // 1st column (Game and players)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

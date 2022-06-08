@@ -82,8 +82,8 @@ class MatchProvider extends ChangeNotifier {
 
   void updateSelected({required String matchId, required bool isSelected}) {
     isSelected = !isSelected;
-    int isSelectedInt = isSelected == false ? 0 : 1;
-    updateIsSelected(matchId, isSelectedInt);
+    // int isSelectedInt = isSelected == false ? 0 : 1;
+    updateIsSelected(matchId, isSelected);
   }
 
   Future<void> fetchMatch({
@@ -163,8 +163,13 @@ class MatchProvider extends ChangeNotifier {
 
   Future<void> updateIsSelected(
     String matchId,
-    int isSelected,
+    bool isSelected,
   ) async {
+    updateMatch(
+      id: matchId,
+      toggle: isSelected,
+      type: 'isSelected',
+    );
     fetchMatch();
     notifyListeners();
   }
@@ -172,15 +177,19 @@ class MatchProvider extends ChangeNotifier {
   Future<void> deleteMatch({
     String baseName = '192.168.1.9:3000',
     String currentName = 'remove_match',
-    String id = '_',
+    required String id,
   }) async {
+    int matchIndex = getMatchIndex(id);
+    _matches.removeAt(matchIndex);
     final url = Uri.parse('http://$baseName/score_api/$currentName');
     await http.delete(
       url,
       headers: {'x-access-token': authToken},
-      body: jsonEncode({'id': id,}),
+      body: jsonEncode({
+        'id': id,
+      }),
     );
-    fetchMatch();
+    // fetchMatch();
     notifyListeners();
   }
 
@@ -230,9 +239,7 @@ class MatchProvider extends ChangeNotifier {
     http
         .post(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
       body: jsonEncode({
         '_id': id,
         'playerId': playerId,

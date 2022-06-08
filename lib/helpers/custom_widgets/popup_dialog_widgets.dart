@@ -256,7 +256,7 @@ class PopupDialogWidgets {
                     if (screen == "player") {
                       context.read(playerProvider).deletePlayer(itemId);
                     } else if (screen == "match") {
-                      context.read(matchProvider).deleteMatch(itemId);
+                      context.read(matchProvider).deleteMatch(id:itemId);
                     } else if (screen == "game") {
                       context.read(gameProvider).deleteGame(itemId);
                     } else {
