@@ -87,11 +87,11 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchMatch({
-    String baseName = '192.168.1.9:3000',
+    String baseName = 'www.eldrway.com',
     String portName = '3000',
     String currentName = 'matches',
   }) async {
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -108,12 +108,12 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> addMatchHttp(
-      {String baseName = '192.168.1.9:3000',
+      {String baseName = 'www.eldrway.com',
       String portName = '3000',
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     await http.post(
       url,
       headers: {'x-access-token': authToken},
@@ -175,14 +175,14 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> deleteMatch({
-    String baseName = '192.168.1.9:3000',
+    String baseName = 'www.eldrway.com',
     String currentName = 'remove_match',
     required String id,
   }) async {
     int matchIndex = getMatchIndex(id);
     _matches.removeAt(matchIndex);
     notifyListeners();
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     await http.delete(
       url,
       headers: {'x-access-token': authToken},
@@ -224,7 +224,7 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> updateMatch({
-    String baseName = '192.168.1.9:3000',
+    String baseName = 'www.eldrway.com',
     String portName = '3000',
     String currentName = 'update_match',
     required String id,
@@ -235,7 +235,7 @@ class MatchProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     http
         .post(
       url,

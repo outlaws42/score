@@ -29,11 +29,11 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> fetchGame({
-    String baseName = '192.168.1.9:3000',
+    String baseName = 'www.eldrway.com',
     String portName = '3000',
     String currentName = 'games',
   }) async {
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     final response = await http.get(
       url,
       headers: {
@@ -52,14 +52,14 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> addGame({
-    String baseName = '192.168.1.9:3000',
+    String baseName = 'www.eldrway.com',
     String portName = '3000',
     String currentName = 'add_game',
     required String name,
     required String description,
     bool lowScore = false,
   }) async {
-    final url = Uri.parse('http://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$baseName/score_api/$currentName');
     http
         .post(
       url,
