@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../models/settings_model.dart';
 import '../controllers/settings_provider.dart';
 import '../helpers.dart';
 
@@ -13,15 +14,25 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // bool isScreenOn = false;
-  // bool isViberate = false;
-  // bool isLowScore = false;
-  void saveEach(int id, String setting, int active) {
-    // Save for each field save
-    if (setting.isEmpty) {
-      return;
-    }
-    context.read(settingsProvider).addSettings(id, setting, active);
+  final _urlController = TextEditingController();
+//   // bool isScreenOn = false;
+//   // bool isViberate = false;
+//   // bool isLowScore = false;
+//   void saveEach(int id, String setting, int active) {
+//     // Save for each field save
+//     if (setting.isEmpty) {
+//       return;
+//     }
+//     context.read(settingsProvider).addSettings(id, setting, active);
+//   }
+
+  void _saveSettings(
+    bool darkMode,
+  ) {
+    final newSettings = SettingsModel(
+      url: _urlController.text,
+      isDarkMode: darkMode,
+    );
   }
 
   @override
@@ -33,12 +44,22 @@ class _SettingsState extends State<Settings> {
           'Settings',
           style: Theme.of(context).textTheme.headline3,
         ),
-        actions: [],
+        actions: [
+          IconButton(
+            onPressed: () {
+              
+            } ,
+            icon: Icon(
+              Icons.save,
+            ),
+          )
+        ],
       ),
       // body:
       body: Consumer(builder: (context, ScopedReader watch, child) {
-        // final settingData = watch(settingsProvider);
+        final settingData = watch(settingsProvider);
         // bool _isDarkMode = settingData.settings[0].active == 0 ? false : true;
+        bool _isDarkMode = settingData.isDarkMode;
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -56,7 +77,7 @@ class _SettingsState extends State<Settings> {
                 //   context: context,
                 //   title: "Share Database",
                 //   subtitle:
-                //       "This option gives you some flexibility" 
+                //       "This option gives you some flexibility"
                 //       "where you want to backup the database.",
                 //   action: "share",
                 //   icon: Icon(Icons.share),
@@ -67,7 +88,7 @@ class _SettingsState extends State<Settings> {
                 //   context: context,
                 //   title: "Export Database",
                 //   subtitle:
-                //       "This option will backup the database in the apps folder." 
+                //       "This option will backup the database in the apps folder."
                 //       "The path and file name will be dislayed at the bottom once exported",
                 //   action: "export",
                 //   icon: Icon(MdiIcons.databaseExport),
@@ -78,12 +99,51 @@ class _SettingsState extends State<Settings> {
                 //   context: context,
                 //   title: "Import Database",
                 //   subtitle:
-                //       "This option will import the selected" 
+                //       "This option will import the selected"
                 //       "database overwriting the current database",
                 //   action: "import",
                 //   icon: Icon(MdiIcons.databaseImport),
                 // ),
                 // About (Category)
+                PageWidgets.settingsCategoryHeader(
+                  context: context,
+                  sectionTitle: "Connection Settings",
+                ),
+
+                ListTile(
+                    title: FormWidgets.formTextInput(
+                  context: context,
+                  controller: _urlController,
+                  labelText: 'Base URL',
+                  hintText: 'This is the base URL to the API backend',
+                  maxLength: 20,
+                )),
+                PageWidgets.settingsCategoryHeader(
+                  context: context,
+                  sectionTitle: "Display Settings",
+                ),
+                SwitchListTile(
+                  title: Text('Dark Mode'),
+                  activeColor: Colors.white,
+                  activeTrackColor: Colors.black54,
+                  inactiveTrackColor: Theme.of(context).iconTheme.color,
+                  value: _isDarkMode,
+                  onChanged: (boolVal) {
+                    settingData.updateTheme();
+                  },
+                ),
+                // Text(
+                //   'Dark Mode',
+                //   style: Theme.of(context).textTheme.headline6,
+                // ),
+                // CheckboxListTile(
+                //   title: Text('Dark Mode'),
+                //   value: _isDarkMode,
+                //   onChanged: (_) {
+                //     _isDarkMode =context.read(settingsProvider).toggle(isChecked: false);
+                //   }
+                // ),
+
                 PageWidgets.settingsCategoryHeader(
                   context: context,
                   sectionTitle: "About",

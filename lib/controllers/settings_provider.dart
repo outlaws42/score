@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/db_helper.dart';
 import '../models/settings_model.dart';
 
@@ -10,10 +12,16 @@ class SettingsProvider extends ChangeNotifier {
   List<SettingsModel> get settings {
     return [..._settings];
   }
+  bool isDarkMode = false;
+
+  void updateTheme() {
+    isDarkMode = !isDarkMode;
+    notifyListeners();
+  }
 
   Future<String> getVersionNumber() async {
     // Gets version from pubspec.yaml requires package_info_plus package
-    PackageInfo packageInfo =  await PackageInfo.fromPlatform();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String appVersion = packageInfo.version;
     return appVersion;
   }
@@ -25,45 +33,54 @@ class SettingsProvider extends ChangeNotifier {
     return appName;
   }
 
-  Future<void> fetchSettings() async {
-    final dataList = await DBHelper.getData('setting');
-    if (dataList.isNotEmpty)  { 
-    _settings = dataList
-        .map(
-          (setting) => SettingsModel(
-            id: setting['id'] as int,
-            setting: setting['setting'] as String?,
-            active: setting['active'] as int?,
-          ),
-        )
-        .toList();
-    } else {
-      addSettings(0, 'darkMode', 0);
-      addSettings(1, 'screenOn', 0);
-      addSettings(2, 'buttonFeedback', 0);
-
-    }
-    notifyListeners();
-  }
-
-  Future<void> addSettings(
-    int id,
-    String settings,
-    int active,
+  Future<void> saveSettings(
+    SettingsModel settings
   ) async {
-    final newSetting = SettingsModel(
-      id: id,
-      setting: settings,
-      active: active,
-    );
-    _settings.add(newSetting);
-    notifyListeners();
-    DBHelper.insert('setting', {
-      'id': newSetting.id,
-      'setting': newSetting.setting,
-      'active': newSetting.active,
-    });
-    fetchSettings();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('url', settings.url);
+    await prefs.setBool('darkMode', settings.isDarkMode);
+
   }
+  // Future<void> fetchSettings() async {
+  //   final dataList = await DBHelper.getData('setting');
+  //   if (dataList.isNotEmpty)  {
+  //   _settings = dataList
+  //       .map(
+  //         (setting) => SettingsModel(
+  //           id: setting['id'] as int,
+  //           setting: setting['setting'] as String?,
+  //           active: setting['active'] as int?,
+  //         ),
+  //       )
+  //       .toList();
+  //   } else {
+  //     addSettings(0, 'darkMode', 0);
+  //     addSettings(1, 'screenOn', 0);
+  //     addSettings(2, 'buttonFeedback', 0);
+
+  //   }
+  //   notifyListeners();
+  // }
+
+  // Future<void> addSettings(
+  //   int id,
+  //   String settings,
+  //   int active,
+  // ) async {
+  //   final newSetting = SettingsModel(
+  //     id: id,
+  //     setting: settings,
+  //     active: active,
+  //   );
+  //   _settings.add(newSetting);
+  //   notifyListeners();
+  //   DBHelper.insert('setting', {
+  //     'id': newSetting.id,
+  //     'setting': newSetting.setting,
+  //     'active': newSetting.active,
+  //   });
+  //   fetchSettings();
+  // }
 
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 class SettingsModel with ChangeNotifier {
-  final int id;
-  final String? setting;
-  final int? active;
+  final String url;
+  final bool isDarkMode;
+  // final int? active;
 
   SettingsModel({
-    this.id=0,
-    this.setting,
-    this.active,
+   required this.url,
+   required this.isDarkMode,
+    // this.active,
   });
 }
