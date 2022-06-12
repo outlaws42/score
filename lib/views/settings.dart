@@ -14,7 +14,9 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final _urlController = TextEditingController();
+
+
+  // final _urlController = TextEditingController(text: );
 //   // bool isScreenOn = false;
 //   // bool isViberate = false;
 //   // bool isLowScore = false;
@@ -23,21 +25,29 @@ class _SettingsState extends State<Settings> {
 //     if (setting.isEmpty) {
 //       return;
 //     }
-//     context.read(settingsProvider).addSettings(id, setting, active);
+    // context.read(settingsProvider).addSettings(id, setting, active);
 //   }
 
   void _saveSettings(
+    String url,
     bool darkMode,
   ) {
     final newSettings = SettingsModel(
-      url: _urlController.text,
+      url: url,
       isDarkMode: darkMode,
     );
+    context.read(settingsProvider).saveSettings(newSettings);
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    String _url = context.read(settingsProvider).settings[0].url.toString();
+    bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
     final ver = context.read(settingsProvider).getVersionNumber();
+    final _urlController = TextEditingController(text: _url);
+    //  final _urlController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -47,7 +57,7 @@ class _SettingsState extends State<Settings> {
         actions: [
           IconButton(
             onPressed: () {
-              
+              _saveSettings(_url, _isDarkMode);
             } ,
             icon: Icon(
               Icons.save,
@@ -59,7 +69,8 @@ class _SettingsState extends State<Settings> {
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final settingData = watch(settingsProvider);
         // bool _isDarkMode = settingData.settings[0].active == 0 ? false : true;
-        bool _isDarkMode = settingData.isDarkMode;
+        // bool _isDarkMode = settingData.isDarkMode;
+        // final _url = settingData.settings[0].url; 
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

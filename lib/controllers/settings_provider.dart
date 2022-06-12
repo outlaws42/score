@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -12,6 +14,7 @@ class SettingsProvider extends ChangeNotifier {
   List<SettingsModel> get settings {
     return [..._settings];
   }
+
   bool isDarkMode = false;
 
   void updateTheme() {
@@ -33,14 +36,35 @@ class SettingsProvider extends ChangeNotifier {
     return appName;
   }
 
-  Future<void> saveSettings(
-    SettingsModel settings
-  ) async {
+  Future<void> saveSettings(SettingsModel settings) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('url', settings.url);
     await prefs.setBool('darkMode', settings.isDarkMode);
+    final settingsList = [
+      SettingsModel(
+        url: settings.url,
+        isDarkMode: settings.isDarkMode,
+      ),
+    ];
+    _settings = settingsList;
+    print('Saved Settings');
+    notifyListeners();
+  }
 
+  Future<void> getSettings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final url = prefs.getString('url') ?? '';
+    final isDarkMode = prefs.getBool('darkMode') ?? false;
+    final settingsList = [
+      SettingsModel(
+        url: url,
+        isDarkMode: isDarkMode,
+      ),
+    ];
+    _settings = settingsList;
+    print('Load Settings');
+    notifyListeners();
   }
   // Future<void> fetchSettings() async {
   //   final dataList = await DBHelper.getData('setting');
