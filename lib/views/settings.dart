@@ -134,16 +134,20 @@ class _SettingsState extends State<Settings> {
                   context: context,
                   sectionTitle: "Display Settings",
                 ),
-                SwitchListTile(
-                  title: Text('Dark Mode'),
-                  activeColor: Colors.white,
-                  activeTrackColor: Colors.black54,
-                  inactiveTrackColor: Theme.of(context).iconTheme.color,
-                  value: _isDarkMode,
-                  onChanged: (boolVal) {
-                    settingData.toggle(_isDarkMode);
-                  },
+                ListTile(
+                  title: Text('Theme Mode'),
+                  trailing: DropdownButton<String>(items: [], onChanged: (_){},),
                 ),
+                // SwitchListTile(
+                //   title: Text('Dark Mode'),
+                //   activeColor: Colors.white,
+                //   activeTrackColor: Colors.black54,
+                //   inactiveTrackColor: Theme.of(context).iconTheme.color,
+                //   value: _isDarkMode,
+                //   onChanged: (boolVal) {
+                //     settingData.toggle(_isDarkMode);
+                //   },
+                // ),
                 // Text(
                 //   'Dark Mode',
                 //   style: Theme.of(context).textTheme.headline6,

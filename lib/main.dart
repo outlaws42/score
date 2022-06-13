@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.lightTheme,
         darkTheme: ThemeConfig.darkTheme,
-        themeMode: theme == true ? ThemeMode.dark : ThemeMode.light,
+        themeMode: auth(settingsProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
             : FutureBuilder(

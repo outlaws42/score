@@ -9,12 +9,28 @@ import '../models/settings_model.dart';
 
 class SettingsProvider extends ChangeNotifier {
   // late SharedPreferences  prefs;
+  String currentTheme = 'system';
+
   List<SettingsModel> _settings = [];
 
   List<SettingsModel> get settings {
     return [..._settings];
   }
 
+  ThemeMode get themeMode {
+    if (currentTheme == 'light'){
+      return ThemeMode.light;
+    }else if (currentTheme == 'dark'){
+      return ThemeMode.dark;
+    } else {
+      return ThemeMode.system;
+    }
+  }
+
+  changeTheme(String theme){
+    currentTheme = theme;
+    notifyListeners();
+  } 
   // bool isDarkMode = false;
 
   // void updateTheme() {
