@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../models/settings_model.dart';
 import '../controllers/settings_provider.dart';
 import '../helpers.dart';
@@ -14,17 +13,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // final _urlController = TextEditingController(text: );
-//   // bool isScreenOn = false;
-//   // bool isViberate = false;
-//   // bool isLowScore = false;
-//   void saveEach(int id, String setting, int active) {
-//     // Save for each field save
-//     if (setting.isEmpty) {
-//       return;
-//     }
-  // context.read(settingsProvider).addSettings(id, setting, active);
-//   }
 
   void _saveSettings(
     String url,
@@ -65,54 +53,11 @@ class _SettingsState extends State<Settings> {
       ),
       // body:
       body: Consumer(builder: (context, ScopedReader watch, child) {
-        final settingData = watch(settingsProvider);
-        bool _isDarkMode = settingData.settings[0].isDarkMode;
-        // bool _isDarkMode = settingData.isDarkMode;
-        // final _url = settingData.settings[0].url;
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                // Export Import Database
-                // Database (Category)
-                // PageWidgets.settingsCategoryHeader(
-                //   context: context,
-                //   sectionTitle: "Database",
-                // ),
-
-                // Share Database
-                // PageWidgets.settingsItemIcon(
-                //   context: context,
-                //   title: "Share Database",
-                //   subtitle:
-                //       "This option gives you some flexibility"
-                //       "where you want to backup the database.",
-                //   action: "share",
-                //   icon: Icon(Icons.share),
-                // ),
-                // PageWidgets.settingHr(),
-                // // Export Database
-                // PageWidgets.settingsItemIcon(
-                //   context: context,
-                //   title: "Export Database",
-                //   subtitle:
-                //       "This option will backup the database in the apps folder."
-                //       "The path and file name will be dislayed at the bottom once exported",
-                //   action: "export",
-                //   icon: Icon(MdiIcons.databaseExport),
-                // ),
-                // PageWidgets.settingHr(),
-                // // Import Database
-                // PageWidgets.settingsItemIcon(
-                //   context: context,
-                //   title: "Import Database",
-                //   subtitle:
-                //       "This option will import the selected"
-                //       "database overwriting the current database",
-                //   action: "import",
-                //   icon: Icon(MdiIcons.databaseImport),
-                // ),
                 // About (Category)
                 PageWidgets.settingsCategoryHeader(
                   context: context,
@@ -164,28 +109,7 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                 ),
-                // SwitchListTile(
-                //   title: Text('Dark Mode'),
-                //   activeColor: Colors.white,
-                //   activeTrackColor: Colors.black54,
-                //   inactiveTrackColor: Theme.of(context).iconTheme.color,
-                //   value: _isDarkMode,
-                //   onChanged: (boolVal) {
-                //     settingData.toggle(_isDarkMode);
-                //   },
-                // ),
-                // Text(
-                //   'Dark Mode',
-                //   style: Theme.of(context).textTheme.headline6,
-                // ),
-                // CheckboxListTile(
-                //   title: Text('Dark Mode'),
-                //   value: _isDarkMode,
-                //   onChanged: (_) {
-                //     _isDarkMode =context.read(settingsProvider).toggle(isChecked: false);
-                //   }
-                // ),
-
+               
                 PageWidgets.settingsCategoryHeader(
                   context: context,
                   sectionTitle: "About",

@@ -44,21 +44,20 @@ class MyApp extends StatelessWidget {
     BuildContext context,
   ) {
     context.read(settingsProvider).getSettings();
-    return Consumer(builder: (context, auth, _) {
-      final _authSwitch = auth(authProvider).isAuth;
-      auth(settingsProvider).intialize();
-      // final theme = auth(settingsProvider).settings[0].isDarkMode;
+    return Consumer(builder: (context, function, _) {
+      final _authSwitch = function(authProvider).isAuth;
+      function(settingsProvider).intialize(); // itizize the theme
 
       return GetMaterialApp(
         title: 'Scoreboard',
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.lightTheme,
         darkTheme: ThemeConfig.darkTheme,
-        themeMode: auth(settingsProvider).themeMode,
+        themeMode: function(settingsProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
             : FutureBuilder(
-                future: auth(authProvider).tryAutoLogin(),
+                future: function(authProvider).tryAutoLogin(),
                 builder: (
                   ctx,
                   authResultSnapshot,

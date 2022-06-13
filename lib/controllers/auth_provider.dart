@@ -20,23 +20,6 @@ class AuthProvider with ChangeNotifier {
     return null;
   }
 
-  // Future<void> signup(
-  //   String email,
-  //   String password,
-  // ) async {
-  //   final url = Uri.parse('https://192.168.1.9:3000/score_api/login');
-  //   final response = await http.post(
-  //     url,
-  //     body: jsonEncode(
-  //       {
-  //         'email': email,
-  //         'password': email,
-  //       },
-  //     ),
-  //   );
-  //   print(jsonDecode(response.body));
-  // }
-
   Future<void> login(
     String email,
     String password,

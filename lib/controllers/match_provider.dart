@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/match_model.dart';
-import './settings_provider.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];

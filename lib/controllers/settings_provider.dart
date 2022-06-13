@@ -1,10 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../helpers/db_helper.dart';
 import '../models/settings_model.dart';
 
 class SettingsProvider extends ChangeNotifier {
@@ -46,12 +44,12 @@ class SettingsProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void toggle(_switchStat) {
-    print('Switch before it toggles: $_switchStat');
-    _switchStat = !_switchStat;
-    print('Switch after it toggles: $_switchStat');
-    updateDarkMode(_switchStat);
-  }
+  // void toggle(_switchStat) {
+  //   print('Switch before it toggles: $_switchStat');
+  //   _switchStat = !_switchStat;
+  //   print('Switch after it toggles: $_switchStat');
+  //   updateDarkMode(_switchStat);
+  // }
 
 
   Future<String> getVersionNumber() async {
@@ -68,14 +66,14 @@ class SettingsProvider extends ChangeNotifier {
     return appName;
   }
 
-  Future<void> updateDarkMode(bool switchStat) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('Switch before save updateSettings: $switchStat');
-    await prefs.setBool('darkMode', switchStat);
-    _settings[0].isDarkMode = switchStat;
-    print('Update Settings');
-    notifyListeners();
-  }
+  // Future<void> updateDarkMode(bool switchStat) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   print('Switch before save updateSettings: $switchStat');
+  //   await prefs.setBool('darkMode', switchStat);
+  //   _settings[0].isDarkMode = switchStat;
+  //   print('Update Settings');
+  //   notifyListeners();
+  // }
 
   Future<void> saveSettings(SettingsModel settings) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
