@@ -22,7 +22,7 @@ class PageWidgets {
       onPressed: () => Get.toNamed(pageLink, arguments: args),
       icon: icon,
       iconSize: iconSize,
-      color: Theme.of(context).appBarTheme.foregroundColor,
+      color:Colors.white,
     );
   }
 
@@ -43,7 +43,7 @@ class PageWidgets {
       ),
       icon: icon,
       iconSize: iconSize,
-      color: Theme.of(context).appBarTheme.foregroundColor,
+      color:Colors.white,
     );
   }
 

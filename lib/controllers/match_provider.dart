@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/match_model.dart';
+import './settings_provider.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];
@@ -91,6 +92,7 @@ class MatchProvider extends ChangeNotifier {
     String portName = '3000',
     String currentName = 'matches',
   }) async {
+    // SettingsProvider.settings[0].url.toString();
     final url = Uri.parse('https://$baseName/score_api/$currentName');
     final response = await http.get(
       url,

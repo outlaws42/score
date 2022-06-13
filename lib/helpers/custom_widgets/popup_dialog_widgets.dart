@@ -63,6 +63,7 @@ class PopupDialogWidgets {
     Get.defaultDialog(
       radius: 10.0,
       title: sign == "add" ? "Add Amount" : "Subtract Amount",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Column(
         children: [
           Row(
@@ -180,6 +181,7 @@ class PopupDialogWidgets {
     Get.defaultDialog(
       radius: 10.0,
       title: "The Game Is Complete",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Column(
         children: [
           Row(
@@ -221,6 +223,7 @@ class PopupDialogWidgets {
     Get.defaultDialog(
       radius: 10.0,
       title: "Warning",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Column(
         children: [
           Icon(
@@ -284,6 +287,7 @@ class PopupDialogWidgets {
     Get.defaultDialog(
       radius: 10.0,
       title: "Warning",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Column(
         children: [
           Icon(
@@ -364,6 +368,7 @@ class PopupDialogWidgets {
     Get.defaultDialog(
       title: "Score Help",
       radius: 10.0,
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Container(
         width: width,
         height: height,

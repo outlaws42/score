@@ -15,12 +15,20 @@ class SettingsProvider extends ChangeNotifier {
     return [..._settings];
   }
 
-  bool isDarkMode = false;
+  // bool isDarkMode = false;
 
-  void updateTheme() {
-    isDarkMode = !isDarkMode;
-    notifyListeners();
+  // void updateTheme() {
+  //   isDarkMode = !isDarkMode;
+  //   notifyListeners();
+  // }
+
+  void toggle(_switchStat) {
+    print('Switch before it toggles: $_switchStat');
+    _switchStat = !_switchStat;
+    print('Switch after it toggles: $_switchStat');
+    updateDarkMode(_switchStat);
   }
+
 
   Future<String> getVersionNumber() async {
     // Gets version from pubspec.yaml requires package_info_plus package
@@ -34,6 +42,15 @@ class SettingsProvider extends ChangeNotifier {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String appName = packageInfo.appName;
     return appName;
+  }
+
+  Future<void> updateDarkMode(bool switchStat) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print('Switch before save updateSettings: $switchStat');
+    await prefs.setBool('darkMode', switchStat);
+    _settings[0].isDarkMode = switchStat;
+    print('Update Settings');
+    notifyListeners();
   }
 
   Future<void> saveSettings(SettingsModel settings) async {

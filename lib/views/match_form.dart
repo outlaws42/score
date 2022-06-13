@@ -71,6 +71,7 @@ class _MatchFormState extends State<MatchForm> {
     Get.defaultDialog(
       radius: 10.0,
       title: "Warning",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
       content: Column(
         children: [
           Text("You need to select a game and  at least 2 players"),
@@ -122,13 +123,14 @@ class _MatchFormState extends State<MatchForm> {
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Card(
+                    color: Theme.of(context).appBarTheme.foregroundColor,
                     elevation: 4,
                     child: ListTile(
                       title: Text('$_game',
                           style: Theme.of(context).textTheme.headline4),
                       trailing: Icon(
                         Icons.games,
-                        color: Theme.of(context).appBarTheme.backgroundColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       onTap: () => goToGame(),
                     ),
@@ -140,15 +142,14 @@ class _MatchFormState extends State<MatchForm> {
                     ? Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Card(
+                          color: Theme.of(context).appBarTheme.foregroundColor,
                           elevation: 4,
                           child: ListTile(
                               title: Text('Select Players',
                                   style: Theme.of(context).textTheme.headline4),
                               trailing: Icon(
                                 Icons.person_add,
-                                color: Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                               onTap: () {
                                 goToPlay();
@@ -167,9 +168,7 @@ class _MatchFormState extends State<MatchForm> {
                                         Theme.of(context).textTheme.headline4),
                                 trailing: Icon(
                                   Icons.person_add,
-                                  color: Theme.of(context)
-                                      .appBarTheme
-                                      .backgroundColor,
+                                  color:Theme.of(context).colorScheme.primary,
                                 ),
                                 onTap: () {
                                   _gamePlayers = [];
@@ -218,7 +217,8 @@ class _MatchFormState extends State<MatchForm> {
                     },
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.white,
-                      primary: Theme.of(context).colorScheme.secondaryContainer,
+                      primary: Theme.of(context).appBarTheme.backgroundColor,
+                      // primary: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                     icon: Icon(Icons.games),
                     label: Text('Submit'),

@@ -14,7 +14,7 @@ class BottomSheetWidgets {
     
     Get.bottomSheet(
       Container(
-        color: Colors.white,
+        color: Theme.of(buildContext).appBarTheme.foregroundColor,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: _wins.length == 0
@@ -89,7 +89,7 @@ class BottomSheetWidgets {
   }) {
     Get.bottomSheet(
       Container(
-        color: Colors.white,
+        color: Theme.of(context).appBarTheme.foregroundColor,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
@@ -119,7 +119,7 @@ class BottomSheetWidgets {
   }) {
     Get.bottomSheet(
       Container(
-        color: Colors.white,
+        color: Theme.of(context).appBarTheme.foregroundColor,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(

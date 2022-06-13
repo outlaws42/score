@@ -28,6 +28,7 @@ class GameScreen extends StatelessWidget {
           PopupMenuButton(
               iconSize: 30,
               icon: Icon(Icons.menu),
+              color: Theme.of(context).appBarTheme.foregroundColor,
               itemBuilder: (BuildContext context) => <PopupMenuItem>[
                     MenuWidgets.menuItem(
                       context: context,

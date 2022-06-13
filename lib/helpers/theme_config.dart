@@ -107,8 +107,8 @@ class ThemeConfig {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Color.fromRGBO(35, 38, 37, 1),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.teal,
-      foregroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 42, 49, 53),
+      foregroundColor: Color.fromRGBO(35, 38, 37, 1),
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -116,7 +116,7 @@ class ThemeConfig {
     colorScheme: ColorScheme.dark(
       primary: Colors.white70,
       onPrimary: Colors.black38,
-      primaryContainer: Colors.teal,
+      primaryContainer: Colors.blue,
       secondary: Colors.black,
       secondaryContainer: Colors.white30,
     ),
@@ -135,7 +135,7 @@ class ThemeConfig {
       ),
       headline2: TextStyle(
         color: Colors.white,
-        fontSize: 30.0,
+        fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
       headline3: TextStyle(
@@ -145,12 +145,12 @@ class ThemeConfig {
       ),
       headline4: TextStyle(
         color: Colors.white,
-        fontSize: 14.0,
+        fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
       headline5: TextStyle(
         color: Colors.white70,
-        fontSize: 16.0,
+        fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
@@ -160,8 +160,28 @@ class ThemeConfig {
       ),
       subtitle1: TextStyle(
         color: Color.fromRGBO(255, 255, 255, .85), 
-        fontSize: 14.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.normal,
+      ),
+      subtitle2: TextStyle(
+        color: Color.fromRGBO(255, 255, 255, .85), 
+        fontSize: 16.0,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyText1: TextStyle(
+        color: Colors.white,
+        fontSize: 12.0,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyText2: TextStyle(
+        color: Colors.white,
+        fontSize: 12.0,
+        fontWeight: FontWeight.normal,
+      ),
+      button: TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
       ),
     ),
     buttonTheme: ButtonThemeData(

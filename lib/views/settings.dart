@@ -44,6 +44,7 @@ class _SettingsState extends State<Settings> {
     
     String _url = context.read(settingsProvider).settings[0].url.toString();
     bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
+    print('_isDarkMode at Build: $_isDarkMode');
     final ver = context.read(settingsProvider).getVersionNumber();
     final _urlController = TextEditingController(text: _url);
     //  final _urlController = TextEditingController();
@@ -57,7 +58,7 @@ class _SettingsState extends State<Settings> {
         actions: [
           IconButton(
             onPressed: () {
-              _saveSettings(_url, _isDarkMode);
+              _saveSettings(_urlController.text, _isDarkMode);
             } ,
             icon: Icon(
               Icons.save,
@@ -68,7 +69,7 @@ class _SettingsState extends State<Settings> {
       // body:
       body: Consumer(builder: (context, ScopedReader watch, child) {
         final settingData = watch(settingsProvider);
-        // bool _isDarkMode = settingData.settings[0].active == 0 ? false : true;
+        bool _isDarkMode = settingData.settings[0].isDarkMode;
         // bool _isDarkMode = settingData.isDarkMode;
         // final _url = settingData.settings[0].url; 
         return SingleChildScrollView(
@@ -140,7 +141,7 @@ class _SettingsState extends State<Settings> {
                   inactiveTrackColor: Theme.of(context).iconTheme.color,
                   value: _isDarkMode,
                   onChanged: (boolVal) {
-                    settingData.updateTheme();
+                    settingData.toggle(_isDarkMode);
                   },
                 ),
                 // Text(

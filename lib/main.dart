@@ -43,15 +43,17 @@ class MyApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    context.read(settingsProvider).getSettings();
     return Consumer(builder: (context, auth, _) {
       final _authSwitch = auth(authProvider).isAuth;
-      context.read(settingsProvider).getSettings();
+      final theme = auth(settingsProvider).settings[0].isDarkMode;
 
       return GetMaterialApp(
         title: 'Scoreboard',
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.lightTheme,
         darkTheme: ThemeConfig.darkTheme,
+        themeMode: theme == true ? ThemeMode.dark : ThemeMode.light,
         home: _authSwitch == true
             ? MatchScreen()
             : FutureBuilder(
@@ -64,7 +66,6 @@ class MyApp extends StatelessWidget {
                             ConnectionState.waiting
                         ? SplashScreen()
                         : AuthScreen()),
-        themeMode: ThemeMode.light,
         getPages: [
           GetPage(name: '/match', page: () => MatchScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
