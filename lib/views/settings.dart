@@ -14,8 +14,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-
-
   // final _urlController = TextEditingController(text: );
 //   // bool isScreenOn = false;
 //   // bool isViberate = false;
@@ -25,7 +23,7 @@ class _SettingsState extends State<Settings> {
 //     if (setting.isEmpty) {
 //       return;
 //     }
-    // context.read(settingsProvider).addSettings(id, setting, active);
+  // context.read(settingsProvider).addSettings(id, setting, active);
 //   }
 
   void _saveSettings(
@@ -41,7 +39,6 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    
     String _url = context.read(settingsProvider).settings[0].url.toString();
     bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
     print('_isDarkMode at Build: $_isDarkMode');
@@ -59,7 +56,7 @@ class _SettingsState extends State<Settings> {
           IconButton(
             onPressed: () {
               _saveSettings(_urlController.text, _isDarkMode);
-            } ,
+            },
             icon: Icon(
               Icons.save,
             ),
@@ -71,7 +68,7 @@ class _SettingsState extends State<Settings> {
         final settingData = watch(settingsProvider);
         bool _isDarkMode = settingData.settings[0].isDarkMode;
         // bool _isDarkMode = settingData.isDarkMode;
-        // final _url = settingData.settings[0].url; 
+        // final _url = settingData.settings[0].url;
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -136,7 +133,36 @@ class _SettingsState extends State<Settings> {
                 ),
                 ListTile(
                   title: Text('Theme Mode'),
-                  trailing: DropdownButton<String>(items: [], onChanged: (_){},),
+                  trailing: DropdownButton<String>(
+                    value: watch(settingsProvider).currentTheme,
+                    items: [
+                      // Light, Dark, System
+                      DropdownMenuItem<String>(
+                        value: 'light',
+                        child: Text(
+                          'Light',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'dark',
+                        child: Text(
+                          'Dark',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'system',
+                        child: Text(
+                          'System',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                    ],
+                    onChanged: (String? value) {
+                      watch(settingsProvider).changeTheme(value ?? 'system');
+                    },
+                  ),
                 ),
                 // SwitchListTile(
                 //   title: Text('Dark Mode'),

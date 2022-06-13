@@ -46,7 +46,8 @@ class MyApp extends StatelessWidget {
     context.read(settingsProvider).getSettings();
     return Consumer(builder: (context, auth, _) {
       final _authSwitch = auth(authProvider).isAuth;
-      final theme = auth(settingsProvider).settings[0].isDarkMode;
+      auth(settingsProvider).intialize();
+      // final theme = auth(settingsProvider).settings[0].isDarkMode;
 
       return GetMaterialApp(
         title: 'Scoreboard',
