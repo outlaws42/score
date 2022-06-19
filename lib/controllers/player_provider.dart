@@ -18,8 +18,12 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   final String authToken;
+  final String baseUrl;
 
-  PlayerProvider(this.authToken);
+  PlayerProvider(
+    this.authToken,
+    this.baseUrl,
+  );
 
   void addSelectedPlayer({
     playerName,
@@ -124,9 +128,7 @@ class PlayerProvider extends ChangeNotifier {
     final url = Uri.parse('https://$baseName/score_api/$currentName');
     final response = await http.get(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
     );
     final List<PlayerModel> loadCurrent = [];
     final json = jsonDecode(response.body);
@@ -150,9 +152,7 @@ class PlayerProvider extends ChangeNotifier {
     http
         .post(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
       body: jsonEncode({
         'name': name,
       }),
@@ -220,9 +220,7 @@ class PlayerProvider extends ChangeNotifier {
     http
         .post(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
       body: jsonEncode({
         '_id': id,
         'playerId': playerId,

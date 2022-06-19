@@ -11,8 +11,12 @@ class GameProvider extends ChangeNotifier {
   }
 
   final String authToken;
+  final String baseUrl;
 
-  GameProvider(this.authToken);
+  GameProvider(
+    this.authToken,
+    this.baseUrl,
+  );
 
   bool isLowScore = false;
 
@@ -36,9 +40,7 @@ class GameProvider extends ChangeNotifier {
     final url = Uri.parse('https://$baseName/score_api/$currentName');
     final response = await http.get(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
     );
     final List<GameModel> loadCurrent = [];
     final json = jsonDecode(response.body);
@@ -63,9 +65,7 @@ class GameProvider extends ChangeNotifier {
     http
         .post(
       url,
-      headers: {
-        'x-access-token': authToken
-      },
+      headers: {'x-access-token': authToken},
       body: jsonEncode({
         'name': name,
         'description': description,

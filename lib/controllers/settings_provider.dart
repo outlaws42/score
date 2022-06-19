@@ -8,6 +8,7 @@ import '../models/settings_model.dart';
 class SettingsProvider extends ChangeNotifier {
   // late SharedPreferences  prefs;
   String currentTheme = 'system';
+  String baseUrl = '192.168.1.9';
 
   List<SettingsModel> _settings = [];
 
@@ -25,6 +26,10 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
+  String get urlString {
+    return baseUrl;
+  }
+
   Future changeTheme(String theme) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('theme', theme);
@@ -35,8 +40,26 @@ class SettingsProvider extends ChangeNotifier {
   intialize() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     currentTheme = _prefs.getString('theme') ?? 'system';
+    baseUrl = _prefs.getString('url') ?? '192.168.1.9';
     notifyListeners();
   }
+
+
+
+  Future changeUrl(String url) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    await _prefs.setString('url', url);
+    baseUrl = url;
+    notifyListeners();
+  }
+
+  getUrl() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    baseUrl = _prefs.getString('url') ?? '192.168.1.9';
+    print('baseUrl in getUrl: $baseUrl');
+    notifyListeners();
+  } 
+
   // bool isDarkMode = false;
 
   // void updateTheme() {

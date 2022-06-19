@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 import '../models/settings_model.dart';
 import '../controllers/settings_provider.dart';
 import '../helpers.dart';
@@ -7,12 +8,42 @@ import '../helpers.dart';
 final settingsProvider =
     ChangeNotifierProvider<SettingsProvider>((ref) => SettingsProvider());
 
+final formControllerProvider =
+    StateProvider<TextEditingController>((ref) => TextEditingController());
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
+
+  final _urlController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start listening to changes.
+    // ignore: unnecessary_statements
+    // context.read(settingsProvider).getUrl();
+    _urlController.text = context.read(settingsProvider).urlString;
+    _urlController.addListener(_printLatestValue);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    _urlController.dispose();
+    super.dispose();
+  }
+
+  void _printLatestValue() {
+    print('Second text field: ${_urlController.text}');
+    context.read(settingsProvider).changeUrl(_urlController.text);
+    context.read(settingsProvider).getUrl();
+  }
 
   void _saveSettings(
     String url,
@@ -27,11 +58,11 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    String _url = context.read(settingsProvider).settings[0].url.toString();
-    bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
-    print('_isDarkMode at Build: $_isDarkMode');
+    // String _url = context.read(settingsProvider).settings[0].url.toString();
+    // bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
+    // print('_isDarkMode at Build: $_isDarkMode');
     final ver = context.read(settingsProvider).getVersionNumber();
-    final _urlController = TextEditingController(text: _url);
+    // final _urlController = TextEditingController(text: _url);
     //  final _urlController = TextEditingController();
 
     return Scaffold(
@@ -41,14 +72,14 @@ class _SettingsState extends State<Settings> {
           style: Theme.of(context).textTheme.headline3,
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              _saveSettings(_urlController.text, _isDarkMode);
-            },
-            icon: Icon(
-              Icons.save,
-            ),
-          )
+          // IconButton(
+          //   onPressed: () {
+          //     _saveSettings(_urlController.text, _isDarkMode);
+          //   },
+          //   icon: Icon(
+          //     Icons.save,
+          //   ),
+          // )
         ],
       ),
       // body:

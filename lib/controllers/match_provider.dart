@@ -16,8 +16,12 @@ class MatchProvider extends ChangeNotifier {
   }
 
   final String authToken;
+  final String baseUrl;
 
-  MatchProvider(this.authToken);
+  MatchProvider(
+    this.authToken,
+    this.baseUrl,
+  );
 
   void changeTileColor({
     required Color color,
