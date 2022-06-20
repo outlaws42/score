@@ -11,11 +11,9 @@ class GameProvider extends ChangeNotifier {
   }
 
   final String authToken;
-  final String baseUrl;
 
   GameProvider(
     this.authToken,
-    this.baseUrl,
   );
 
   bool isLowScore = false;

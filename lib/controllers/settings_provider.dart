@@ -1,20 +1,9 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/settings_model.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  // late SharedPreferences  prefs;
   String currentTheme = 'system';
-  String baseUrl = '192.168.1.9';
-
-  List<SettingsModel> _settings = [];
-
-  List<SettingsModel> get settings {
-    return [..._settings];
-  }
 
   ThemeMode get themeMode {
     if (currentTheme == 'light'){
@@ -24,10 +13,6 @@ class SettingsProvider extends ChangeNotifier {
     } else {
       return ThemeMode.system;
     }
-  }
-
-  String get urlString {
-    return baseUrl;
   }
 
   Future changeTheme(String theme) async {
@@ -40,40 +25,8 @@ class SettingsProvider extends ChangeNotifier {
   intialize() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     currentTheme = _prefs.getString('theme') ?? 'system';
-    baseUrl = _prefs.getString('url') ?? '192.168.1.9';
     notifyListeners();
   }
-
-
-
-  Future changeUrl(String url) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _prefs.setString('url', url);
-    baseUrl = url;
-    notifyListeners();
-  }
-
-  getUrl() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    baseUrl = _prefs.getString('url') ?? '192.168.1.9';
-    print('baseUrl in getUrl: $baseUrl');
-    notifyListeners();
-  } 
-
-  // bool isDarkMode = false;
-
-  // void updateTheme() {
-  //   isDarkMode = !isDarkMode;
-  //   notifyListeners();
-  // }
-
-  // void toggle(_switchStat) {
-  //   print('Switch before it toggles: $_switchStat');
-  //   _switchStat = !_switchStat;
-  //   print('Switch after it toggles: $_switchStat');
-  //   updateDarkMode(_switchStat);
-  // }
-
 
   Future<String> getVersionNumber() async {
     // Gets version from pubspec.yaml requires package_info_plus package
@@ -88,85 +41,5 @@ class SettingsProvider extends ChangeNotifier {
     String appName = packageInfo.appName;
     return appName;
   }
-
-  // Future<void> updateDarkMode(bool switchStat) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   print('Switch before save updateSettings: $switchStat');
-  //   await prefs.setBool('darkMode', switchStat);
-  //   _settings[0].isDarkMode = switchStat;
-  //   print('Update Settings');
-  //   notifyListeners();
-  // }
-
-  Future<void> saveSettings(SettingsModel settings) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('url', settings.url);
-    await prefs.setBool('darkMode', settings.isDarkMode);
-    final settingsList = [
-      SettingsModel(
-        url: settings.url,
-        isDarkMode: settings.isDarkMode,
-      ),
-    ];
-    _settings = settingsList;
-    print('Saved Settings');
-    notifyListeners();
-  }
-
-  Future<void> getSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final url = prefs.getString('url') ?? '';
-    final isDarkMode = prefs.getBool('darkMode') ?? false;
-    final settingsList = [
-      SettingsModel(
-        url: url,
-        isDarkMode: isDarkMode,
-      ),
-    ];
-    _settings = settingsList;
-    print('Load Settings');
-    notifyListeners();
-  }
-  // Future<void> fetchSettings() async {
-  //   final dataList = await DBHelper.getData('setting');
-  //   if (dataList.isNotEmpty)  {
-  //   _settings = dataList
-  //       .map(
-  //         (setting) => SettingsModel(
-  //           id: setting['id'] as int,
-  //           setting: setting['setting'] as String?,
-  //           active: setting['active'] as int?,
-  //         ),
-  //       )
-  //       .toList();
-  //   } else {
-  //     addSettings(0, 'darkMode', 0);
-  //     addSettings(1, 'screenOn', 0);
-  //     addSettings(2, 'buttonFeedback', 0);
-
-  //   }
-  //   notifyListeners();
-  // }
-
-  // Future<void> addSettings(
-  //   int id,
-  //   String settings,
-  //   int active,
-  // ) async {
-  //   final newSetting = SettingsModel(
-  //     id: id,
-  //     setting: settings,
-  //     active: active,
-  //   );
-  //   _settings.add(newSetting);
-  //   notifyListeners();
-  //   DBHelper.insert('setting', {
-  //     'id': newSetting.id,
-  //     'setting': newSetting.setting,
-  //     'active': newSetting.active,
-  //   });
-  //   fetchSettings();
-  // }
 
 }

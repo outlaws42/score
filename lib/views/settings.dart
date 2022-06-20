@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import '../models/settings_model.dart';
-import '../controllers/settings_provider.dart';
+import '../controllers/providers.dart';
 import '../helpers.dart';
 
-final settingsProvider =
-    ChangeNotifierProvider<SettingsProvider>((ref) => SettingsProvider());
 
-final formControllerProvider =
-    StateProvider<TextEditingController>((ref) => TextEditingController());
+
+// final formControllerProvider =
+//     StateProvider<TextEditingController>((ref) => TextEditingController());
 
 class Settings extends StatefulWidget {
   @override
@@ -18,52 +15,9 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  final _urlController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Start listening to changes.
-    // ignore: unnecessary_statements
-    // context.read(settingsProvider).getUrl();
-    _urlController.text = context.read(settingsProvider).urlString;
-    _urlController.addListener(_printLatestValue);
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
-    _urlController.dispose();
-    super.dispose();
-  }
-
-  void _printLatestValue() {
-    print('Second text field: ${_urlController.text}');
-    context.read(settingsProvider).changeUrl(_urlController.text);
-    context.read(settingsProvider).getUrl();
-  }
-
-  void _saveSettings(
-    String url,
-    bool darkMode,
-  ) {
-    final newSettings = SettingsModel(
-      url: url,
-      isDarkMode: darkMode,
-    );
-    context.read(settingsProvider).saveSettings(newSettings);
-  }
-
   @override
   Widget build(BuildContext context) {
-    // String _url = context.read(settingsProvider).settings[0].url.toString();
-    // bool _isDarkMode = context.read(settingsProvider).settings[0].isDarkMode;
-    // print('_isDarkMode at Build: $_isDarkMode');
     final ver = context.read(settingsProvider).getVersionNumber();
-    // final _urlController = TextEditingController(text: _url);
-    //  final _urlController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -89,20 +43,6 @@ class _SettingsState extends State<Settings> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                // About (Category)
-                PageWidgets.settingsCategoryHeader(
-                  context: context,
-                  sectionTitle: "Connection Settings",
-                ),
-
-                ListTile(
-                    title: FormWidgets.formTextInput(
-                  context: context,
-                  controller: _urlController,
-                  labelText: 'Base URL',
-                  hintText: 'This is the base URL to the API backend',
-                  maxLength: 20,
-                )),
                 PageWidgets.settingsCategoryHeader(
                   context: context,
                   sectionTitle: "Display Settings",

@@ -43,10 +43,10 @@ class MyApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    context.read(settingsProvider).getSettings();
     return Consumer(builder: (context, function, _) {
       final _authSwitch = function(authProvider).isAuth;
       function(settingsProvider).intialize(); // itizize the theme
+      
 
       return GetMaterialApp(
         title: 'Scoreboard',

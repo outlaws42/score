@@ -18,11 +18,9 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   final String authToken;
-  final String baseUrl;
 
   PlayerProvider(
     this.authToken,
-    this.baseUrl,
   );
 
   void addSelectedPlayer({

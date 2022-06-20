@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:score/views/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
@@ -21,17 +20,12 @@ class AuthProvider with ChangeNotifier {
     return null;
   }
 
-  final String baseUrl;
-
-  AuthProvider(
-    this.baseUrl,
-  );
-
   Future<void> login(
     String email,
     String password,
   ) async {
-    final url = Uri.parse('https://$baseUrl/score_api/login');
+    // print(baseUrl);
+    final url = Uri.parse('https://www.eldrway.com/score_api/login');
     var bytes = utf8.encode("$email:$password");
     var credentials = base64.encode(bytes);
     var headers = {
