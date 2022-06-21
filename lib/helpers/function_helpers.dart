@@ -13,7 +13,7 @@ import 'dart:async';
 import 'dart:io';
 // import 'dart:typed_data';
 import '../controllers/providers.dart';
-import './custom_widgets/popup_dialog_widgets.dart';
+import '../helpers.dart';
 
 class FunctionHelper {
 
@@ -267,11 +267,19 @@ class FunctionHelper {
   // }
 
   static license() async {
-    Uri _url =  Uri.parse('https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt') ;
+    Uri _url =  Uri.parse(licenseUrl) ;
     if (!await launchUrl(
       _url,
       // forceWebView: true,
       // enableJavaScript: true,
     )) throw 'Could not launch $_url';
   }
+
+  static sourceCode() async {
+    Uri _url =  Uri.parse(sourcCodeUrl) ;
+    if (!await launchUrl(
+      _url,
+    )) throw 'Could not launch $_url';
+  }
 }
+

@@ -93,7 +93,7 @@ class MatchProvider extends ChangeNotifier {
     String currentName = 'matches',
   }) async {
     // SettingsProvider.settings[0].url.toString();
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -113,7 +113,7 @@ class MatchProvider extends ChangeNotifier {
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     await http.post(
       url,
       headers: {'x-access-token': authToken},
@@ -181,7 +181,7 @@ class MatchProvider extends ChangeNotifier {
     int matchIndex = getMatchIndex(id);
     _matches.removeAt(matchIndex);
     notifyListeners();
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     await http.delete(
       url,
       headers: {'x-access-token': authToken},
@@ -232,7 +232,7 @@ class MatchProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     http
         .post(
       url,

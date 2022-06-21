@@ -126,6 +126,25 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
 
                 PageWidgets.settingHr(),
+
+                ListTile(
+                  title: Text(
+                    'Source Code',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  subtitle: Text(
+                    'You can view the source code for this app on Github at $sourcCodeUrl',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  // trailing: Text(
+                  //   "GPL V2",
+                  //   style: Theme.of(context).textTheme.headline6,
+                  // ),
+                  onTap: () async {
+                    FunctionHelper.sourceCode();
+                  },
+                ),
+                PageWidgets.settingHr(),
               ],
             ),
           ),

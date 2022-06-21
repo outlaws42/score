@@ -26,7 +26,7 @@ class AuthProvider with ChangeNotifier {
     String password,
   ) async {
     // print(baseUrl);
-    final url = Uri.parse('https://$backendUrl/score_api/login');
+    final url = Uri.parse('https://$backendUrl/login');
     var bytes = utf8.encode("$email:$password");
     var credentials = base64.encode(bytes);
     var headers = {

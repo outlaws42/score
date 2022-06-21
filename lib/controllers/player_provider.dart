@@ -121,7 +121,7 @@ class PlayerProvider extends ChangeNotifier {
   Future<void> fetchPlayer({
     String currentName = 'players',
   }) async {
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -142,7 +142,7 @@ class PlayerProvider extends ChangeNotifier {
     String currentName = 'add_player',
     required String name,
   }) async {
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     http
         .post(
       url,
@@ -208,7 +208,7 @@ class PlayerProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/$currentName');
     http
         .post(
       url,
