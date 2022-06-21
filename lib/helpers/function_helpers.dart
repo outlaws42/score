@@ -267,11 +267,11 @@ class FunctionHelper {
   // }
 
   static license() async {
-    const url = 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt';
-    await launch(
-      url,
-      forceWebView: true,
-      enableJavaScript: true,
-    );
+    Uri _url =  Uri.parse('https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt') ;
+    if (!await launchUrl(
+      _url,
+      // forceWebView: true,
+      // enableJavaScript: true,
+    )) throw 'Could not launch $_url';
   }
 }

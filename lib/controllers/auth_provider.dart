@@ -4,6 +4,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
+import '../helpers.dart';
 
 class AuthProvider with ChangeNotifier {
   String? _token;
@@ -25,7 +26,7 @@ class AuthProvider with ChangeNotifier {
     String password,
   ) async {
     // print(baseUrl);
-    final url = Uri.parse('https://www.eldrway.com/score_api/login');
+    final url = Uri.parse('https://$backendUrl/score_api/login');
     var bytes = utf8.encode("$email:$password");
     var credentials = base64.encode(bytes);
     var headers = {

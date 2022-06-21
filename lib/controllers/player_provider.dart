@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:score/helpers.dart';
+import '../helpers.dart';
 import '../models/player_model.dart';
 
 class PlayerProvider extends ChangeNotifier {
@@ -119,11 +119,9 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> fetchPlayer({
-    String baseName = 'www.eldrway.com', //10.0.2.2
-    String portName = '3000',
     String currentName = 'players',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -141,12 +139,10 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> addPlayerForm({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'add_player',
     required String name,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     http
         .post(
       url,
@@ -203,8 +199,6 @@ class PlayerProvider extends ChangeNotifier {
   }
 
   Future<void> updatePlayer({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'update_player',
     required String id,
     required String type,
@@ -214,7 +208,7 @@ class PlayerProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     http
         .post(
       url,

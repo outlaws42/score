@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/match_model.dart';
+import '../helpers/backend.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];
@@ -89,12 +90,10 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchMatch({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'matches',
   }) async {
     // SettingsProvider.settings[0].url.toString();
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -110,13 +109,11 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addMatchHttp(
-      {String baseName = 'www.eldrway.com',
-      String portName = '3000',
+  Future<void> addMatchHttp({
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     await http.post(
       url,
       headers: {'x-access-token': authToken},
@@ -178,14 +175,13 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> deleteMatch({
-    String baseName = 'www.eldrway.com',
     String currentName = 'remove_match',
     required String id,
   }) async {
     int matchIndex = getMatchIndex(id);
     _matches.removeAt(matchIndex);
     notifyListeners();
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     await http.delete(
       url,
       headers: {'x-access-token': authToken},
@@ -227,8 +223,6 @@ class MatchProvider extends ChangeNotifier {
   }
 
   Future<void> updateMatch({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'update_match',
     required String id,
     required String type,
@@ -238,7 +232,7 @@ class MatchProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     http
         .post(
       url,

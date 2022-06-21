@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../models/game_model.dart';
+import '../helpers.dart';
 
 class GameProvider extends ChangeNotifier {
   List<GameModel> _games = [];
@@ -31,11 +32,9 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> fetchGame({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'games',
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -52,14 +51,12 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> addGame({
-    String baseName = 'www.eldrway.com',
-    String portName = '3000',
     String currentName = 'add_game',
     required String name,
     required String description,
     bool lowScore = false,
   }) async {
-    final url = Uri.parse('https://$baseName/score_api/$currentName');
+    final url = Uri.parse('https://$backendUrl/score_api/$currentName');
     http
         .post(
       url,
