@@ -93,8 +93,8 @@ class MatchCurrentScreenList extends StatelessWidget {
               })
         ],
       ),
-      body: Consumer(builder: (context, watch, child) {
-        final _matches = watch(matchProvider).match;
+      body: Consumer(builder: (context, ref, child) {
+        final _matches = ref.watch(matchProvider).match;
         var _index = _matches.indexWhere((match) => match.id == matchId[0]);
         return Column(
           children: [

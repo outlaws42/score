@@ -3,24 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/providers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
 
-class GameList extends StatefulWidget {
+class GameList extends ConsumerStatefulWidget {
   @override
-  State<GameList> createState() => _GameListState();
+  GameListState createState() => GameListState();
 }
 
-class _GameListState extends State<GameList> {
+class GameListState extends ConsumerState<GameList> {
   Future? _games;
   @override
   void initState() { 
     super.initState();
 
-    _games = context.read(gameProvider).fetchGame();
+    _games = ref.read(gameProvider).fetchGame();
   }
 
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context,game,child) {
-        final _game = game(gameProvider).games;
+      builder: (context,ref,child) {
+        final _game = ref.watch(gameProvider).games;
     _game.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         return FutureBuilder(
           future: _games,
@@ -47,6 +47,7 @@ class _GameListState extends State<GameList> {
                             itemCount: _game.length,
                             itemBuilder: (ctx, index) {
                               return PageWidgets().listItemGame(
+                                ref: ref,
                                 context: context,
                                 index: index,
                                 game: _game,
@@ -57,7 +58,7 @@ class _GameListState extends State<GameList> {
                             ),
                           ),
                           onRefresh: () async {
-                            await context.read(gameProvider).fetchGame();
+                            await ref.read(gameProvider).fetchGame();
                           },
                         ),
                       ),

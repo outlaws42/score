@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Consumer(builder: (context, function, _) {
-      final _authSwitch = function(authProvider).isAuth;
-      function(settingsProvider).intialize(); // itizize the theme
+    return Consumer(builder: (context, ref, _) {
+      final _authSwitch = ref.watch(authProvider).isAuth;
+      ref.watch(settingsProvider).intialize(); // itizize the theme
       
 
       return GetMaterialApp(
@@ -53,11 +53,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.lightTheme,
         darkTheme: ThemeConfig.darkTheme,
-        themeMode: function(settingsProvider).themeMode,
+        themeMode: ref.watch(settingsProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
             : FutureBuilder(
-                future: function(authProvider).tryAutoLogin(),
+                future: ref.watch(authProvider).tryAutoLogin(),
                 builder: (
                   ctx,
                   authResultSnapshot,

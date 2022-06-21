@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
-class MatchForm extends StatefulWidget {
+class MatchForm extends ConsumerStatefulWidget {
   @override
-  State<MatchForm> createState() => _MatchFormState();
+  _MatchFormState createState() => _MatchFormState();
 }
 
-class _MatchFormState extends State<MatchForm> {
+class _MatchFormState extends ConsumerState<MatchForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _game = 'Select Game';
@@ -42,28 +42,29 @@ class _MatchFormState extends State<MatchForm> {
   }
 
   Future<void> save({
+    required WidgetRef ref,
     required String gameName,
     required String gameId,
     required List<dynamic> players, 
     bool lowScore = false,
   }) async {
-    await context
+    await ref
         .read(matchProvider)
         .addMatchHttp(
           gameName: gameName,
           players: players,
         );
-            int _date = context.read(matchProvider).match.length > 0
-                ? context.read(matchProvider).match.last.dateTime
+            int _date = ref.read(matchProvider).match.length > 0
+                ? ref.read(matchProvider).match.last.dateTime
                 : 1;
-            var _index = context
+            var _index = ref
                 .read(matchProvider)
                 .match
                 .indexWhere((match) => match.dateTime == _date);
             print(
-                'This is match from match form: ${context.read(matchProvider).match[_index].id}');
+                'This is match from match form: ${ref.read(matchProvider).match[_index].id}');
 
-            String _id = context.read(matchProvider).match[_index].id;
+            String _id = ref.read(matchProvider).match[_index].id;
             Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }
 
@@ -105,7 +106,7 @@ class _MatchFormState extends State<MatchForm> {
           ),
         ],
       ),
-      body: Consumer(builder: (context, ScopedReader watch, child) {
+      body: Consumer(builder: (context, WidgetRef ref, child) {
         return SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -207,6 +208,7 @@ class _MatchFormState extends State<MatchForm> {
                               _gamePlayers.length >= 2
                           ) {
                         save(
+                          ref: ref,
                           gameName: _game,
                           players: _gamePlayers,
                           lowScore: _lowScore,

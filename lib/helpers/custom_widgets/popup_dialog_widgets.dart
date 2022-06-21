@@ -9,6 +9,7 @@ import '../../controllers/providers.dart';
 
 class PopupDialogWidgets {
   static Widget plusMinusButton({
+    required WidgetRef ref,
     required BuildContext context,
     required int score,
     required String player,
@@ -26,14 +27,14 @@ class PopupDialogWidgets {
           ? null
           : () {
               sign == "add"
-                  ? context.read(matchProvider).plus(
+                  ? ref.read(matchProvider).plus(
                         id: id,
                         score: score,
                         playerIndex: playerIndex,
                         player: player,
                         addAmount: amount,
                       )
-                  : context.read(matchProvider).minus(
+                  : ref.read(matchProvider).minus(
                         id: id,
                         score: score,
                         playerIndex: playerIndex,
@@ -51,6 +52,7 @@ class PopupDialogWidgets {
   }
 
   static mathDialog({
+    required WidgetRef ref,
     required BuildContext context,
     required int score,
     required String player,
@@ -71,6 +73,7 @@ class PopupDialogWidgets {
             children: [
               // 5 Button
               PopupDialogWidgets.plusMinusButton(
+                ref: ref,
                 context: context,
                 score: score,
                 player: player,
@@ -81,6 +84,7 @@ class PopupDialogWidgets {
                   ),
               // 10 Button
               PopupDialogWidgets.plusMinusButton(
+                ref: ref,
                 context: context,
                 score: score,
                 player: player,
@@ -92,6 +96,7 @@ class PopupDialogWidgets {
               // 15 Button
 
               PopupDialogWidgets.plusMinusButton(
+                ref:ref,
                 context: context,
                 score: score,
                 player: player,
@@ -102,6 +107,7 @@ class PopupDialogWidgets {
               ),
               // 30 Button
               PopupDialogWidgets.plusMinusButton(
+                ref:ref,
                 context: context,
                 score: score,
                 player: player,
@@ -131,14 +137,14 @@ class PopupDialogWidgets {
               },
               onFieldSubmitted: (value) {
                     sign == "add"
-                        ? context.read(matchProvider).plus(
+                        ? ref.read(matchProvider).plus(
                               id: id,
                               score: score,
                               playerIndex: playerIndex,
                               player: player,
                               addAmount: int.parse(value),
                             )
-                        : context.read(matchProvider).minus(
+                        : ref.read(matchProvider).minus(
                               id: id,
                               score: score,
                               playerIndex: playerIndex,
@@ -215,6 +221,7 @@ class PopupDialogWidgets {
   }
 
   static warnDialog(
+    WidgetRef ref,
     BuildContext context,
     String item,
     String itemId,
@@ -257,11 +264,11 @@ class PopupDialogWidgets {
                   onPressed: () {
                     Get.back();
                     if (screen == "player") {
-                      context.read(playerProvider).deletePlayer(itemId);
+                      ref.read(playerProvider).deletePlayer(itemId);
                     } else if (screen == "match") {
-                      context.read(matchProvider).deleteMatch(id:itemId);
+                      ref.read(matchProvider).deleteMatch(id:itemId);
                     } else if (screen == "game") {
-                      context.read(gameProvider).deleteGame(itemId);
+                      ref.read(gameProvider).deleteGame(itemId);
                     } else {
                       print("nothing to delete here");
                     }

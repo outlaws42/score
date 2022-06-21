@@ -65,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     return Consumer(
       builder: (context, ref, child) {
-        final value = ref(authProvider);
+        final value = ref.watch(authProvider);
         return Scaffold(
           body: Stack(children: [
             Container(

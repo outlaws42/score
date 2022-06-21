@@ -22,7 +22,7 @@ class PageWidgets {
       onPressed: () => Get.toNamed(pageLink, arguments: args),
       icon: icon,
       iconSize: iconSize,
-      color:Colors.white,
+      color: Colors.white,
     );
   }
 
@@ -43,7 +43,7 @@ class PageWidgets {
       ),
       icon: icon,
       iconSize: iconSize,
-      color:Colors.white,
+      color: Colors.white,
     );
   }
 
@@ -63,10 +63,11 @@ class PageWidgets {
   }
 
   Widget headerButton(
-      {required BuildContext context,
+      {required WidgetRef ref,
+      required BuildContext context,
       required String column1,
       required String column2}) {
-    final quantityPlayers = context.read(playerProvider).selectedPlayers.length;
+    final quantityPlayers = ref.read(playerProvider).selectedPlayers.length;
     return Card(
       elevation: 6,
       color: Theme.of(context).appBarTheme.backgroundColor,
@@ -74,8 +75,7 @@ class PageWidgets {
         leading: TextButton(
           onPressed: quantityPlayers >= 2
               ? () async {
-                  var _playersSelect =
-                      context.read(playerProvider).selectedPlayers;
+                  var _playersSelect = ref.read(playerProvider).selectedPlayers;
                   Get.back(result: _playersSelect);
 
                   var _playerSelectIds = [];
@@ -86,12 +86,12 @@ class PageWidgets {
                   print('_playerSelectIds: $_playerSelectIds');
                   // print('_playerSelect: $_playersSelect');
                   for (var item in _playerSelectIds) {
-                    context.read(playerProvider).updateSelected(
+                    ref.read(playerProvider).updateSelected(
                           playerId: item,
                           isSelected: true,
                         );
                   }
-                  context.read(playerProvider).removeAllPlayers();
+                  ref.read(playerProvider).removeAllPlayers();
                 }
               : null,
           child: Icon(Icons.done),
@@ -207,6 +207,7 @@ class PageWidgets {
   }
 
   Widget listItemPlayer({
+    required WidgetRef ref,
     required BuildContext context,
     required int index,
     required List<PlayerModel> player,
@@ -253,7 +254,12 @@ class PageWidgets {
                             IconButton(
                               onPressed: () {
                                 PopupDialogWidgets.warnDialog(
-                                    context, _name, _id, "player");
+                                  ref,
+                                  context,
+                                  _name,
+                                  _id,
+                                  "player",
+                                );
                               },
                               icon: Icon(Icons.delete_forever),
                               iconSize: 30,
@@ -262,7 +268,7 @@ class PageWidgets {
                             ),
                             IconButton(
                               onPressed: () {
-                                context.read(playerProvider).updateSelected(
+                                ref.read(playerProvider).updateSelected(
                                       playerId: _id,
                                       isSelected: _isSelected,
                                     );
@@ -305,6 +311,7 @@ class PageWidgets {
   }
 
   Widget listItemGame({
+    required WidgetRef ref,
     required BuildContext context,
     required int index,
     required List<GameModel> game,
@@ -348,7 +355,7 @@ class PageWidgets {
         }
       },
       onLongPress: () {
-        context.read(gameProvider).updateSelected(
+        ref.read(gameProvider).updateSelected(
               gameId: _id,
               isSelected: _isSelected,
             );
@@ -375,7 +382,12 @@ class PageWidgets {
                           IconButton(
                             onPressed: () {
                               PopupDialogWidgets.warnDialog(
-                                  context, _game, _id, "game");
+                                ref,
+                                context,
+                                _game,
+                                _id,
+                                "game",
+                              );
                             },
                             icon: Icon(Icons.delete_forever),
                             iconSize: 30,
@@ -384,7 +396,7 @@ class PageWidgets {
                           ),
                           IconButton(
                             onPressed: () {
-                              context.read(playerProvider).updateSelected(
+                              ref.read(playerProvider).updateSelected(
                                     playerId: _id,
                                     isSelected: _isSelected,
                                   );
@@ -452,6 +464,7 @@ class PageWidgets {
   }
 
   Widget listItemMatch({
+    required WidgetRef ref,
     required BuildContext context,
     required int index,
     required List<MatchModel> match,
@@ -475,7 +488,7 @@ class PageWidgets {
       },
       onLongPress: () {
         if (_isComplete == false) {
-          context.read(matchProvider).updateSelected(
+          ref.read(matchProvider).updateSelected(
                 matchId: _id,
                 isSelected: _isSelected,
               );
@@ -510,7 +523,13 @@ class PageWidgets {
                                 size: 40,
                               ),
                               onPressed: () {
-                                PopupDialogWidgets.warnDialog(context, _gameName, _id, 'match');
+                                PopupDialogWidgets.warnDialog(
+                                  ref,
+                                  context,
+                                  _gameName,
+                                  _id,
+                                  'match',
+                                );
                               },
                             ),
                           ),
@@ -682,6 +701,7 @@ class PageWidgets {
   }
 
   Widget selectPlayer({
+    required WidgetRef ref,
     required BuildContext context,
     required int index,
     required List<PlayerModel> player,
@@ -694,7 +714,7 @@ class PageWidgets {
     bool _isSelected = player[index].isSelected;
     return GestureDetector(
       onTap: () {
-        context.read(playerProvider).updateGamePlayers(
+        ref.read(playerProvider).updateGamePlayers(
               playerName: _name,
               playerId: _id,
               isSelected: _isSelected,
@@ -719,7 +739,7 @@ class PageWidgets {
                   value: _isSelected,
                   onChanged: (boolVal) {
                     // _freePlayInt = boolVal == false ? 0 : 1;
-                    context.read(playerProvider).updateGamePlayers(
+                    ref.read(playerProvider).updateGamePlayers(
                           playerName: _name,
                           playerId: _id,
                           isSelected: _isSelected,

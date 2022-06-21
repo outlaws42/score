@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
-class GameForm extends StatefulWidget {
+class GameForm extends ConsumerStatefulWidget {
   @override
-  State<GameForm> createState() => _GameFormState();
+  _GameFormState createState() => _GameFormState();
 }
 
-class _GameFormState extends State<GameForm> {
+class _GameFormState extends ConsumerState<GameForm> {
   List arguments = Get.arguments;
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController(
@@ -22,7 +22,7 @@ class _GameFormState extends State<GameForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _save(
-    String name,
+    WidgetRef ref, String name,
     String description,
     int lowScore,
   ) {
@@ -33,14 +33,14 @@ class _GameFormState extends State<GameForm> {
     final lowScoreSwitch = lowScore == 0 ? false : true;
 
     if (arguments[0] == "form_edit") {
-      context.read(gameProvider).updateGame(
+      ref.read(gameProvider).updateGame(
             gameId: arguments[1],
             name: name,
             description: description,
             lowScore: lowScore,
           );
     } else {
-      context.read(gameProvider).addGame(
+      ref.read(gameProvider).addGame(
             name: name,
             description: description,
             lowScore: lowScoreSwitch,
@@ -75,8 +75,8 @@ class _GameFormState extends State<GameForm> {
           ),
         ],
       ),
-      body: Consumer(builder: (context, ScopedReader watch, child) {
-        final gameData = watch(gameProvider);
+      body: Consumer(builder: (context, ref, child) {
+        final gameData = ref.watch(gameProvider);
         final _isLowScore =
             arguments[0] == 'form_edit' ? arguments[5] : gameData.isLowScore;
 
@@ -121,7 +121,7 @@ class _GameFormState extends State<GameForm> {
                               value: _isLowScore,
                               onChanged: (boolVal) {
                                 _lowScoreInt = boolVal == false ? 0 : 1;
-                                context.read(gameProvider).updateLowScore();
+                                ref.read(gameProvider).updateLowScore();
                               },
                               activeTrackColor:
                                   Theme.of(context).colorScheme.secondary,
@@ -139,12 +139,12 @@ class _GameFormState extends State<GameForm> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _save(
-                          _nameController.text,
+                          ref, _nameController.text,
                           _descriptionController.text,
                           _lowScoreInt,
                         );
                         if (_isLowScore == true) {
-                          context.read(gameProvider).updateLowScore();
+                          ref.read(gameProvider).updateLowScore();
                         }
                       }
                     },

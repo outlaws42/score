@@ -8,16 +8,16 @@ import '../helpers.dart';
 // final formControllerProvider =
 //     StateProvider<TextEditingController>((ref) => TextEditingController());
 
-class Settings extends StatefulWidget {
+class Settings extends ConsumerStatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    final ver = context.read(settingsProvider).getVersionNumber();
+    final ver = ref.read(settingsProvider).getVersionNumber();
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +37,7 @@ class _SettingsState extends State<Settings> {
         ],
       ),
       // body:
-      body: Consumer(builder: (context, ScopedReader watch, child) {
+      body: Consumer(builder: (context, ref, child) {
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -50,7 +50,7 @@ class _SettingsState extends State<Settings> {
                 ListTile(
                   title: Text('Theme Mode'),
                   trailing: DropdownButton<String>(
-                    value: watch(settingsProvider).currentTheme,
+                    value: ref.watch(settingsProvider).currentTheme,
                     items: [
                       // Light, Dark, System
                       DropdownMenuItem<String>(
@@ -76,7 +76,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ],
                     onChanged: (String? value) {
-                      watch(settingsProvider).changeTheme(value ?? 'system');
+                      ref.watch(settingsProvider).changeTheme(value ?? 'system');
                     },
                   ),
                 ),

@@ -18,15 +18,17 @@ import './custom_widgets/popup_dialog_widgets.dart';
 class FunctionHelper {
 
   static checkWinner({
+    required WidgetRef ref,
     required BuildContext context,
     required bool lowScore,
     required String matchId,
     required int matchIndex,
   }) {
-    var _players = context.read(matchProvider).match[matchIndex].players;
+    var _players = ref.read(matchProvider).match[matchIndex].players;
     int _winScore = 0;
 
     _winScore = checkWinningScore(
+      ref: ref,
       lowScore: lowScore,
       context: context,
       index: matchIndex,
@@ -37,18 +39,18 @@ class FunctionHelper {
     String _winner = _players[_matchPlayerIndex].playerName;
     String _playerId = _players[_matchPlayerIndex].playerId;
 
-    var _playerIndex = context
+    var _playerIndex = ref
         .read(playerProvider)
         .player
         .indexWhere((element) => element.id == _playerId);
-    final _wins = context.read(playerProvider).player[_playerIndex].wins;
-    context.read(matchProvider).updateWinner(
+    final _wins = ref.read(playerProvider).player[_playerIndex].wins;
+    ref.read(matchProvider).updateWinner(
           matchId: matchId,
           winnerName: _winner,
           winnerId: _playerId,
         );
 
-    context.read(playerProvider).plus(
+    ref.read(playerProvider).plus(
           id: _playerId,
           wins: _wins,
           addAmount: 1,
@@ -60,6 +62,7 @@ class FunctionHelper {
   }
 
   static checkWinningScore({
+    required WidgetRef ref,
     required BuildContext context,
     required bool lowScore,
     required int index,
@@ -69,7 +72,7 @@ class FunctionHelper {
     // is a low score or high score game.
     // returns the winning score.
 
-    final _players = context.read(matchProvider).match[index].players;
+    final _players = ref.read(matchProvider).match[index].players;
     int _winScore;
 
     if (lowScore == true) {
@@ -81,6 +84,7 @@ class FunctionHelper {
   }
 
   static checkWinningScoreDuplicate({
+    required WidgetRef ref,
     required BuildContext context,
     required int index,
     required int winScore,
@@ -89,7 +93,7 @@ class FunctionHelper {
     // Check and see if more than one player has the winning score
     // returns a false if the winning score  is in our list more than once
 
-    final _players = context.read(matchProvider).match[index].players;
+    final _players = ref.read(matchProvider).match[index].players;
     bool _scoreCheck = false;
     
     final _winScoreTimes =

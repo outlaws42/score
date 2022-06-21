@@ -5,7 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 import '../helpers.dart';
 
-class PlayerTileUpdate extends StatelessWidget {
+class PlayerTileUpdate extends ConsumerWidget {
   final String player;
   final String matchId;
   final int playerIndex;
@@ -46,16 +46,15 @@ class PlayerTileUpdate extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(builder: (context, watch, child) {
-      final matchData = watch(matchProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Consumer(builder: (context, ref, child) {
+      final matchData = ref.watch(matchProvider);
       var _index =
           matchData.match.indexWhere((element) => element.id == matchId);
       final _lowScore = matchData.match[_index].lowScore;
       final _isComplete = matchData.match[_index].isComplete;
-      final _score = playerScore; 
+      final _score = playerScore;
       final _color = matchData.match[_index].players[playerIndex].color;
-
 
       return Container(
         constraints: BoxConstraints(maxHeight: 145),
@@ -117,7 +116,7 @@ class PlayerTileUpdate extends StatelessWidget {
                       onPressed: _isComplete == true
                           ? null
                           : () {
-                              context.read(matchProvider).minus(
+                              ref.read(matchProvider).minus(
                                     id: matchId,
                                     score: _score,
                                     playerIndex: playerIndex,
@@ -125,11 +124,12 @@ class PlayerTileUpdate extends StatelessWidget {
                                     minusAmount: 1,
                                   );
                             },
-                      // Score minus button long press pop up dialog     
+                      // Score minus button long press pop up dialog
                       onLongPress: _isComplete == true
                           ? null
                           : () async {
                               await PopupDialogWidgets.mathDialog(
+                                ref: ref,
                                 context: context,
                                 score: _score,
                                 player: player,
@@ -154,7 +154,7 @@ class PlayerTileUpdate extends StatelessWidget {
                       onPressed: _isComplete == true
                           ? null
                           : () {
-                              context.read(matchProvider).plus(
+                              ref.read(matchProvider).plus(
                                     id: matchId,
                                     score: _score,
                                     playerIndex: playerIndex,
@@ -162,10 +162,11 @@ class PlayerTileUpdate extends StatelessWidget {
                                     addAmount: 1,
                                   );
                             },
-                      // Score Plus button long press pop up dialog 
+                      // Score Plus button long press pop up dialog
                       onLongPress: _isComplete == true
                           ? null
                           : () => PopupDialogWidgets.mathDialog(
+                                ref: ref,
                                 context: context,
                                 score: _score,
                                 player: player,

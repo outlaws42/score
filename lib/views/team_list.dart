@@ -7,9 +7,9 @@ import '../helpers/custom_widgets/page_widgets.dart';
 
 class TeamList extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final _player = watch(playerProvider);
-    final _matchList = watch(matchProvider).match;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _player = ref.watch(playerProvider);
+    final _matchList = ref.watch(matchProvider).match;
     return _player.player.length == 0
         ? PageWidgets().noData(
             context: context,
@@ -25,23 +25,23 @@ class TeamList extends ConsumerWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 
-                      _player.player.length,
+                  itemCount: _player.player.length,
                   itemBuilder: (contex, index) {
                     if (index == 0) {
                       return PageWidgets().listItemPlayer(
+                        ref: ref,
                         context: context,
                         index: index,
-                        player:_player.player,
+                        player: _player.player,
                         matchList: _matchList,
                         playerProv: _player,
                       );
                     } else
                       return PageWidgets().listItemPlayer(
+                        ref: ref,
                         context: context,
                         index: index,
-                        player:
-                            _player.player,
+                        player: _player.player,
                         matchList: _matchList,
                         playerProv: _player,
                       );

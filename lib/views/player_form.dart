@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
-class PlayerForm extends StatefulWidget {
+class PlayerForm extends ConsumerStatefulWidget {
   @override
-  State<PlayerForm> createState() => _PlayerFormState();
+  _PlayerFormState createState() => _PlayerFormState();
 }
 
-class _PlayerFormState extends State<PlayerForm> {
+class _PlayerFormState extends ConsumerState<PlayerForm> {
   List arguments = Get.arguments;
 
   var _nameController = TextEditingController();
@@ -19,12 +19,12 @@ class _PlayerFormState extends State<PlayerForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void _save(String name, int wins) {
+  void _save(WidgetRef ref, String name, int wins) {
     // Save for each field save
     if (name.isEmpty) {
       return;
     }
-    var controller = context.read(playerProvider);
+    var controller = ref.read(playerProvider);
     if (arguments[0] == "form_edit") {
       controller.updatePlayerName(arguments[1], name);
     } else {
@@ -88,7 +88,7 @@ class _PlayerFormState extends State<PlayerForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _save(
-                        _nameController.text,
+                        ref, _nameController.text,
                         int.parse(_winsController.text),
                       );
                     }

@@ -23,8 +23,8 @@ class Match extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Consumer(builder: (context, watch, child) {
-                final gameData = watch(matchProvider);
+              child: Consumer(builder: (context, ref, child) {
+                final gameData = ref.watch(matchProvider);
                 var _index = gameData.match
                     .indexWhere((element) => element.id == matchId);
                 final _isComplete = gameData.match[_index].isComplete;
@@ -34,11 +34,13 @@ class Match extends StatelessWidget {
                 bool scoreCheck = false;
 
                 _winScore = FunctionHelper.checkWinningScore(
+                  ref: ref,
                   context: context,
                   lowScore: _lowScore,
                   index: _index,
                 );
                 scoreCheck = FunctionHelper.checkWinningScoreDuplicate(
+                  ref:ref,
                   context: context,
                   index: _index,
                   winScore: _winScore,
@@ -51,6 +53,7 @@ class Match extends StatelessWidget {
                           ? null
                           : () {
                               FunctionHelper.checkWinner(
+                                ref:ref,
                                 context: context,
                                 lowScore: gameData.match[_index].lowScore,
                                 matchId: matchId,
