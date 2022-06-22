@@ -34,7 +34,7 @@ class GameProvider extends ChangeNotifier {
   Future<void> fetchGame({
     String currentName = 'games',
   }) async {
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
@@ -56,7 +56,7 @@ class GameProvider extends ChangeNotifier {
     required String description,
     bool lowScore = false,
   }) async {
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     http
         .post(
       url,

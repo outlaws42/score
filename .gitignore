@@ -32,7 +32,7 @@
 /build/
 linux/flutter/*
 assets/images/background/.comments/*
-lib/helpers/backend.dart
+lib/helpers/url_var.dart
 pubspec.lock
 *.lock
 *.cc

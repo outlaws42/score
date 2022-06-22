@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/match_model.dart';
-import '../helpers/backend.dart';
+import '../helpers.dart';
 
 class MatchProvider extends ChangeNotifier {
   List<MatchModel> _matches = [];
@@ -93,11 +93,12 @@ class MatchProvider extends ChangeNotifier {
     String currentName = 'matches',
   }) async {
     // SettingsProvider.settings[0].url.toString();
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     final response = await http.get(
       url,
       headers: {'x-access-token': authToken},
     );
+    print(response.body);
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     if (json != null) {
@@ -113,7 +114,7 @@ class MatchProvider extends ChangeNotifier {
       String currentName = 'add_match',
       required String gameName,
       required List players}) async {
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     await http.post(
       url,
       headers: {'x-access-token': authToken},
@@ -181,7 +182,7 @@ class MatchProvider extends ChangeNotifier {
     int matchIndex = getMatchIndex(id);
     _matches.removeAt(matchIndex);
     notifyListeners();
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     await http.delete(
       url,
       headers: {'x-access-token': authToken},
@@ -232,7 +233,7 @@ class MatchProvider extends ChangeNotifier {
     String text2 = "_",
     bool toggle = false,
   }) async {
-    final url = Uri.parse('https://$backendUrl/$currentName');
+    final url = Uri.parse('$backendUrl/$currentName');
     http
         .post(
       url,

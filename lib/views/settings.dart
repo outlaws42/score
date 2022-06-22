@@ -47,10 +47,13 @@ class _SettingsState extends ConsumerState<Settings> {
                   context: context,
                   sectionTitle: "Display Settings",
                 ),
+                // Theme Mode
                 ListTile(
                   title: Text('Theme Mode'),
                   trailing: DropdownButton<String>(
                     value: ref.watch(settingsProvider).currentTheme,
+                    dropdownColor: Theme.of(context).appBarTheme.foregroundColor,
+                    borderRadius: BorderRadius.circular(5),
                     items: [
                       // Light, Dark, System
                       DropdownMenuItem<String>(
@@ -80,12 +83,12 @@ class _SettingsState extends ConsumerState<Settings> {
                     },
                   ),
                 ),
-               
+               // About
                 PageWidgets.settingsCategoryHeader(
                   context: context,
                   sectionTitle: "About",
                 ),
-
+                // Score Version
                 ListTile(
                   title: Text(
                     'Score Version',
@@ -106,7 +109,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   ),
                 ),
                 PageWidgets.settingHr(),
-
+                // License
                 ListTile(
                   title: Text(
                     'License',
@@ -126,7 +129,7 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
 
                 PageWidgets.settingHr(),
-
+                // Source Code
                 ListTile(
                   title: Text(
                     'Source Code',
@@ -136,10 +139,6 @@ class _SettingsState extends ConsumerState<Settings> {
                     'You can view the source code for this app on Github at $sourcCodeUrl',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  // trailing: Text(
-                  //   "GPL V2",
-                  //   style: Theme.of(context).textTheme.headline6,
-                  // ),
                   onTap: () async {
                     FunctionHelper.sourceCode();
                   },
