@@ -17,7 +17,6 @@ import '../controllers/providers.dart';
 import '../helpers.dart';
 
 class FunctionHelper {
-
   static checkWinner({
     required WidgetRef ref,
     required BuildContext context,
@@ -33,6 +32,12 @@ class FunctionHelper {
       lowScore: lowScore,
       context: context,
       index: matchIndex,
+    );
+
+    addPlayersMatches(
+      ref: ref,
+      context: context,
+      players: _players,
     );
 
     var _matchPlayerIndex =
@@ -68,8 +73,8 @@ class FunctionHelper {
     required bool lowScore,
     required int index,
   }) {
-    // Checks the players score in the list to see wich one 
-    // is highest or lowest depending on  whether the game 
+    // Checks the players score in the list to see wich one
+    // is highest or lowest depending on  whether the game
     // is a low score or high score game.
     // returns the winning score.
 
@@ -96,7 +101,7 @@ class FunctionHelper {
 
     final _players = ref.read(matchProvider).match[index].players;
     bool _scoreCheck = false;
-    
+
     final _winScoreTimes =
         _players.where((element) => element.score == winScore);
     if (_winScoreTimes.length > 1) {
@@ -107,7 +112,29 @@ class FunctionHelper {
     return _scoreCheck;
   }
 
-  static randomColor(){
+  static addPlayersMatches({
+    required WidgetRef ref,
+    required BuildContext context,
+    // required bool lowScore,
+    required List players,
+  }) {
+    // Adds to players matches played in count
+
+    // final _players = ref.read(matchProvider).match[index].players;
+    // int _winScore;
+    for (var _player in players) {
+      print(_player.playerName);
+    }
+
+    // if (lowScore == true) {
+    //   _winScore = _players.map((abc) => abc.score).reduce(min);
+    // } else {
+    //   _winScore = _players.map((abc) => abc.score).reduce(max);
+    // }
+    // return _winScore;
+  }
+
+  static randomColor() {
     // Create integer random color
     final _random = Random();
     final randomColor = Color.fromARGB(
@@ -118,14 +145,13 @@ class FunctionHelper {
     );
     return randomColor;
   }
-  static convertColorInt({required Color color}) {
 
+  static convertColorInt({required Color color}) {
     // Takes a color and returns a integer color.
     String colorString = color.toString();
     String valueString = colorString.split('(0x')[1].split(')')[0];
     int value = int.parse(valueString, radix: 16);
     return value;
-
   }
 
   intUtcToStringFormatDT({
@@ -269,11 +295,11 @@ class FunctionHelper {
 
   static removePref(key) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove(key); 
+    prefs.remove(key);
   }
 
   static license() async {
-    Uri _url =  Uri.parse(licenseUrl) ;
+    Uri _url = Uri.parse(licenseUrl);
     if (!await launchUrl(
       _url,
       // forceWebView: true,
@@ -282,10 +308,9 @@ class FunctionHelper {
   }
 
   static sourceCode() async {
-    Uri _url =  Uri.parse(sourcCodeUrl) ;
+    Uri _url = Uri.parse(sourcCodeUrl);
     if (!await launchUrl(
       _url,
     )) throw 'Could not launch $_url';
   }
 }
-

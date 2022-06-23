@@ -31,7 +31,7 @@ class Match extends StatelessWidget {
                 final _gameName = gameData.match[_index].gameName;
                 final _lowScore = gameData.match[_index].lowScore;
                 int _winScore = 0;
-                bool scoreCheck = false;
+                bool _scoreCheck = false;
 
                 _winScore = FunctionHelper.checkWinningScore(
                   ref: ref,
@@ -39,7 +39,7 @@ class Match extends StatelessWidget {
                   lowScore: _lowScore,
                   index: _index,
                 );
-                scoreCheck = FunctionHelper.checkWinningScoreDuplicate(
+                _scoreCheck = FunctionHelper.checkWinningScoreDuplicate(
                   ref:ref,
                   context: context,
                   index: _index,
@@ -49,7 +49,7 @@ class Match extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: _isComplete == true || scoreCheck == false
+                      onPressed: _isComplete == true || _scoreCheck == false
                           ? null
                           : () {
                               FunctionHelper.checkWinner(

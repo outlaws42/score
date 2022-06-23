@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
     return Consumer(builder: (context, ref, _) {
       final _authSwitch = ref.watch(authProvider).isAuth;
       ref.watch(settingsProvider).intialize(); // itizize the theme
-      
 
       return GetMaterialApp(
         title: 'Scoreboard',
@@ -66,6 +65,7 @@ class MyApp extends StatelessWidget {
             //                 ConnectionState.waiting
             //             ? SplashScreen()
                         : AuthScreen(),
+              // ),
         getPages: [
           GetPage(name: '/match', page: () => MatchScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),

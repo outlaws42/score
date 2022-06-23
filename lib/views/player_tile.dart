@@ -5,13 +5,13 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:score/controllers/providers.dart';
 import '../helpers.dart';
 
-class PlayerTileUpdate extends ConsumerWidget {
+class PlayerTile extends ConsumerWidget {
   final String player;
   final String matchId;
   final int playerIndex;
   final int playerScore;
   final int playerColor;
-  PlayerTileUpdate({
+  PlayerTile({
     required this.player,
     required this.matchId,
     required this.playerIndex,
