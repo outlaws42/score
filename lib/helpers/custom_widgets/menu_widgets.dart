@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:score/helpers.dart';
 
 
 class MenuWidgets {
@@ -19,6 +20,9 @@ class MenuWidgets {
       Get.toNamed("/teams", arguments: [screen, "team"]);
     } else if (value == 10) {
       Get.toNamed("/settings", arguments: [screen,"setting"]);
+    }else if (value == 15) {
+      FunctionHelper.removePref('userToken');
+      Get.toNamed("/auth", arguments: [screen,"logout"]);
     }
   }
 

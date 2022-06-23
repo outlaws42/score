@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -265,6 +266,11 @@ class FunctionHelper {
   //   );
   //   return _dbFile;
   // }
+
+  static removePref(key) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(key); 
+  }
 
   static license() async {
     Uri _url =  Uri.parse(licenseUrl) ;

@@ -56,16 +56,16 @@ class MyApp extends StatelessWidget {
         themeMode: ref.watch(settingsProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
-            : FutureBuilder(
-                future: ref.watch(authProvider).tryAutoLogin(),
-                builder: (
-                  ctx,
-                  authResultSnapshot,
-                ) =>
-                    authResultSnapshot.connectionState ==
-                            ConnectionState.waiting
-                        ? SplashScreen()
-                        : AuthScreen()),
+            // : FutureBuilder(
+            //     future: ref.watch(authProvider).tryAutoLogin(),
+            //     builder: (
+            //       ctx,
+            //       authResultSnapshot,
+            //     ) =>
+            //         authResultSnapshot.connectionState ==
+            //                 ConnectionState.waiting
+            //             ? SplashScreen()
+                        : AuthScreen(),
         getPages: [
           GetPage(name: '/match', page: () => MatchScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
@@ -77,6 +77,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/game_form', page: () => GameForm()),
           GetPage(name: '/player_form', page: () => PlayerForm()),
           GetPage(name: '/settings', page: () => Settings()),
+          GetPage(name: '/auth', page: () => AuthScreen()),
         ],
       );
     });

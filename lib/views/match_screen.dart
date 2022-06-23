@@ -47,6 +47,12 @@ class MatchScreen extends StatelessWidget {
                         icon: Icon(Icons.settings),
                         value: 10,
                       ),
+                      MenuWidgets.menuItem(
+                        context: context,
+                        menuTitle: "Logout",
+                        icon: Icon(Icons.logout),
+                        value: 15,
+                      ),
                     ],
                 onSelected: (value) {
                   MenuWidgets.menuSelect(
