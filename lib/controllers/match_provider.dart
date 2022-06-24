@@ -98,7 +98,6 @@ class MatchProvider extends ChangeNotifier {
       url,
       headers: {'x-access-token': authToken},
     );
-    print(response.body);
     final List<MatchModel> loadCurrent = [];
     final json = jsonDecode(response.body);
     if (json != null) {

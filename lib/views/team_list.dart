@@ -18,7 +18,7 @@ class TeamList extends ConsumerWidget {
           )
         : Column(
             children: [
-              PageWidgets().header(
+              PageWidgets().header2(
                 context: context,
                 column1: 'Name',
                 column2: 'Wins',
