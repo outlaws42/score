@@ -36,10 +36,10 @@ class GameListState extends ConsumerState<GameList> {
                   )
                 : Column(
                     children: [
-                      PageWidgets().header(
+                      PageWidgets().header2(
                         context: context,
                         column1: 'Game',
-                        column2: 'Win Mode',
+                        column2: 'Mode',
                       ),
                       Expanded(
                         child: RefreshIndicator(

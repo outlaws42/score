@@ -38,10 +38,11 @@ class _PlayerListState extends ConsumerState<PlayerList> {
                   )
                 : Column(
                     children: [
-                      PageWidgets().header(
+                      PageWidgets().header2(
                         context: context,
                         column1: 'Name',
                         column2: 'Wins',
+                        column3: 'Matches'
                       ),
                       Expanded(
                         child: RefreshIndicator(

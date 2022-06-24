@@ -47,19 +47,62 @@ class PageWidgets {
     );
   }
 
-  Widget header(
-      {required BuildContext context,
-      required String column1,
-      required String column2}) {
+  // Widget header(
+  //     {required BuildContext context,
+  //     required String column1,
+  //     required String column2}) {
+  //   return Card(
+  //     elevation: 6,
+  //     color: Theme.of(context).appBarTheme.backgroundColor,
+  //     child: ListTile(
+  //       title: Text('$column1', style: Theme.of(context).textTheme.headline3),
+  //       trailing:
+  //           Text('$column2', style: Theme.of(context).textTheme.headline3),
+  //     ),
+  //   );
+  // }
+
+  Widget header2({
+    required BuildContext context,
+    required String column1,
+    required String column2,
+    String column3 = '_',
+  }) {
     return Card(
-      elevation: 6,
-      color: Theme.of(context).appBarTheme.backgroundColor,
-      child: ListTile(
-        title: Text('$column1', style: Theme.of(context).textTheme.headline3),
-        trailing:
-            Text('$column2', style: Theme.of(context).textTheme.headline3),
-      ),
-    );
+        elevation: 6,
+        color: Theme.of(context).appBarTheme.backgroundColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Container(
+                width: 80,
+                child:
+                    Text(column1, style: Theme.of(context).textTheme.headline3),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              column3 == '_'
+                  ? Container(
+                      width: 80,
+                    )
+                  : Container(
+                      width: 80,
+                      child: Text(column3,
+                          style: Theme.of(context).textTheme.headline3),
+                    ),
+              Spacer(
+                flex: 1,
+              ),
+              Container(
+                width: 60,
+                child:
+                    Text(column2, style: Theme.of(context).textTheme.headline3),
+              ),
+            ],
+          ),
+        ));
   }
 
   Widget headerButton(
@@ -218,6 +261,7 @@ class PageWidgets {
     List arguments = Get.arguments;
     final _name = player[index].name;
     final _wins = player[index].wins;
+    final _matches = player[index].matches;
     final _id = player[index].id;
     bool _isSelected = player[index].isSelected;
     return GestureDetector(
@@ -290,15 +334,26 @@ class PageWidgets {
                           height: 0,
                           width: 0,
                         ),
-                  Text(
-                    '$_name',
-                    style: _isSelected == false
-                        ? Theme.of(context).textTheme.headline4
-                        : Theme.of(context).textTheme.headline5,
+                  Container(
+                    width: 55,
+                    // height: 55,
+                    child: Text(
+                      '$_name',
+                      style: _isSelected == false
+                          ? Theme.of(context).textTheme.headline4
+                          : Theme.of(context).textTheme.headline5,
+                    ),
                   ),
                   Spacer(
                     flex: 1,
                   ),
+                  PageWidgets().circleContainer(
+                    context: context,
+                    content: _matches.toString(),
+                  ),
+                  Spacer(
+                      // flex: 1,
+                      ),
                   PageWidgets().circleContainer(
                     context: context,
                     content: _wins.toString(),
@@ -542,7 +597,7 @@ class PageWidgets {
                   children: [
                     Container(
                       height: 35,
-                      width: 105,
+                      width: 120,
                       child: Text(
                         '$_gameName        ',
                         style: _isSelected == true
@@ -560,7 +615,7 @@ class PageWidgets {
                   ],
                 ),
                 Spacer(
-                  flex: 5,
+                  flex: 1,
                 ),
                 // 2nd column (Winner and complete)
                 Column(
@@ -572,13 +627,13 @@ class PageWidgets {
                             children: [
                               Container(
                                 height: 35,
-                                width: 75,
+                                width: 80,
                                 child: PageWidgets().squareContainer(
                                     context: context, content: '$_winner'),
                               ),
                               Container(
                                 height: 35,
-                                width: 75,
+                                width: 80,
                                 child: Text(
                                   'Complete',
                                   style: _isSelected == true
@@ -602,7 +657,7 @@ class PageWidgets {
                     _lowScore == true
                         ? Container(
                             height: 35,
-                            width: 105,
+                            width: 60,
                             child: PageWidgets().circleContainer(
                               context: context,
                               content: 'LS',
@@ -610,7 +665,7 @@ class PageWidgets {
                           )
                         : Container(
                             height: 35,
-                            width: 105,
+                            width: 60,
                             child: PageWidgets().circleContainer(
                               context: context,
                               content: 'HS',
@@ -618,7 +673,7 @@ class PageWidgets {
                           ),
                     Container(
                       height: 35,
-                      width: 105,
+                      width: 60,
                       child: Text(
                         '$_date',
                         style: _isSelected == true

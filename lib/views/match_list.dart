@@ -35,10 +35,11 @@ class _MatchListState extends ConsumerState<MatchList> {
                   )
                 : Column(
                     children: [
-                      PageWidgets().header(
+                      PageWidgets().header2(
                         context: context,
                         column1: 'Match',
-                        column2: 'Win Mode',
+                        column2: 'Mode',
+                        column3: 'Winner'
                       ),
                       Expanded(
                         child: RefreshIndicator(

@@ -109,14 +109,22 @@ class PlayerProvider extends ChangeNotifier {
     _selectedPlayers.removeRange(0, _length);
   }
 
-  void plus({
-    id,
-    wins,
+  int add({
+    number,
     addAmount,
   }) {
-    wins += addAmount;
-    updatePlayerWins(id, wins);
+    number += addAmount;
+    return number;
   }
+
+  // void plus({
+  //   id,
+  //   wins,
+  //   addAmount,
+  // }) {
+  //   wins += addAmount;
+  //   updatePlayerWins(id, wins);
+  // }
 
   Future<void> fetchPlayer({
     String currentName = 'players',
@@ -166,11 +174,30 @@ class PlayerProvider extends ChangeNotifier {
 
   Future<void> updatePlayerWins(
     String playerId,
+    int playerIndex,
     int win,
   ) async {
-    int playerIndex = _players.indexWhere((element) => element.id == playerId);
+    // int playerIndex = _players.indexWhere((element) => element.id == playerId);
     _players[playerIndex].wins = win;
-    updatePlayer(id: playerId, number: win, type: 'wins');
+    updatePlayer(
+      id: playerId,
+      number: win,
+      type: 'wins',
+    );
+    notifyListeners();
+  }
+
+  Future<void> updatePlayerMatches(
+    String playerId,
+    int playerIndex,
+    int matches,
+  ) async {
+    _players[playerIndex].matches = matches;
+    updatePlayer(
+      id: playerId,
+      number: matches,
+      type: 'matches',
+    );
     notifyListeners();
   }
 

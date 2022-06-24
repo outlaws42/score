@@ -34,10 +34,10 @@ class FunctionHelper {
       index: matchIndex,
     );
 
-    addPlayersMatches(
+    addPlayerMatch(
       ref: ref,
       context: context,
-      players: _players,
+      index: matchIndex,
     );
 
     var _matchPlayerIndex =
@@ -56,10 +56,14 @@ class FunctionHelper {
           winnerId: _playerId,
         );
 
-    ref.read(playerProvider).plus(
-          id: _playerId,
-          wins: _wins,
+    int _totalWins = ref.read(playerProvider).add(
+          number: _wins,
           addAmount: 1,
+        );
+    ref.read(playerProvider).updatePlayerWins(
+          _playerId,
+          _playerIndex,
+          _totalWins,
         );
     PopupDialogWidgets.winDialog(
       context,
@@ -89,6 +93,35 @@ class FunctionHelper {
     return _winScore;
   }
 
+  static addPlayerMatch({
+    required WidgetRef ref,
+    required BuildContext context,
+    // required bool lowScore,
+    required int index,
+  }) {
+    // Add the amount of player matches
+
+    final _players = ref.read(matchProvider).match[index].players;
+
+    for (var player in _players) {
+      var _playerId = player.playerId;
+      var _playerIndex = ref
+          .read(playerProvider)
+          .player
+          .indexWhere((element) => element.id == _playerId);
+      final _matches = ref.read(playerProvider).player[_playerIndex].matches;
+      final _totalMatches = ref.read(playerProvider).add(
+            number: _matches,
+            addAmount: 1,
+          );
+      ref.read(playerProvider).updatePlayerMatches(
+            _playerId,
+            _playerIndex,
+            _totalMatches,
+          );
+    }
+  }
+
   static checkWinningScoreDuplicate({
     required WidgetRef ref,
     required BuildContext context,
@@ -110,28 +143,6 @@ class FunctionHelper {
       _scoreCheck = true;
     }
     return _scoreCheck;
-  }
-
-  static addPlayersMatches({
-    required WidgetRef ref,
-    required BuildContext context,
-    // required bool lowScore,
-    required List players,
-  }) {
-    // Adds to players matches played in count
-
-    // final _players = ref.read(matchProvider).match[index].players;
-    // int _winScore;
-    for (var _player in players) {
-      print(_player.playerName);
-    }
-
-    // if (lowScore == true) {
-    //   _winScore = _players.map((abc) => abc.score).reduce(min);
-    // } else {
-    //   _winScore = _players.map((abc) => abc.score).reduce(max);
-    // }
-    // return _winScore;
   }
 
   static randomColor() {
