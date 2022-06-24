@@ -43,8 +43,10 @@ class MyApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    
     return Consumer(builder: (context, ref, _) {
       final _authSwitch = ref.watch(authProvider).isAuth;
+      // print(ref.watch(authProvider).isAuth);
       ref.watch(settingsProvider).intialize(); // itizize the theme
 
       return GetMaterialApp(
@@ -55,17 +57,17 @@ class MyApp extends StatelessWidget {
         themeMode: ref.watch(settingsProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
-            // : FutureBuilder(
-            //     future: ref.watch(authProvider).tryAutoLogin(),
-            //     builder: (
-            //       ctx,
-            //       authResultSnapshot,
-            //     ) =>
-            //         authResultSnapshot.connectionState ==
-            //                 ConnectionState.waiting
-            //             ? SplashScreen()
+            : FutureBuilder(
+                future: ref.watch(authProvider).tryAutoLogin(),
+                builder: (
+                  ctx,
+                  authResultSnapshot,
+                ) =>
+                    authResultSnapshot.connectionState ==
+                            ConnectionState.waiting
+                        ? SplashScreen()
                         : AuthScreen(),
-              // ),
+              ),
         getPages: [
           GetPage(name: '/match', page: () => MatchScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
