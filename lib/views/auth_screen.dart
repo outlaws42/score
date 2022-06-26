@@ -127,7 +127,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     controller: _emailController,
                                     labelText: "Email",
                                     hintText: 'Email Address (Required)',
-                                    maxLength: 20,
+                                    maxLength: 40,
                                     blankFieldMessage: "Fill in the Email"),
                                 // Password
                                 FormWidgets.formTextInputValidation(

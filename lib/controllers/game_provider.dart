@@ -54,6 +54,7 @@ class GameProvider extends ChangeNotifier {
     String currentName = 'add_game',
     required String name,
     required String description,
+    String desUrl = '',
     bool lowScore = false,
   }) async {
     final url = Uri.parse('$backendUrl/$currentName');
@@ -64,6 +65,7 @@ class GameProvider extends ChangeNotifier {
       body: jsonEncode({
         'name': name,
         'description': description,
+        'des_url': desUrl,
         'low_score': lowScore,
 
         // 'players': players
@@ -75,6 +77,7 @@ class GameProvider extends ChangeNotifier {
         id: jsonDecode(response.body)['_id'],
         name: jsonDecode(response.body)['name'],
         description: jsonDecode(response.body)['description'],
+        desUrl: jsonDecode(response.body)['des_url'],
         lowScore: jsonDecode(response.body)['low_score'],
         dateTime: jsonDecode(response.body)['datetime'],
         isSelected: jsonDecode(response.body)['is_selected'],

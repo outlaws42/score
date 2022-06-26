@@ -69,40 +69,41 @@ class PageWidgets {
     String column3 = '_',
   }) {
     return Card(
-        elevation: 6,
-        color: Theme.of(context).appBarTheme.backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                width: 80,
-                child:
-                    Text(column1, style: Theme.of(context).textTheme.headline3),
-              ),
-              Spacer(
-                flex: 1,
-              ),
-              column3 == '_'
-                  ? Container(
-                      width: 80,
-                    )
-                  : Container(
-                      width: 80,
-                      child: Text(column3,
-                          style: Theme.of(context).textTheme.headline3),
-                    ),
-              Spacer(
-                flex: 1,
-              ),
-              Container(
-                width: 60,
-                child:
-                    Text(column2, style: Theme.of(context).textTheme.headline3),
-              ),
-            ],
-          ),
-        ));
+      elevation: 6,
+      color: Theme.of(context).appBarTheme.backgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+              width: 80,
+              child:
+                  Text(column1, style: Theme.of(context).textTheme.headline3),
+            ),
+            Spacer(
+              flex: 1,
+            ),
+            column3 == '_'
+                ? Container(
+                    width: 80,
+                  )
+                : Container(
+                    width: 80,
+                    child: Text(column3,
+                        style: Theme.of(context).textTheme.headline3),
+                  ),
+            Spacer(
+              flex: 1,
+            ),
+            Container(
+              width: 60,
+              child:
+                  Text(column2, style: Theme.of(context).textTheme.headline3),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget headerButton(
@@ -378,6 +379,7 @@ class PageWidgets {
     final _description = game[index].description;
     final _endScore = game[index].endScore;
     final _lowScore = game[index].lowScore;
+    final _url = game[index].desUrl;
     // final _freePlay = game[index].freePlay;
     bool _isSelected = game[index].isSelected;
     final _date = FunctionHelper().intUtcToStringFormatDT(
@@ -405,6 +407,7 @@ class PageWidgets {
             context: context,
             game: _game,
             description: _description,
+            url: _url,
             date: _date,
           );
         }

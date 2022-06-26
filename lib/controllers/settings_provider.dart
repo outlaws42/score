@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsProvider extends ChangeNotifier {
   String currentTheme = 'system';
 
+  // bool get isTheme {
+  //   return currentTheme != null;
+  // }
+
   ThemeMode get themeMode {
     if (currentTheme == 'light'){
       return ThemeMode.light;
@@ -22,7 +26,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   } 
 
-  intialize() async {
+  Future intialize() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     currentTheme = _prefs.getString('theme') ?? 'system';
     notifyListeners();

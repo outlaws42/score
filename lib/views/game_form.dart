@@ -16,14 +16,17 @@ class _GameFormState extends ConsumerState<GameForm> {
   TextEditingController _descriptionController = TextEditingController(
     text: "This game will challenge you",
   );
+  TextEditingController _desUrlController = TextEditingController();
 
   int _lowScoreInt = 0;
 
   final _formKey = GlobalKey<FormState>();
 
   void _save(
-    WidgetRef ref, String name,
+    WidgetRef ref,
+    String name,
     String description,
+    String desUrl,
     int lowScore,
   ) {
     // Save for each field save
@@ -31,6 +34,7 @@ class _GameFormState extends ConsumerState<GameForm> {
       return;
     }
     final lowScoreSwitch = lowScore == 0 ? false : true;
+    print(desUrl);
 
     if (arguments[0] == "form_edit") {
       ref.read(gameProvider).updateGame(
@@ -43,6 +47,7 @@ class _GameFormState extends ConsumerState<GameForm> {
       ref.read(gameProvider).addGame(
             name: name,
             description: description,
+            desUrl: desUrl,
             lowScore: lowScoreSwitch,
           );
     }
@@ -94,12 +99,13 @@ class _GameFormState extends ConsumerState<GameForm> {
                 ),
                 // Game Name
                 FormWidgets.formTextInputValidation(
-                    context: context,
-                    controller: _nameController,
-                    labelText: "Game",
-                    hintText: "The name of your game (Required)",
-                    maxLength: 20,
-                    blankFieldMessage: "Please input a name for your game"),
+                  context: context,
+                  controller: _nameController,
+                  labelText: "Game",
+                  hintText: "The name of your game (Required)",
+                  maxLength: 20,
+                  blankFieldMessage: "Please input a name for your game",
+                ),
                 // Description
                 FormWidgets.formTextInputMulti(
                   context: context,
@@ -108,29 +114,38 @@ class _GameFormState extends ConsumerState<GameForm> {
                   hintText: 'A description of your game (optional)',
                   maxLength: 200,
                 ),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Low Score Wins',
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                            Switch(
-                              value: _isLowScore,
-                              onChanged: (boolVal) {
-                                _lowScoreInt = boolVal == false ? 0 : 1;
-                                ref.read(gameProvider).updateLowScore();
-                              },
-                              activeTrackColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              activeColor:
-                                  Theme.of(context).colorScheme.primaryContainer,
-                            ),
-                          ],
-                        ),
+                // Description URL
+                FormWidgets.formTextInput(
+                  context: context,
+                  controller: _desUrlController,
+                  labelText: "Game Play URL",
+                  hintText: "Url That would describe the game",
+                  maxLength: 200,
+                ),
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Low Score Wins',
+                        style: Theme.of(context).textTheme.headline6,
                       ),
+                      Switch(
+                        value: _isLowScore,
+                        onChanged: (boolVal) {
+                          _lowScoreInt = boolVal == false ? 0 : 1;
+                          ref.read(gameProvider).updateLowScore();
+                        },
+                        activeTrackColor:
+                            Theme.of(context).colorScheme.secondary,
+                        activeColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                      ),
+                    ],
+                  ),
+                ),
 
                 // Submit Button
                 Container(
@@ -139,8 +154,10 @@ class _GameFormState extends ConsumerState<GameForm> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _save(
-                          ref, _nameController.text,
+                          ref,
+                          _nameController.text,
                           _descriptionController.text,
+                          _desUrlController.text,
                           _lowScoreInt,
                         );
                         if (_isLowScore == true) {

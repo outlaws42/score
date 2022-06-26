@@ -43,46 +43,46 @@ class _SettingsState extends ConsumerState<Settings> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                PageWidgets.settingsCategoryHeader(
-                  context: context,
-                  sectionTitle: "Display Settings",
-                ),
-                // Theme Mode
-                ListTile(
-                  title: Text('Theme Mode'),
-                  trailing: DropdownButton<String>(
-                    value: ref.watch(settingsProvider).currentTheme,
-                    dropdownColor: Theme.of(context).appBarTheme.foregroundColor,
-                    borderRadius: BorderRadius.circular(5),
-                    items: [
-                      // Light, Dark, System
-                      DropdownMenuItem<String>(
-                        value: 'light',
-                        child: Text(
-                          'Light',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'dark',
-                        child: Text(
-                          'Dark',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'system',
-                        child: Text(
-                          'System',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                    ],
-                    onChanged: (String? value) {
-                      ref.watch(settingsProvider).changeTheme(value ?? 'system');
-                    },
-                  ),
-                ),
+                // PageWidgets.settingsCategoryHeader(
+                //   context: context,
+                //   sectionTitle: "Display Settings",
+                // ),
+                // // Theme Mode
+                // ListTile(
+                //   title: Text('Theme Mode'),
+                //   trailing: DropdownButton<String>(
+                //     value: ref.watch(settingsProvider).currentTheme,
+                //     dropdownColor: Theme.of(context).appBarTheme.foregroundColor,
+                //     borderRadius: BorderRadius.circular(5),
+                //     items: [
+                //       // Light, Dark, System
+                //       DropdownMenuItem<String>(
+                //         value: 'light',
+                //         child: Text(
+                //           'Light',
+                //           style: Theme.of(context).textTheme.headline6,
+                //         ),
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         value: 'dark',
+                //         child: Text(
+                //           'Dark',
+                //           style: Theme.of(context).textTheme.headline6,
+                //         ),
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         value: 'system',
+                //         child: Text(
+                //           'System',
+                //           style: Theme.of(context).textTheme.headline6,
+                //         ),
+                //       ),
+                //     ],
+                //     onChanged: (String? value) {
+                //       ref.watch(settingsProvider).changeTheme(value ?? 'system');
+                //     },
+                //   ),
+                // ),
                // About
                 PageWidgets.settingsCategoryHeader(
                   context: context,

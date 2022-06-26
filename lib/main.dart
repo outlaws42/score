@@ -45,9 +45,10 @@ class MyApp extends StatelessWidget {
   ) {
     
     return Consumer(builder: (context, ref, _) {
+      // ref.watch(settingsProvider).intialize(); // itizize the theme
+
       final _authSwitch = ref.watch(authProvider).isAuth;
-      // print(ref.watch(authProvider).isAuth);
-      ref.watch(settingsProvider).intialize(); // itizize the theme
+      print(ref.watch(authProvider).isAuth);
 
       return GetMaterialApp(
         title: 'Scoreboard',

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import '../../models/match_model.dart';
 import '../function_helpers.dart';
 
@@ -11,7 +13,7 @@ class BottomSheetWidgets {
     required String playerName,
   }) {
     var _wins = matchList.where((win) => win.winnerId == playerId).toList();
-    
+
     Get.bottomSheet(
       Container(
         color: Theme.of(buildContext).appBarTheme.foregroundColor,
@@ -65,7 +67,6 @@ class BottomSheetWidgets {
                                       ),
                                     );
                                   })
-
                             ],
                           ),
                           trailing: Text(
@@ -85,32 +86,89 @@ class BottomSheetWidgets {
     required BuildContext context,
     required String game,
     required String description,
+    String url = '',
     required String date,
   }) {
-    Get.bottomSheet(
-      Container(
-        color: Theme.of(context).appBarTheme.foregroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            child: ListTile(
-              title: Text(
-                "$game",
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              subtitle: Text(
-                "$description",
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              trailing: Text(
-                '$date',
-                style: Theme.of(context).textTheme.subtitle1,
+    bool isLink = true;
+    if(url.isEmpty){
+      isLink = false;
+    }
+    // Get.bottomSheet(
+    //   Container(
+    //     color: Theme.of(context).appBarTheme.foregroundColor,
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(10.0),
+    //       child: Container(
+    //         child: ListTile(
+    //           title: Text(
+    //             "$game",
+    //             style: Theme.of(context).textTheme.headline4,
+    //           ),
+    //           subtitle: Text(
+    //             "$description",
+    //             style: Theme.of(context).textTheme.subtitle1,
+    //           ),
+    //           trailing: Text(
+    //             '$date',
+    //             style: Theme.of(context).textTheme.subtitle1,
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
+
+    Get.bottomSheet(Card(
+      elevation: 6,
+      color: Theme.of(context).appBarTheme.foregroundColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 100,
+                  child:
+                      Text(game, style: Theme.of(context).textTheme.headline4),
+                ),
+                Container(
+                  width: 100,
+                  child:
+                      Text(date, style: Theme.of(context).textTheme.subtitle1),
+                ),
+              ],
+            ),
+            // Row(
+            //   children: [
+            Container(
+              width: 350,
+              child: Text(description,
+                  style: Theme.of(context).textTheme.subtitle1),
+            ),
+            Container(
+              width: 60,
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.linkBoxVariant,
+                  size: 60,
+                  color: isLink == false ? null : Theme.of(context).appBarTheme.backgroundColor,
+                ),
+                onPressed: isLink == false ? null : () {
+                  FunctionHelper.gameDescription(url);
+                },
               ),
             ),
-          ),
+            //   ],
+            // ),
+            // ],
+            // ),
+          ],
         ),
       ),
-    );
+    ));
   }
 
   dbBackupSheet({

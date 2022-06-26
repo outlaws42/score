@@ -5,6 +5,7 @@ class GameModel with ChangeNotifier {
   final String id;
   final String name;
   final String description;
+  final String desUrl;
   final int? endScore;
   final bool lowScore;
   final bool isSelected;
@@ -14,6 +15,7 @@ class GameModel with ChangeNotifier {
     this.id="_",
     this.name ="game",
     this.description = 'This game will test you',
+    this.desUrl = '',
     this.endScore,
     this.lowScore = false,
     this.isSelected = false,
@@ -25,6 +27,7 @@ class GameModel with ChangeNotifier {
       id: json['_id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
+      desUrl: json['des_url'] as String,
       isSelected: json['is_selected'] as bool,
       lowScore: json['low_score'] as bool,
       dateTime:  json['datetime'] as int,

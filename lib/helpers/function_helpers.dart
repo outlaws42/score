@@ -322,6 +322,15 @@ class FunctionHelper {
     Uri _url = Uri.parse(sourcCodeUrl);
     if (!await launchUrl(
       _url,
+      mode: LaunchMode.externalApplication, 
+    )) throw 'Could not launch $_url';
+  }
+
+  static gameDescription(String url) async {
+    Uri _url = Uri.parse(url);
+    if (!await launchUrl(
+      _url,
+      mode: LaunchMode.externalApplication, 
     )) throw 'Could not launch $_url';
   }
 }
