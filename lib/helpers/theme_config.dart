@@ -105,10 +105,10 @@ class ThemeConfig {
   );
 
   static final ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Color.fromRGBO(35, 38, 37, 1),
+    scaffoldBackgroundColor: Color.fromARGB(255, 42, 49, 53),//Color.fromRGBO(35, 38, 37, 1),
     appBarTheme: AppBarTheme(
-      backgroundColor: Color.fromARGB(255, 42, 49, 53),
-      foregroundColor: Color.fromRGBO(35, 38, 37, 1),
+      backgroundColor: Color.fromARGB(255, 6, 79, 72), // Color.fromARGB(255, 42, 49, 53),
+      foregroundColor: Color.fromARGB(255, 42, 49, 53), //Color.fromRGBO(35, 38, 37, 1),
       iconTheme: IconThemeData(
         color: Colors.white,
       ),

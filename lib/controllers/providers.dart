@@ -1,12 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/settings_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './game_provider.dart';
 import './player_provider.dart';
 import './match_provider.dart';
 import './auth_provider.dart';
+import 'app_theme_provider.dart';
+import './init_global_providers.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>((ref) => AuthProvider()
 );
+
+// final sharedPreferencesProvider = Provider<SharedPreferences>((_) {
+//   return throw UnimplementedError();
+// });
+
+final appThemeProvider = ChangeNotifierProvider((ref) => AppThemeProvider(ref.watch(sharedPreferences)));
+
+// final appThemeProvider = ChangeNotifierProvider((ref) {
+//   return AppThemeProvider(ref.watch(sharedPreferencesProvider));
+// });
 
 final settingsProvider = ChangeNotifierProvider<SettingsProvider>((ref) => SettingsProvider());
 

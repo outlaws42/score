@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:score/controllers/settings_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './views/splash_screen.dart';
 import './controllers/providers.dart';
 import './helpers/theme_config.dart';
@@ -16,13 +18,22 @@ import './views/match_form.dart';
 import './views/game_form.dart';
 import './views/player_form.dart';
 import './views/auth_screen.dart';
+import './controllers/init_global_providers.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initGlobalProviders();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
   // Temp for dev to overide signed certs. Remove for production
   HttpOverrides.global = new DevHttpOverrides();
 
   runApp(
     ProviderScope(
+    //   overrides: [
+    //   sharedPreferencesProvider.overrideWithValue(prefs),
+    // ],
       child: MyApp(),
     ),
   );
@@ -41,12 +52,11 @@ class DevHttpOverrides extends HttpOverrides {
 class MyApp extends StatelessWidget {
   @override
   Widget build(
-    BuildContext context,
+    BuildContext context
   ) {
     
     return Consumer(builder: (context, ref, _) {
-      // ref.watch(settingsProvider).intialize(); // itizize the theme
-
+      // ref.watch(appThemeProvider).intialize();
       final _authSwitch = ref.watch(authProvider).isAuth;
       print(ref.watch(authProvider).isAuth);
 
@@ -55,7 +65,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.lightTheme,
         darkTheme: ThemeConfig.darkTheme,
-        themeMode: ref.watch(settingsProvider).themeMode,
+        themeMode: ref.watch(appThemeProvider).themeMode,
         home: _authSwitch == true
             ? MatchScreen()
             : FutureBuilder(

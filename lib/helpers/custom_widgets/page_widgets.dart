@@ -9,6 +9,7 @@ import '../../models/player_model.dart';
 import '../../models/game_model.dart';
 import '../function_helpers.dart';
 import './bottom_sheet_widgets.dart';
+import '../screen.dart';
 
 class PageWidgets {
   Widget iconButtonBar({
@@ -286,7 +287,7 @@ class PageWidgets {
           child: Card(
             elevation: 3,
             color: _isSelected == false
-                ? Theme.of(context).scaffoldBackgroundColor
+                ? Theme.of(context).appBarTheme.foregroundColor
                 : Theme.of(context).appBarTheme.backgroundColor,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -426,7 +427,7 @@ class PageWidgets {
         child: Card(
           elevation: 3,
           color: _isSelected == false
-              ? Theme.of(context).scaffoldBackgroundColor
+              ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -537,6 +538,12 @@ class PageWidgets {
     final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: match[index].dateTime,
     );
+    int divFactor = 3; // Divide factor. Number of columns except when select then 4
+    if (_isSelected == true) {
+      divFactor = 4;
+    }
+    final width = Screen.width(context);
+    final widthAdj = (width / divFactor) - 17;
 
     return GestureDetector(
       onTap: () {
@@ -565,15 +572,18 @@ class PageWidgets {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _isSelected == true
-                    ? Column(
-                        children: [
-                          Container(
-                            height: 75,
-                            width: 55,
-                            child: IconButton(
+                    ? Container(
+                        width: 55,
+                        child: Column(
+                          children: [
+                            // Container(
+                            //   height: 75,
+                            //   width: 55,
+                            IconButton(
                               // label: Text('Delete'),
                               icon: Icon(
                                 Icons.delete_forever,
@@ -590,101 +600,113 @@ class PageWidgets {
                                 );
                               },
                             ),
-                          ),
-                        ],
+                            // ),
+                          ],
+                        ),
                       )
                     : Container(),
                 // 1st column (Game and players)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 35,
-                      width: 120,
-                      child: Text(
-                        '$_gameName        ',
-                        style: _isSelected == true
-                            ? Theme.of(context).textTheme.headline5
-                            : Theme.of(context).textTheme.headline4,
+                Container(
+                  width: widthAdj,
+                  // decoration: BoxDecoration(border: Border.all()),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 35,
+                        width: 120,
+                        child: Text(
+                          '$_gameName        ',
+                          style: _isSelected == true
+                              ? Theme.of(context).textTheme.headline5
+                              : Theme.of(context).textTheme.headline4,
+                        ),
                       ),
-                    ),
-                    for (var player in players)
-                      Text(
-                        '$player',
-                        style: _isSelected == true
-                            ? Theme.of(context).textTheme.subtitle2
-                            : Theme.of(context).textTheme.subtitle1,
-                      ),
-                  ],
+                      for (var player in players)
+                        Text(
+                          '$player',
+                          style: _isSelected == true
+                              ? Theme.of(context).textTheme.subtitle2
+                              : Theme.of(context).textTheme.subtitle1,
+                        ),
+                    ],
+                  ),
                 ),
-                Spacer(
-                  flex: 1,
-                ),
+                // Spacer(
+                //   flex: 1,
+                // ),
                 // 2nd column (Winner and complete)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _isComplete == true
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 35,
-                                width: 80,
-                                child: PageWidgets().squareContainer(
-                                    context: context, content: '$_winner'),
+                Container(
+                  width: widthAdj,
+                  // decoration: BoxDecoration(border: Border.all()),
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  child: _isComplete == true
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 35,
+                              width: 80,
+                              child: PageWidgets().squareContainer(
+                                  context: context, content: '$_winner'),
+                            ),
+                            // Container(
+                            //   height: 35,
+                            //   width: 80,
+                            //   child: Text(
+                            //     'Complete',
+                            //     style: _isSelected == true
+                            //         ? Theme.of(context).textTheme.subtitle2
+                            //         : Theme.of(context).textTheme.subtitle1,
+                            //   ),
+                            // )
+                          ],
+                        )
+                      : Container(
+                          height: 35,
+                          width: 75,
+                        ),
+                  // ],
+                ),
+                // Spacer(
+                //   flex: 1,
+                // ),
+                // 3rd Column
+                Container(
+                  width: widthAdj,
+                  // decoration: BoxDecoration(border: Border.all()),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _lowScore == true
+                          ? Container(
+                              height: 35,
+                              width: 60,
+                              child: PageWidgets().circleContainer(
+                                context: context,
+                                content: 'LS',
                               ),
-                              Container(
-                                height: 35,
-                                width: 80,
-                                child: Text(
-                                  'Complete',
-                                  style: _isSelected == true
-                                      ? Theme.of(context).textTheme.subtitle2
-                                      : Theme.of(context).textTheme.subtitle1,
-                                ),
-                              )
-                            ],
-                          )
-                        : Container(
-                            height: 35,
-                            width: 75,
-                          ),
-                  ],
-                ),
-                Spacer(
-                  flex: 5,
-                ),
-                Column(
-                  children: [
-                    _lowScore == true
-                        ? Container(
-                            height: 35,
-                            width: 60,
-                            child: PageWidgets().circleContainer(
-                              context: context,
-                              content: 'LS',
+                            )
+                          : Container(
+                              height: 35,
+                              width: 60,
+                              child: PageWidgets().circleContainer(
+                                context: context,
+                                content: 'HS',
+                              ),
                             ),
-                          )
-                        : Container(
-                            height: 35,
-                            width: 60,
-                            child: PageWidgets().circleContainer(
-                              context: context,
-                              content: 'HS',
-                            ),
-                          ),
-                    Container(
-                      height: 35,
-                      width: 60,
-                      child: Text(
-                        '$_date',
-                        style: _isSelected == true
-                            ? Theme.of(context).textTheme.subtitle2
-                            : Theme.of(context).textTheme.subtitle1,
-                      ),
-                    )
-                  ],
+                      Container(
+                        height: 35,
+                        width: 90,
+                        child: Text(
+                          '$_date',
+                          style: _isSelected == true
+                              ? Theme.of(context).textTheme.subtitle2
+                              : Theme.of(context).textTheme.subtitle1,
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
