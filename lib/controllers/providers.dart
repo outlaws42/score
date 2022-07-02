@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/settings_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './game_provider.dart';
 import './player_provider.dart';
 import './match_provider.dart';

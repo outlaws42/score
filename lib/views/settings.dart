@@ -38,6 +38,7 @@ class _SettingsState extends ConsumerState<Settings> {
       ),
       // body:
       body: Consumer(builder: (context, ref, child) {
+        // ref.watch(appThemeProvider).intialize();
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
