@@ -11,7 +11,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-
   var _emailController = TextEditingController();
 
   var _passwordController = TextEditingController();
@@ -69,8 +68,7 @@ class _AuthScreenState extends State<AuthScreen> {
         return Scaffold(
           body: Stack(children: [
             Container(
-              decoration: BoxDecoration(color: Colors.black54
-                  ),
+              decoration: BoxDecoration(color: Colors.black54),
             ),
             SingleChildScrollView(
               child: Container(
@@ -90,6 +88,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Container(
                           height: 320,
                           constraints: BoxConstraints(minHeight: 320),
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).appBarTheme.foregroundColor,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
                           width: deviceSize.width * 0.75,
                           padding: EdgeInsets.all(16.0),
                           child: Form(

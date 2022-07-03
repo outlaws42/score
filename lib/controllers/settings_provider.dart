@@ -1,36 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
   String currentTheme = 'system';
-
-  // bool get isTheme {
-  //   return currentTheme != null;
-  // }
-
-  ThemeMode get themeMode {
-    if (currentTheme == 'light'){
-      return ThemeMode.light;
-    }else if (currentTheme == 'dark'){
-      return ThemeMode.dark;
-    } else {
-      return ThemeMode.system;
-    }
-  }
-
-  Future changeTheme(String theme) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _prefs.setString('theme', theme);
-    currentTheme = theme;
-    notifyListeners();
-  } 
-
-  Future intialize() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    currentTheme = _prefs.getString('theme') ?? 'system';
-    notifyListeners();
-  }
 
   Future<String> getVersionNumber() async {
     // Gets version from pubspec.yaml requires package_info_plus package

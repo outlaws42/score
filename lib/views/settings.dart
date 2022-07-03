@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
-
-
 // final formControllerProvider =
 //     StateProvider<TextEditingController>((ref) => TextEditingController());
 
@@ -14,7 +12,6 @@ class Settings extends ConsumerStatefulWidget {
 }
 
 class _SettingsState extends ConsumerState<Settings> {
-
   @override
   Widget build(BuildContext context) {
     final ver = ref.read(settingsProvider).getVersionNumber();
@@ -52,39 +49,62 @@ class _SettingsState extends ConsumerState<Settings> {
                 ListTile(
                   title: Text('Theme Mode'),
                   trailing: DropdownButton<String>(
+                    isExpanded: false,
                     value: ref.watch(appThemeProvider).currentTheme,
-                    dropdownColor: Theme.of(context).appBarTheme.foregroundColor,
+                    dropdownColor:
+                        Theme.of(context).appBarTheme.foregroundColor,
                     borderRadius: BorderRadius.circular(5),
+                    // icon: Icon(Icons.settings),
                     items: [
                       // Light, Dark, System
                       DropdownMenuItem<String>(
                         value: 'light',
-                        child: Text(
-                          'Light',
-                          style: Theme.of(context).textTheme.headline6,
+                        child: Row(
+                          children: [
+                            Icon(Icons.light_mode),
+                            SizedBox(width: 10),
+                            Text(
+                              'Light',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
                         ),
                       ),
                       DropdownMenuItem<String>(
                         value: 'dark',
-                        child: Text(
-                          'Dark',
-                          style: Theme.of(context).textTheme.headline6,
+                        child: Row(
+                          children: [
+                            Icon(Icons.dark_mode),
+                            SizedBox(width: 10),
+                            Text(
+                              'Dark',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
                         ),
                       ),
                       DropdownMenuItem<String>(
                         value: 'system',
-                        child: Text(
-                          'System',
-                          style: Theme.of(context).textTheme.headline6,
+                        child: Row(
+                          children: [
+                            Icon(Icons.settings),
+                            SizedBox(width: 10),
+                            Text(
+                              'System',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
                         ),
                       ),
                     ],
                     onChanged: (String? value) {
-                      ref.watch(appThemeProvider).changeTheme(value ?? 'system');
+                      ref
+                          .watch(appThemeProvider)
+                          .changeTheme(value ?? 'system');
                     },
                   ),
                 ),
-               // About
+                // About
                 PageWidgets.settingsCategoryHeader(
                   context: context,
                   sectionTitle: "About",
