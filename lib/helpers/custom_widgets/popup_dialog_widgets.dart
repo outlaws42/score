@@ -194,7 +194,7 @@ class PopupDialogWidgets {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.beach_access,
+                Icons.celebration,
                 color: Colors.green,
               ),
               Text(
