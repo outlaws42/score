@@ -2,22 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:score/controllers/settings_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './views/splash_screen.dart';
 import './controllers/providers.dart';
 import './helpers/theme_config.dart';
-import './views/match_screen.dart';
 import './views/settings.dart';
-import './views/player_screen.dart';
 import './views/player_select_screen.dart';
-import './views/game_screen.dart';
 import './views/team_screen.dart';
 import './views/match_current_screen_list.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
 import './views/player_form.dart';
 import './views/auth_screen.dart';
+import './views/tab_bar_screen.dart';
 import './controllers/init_global_providers.dart';
 
 void main() async {
@@ -58,7 +54,9 @@ class MyApp extends StatelessWidget {
     return Consumer(builder: (context, ref, _) {
       // ref.watch(appThemeProvider).intialize();
       final _authSwitch = ref.watch(authProvider).isAuth;
-      print(ref.watch(authProvider).isAuth);
+      if(_authSwitch == true){
+        ref.read(playerProvider).fetchPlayer();
+      }
 
       return GetMaterialApp(
         title: 'Scoreboard',
@@ -67,7 +65,7 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeConfig.darkTheme,
         themeMode: ref.watch(appThemeProvider).themeMode,
         home: _authSwitch == true
-            ? MatchScreen()
+            ? TabBarScreen()
             : FutureBuilder(
                 future: ref.watch(authProvider).tryAutoLogin(),
                 builder: (
@@ -80,10 +78,8 @@ class MyApp extends StatelessWidget {
                         : AuthScreen(),
               ),
         getPages: [
-          GetPage(name: '/match', page: () => MatchScreen()),
+          GetPage(name: '/match', page: () => TabBarScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
-          GetPage(name: '/games', page: () => GameScreen()),
-          GetPage(name: '/players', page: () => PlayersScreen()),
           GetPage(name: '/players_select', page: () => PlayersSelectScreen()),
           GetPage(name: '/teams', page: () => TeamScreen()),
           GetPage(name: '/match_form', page: () => MatchForm()),

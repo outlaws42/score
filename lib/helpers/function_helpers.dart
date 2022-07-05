@@ -9,10 +9,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-// import 'package:filesystem_picker/filesystem_picker.dart';
 import 'dart:async';
 import 'dart:io';
-// import 'dart:typed_data';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
@@ -102,9 +100,8 @@ class FunctionHelper {
     // Add the amount of player matches
 
     final _players = ref.read(matchProvider).match[index].players;
-
-    for (var player in _players) {
-      var _playerId = player.playerId;
+    for (var eachplayer in _players) {
+      var _playerId = eachplayer.playerId;
       var _playerIndex = ref
           .read(playerProvider)
           .player

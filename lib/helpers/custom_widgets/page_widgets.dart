@@ -128,8 +128,6 @@ class PageWidgets {
                     _playerSelectIds.add(i['player_id']);
                   }
 
-                  print('_playerSelectIds: $_playerSelectIds');
-                  // print('_playerSelect: $_playersSelect');
                   for (var item in _playerSelectIds) {
                     ref.read(playerProvider).updateSelected(
                           playerId: item,
@@ -259,8 +257,7 @@ class PageWidgets {
     required List<MatchModel> matchList,
     required PlayerProvider playerProv,
   }) {
-    List _selectedItems = [];
-    List arguments = Get.arguments;
+
     final _name = player[index].name;
     final _wins = player[index].wins;
     final _matches = player[index].matches;
@@ -268,16 +265,11 @@ class PageWidgets {
     bool _isSelected = player[index].isSelected;
     return GestureDetector(
       onTap: () {
-        if (arguments[0] == 'player_tile' || arguments[0] == 'form') {
-          _selectedItems = [_name, _id];
-          Get.back(result: _selectedItems);
-        } else {
-          BottomSheetWidgets().playerSheet(
+        BottomSheetWidgets().playerSheet(
               buildContext: context,
               playerId: _id,
               matchList: matchList,
               playerName: _name);
-        }
       },
       child: Container(
           padding: const EdgeInsets.all(2),
@@ -374,7 +366,7 @@ class PageWidgets {
     required List<GameModel> game,
   }) {
     List _selectedItems = [];
-    List arguments = Get.arguments;
+    List arguments = Get.arguments ?? ['matchScreen'];
     final _id = game[index].id;
     final _game = game[index].name;
     final _description = game[index].description;
@@ -824,7 +816,7 @@ class PageWidgets {
                           playerId: _id,
                           isSelected: _isSelected,
                         );
-                    // print(_isSelected);
+
                   },
                   activeTrackColor: Theme.of(context).colorScheme.secondary,
                   activeColor: Theme.of(context).colorScheme.primaryContainer,

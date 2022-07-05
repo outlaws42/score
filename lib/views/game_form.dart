@@ -34,7 +34,6 @@ class _GameFormState extends ConsumerState<GameForm> {
       return;
     }
     final lowScoreSwitch = lowScore == 0 ? false : true;
-    print(desUrl);
 
     if (arguments[0] == "form_edit") {
       ref.read(gameProvider).updateGame(

@@ -16,25 +16,25 @@ class _SettingsState extends ConsumerState<Settings> {
   Widget build(BuildContext context) {
     final ver = ref.read(settingsProvider).getVersionNumber();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Settings',
-          style: Theme.of(context).textTheme.headline3,
-        ),
-        actions: [
-          // IconButton(
-          //   onPressed: () {
-          //     _saveSettings(_urlController.text, _isDarkMode);
-          //   },
-          //   icon: Icon(
-          //     Icons.save,
-          //   ),
-          // )
-        ],
-      ),
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text(
+    //       'Settings',
+    //       style: Theme.of(context).textTheme.headline3,
+    //     ),
+    //     actions: [
+    //       // IconButton(
+    //       //   onPressed: () {
+    //       //     _saveSettings(_urlController.text, _isDarkMode);
+    //       //   },
+    //       //   icon: Icon(
+    //       //     Icons.save,
+    //       //   ),
+    //       // )
+    //     ],
+    //   ),
       // body:
-      body: Consumer(builder: (context, ref, child) {
+      return Consumer(builder: (context, ref, child) {
         // ref.watch(appThemeProvider).intialize();
         return SingleChildScrollView(
           child: Padding(
@@ -169,9 +169,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
         );
-      }),
+      });
       // ),
       // ),
-    );
+    // );
   }
 }

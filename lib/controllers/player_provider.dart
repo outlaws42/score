@@ -66,7 +66,6 @@ class PlayerProvider extends ChangeNotifier {
     bool selected = isSelected;
     if (isSelected == true || _selectedPlayers.length < 20) {
       selected = !selected;
-      print("Selected: $selected");
     }
 
     if (selected == true && _selectedPlayers.length < 20) {
@@ -251,7 +250,6 @@ class PlayerProvider extends ChangeNotifier {
       }),
     )
         .then((response) {
-      print('response body: ${jsonDecode(response.body)}');
     });
     notifyListeners();
   }

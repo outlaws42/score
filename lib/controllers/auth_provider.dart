@@ -25,7 +25,6 @@ class AuthProvider with ChangeNotifier {
     String email,
     String password,
   ) async {
-    // print(baseUrl);
     final url = Uri.parse('$backendUrl/login');
     var bytes = utf8.encode("$email:$password");
     var credentials = base64.encode(bytes);

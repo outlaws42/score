@@ -248,7 +248,6 @@ class MatchProvider extends ChangeNotifier {
       }),
     )
         .then((response) {
-      print('response body: ${jsonDecode(response.body)}');
     });
     notifyListeners();
   }

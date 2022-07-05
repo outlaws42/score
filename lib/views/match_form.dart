@@ -61,8 +61,6 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                 .read(matchProvider)
                 .match
                 .indexWhere((match) => match.dateTime == _date);
-            print(
-                'This is match from match form: ${ref.read(matchProvider).match[_index].id}');
 
             String _id = ref.read(matchProvider).match[_index].id;
             Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
@@ -162,6 +160,7 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Card(
+                              color: Theme.of(context).appBarTheme.foregroundColor,
                               elevation: 4,
                               child: ListTile(
                                 title: Text('Selected Players',

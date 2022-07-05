@@ -369,8 +369,6 @@ class PopupDialogWidgets {
       percent: popupHeightPercent,
       dimension: Screen.height(context),
     );
-    print(width);
-    print(height);
     
     Get.defaultDialog(
       title: "Score Help",

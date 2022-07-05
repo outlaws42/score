@@ -72,7 +72,6 @@ class GameProvider extends ChangeNotifier {
       }),
     )
         .then((response) {
-      print('This is the response: ${jsonDecode(response.body)}');
       final newGame = GameModel(
         id: jsonDecode(response.body)['_id'],
         name: jsonDecode(response.body)['name'],

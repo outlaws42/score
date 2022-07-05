@@ -55,43 +55,43 @@ class MatchCurrentScreenList extends StatelessWidget {
             pageLink: "/match",
             icon: Icon(Icons.list_alt),
           ),
-          PopupMenuButton(
-              iconSize: 30,
-              icon: Icon(Icons.menu),
-              color: Theme.of(context).appBarTheme.foregroundColor,
-              itemBuilder: (BuildContext context) => <PopupMenuItem>[
-                    MenuWidgets.menuItem(
-                      context: context,
-                      menuTitle: "Matches",
-                      icon: Icon(Icons.list_alt),
-                      value: 1,
-                    ),
-                    MenuWidgets.menuItem(
-                      context: context,
-                      menuTitle: "Players",
-                      icon: Icon(Icons.person),
-                      value: 2,
-                    ),
-                    MenuWidgets.menuItem(
-                      context: context,
-                      menuTitle: "Games",
-                      icon: Icon(Icons.games),
-                      value: 3,
-                    ),
-                    MenuWidgets.menuItem(
-                      context: context,
-                      menuTitle: "Settings",
-                      icon: Icon(Icons.settings),
-                      value: 10,
-                    ),
-                  ],
-              onSelected: (value) {
-                MenuWidgets.menuSelect(
-                  context,
-                  value,
-                  "current_match_screen",
-                );
-              })
+          // PopupMenuButton(
+          //     iconSize: 30,
+          //     icon: Icon(Icons.menu),
+          //     color: Theme.of(context).appBarTheme.foregroundColor,
+          //     itemBuilder: (BuildContext context) => <PopupMenuItem>[
+          //           MenuWidgets.menuItem(
+          //             context: context,
+          //             menuTitle: "Matches",
+          //             icon: Icon(Icons.list_alt),
+          //             value: 1,
+          //           ),
+          //           MenuWidgets.menuItem(
+          //             context: context,
+          //             menuTitle: "Players",
+          //             icon: Icon(Icons.person),
+          //             value: 2,
+          //           ),
+          //           MenuWidgets.menuItem(
+          //             context: context,
+          //             menuTitle: "Games",
+          //             icon: Icon(Icons.games),
+          //             value: 3,
+          //           ),
+          //           MenuWidgets.menuItem(
+          //             context: context,
+          //             menuTitle: "Settings",
+          //             icon: Icon(Icons.settings),
+          //             value: 10,
+          //           ),
+          //         ],
+          //     onSelected: (value) {
+          //       MenuWidgets.menuSelect(
+          //         context,
+          //         value,
+          //         "current_match_screen",
+          //       );
+          //     })
         ],
       ),
       body: Consumer(builder: (context, ref, child) {
