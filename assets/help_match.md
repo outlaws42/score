@@ -2,11 +2,11 @@
 
 ## Menu Bar
 
-From the menu bar you can add a match, read this help and navigate to any of the pages in the application.
+From the menu bar you can add a match and read this help.
 
 ## Match List
 
-The list of matches will be shown here. Each match has a tile in the list. In the "**Match**" column of the tile will display the game name, The players in the match. 
+The list of matches will be shown here. Each match has a tile in the list. In the "**Match**" column of the tile will display the game name, The players in the match.
 
 In the center of the tile if the match is completed the word **Complete**  will be displayed along with the **winning players name**.
 

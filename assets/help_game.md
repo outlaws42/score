@@ -2,7 +2,7 @@
 
 ## Menu Bar
 
-From the menu bar you can add a game, read this help and navigate to any of the pages in the application.
+From the menu bar you can add a game and read this help.
 
 ## Game List
 
