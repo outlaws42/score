@@ -81,7 +81,7 @@ class PopupDialogWidgets {
                 id: id,
                 sign: sign,
                 amount: 5,
-                  ),
+              ),
               // 10 Button
               PopupDialogWidgets.plusMinusButton(
                 ref: ref,
@@ -96,7 +96,7 @@ class PopupDialogWidgets {
               // 15 Button
 
               PopupDialogWidgets.plusMinusButton(
-                ref:ref,
+                ref: ref,
                 context: context,
                 score: score,
                 player: player,
@@ -107,7 +107,7 @@ class PopupDialogWidgets {
               ),
               // 30 Button
               PopupDialogWidgets.plusMinusButton(
-                ref:ref,
+                ref: ref,
                 context: context,
                 score: score,
                 player: player,
@@ -133,24 +133,23 @@ class PopupDialogWidgets {
               maxLength: 3,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
-              onChanged: (value) {
-              },
+              onChanged: (value) {},
               onFieldSubmitted: (value) {
-                    sign == "add"
-                        ? ref.read(matchProvider).plus(
-                              id: id,
-                              score: score,
-                              playerIndex: playerIndex,
-                              player: player,
-                              addAmount: int.parse(value),
-                            )
-                        : ref.read(matchProvider).minus(
-                              id: id,
-                              score: score,
-                              playerIndex: playerIndex,
-                              player: player,
-                              minusAmount: int.parse(value),
-                            );
+                sign == "add"
+                    ? ref.read(matchProvider).plus(
+                          id: id,
+                          score: score,
+                          playerIndex: playerIndex,
+                          player: player,
+                          addAmount: int.parse(value),
+                        )
+                    : ref.read(matchProvider).minus(
+                          id: id,
+                          score: score,
+                          playerIndex: playerIndex,
+                          player: player,
+                          minusAmount: int.parse(value),
+                        );
 
                 Get.back();
               },
@@ -183,7 +182,10 @@ class PopupDialogWidgets {
     );
   }
 
-  static winDialog(BuildContext context, currentPlayer) {
+  static winDialog(
+    BuildContext context,
+    currentPlayer,
+  ) {
     Get.defaultDialog(
       radius: 10.0,
       title: "The Game Is Complete",
@@ -266,7 +268,7 @@ class PopupDialogWidgets {
                     if (screen == "player") {
                       ref.read(playerProvider).deletePlayer(itemId);
                     } else if (screen == "match") {
-                      ref.read(matchProvider).deleteMatch(id:itemId);
+                      ref.read(matchProvider).deleteMatch(id: itemId);
                     } else if (screen == "game") {
                       ref.read(gameProvider).deleteGame(itemId);
                     } else {
@@ -359,7 +361,6 @@ class PopupDialogWidgets {
     required String data,
     double popupHeightPercent = 75,
     double popupWidthPercent = 90,
-
   }) {
     var width = Screen.percentOfSizeRound(
       percent: popupWidthPercent,
@@ -369,7 +370,7 @@ class PopupDialogWidgets {
       percent: popupHeightPercent,
       dimension: Screen.height(context),
     );
-    
+
     Get.defaultDialog(
       title: "Score Help",
       radius: 10.0,

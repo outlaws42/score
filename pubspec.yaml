@@ -27,8 +27,6 @@ dependencies:
   intl: ^0.17.0
   # Used to work with API
   http: ^0.13.4
-  # Database NOT USED on http
-  sqflite: ^2.0.0+3
   path: ^1.8.0
   path_provider: ^2.0.0
   # Used to set version in settings when changed in pubspec.yaml file
@@ -37,10 +35,6 @@ dependencies:
   get: ^4.6.3
   # Used for the color picker
   flutter_colorpicker: ^0.5.0
-  permission_handler: ^8.2.2
-  # For sharing the database
-  share_plus: ^4.0.4
-  # filesystem_picker: ^2.0.0
   url_launcher: ^6.0.12
   # Expanded amount of Icons
   material_design_icons_flutter: ^5.0.6295

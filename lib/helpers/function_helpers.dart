@@ -4,13 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart' as sql;
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:share_plus/share_plus.dart';
-import 'dart:async';
-import 'dart:io';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
@@ -94,7 +87,6 @@ class FunctionHelper {
   static addPlayerMatch({
     required WidgetRef ref,
     required BuildContext context,
-    // required bool lowScore,
     required int index,
   }) {
     // Add the amount of player matches
@@ -187,120 +179,6 @@ class FunctionHelper {
     return formatDt;
   }
 
-  Future<String> backupDb(
-      {required BuildContext context,
-      String fileName = 'score',
-      String fileExt = 'db'}) async {
-    var status = await Permission.storage.status;
-    if (status.isDenied) {
-      Permission.storage.request();
-    }
-    final dbPath = await sql.getDatabasesPath();
-    final File dbFile = File(path.join(dbPath, '$fileName.$fileExt'));
-    String _now = dtToStringFormatDT(
-      dateTimeDt: DateTime.now(),
-      format: "yyyyMMddHHmmss",
-    );
-    String sdCard = await getExternalSdCardPath();
-    String saveFile = sdCard + "/$fileName$_now.$fileExt";
-    dbFile.copy(saveFile);
-    return saveFile;
-  }
-
-  Future<String> getExternalSdCardPath() async {
-    // Requires: path_provider
-    // Returns the external app Dir if it exists.
-    // If not it returns the internal app dir
-    List<Directory>? extDirectories = await getExternalStorageDirectories();
-    String rebuiltPath = "";
-    List<String> dirs = [];
-    if (extDirectories != null && extDirectories.asMap().containsKey(1)) {
-      dirs = extDirectories[1].toString().split("/");
-    } else {
-      dirs = extDirectories![0].toString().split("/");
-    }
-    for (int i = 1; i < dirs.length; i++) {
-      rebuiltPath = rebuiltPath + "/" + dirs[i];
-    }
-    if (rebuiltPath.length > 0) {
-      rebuiltPath = rebuiltPath.substring(0, rebuiltPath.length - 1);
-    }
-    return rebuiltPath;
-  }
-
-  Future<void> shareDb({
-    required BuildContext context,
-    String fileName = "score",
-    String fileExt = 'db',
-  }) async {
-    // Requires: path' as path, permission_handler, sqflite.dart' as sql
-    // Requires: The internal function share.
-    // Gets Db file and calls the share function
-    // Allows the user to share through the OS share options.
-    var status = await Permission.storage.status;
-    if (status.isDenied) {
-      Permission.storage.request();
-    }
-    final _filePath = await sql.getDatabasesPath();
-    final File _file = File(path.join(_filePath, "$fileName.$fileExt"));
-    share(
-      file: _file,
-    );
-  }
-
-  void share({
-    required File file,
-    String text = 'Database Backup',
-  }) async {
-    // Requires: share_plus
-    // Takes a file to share the uses the OS share options
-    Share.shareFiles([file.path], text: text);
-  }
-
-  // Future<void> restore({
-  //   required BuildContext context,
-  //   String fileName = 'score.db',
-  // }) async {
-  //   final dbFolder = await sql.getDatabasesPath();
-  //   final dbLocation = path.join(dbFolder, fileName);
-  //   String? backupDb = await filePickerFile(context);
-  //   if (backupDb != null) {
-  //     Uint8List updatedContent = await File(backupDb).readAsBytes();
-  //     File(dbLocation).writeAsBytes(updatedContent);
-  //   }
-  // }
-
-  // Future<String?> filePickerFile(
-  //   BuildContext context,
-  // ) async {
-  //   String sdCard = await getExternalSdCardPath();
-  //   String? _dbFile = await FilesystemPicker.open(
-  //     title: 'Select DB File',
-  //     context: context,
-  //     rootDirectory: Directory(sdCard),
-  //     fsType: FilesystemType.file,
-  //     allowedExtensions: [".db"],
-  //     pickText: 'Select File ',
-  //     folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
-  //   );
-  //   return _dbFile;
-  // }
-
-  // Future<String?> filePickerFolder(
-  //   BuildContext context,
-  // ) async {
-  //   String? _dbFile = await FilesystemPicker.open(
-  //     title: 'Select Database Backup Location',
-  //     context: context,
-  //     rootDirectory: Directory("android"),
-  //     fsType: FilesystemType.folder,
-  //     allowedExtensions: [".db"],
-  //     pickText: 'Select Folder For Backup ',
-  //     folderIconColor: Theme.of(context).appBarTheme.backgroundColor,
-  //   );
-  //   return _dbFile;
-  // }
-
   static removePref(key) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(key);
@@ -310,8 +188,6 @@ class FunctionHelper {
     Uri _url = Uri.parse(licenseUrl);
     if (!await launchUrl(
       _url,
-      // forceWebView: true,
-      // enableJavaScript: true,
     )) throw 'Could not launch $_url';
   }
 
