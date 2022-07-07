@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-// import 'package:get/get.dart';
 import './game_list.dart';
-// import 'package:score/views/game_screen.dart';
-// import 'package:score/views/match_screen.dart';
 import './player_list.dart';
 import './settings.dart';
-// import 'package:score/views/player_screen.dart';
 import './match_list.dart';
 import '../helpers.dart';
 
@@ -42,13 +38,35 @@ class _TabBarScreenState extends State<TabBarScreen> {
             pageLink: "/match_form",
             icon: Icon(Icons.post_add),
           ),
+          PopupMenuButton(
+            position: PopupMenuPosition.under,
+            elevation: 10,
+            iconSize: 30,
+            icon: Icon(Icons.menu),
+            color: Theme.of(context).appBarTheme.foregroundColor,
+            itemBuilder: (BuildContext context) => <PopupMenuItem>[
+              MenuWidgets.menuItem(
+                context: context,
+                menuTitle: "Logout",
+                icon: Icon(Icons.logout),
+                value: 15,
+              ),
+            ],
+            onSelected: (value) {
+              MenuWidgets.menuSelect(
+                context,
+                value,
+                "match_screen",
+              );
+            },
+          ),
         ],
       },
       {
         'page': PlayerList(),
         'title': 'Players',
         'actions': [
-           PageWidgets().iconButtonBarDocs(
+          PageWidgets().iconButtonBarDocs(
             context: context,
             data: "assets/help_player.md",
             icon: Icon(MdiIcons.help),

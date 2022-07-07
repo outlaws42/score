@@ -57,7 +57,10 @@ class PlayerTile extends ConsumerWidget {
       final _color = matchData.match[_index].players[playerIndex].color;
 
       return Container(
-        constraints: BoxConstraints(maxHeight: 145),
+        constraints: BoxConstraints(
+          maxHeight: 145,
+          maxWidth: 500,
+        ),
         child: Card(
           elevation: 6,
           color: Color(_color).withOpacity(1),
@@ -68,6 +71,9 @@ class PlayerTile extends ConsumerWidget {
               Container(
                 child: Container(
                   height: 45,
+                  constraints: BoxConstraints(
+                    maxWidth: 500,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black12,
                     borderRadius: BorderRadius.only(
@@ -107,6 +113,9 @@ class PlayerTile extends ConsumerWidget {
               ),
               // Row 2 minus button score positive button
               Container(
+                constraints: BoxConstraints(
+                  maxWidth: 500,
+                ),
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
