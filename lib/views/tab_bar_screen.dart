@@ -36,7 +36,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/match_form",
-            icon: Icon(Icons.post_add),
+            icon: Icon(Icons.add),
           ),
           PopupMenuButton(
             position: PopupMenuPosition.under,
@@ -92,7 +92,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/game_form",
-            icon: Icon(Icons.add_box),
+            icon: Icon(Icons.add),
           ),
         ]
       },
@@ -128,7 +128,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.list_alt,
+              Icons.sports_kabaddi
             ),
             label: 'Matches',
             // activeIcon: Icon(Icons.abc),
