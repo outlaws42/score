@@ -53,7 +53,7 @@ class MatchCurrentScreenList extends StatelessWidget {
           PageWidgets().iconButtonBar(
             context: context,
             pageLink: "/match",
-            icon: Icon(Icons.list_alt),
+            icon: Icon(Icons.sports_kabaddi),
           ),
           // PopupMenuButton(
           //     iconSize: 30,
