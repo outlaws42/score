@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class FormWidgets {
-
   static Widget formTextInputValidation({
     BuildContext? context,
     TextEditingController? controller,
@@ -12,7 +11,6 @@ class FormWidgets {
     String obscureCharacter = '*',
     bool obscure = false,
     bool enable = true,
-
   }) {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -35,6 +33,15 @@ class FormWidgets {
           decorationColor: Colors.teal,
         ),
         decoration: InputDecoration(
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 43, 83, 91),
+              width: 2.0,
+              style: BorderStyle.solid,
+            ),
+          ),
+          fillColor: Colors.grey,
+          filled: enable == false ? true : false,
           labelText: labelText,
           labelStyle: TextStyle(
             color: Theme.of(context).colorScheme.primary,
@@ -61,8 +68,6 @@ class FormWidgets {
     String? labelText,
     String? hintText = 'The name of your game (Required)',
     int maxLength = 20,
-  
-
   }) {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -95,13 +100,14 @@ class FormWidgets {
       ),
     );
   }
+
   static Widget formTextInputMulti({
     BuildContext? context,
     TextEditingController? controller,
     String? labelText,
     String? hintText = 'The name of your game (Required)',
     int maxLength = 20,
-   }) {
+  }) {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: TextFormField(
