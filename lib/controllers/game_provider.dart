@@ -24,11 +24,15 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelected({required String gameId, required bool isSelected}) {
-    bool selected = isSelected;
-    selected = !selected;
-    int isSelectedInt = selected == false ? 0 : 1;
-    updateIsSelected(gameId, isSelectedInt);
+  void toggleSelected({
+    required String id,
+    required bool isSelected,
+  }) {
+    isSelected = !isSelected;
+    updateSelected(
+      id: id,
+      isSelected: isSelected,
+    );
   }
 
   Future<void> fetchGame({
@@ -86,15 +90,27 @@ class GameProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> updateIsSelected(
-    String gameId,
-    int isSelected,
-  ) async {
-    // DBHelper.update('game', gameId, {
-    //   'is_selected': isSelected,
-    // });
-    fetchGame();
+  Future<void> updateSelected({
+    String currentName = 'update_selected',
+    required String id,
+    required bool isSelected,
+  }) async {
+    // Update State
+    int gameIndex = getGameIndex(id);
+    _games[gameIndex].isSelected = isSelected;
     notifyListeners();
+    //Update Database
+    final url = Uri.parse('$backendUrl/$currentName');
+    http
+        .post(
+          url,
+          headers: {'x-access-token': authToken},
+          body: jsonEncode({
+            '_id': id,
+            'is_selected': isSelected,
+          }),
+        )
+        .then((response) {});
   }
 
   Future<void> deleteGame(
@@ -107,20 +123,37 @@ class GameProvider extends ChangeNotifier {
   }
 
   Future<void> updateGame({
-    required String gameId,
+    String currentName = 'update_game',
+    required String id,
     required String name,
     required String description,
-    required int lowScore,
+    required String desUrl,
+    required bool lowScore,
   }) async {
-    // DBHelper.update('game', gameId, {
-    //   'name': name,
-    //   'description': description,
-    //   'end_score': endScore,
-    //   'low_score': lowScore,
-    //   'free_play': freePlay,
-    //   'is_selected': 0,
-    // });
-    fetchGame();
+    final url = Uri.parse('$backendUrl/$currentName');
+    // Update State
+    int _gameIndex = getGameIndex(id);
+    _games[_gameIndex].name = name;
+    _games[_gameIndex].description = description;
+    _games[_gameIndex].desUrl = desUrl;
+    _games[_gameIndex].lowScore = lowScore;
     notifyListeners();
+    //Update Database
+    http
+        .post(
+          url,
+          headers: {'x-access-token': authToken},
+          body: jsonEncode({
+            '_id': id,
+            'name': name,
+            'description': description,
+            'des_url': desUrl,
+            'low_score': lowScore,
+          }),
+        )
+        .then((response) {});
+  }
+  getGameIndex(String gameId) {
+    return _games.indexWhere((element) => element.id == gameId);
   }
 }

@@ -257,7 +257,6 @@ class PageWidgets {
     required List<MatchModel> matchList,
     required PlayerProvider playerProv,
   }) {
-
     final _name = player[index].name;
     final _wins = player[index].wins;
     final _matches = player[index].matches;
@@ -266,10 +265,10 @@ class PageWidgets {
     return GestureDetector(
       onTap: () {
         BottomSheetWidgets().playerSheet(
-              buildContext: context,
-              playerId: _id,
-              matchList: matchList,
-              playerName: _name);
+            buildContext: context,
+            playerId: _id,
+            matchList: matchList,
+            playerName: _name);
       },
       child: Container(
           padding: const EdgeInsets.all(2),
@@ -370,7 +369,7 @@ class PageWidgets {
     final _id = game[index].id;
     final _game = game[index].name;
     final _description = game[index].description;
-    final _endScore = game[index].endScore;
+    final _desUrl = game[index].desUrl;
     final _lowScore = game[index].lowScore;
     final _url = game[index].desUrl;
     // final _freePlay = game[index].freePlay;
@@ -406,8 +405,8 @@ class PageWidgets {
         }
       },
       onLongPress: () {
-        ref.read(gameProvider).updateSelected(
-              gameId: _id,
+        ref.read(gameProvider).toggleSelected(
+              id: _id,
               isSelected: _isSelected,
             );
       },
@@ -430,25 +429,25 @@ class PageWidgets {
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // IconButton(
+                          //   onPressed: () {
+                          //     PopupDialogWidgets.warnDialog(
+                          //       ref,
+                          //       context,
+                          //       _game,
+                          //       _id,
+                          //       "game",
+                          //     );
+                          //   },
+                          //   icon: Icon(Icons.delete_forever),
+                          //   iconSize: 30,
+                          //   color:
+                          //       Theme.of(context).appBarTheme.foregroundColor,
+                          // ),
                           IconButton(
                             onPressed: () {
-                              PopupDialogWidgets.warnDialog(
-                                ref,
-                                context,
-                                _game,
-                                _id,
-                                "game",
-                              );
-                            },
-                            icon: Icon(Icons.delete_forever),
-                            iconSize: 30,
-                            color:
-                                Theme.of(context).appBarTheme.foregroundColor,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              ref.read(playerProvider).updateSelected(
-                                    playerId: _id,
+                              ref.read(gameProvider).toggleSelected(
+                                    id: _id,
                                     isSelected: _isSelected,
                                   );
                               Get.toNamed("/game_form", arguments: [
@@ -456,7 +455,7 @@ class PageWidgets {
                                 _id,
                                 _game,
                                 _description,
-                                _endScore,
+                                _desUrl,
                                 _lowScore,
                                 // _freePlay
                               ]);
@@ -530,7 +529,8 @@ class PageWidgets {
     final _date = FunctionHelper().intUtcToStringFormatDT(
       dateTimeUtcInt: match[index].dateTime,
     );
-    int divFactor = 3; // Divide factor. Number of columns except when select then 4
+    int divFactor =
+        3; // Divide factor. Number of columns except when select then 4
     if (_isSelected == true) {
       divFactor = 4;
     }
@@ -816,7 +816,6 @@ class PageWidgets {
                           playerId: _id,
                           isSelected: _isSelected,
                         );
-
                   },
                   activeTrackColor: Theme.of(context).colorScheme.secondary,
                   activeColor: Theme.of(context).colorScheme.primaryContainer,

@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 
 class GameModel with ChangeNotifier {
   final String id;
-  final String name;
-  final String description;
-  final String desUrl;
+  late String name;
+  late String description;
+  late String desUrl;
   final int? endScore;
-  final bool lowScore;
-  final bool isSelected;
+  late bool lowScore;
+  late bool isSelected;
   int dateTime;
 
   GameModel({

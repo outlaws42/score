@@ -11,6 +11,7 @@ class FormWidgets {
     String? blankFieldMessage,
     String obscureCharacter = '*',
     bool obscure = false,
+    bool enable = true,
 
   }) {
     return Container(
@@ -23,6 +24,7 @@ class FormWidgets {
           }
           return null;
         },
+        enabled: enable,
         obscuringCharacter: obscureCharacter,
         obscureText: obscure,
         maxLength: maxLength,

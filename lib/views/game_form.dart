@@ -12,6 +12,7 @@ class GameForm extends ConsumerStatefulWidget {
 
 class _GameFormState extends ConsumerState<GameForm> {
   List arguments = Get.arguments;
+  
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController(
     text: "This game will challenge you",
@@ -37,10 +38,11 @@ class _GameFormState extends ConsumerState<GameForm> {
 
     if (arguments[0] == "form_edit") {
       ref.read(gameProvider).updateGame(
-            gameId: arguments[1],
+            id: arguments[1],
             name: name,
             description: description,
-            lowScore: lowScore,
+            desUrl: desUrl,
+            lowScore: lowScoreSwitch,
           );
     } else {
       ref.read(gameProvider).addGame(
@@ -56,12 +58,16 @@ class _GameFormState extends ConsumerState<GameForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(arguments);
     if (arguments[0] == "form_edit") {
       _nameController = TextEditingController(
         text: arguments[2].toString(),
       );
       _descriptionController = TextEditingController(
         text: arguments[3].toString(),
+      );
+      _desUrlController = TextEditingController(
+        text: arguments[4].toString(),
       );
     }
     return Scaffold(
@@ -104,6 +110,7 @@ class _GameFormState extends ConsumerState<GameForm> {
                   hintText: "The name of your game (Required)",
                   maxLength: 20,
                   blankFieldMessage: "Please input a name for your game",
+                  enable: arguments[0] == 'form_edit' ? false : true
                 ),
                 // Description
                 FormWidgets.formTextInputMulti(
