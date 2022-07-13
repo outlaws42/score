@@ -19,8 +19,24 @@ class GameProvider extends ChangeNotifier {
 
   bool isLowScore = false;
 
-  void updateLowScore() {
+  void updateLowScore(
+    // required bool isLowScore,
+  ) {
+    print('isLowScore before: $isLowScore');
     isLowScore = !isLowScore;
+    print('isLowScore After: $isLowScore');
+    notifyListeners();
+  }
+
+  void toggleLowScore({
+    required String id,
+    required bool isLowScore,
+  }) {
+    int _gameIndex = getGameIndex(id); 
+    print('isLowScore before: $isLowScore');
+    isLowScore = !isLowScore;
+    print('isLowScore After: $isLowScore');
+    _games[_gameIndex].lowScore =isLowScore;
     notifyListeners();
   }
 
@@ -153,6 +169,7 @@ class GameProvider extends ChangeNotifier {
         )
         .then((response) {});
   }
+
   getGameIndex(String gameId) {
     return _games.indexWhere((element) => element.id == gameId);
   }

@@ -12,7 +12,7 @@ class GameForm extends ConsumerStatefulWidget {
 
 class _GameFormState extends ConsumerState<GameForm> {
   List arguments = Get.arguments;
-  
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController(
     text: "This game will challenge you",
@@ -87,8 +87,17 @@ class _GameFormState extends ConsumerState<GameForm> {
       ),
       body: Consumer(builder: (context, ref, child) {
         final gameData = ref.watch(gameProvider);
-        final _isLowScore =
-            arguments[0] == 'form_edit' ? arguments[5] : gameData.isLowScore;
+        bool _isLowScore = gameData.isLowScore;
+        if (arguments[0] == 'form_edit') {
+          int gameIndex = gameData.games
+              .indexWhere((element) => element.id == arguments[1]);
+          _isLowScore = gameData.games[gameIndex].lowScore;
+        }
+
+        arguments[0] == 'form_edit'
+            ? print('Arguments 5: ${arguments[5]}')
+            : print('form');
+        print('_isLowScore: $_isLowScore');
 
         return SingleChildScrollView(
           child: Form(
@@ -104,14 +113,13 @@ class _GameFormState extends ConsumerState<GameForm> {
                 ),
                 // Game Name
                 FormWidgets.formTextInputValidation(
-                  context: context,
-                  controller: _nameController,
-                  labelText: "Game",
-                  hintText: "The name of your game (Required)",
-                  maxLength: 20,
-                  blankFieldMessage: "Please input a name for your game",
-                  enable: arguments[0] == 'form_edit' ? false : true
-                ),
+                    context: context,
+                    controller: _nameController,
+                    labelText: "Game",
+                    hintText: "The name of your game (Required)",
+                    maxLength: 20,
+                    blankFieldMessage: "Please input a name for your game",
+                    enable: arguments[0] == 'form_edit' ? false : true),
                 // Description
                 FormWidgets.formTextInputMulti(
                   context: context,
@@ -141,8 +149,19 @@ class _GameFormState extends ConsumerState<GameForm> {
                       Switch(
                         value: _isLowScore,
                         onChanged: (boolVal) {
-                          _lowScoreInt = boolVal == false ? 0 : 1;
-                          ref.read(gameProvider).updateLowScore();
+                          if (arguments[0] == 'form_edit') {
+                            ref.read(gameProvider).toggleLowScore(
+                                  id: arguments[1],
+                                  isLowScore: _isLowScore,
+                                );
+                          } else {
+                            _lowScoreInt = boolVal == false ? 0 : 1;
+                            ref.read(gameProvider).updateLowScore(
+                                // isLowScore: boolVal,
+                                );
+                            print(boolVal);
+                            print(_lowScoreInt);
+                          }
                         },
                         activeTrackColor:
                             Theme.of(context).colorScheme.secondary,
@@ -167,7 +186,7 @@ class _GameFormState extends ConsumerState<GameForm> {
                           _lowScoreInt,
                         );
                         if (_isLowScore == true) {
-                          ref.read(gameProvider).updateLowScore();
+                          // ref.read(gameProvider).updateLowScore();
                         }
                       }
                     },
