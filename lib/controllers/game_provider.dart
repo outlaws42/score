@@ -19,12 +19,10 @@ class GameProvider extends ChangeNotifier {
 
   bool isLowScore = false;
 
-  void updateLowScore(
-    // required bool isLowScore,
-  ) {
-    print('isLowScore before: $isLowScore');
+  void updateLowScore() {
+    // Toggle isLowScore variable
+    // Used in new game lowScore
     isLowScore = !isLowScore;
-    print('isLowScore After: $isLowScore');
     notifyListeners();
   }
 
@@ -32,11 +30,11 @@ class GameProvider extends ChangeNotifier {
     required String id,
     required bool isLowScore,
   }) {
-    int _gameIndex = getGameIndex(id); 
-    print('isLowScore before: $isLowScore');
+    // Toggle state of lowScore passing current lowScore
+    // Used on edit game lowScore
+    int _gameIndex = getGameIndex(id);
     isLowScore = !isLowScore;
-    print('isLowScore After: $isLowScore');
-    _games[_gameIndex].lowScore =isLowScore;
+    _games[_gameIndex].lowScore = isLowScore;
     notifyListeners();
   }
 
@@ -44,6 +42,9 @@ class GameProvider extends ChangeNotifier {
     required String id,
     required bool isSelected,
   }) {
+    // Toggle state/database of isSelected
+    // passing current isSelected state
+    // Used when long pressing a game
     isSelected = !isSelected;
     updateSelected(
       id: id,
@@ -54,6 +55,8 @@ class GameProvider extends ChangeNotifier {
   Future<void> fetchGame({
     String currentName = 'games',
   }) async {
+    // Get game information from the API/Database
+    // then populating the game state.
     final url = Uri.parse('$backendUrl/$currentName');
     final response = await http.get(
       url,
@@ -77,6 +80,8 @@ class GameProvider extends ChangeNotifier {
     String desUrl = '',
     bool lowScore = false,
   }) async {
+    // Send new game data to API/database
+    // then add the response of API to the game state
     final url = Uri.parse('$backendUrl/$currentName');
     http
         .post(
@@ -115,7 +120,7 @@ class GameProvider extends ChangeNotifier {
     int gameIndex = getGameIndex(id);
     _games[gameIndex].isSelected = isSelected;
     notifyListeners();
-    //Update Database
+    //Update API/Database
     final url = Uri.parse('$backendUrl/$currentName');
     http
         .post(
@@ -129,14 +134,14 @@ class GameProvider extends ChangeNotifier {
         .then((response) {});
   }
 
-  Future<void> deleteGame(
-    String id,
-  ) async {
-    // DBHelper.remove('game',id,
-    // );
-    fetchGame();
-    notifyListeners();
-  }
+  // Future<void> deleteGame(
+  //   String id,
+  // ) async {
+  //   // DBHelper.remove('game',id,
+  //   // );
+  //   fetchGame();
+  //   notifyListeners();
+  // }
 
   Future<void> updateGame({
     String currentName = 'update_game',

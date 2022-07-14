@@ -19,7 +19,7 @@ class _GameFormState extends ConsumerState<GameForm> {
   );
   TextEditingController _desUrlController = TextEditingController();
 
-  int _lowScoreInt = 0;
+  bool _lowScoreBool = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -28,13 +28,13 @@ class _GameFormState extends ConsumerState<GameForm> {
     String name,
     String description,
     String desUrl,
-    int lowScore,
+    bool lowScore,
   ) {
     // Save for each field save
     if (name.isEmpty) {
       return;
     }
-    final lowScoreSwitch = lowScore == 0 ? false : true;
+    // final lowScoreSwitch = lowScore == 0 ? false : true;
 
     if (arguments[0] == "form_edit") {
       ref.read(gameProvider).updateGame(
@@ -42,14 +42,14 @@ class _GameFormState extends ConsumerState<GameForm> {
             name: name,
             description: description,
             desUrl: desUrl,
-            lowScore: lowScoreSwitch,
+            lowScore: lowScore,
           );
     } else {
       ref.read(gameProvider).addGame(
             name: name,
             description: description,
             desUrl: desUrl,
-            lowScore: lowScoreSwitch,
+            lowScore: lowScore,
           );
     }
 
@@ -150,18 +150,17 @@ class _GameFormState extends ConsumerState<GameForm> {
                         value: _isLowScore,
                         onChanged: (boolVal) {
                           if (arguments[0] == 'form_edit') {
+                            // Edit game toggle. Changes the state
                             ref.read(gameProvider).toggleLowScore(
                                   id: arguments[1],
                                   isLowScore: _isLowScore,
                                 );
                           } else {
-                            _lowScoreInt = boolVal == false ? 0 : 1;
-                            ref.read(gameProvider).updateLowScore(
-                                // isLowScore: boolVal,
-                                );
-                            print(boolVal);
-                            print(_lowScoreInt);
+                            // Create new game toggle lowScore
+                            ref.read(gameProvider).updateLowScore();
                           }
+                          // Sets int variable in bothe cases
+                          _lowScoreBool = boolVal;
                         },
                         activeTrackColor:
                             Theme.of(context).colorScheme.secondary,
@@ -183,10 +182,11 @@ class _GameFormState extends ConsumerState<GameForm> {
                           _nameController.text,
                           _descriptionController.text,
                           _desUrlController.text,
-                          _lowScoreInt,
+                          _lowScoreBool,
                         );
-                        if (_isLowScore == true) {
-                          // ref.read(gameProvider).updateLowScore();
+                        // Reset lowScore toggle switch back to default if it is a new game
+                        if (_isLowScore == true && arguments[0] != 'form_edit') {
+                          ref.read(gameProvider).updateLowScore();
                         }
                       }
                     },

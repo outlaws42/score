@@ -269,9 +269,11 @@ class PopupDialogWidgets {
                       ref.read(playerProvider).deletePlayer(itemId);
                     } else if (screen == "match") {
                       ref.read(matchProvider).deleteMatch(id: itemId);
-                    } else if (screen == "game") {
-                      ref.read(gameProvider).deleteGame(itemId);
-                    } else {
+                    } 
+                    // else if (screen == "game") {
+                    //   ref.read(gameProvider).deleteGame(itemId);
+                    // } 
+                    else {
                       print("nothing to delete here");
                     }
                   },
