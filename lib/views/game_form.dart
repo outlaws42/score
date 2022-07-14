@@ -126,7 +126,7 @@ class _GameFormState extends ConsumerState<GameForm> {
                   controller: _descriptionController,
                   labelText: "Description",
                   hintText: 'A description of your game (optional)',
-                  maxLength: 200,
+                  maxLength: 500,
                 ),
                 // Description URL
                 FormWidgets.formTextInput(
