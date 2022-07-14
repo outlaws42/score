@@ -33,6 +33,13 @@ class FormWidgets {
           decorationColor: Colors.teal,
         ),
         decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).appBarTheme.foregroundColor!,
+              width: 2.0,
+              style: BorderStyle.solid,
+            ),
+          ),
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Color.fromARGB(255, 43, 83, 91),
@@ -52,8 +59,9 @@ class FormWidgets {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              width: 2.0,
+              color: Theme.of(context).appBarTheme.backgroundColor!,
+              width: 3.0,
+              style: BorderStyle.solid,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -91,8 +99,8 @@ class FormWidgets {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              width: 2.0,
+              color: Theme.of(context).appBarTheme.backgroundColor!,
+              width: 3.0,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -133,8 +141,8 @@ class FormWidgets {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              width: 2.0,
+              color: Theme.of(context).appBarTheme.backgroundColor!,
+              width: 3.0,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),

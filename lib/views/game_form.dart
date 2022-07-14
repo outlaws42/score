@@ -165,7 +165,7 @@ class _GameFormState extends ConsumerState<GameForm> {
                         activeTrackColor:
                             Theme.of(context).colorScheme.secondary,
                         activeColor:
-                            Theme.of(context).colorScheme.primaryContainer,
+                            Theme.of(context).appBarTheme.backgroundColor,
                       ),
                     ],
                   ),
