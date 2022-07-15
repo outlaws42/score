@@ -9,7 +9,7 @@ can create one there. This is required to create a match. Once you have selected
 ## Select players
 
 Tap on this tile to add players to the match. This will take you to the list
-of already created players to select from. If there are no players in the list you can create them there. You have to have at least 2 players to create a match. You can select as many players as you like but some games are logically best played with a certain amount of players. Score doesn't restrict any amount of players base on the game.
+of already created players to select from. If there are no players in the list you can create them there. You have to have at least 2 players to create a match. You can select as many players as you like but some games are logically best played with a certain amount of players. Score doesn't restrict any amount of players based on the game.
 
 ## Submit Match
 

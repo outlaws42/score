@@ -6,16 +6,19 @@ From the menu bar you can add a match and read this help.
 
 ## Match List
 
-The list of matches will be shown here. Each match has a tile in the list. In the "**Match**" column of the tile will display the game name, The players in the match.
+The list of matches will be shown here. Each match has a tile in the list. In the 
 
-In the center of the tile if the match is completed the word **Complete**  will be displayed along with the **winning players name**.
+- **"Match"** column of the tile will display the game name and the players in the match.
 
-The "**Winning Mode**" column will either display "**LS**" (Low Score Wins) or "**HS**" (High Score Wins)
+- **"Winner"**  column will display the winners name if the match is complete. If there is no name in this column the game can be continued until it is set as complete.
+
+- **"Mode"** column will either display "**LS**" (Low Score Wins) or "**HS**" (High Score Wins)
 It will also have the date the match was created.
 
 ### Match Tile
 
-You can interact with the match tile by tapping on the tile, this will go to the match
+- **Tap** - You can interact with the match tile by tapping on the tile, this will go to the match
+- **Long Press** - You can long press the tile to select it if the match is **not** complete. If the tile is selected the background color will change and a delete icon will appear. This will give you the option to delete the match if it is not complete.
 
 ---
 

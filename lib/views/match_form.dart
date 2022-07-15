@@ -21,7 +21,7 @@ class _MatchFormState extends ConsumerState<MatchForm> {
 
   void goToGame() async {
     var dataFromGame = await Get.toNamed(
-      "/games",
+      "/game_select",
       arguments: ['form', ''],
     );
     _game = dataFromGame[0];

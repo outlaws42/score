@@ -14,7 +14,7 @@ import './views/game_form.dart';
 import './views/player_form.dart';
 import './views/auth_screen.dart';
 import './views/tab_bar_screen.dart';
-import './views/game_screen.dart';
+import 'views/game_select_screen.dart';
 import './controllers/init_global_providers.dart';
 
 void main() async {
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
               ),
         getPages: [
           GetPage(name: '/match', page: () => TabBarScreen()),
-          GetPage(name: '/games', page: () => GameScreen()),
+          GetPage(name: '/game_select', page: () => GameSelectScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
           GetPage(name: '/players_select', page: () => PlayersSelectScreen()),
           GetPage(name: '/teams', page: () => TeamScreen()),

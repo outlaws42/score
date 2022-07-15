@@ -6,7 +6,11 @@ From the menu bar you can add a player and read this help.
 
 ## Players List
 
-The list of players will be shown here. Each player has a tile in the list. In the "Name" column of the tile will display the players name. The "Wins" column will display the number of wins the player has accumilated.
+The list of players will be shown here. Each player has a tile in the list.
+
+- **"Name"** column of the tile will display the players name.
+- **Matches** column will display the number matches the player has played.
+- **"Wins"** column will display the number of wins the player has accumilated.
 
 ### Player Tile
 

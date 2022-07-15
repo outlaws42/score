@@ -1,4 +1,4 @@
-# Game Screen
+# Game Select
 
 ## Menu Bar
 
@@ -13,9 +13,7 @@ The list of games will be shown here. Each game has a tile in the list.
 
 ### Game Tile
 
-- **Tap** - tapping on the tile will display a popup at the bottom screen that will
-display the game name, The full description and the date the game was created.
-- **LongPress** - Long pressing the game tile will select the tile indicated by the background color. It will also make visiable an edit icon. If you tap this icon it will take you to the edit form where you can change everthing about the game except the name. These changes will only affect future matches that use this game.
+- **Tap** -  You can interact with the game tile by tapping on the tile, this will select the game for the match.
 
 ---
 
