@@ -169,7 +169,7 @@ class PopupDialogWidgets {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                    color: Theme.of(context).appBarTheme.backgroundColor!,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(10.0),

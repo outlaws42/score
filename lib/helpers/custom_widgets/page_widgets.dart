@@ -818,7 +818,7 @@ class PageWidgets {
                         );
                   },
                   activeTrackColor: Theme.of(context).colorScheme.secondary,
-                  activeColor: Theme.of(context).colorScheme.primaryContainer,
+                  activeColor: Theme.of(context).appBarTheme.backgroundColor,
                 ),
                 Text(
                   '$_name',

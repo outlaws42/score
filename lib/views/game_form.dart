@@ -119,7 +119,7 @@ class _GameFormState extends ConsumerState<GameForm> {
                     hintText: "The name of your game (Required)",
                     maxLength: 20,
                     blankFieldMessage: "Please input a name for your game",
-                    enable: arguments[0] == 'form_edit' ? false : true),
+                    enable: arguments[0] == 'form_edit' ? false : true,),
                 // Description
                 FormWidgets.formTextInputMulti(
                   context: context,

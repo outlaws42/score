@@ -16,7 +16,7 @@ class ThemeConfig {
       primary: Colors.black87,
       onPrimary: Colors.black38,
       primaryContainer: Colors.black54,
-      secondary: Colors.black,
+      secondary: Color.fromARGB(255, 0, 0, 0),
       secondaryContainer: Colors.black45,
     ),
     cardTheme: CardTheme(
@@ -116,7 +116,7 @@ class ThemeConfig {
     colorScheme: ColorScheme.dark(
       primary: Colors.white70,
       onPrimary: Colors.black38,
-      primaryContainer: Colors.blue,
+      primaryContainer: Color.fromARGB(255, 219, 157, 113),
       secondary: Colors.black,
       secondaryContainer: Colors.white30,
     ),

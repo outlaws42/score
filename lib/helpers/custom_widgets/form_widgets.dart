@@ -33,21 +33,22 @@ class FormWidgets {
           decorationColor: Colors.teal,
         ),
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).appBarTheme.foregroundColor!,
-              width: 2.0,
-              style: BorderStyle.solid,
-            ),
-          ),
+          // enabledBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Theme.of(context).appBarTheme.foregroundColor!,
+          //     width: 2.0,
+          //     style: BorderStyle.solid,
+          //   ),
+          // ),
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Color.fromARGB(255, 43, 83, 91),
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               width: 2.0,
               style: BorderStyle.solid,
             ),
           ),
           fillColor: Colors.grey,
+          // If form_edit mode enable will be false.
           filled: enable == false ? true : false,
           labelText: labelText,
           labelStyle: TextStyle(
