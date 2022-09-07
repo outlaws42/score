@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/helpers/function_helpers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
-import '../controllers/match_provider.dart';
 
 class Match extends StatelessWidget {
   final String matchId;
