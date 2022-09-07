@@ -109,8 +109,8 @@ class MatchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addMatchHttp({
-      String currentName = 'add_match',
+  Future<void> addMatchHttp(
+      {String currentName = 'add_match',
       required String gameName,
       required List players}) async {
     final url = Uri.parse('$backendUrl/$currentName');
@@ -118,6 +118,22 @@ class MatchProvider extends ChangeNotifier {
       url,
       headers: {'x-access-token': authToken},
       body: jsonEncode({'game': gameName, 'players': players}),
+    );
+    await fetchMatch();
+    notifyListeners();
+  }
+
+  Future<void> copyMatch({
+    String currentName = 'copy_match',
+    required String id,
+  }) async {
+    // Sends a post request to the API with id
+    // API will return duplicate game ready to play again
+    final url = Uri.parse('$backendUrl/$currentName');
+    await http.post(
+      url,
+      headers: {'x-access-token': authToken},
+      body: jsonEncode({'_id': id}),
     );
     await fetchMatch();
     notifyListeners();
@@ -235,20 +251,19 @@ class MatchProvider extends ChangeNotifier {
     final url = Uri.parse('$backendUrl/$currentName');
     http
         .post(
-      url,
-      headers: {'x-access-token': authToken},
-      body: jsonEncode({
-        '_id': id,
-        'playerId': playerId,
-        'number': number,
-        'toggle': toggle,
-        'text': text,
-        'text2': text2,
-        'type': type
-      }),
-    )
-        .then((response) {
-    });
+          url,
+          headers: {'x-access-token': authToken},
+          body: jsonEncode({
+            '_id': id,
+            'playerId': playerId,
+            'number': number,
+            'toggle': toggle,
+            'text': text,
+            'text2': text2,
+            'type': type
+          }),
+        )
+        .then((response) {});
     notifyListeners();
   }
 }

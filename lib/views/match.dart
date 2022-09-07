@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/helpers/function_helpers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
+import '../controllers/match_provider.dart';
 
 class Match extends StatelessWidget {
   final String matchId;
@@ -40,7 +41,7 @@ class Match extends StatelessWidget {
                   index: _index,
                 );
                 _scoreCheck = FunctionHelper.checkWinningScoreDuplicate(
-                  ref:ref,
+                  ref: ref,
                   context: context,
                   index: _index,
                   winScore: _winScore,
@@ -53,7 +54,7 @@ class Match extends StatelessWidget {
                           ? null
                           : () {
                               FunctionHelper.checkWinner(
-                                ref:ref,
+                                ref: ref,
                                 context: context,
                                 lowScore: gameData.match[_index].lowScore,
                                 matchId: matchId,
@@ -69,9 +70,20 @@ class Match extends StatelessWidget {
                     Text('$_gameName',
                         style: Theme.of(context).textTheme.headline3),
 
-                    // Low Score/High Score
                     Spacer(),
-
+                    // Play again button
+                    TextButton(
+                      onPressed: _isComplete == false
+                          ? null
+                          : () {
+                              gameData.copyMatch(id: matchId);
+                            },
+                      child: Icon(Icons.replay),
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.white,
+                      ),
+                    ),
+                    // Low Score/High Score
                     _lowScore == true
                         ? PageWidgets().circleOulineContainer(
                             context: context,

@@ -107,8 +107,7 @@ class MatchCurrentScreenList extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: _matches[_index].players.length,
                 itemBuilder: (ctx, index) {
-                  return
-                  PlayerTile(
+                  return PlayerTile(
                     player: _matches[_index].players[index].playerName,
                     matchId: matchId[0],
                     playerIndex: index,
