@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:score/controllers/providers.dart';
 import 'package:score/helpers/function_helpers.dart';
 import '../helpers/custom_widgets/page_widgets.dart';
+import '../helpers/custom_widgets/popup_dialog_widgets.dart';
 
 class Match extends StatelessWidget {
   final String matchId;
@@ -75,7 +76,9 @@ class Match extends StatelessWidget {
                       onPressed: _isComplete == false
                           ? null
                           : () {
-                              gameData.copyMatch(id: matchId);
+                              PopupDialogWidgets.copyMatchDialog(
+                                  ref, context, matchId);
+                              // gameData.copyMatch(id: matchId);
                             },
                       child: Icon(Icons.replay),
                       style: ElevatedButton.styleFrom(

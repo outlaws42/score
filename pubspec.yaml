@@ -86,6 +86,7 @@ flutter:
     - assets/help_player_form.md
     - assets/help_player.md
     - assets/help_settings.md
+    - assets/images/done.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

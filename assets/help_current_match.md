@@ -2,7 +2,7 @@
 
 ## Match Bar
 
-- **Check mark** = this is how you indicate that a match is complete. This will be greyed out and can't be pressed if the match is already complete or if the winning score is a tie. There would be no clear winner so it is disabled.
+- **Check mark** ![checkmark](assets/images/done.png) = this is how you indicate that a match is complete. This will be greyed out and can't be pressed if the match is already complete or if the winning score is a tie. There would be no clear winner so it is disabled.
 - **Game Name** = The name of the game you are playing.
 - **Type of Game** = This will either be "LS" (Low Score wins) or "HS" (High Score wins). This is established at game creation. Most games will be "HS" but some like Uno would be an example of a "LS" game.
 

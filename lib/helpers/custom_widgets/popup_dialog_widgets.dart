@@ -269,15 +269,73 @@ class PopupDialogWidgets {
                       ref.read(playerProvider).deletePlayer(itemId);
                     } else if (screen == "match") {
                       ref.read(matchProvider).deleteMatch(id: itemId);
-                    } 
+                    }
                     // else if (screen == "game") {
                     //   ref.read(gameProvider).deleteGame(itemId);
-                    // } 
+                    // }
                     else {
                       print("nothing to delete here");
                     }
                   },
                   child: Text("Delete"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static copyMatchDialog(
+    WidgetRef ref,
+    BuildContext context,
+    String itemId,
+  ) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "Question",
+      backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
+      content: Column(
+        children: [
+          Icon(
+            Icons.replay_circle_filled_sharp,
+            color: Theme.of(context).appBarTheme.backgroundColor,
+            size: 50,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                " Do you want to rematch?",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text("Cancel"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).appBarTheme.backgroundColor,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Get.back();
+                    ref.read(matchProvider).copyMatch(id: itemId);
+                    Get.toNamed('/match');
+                  },
+                  child: Text("Ok"),
                   style: ElevatedButton.styleFrom(
                     primary: Theme.of(context).appBarTheme.backgroundColor,
                     onPrimary: Colors.white,
