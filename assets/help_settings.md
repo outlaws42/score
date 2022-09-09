@@ -1,8 +1,8 @@
-# Settings
+# Settings ![settings](resource:assets/images/settings_black_24.png)
 
 ## Menu Bar
 
-From the menu bar you can read this help.
+From the menu bar you can read this help. ![help](resource:assets/images/help_black_24.png)
 
 ## Display Settings
 

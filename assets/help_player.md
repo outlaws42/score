@@ -1,8 +1,8 @@
-# Player Screen
+# Player Screen ![player](resource:assets/images/people_black_24.png)
 
 ## Menu Bar
 
-From the menu bar you can add a player and read this help.
+From the menu bar you can add a player ![add](resource:assets/images/person_add_black_24.png) and read this help. ![help](resource:assets/images/help_black_24.png)
 
 ## Players List
 

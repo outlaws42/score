@@ -86,7 +86,18 @@ flutter:
     - assets/help_player_form.md
     - assets/help_player.md
     - assets/help_settings.md
-    - assets/images/done.png
+    - assets/images/add_black_24.png
+    - assets/images/delete_forever_black_24.png
+    - assets/images/done_black_24.png
+    - assets/images/edit_black_24.png
+    - assets/images/games_black_24.png
+    - assets/images/help_black_24.png
+    - assets/images/palette_black_24.png
+    - assets/images/people_black_24.png
+    - assets/images/person_add_black_24.png
+    - assets/images/replay_black_24.png
+    - assets/images/settings_black_24.png
+    - assets/images/sports_kabaddi_black_24.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

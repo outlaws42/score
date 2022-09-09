@@ -1,12 +1,12 @@
-# Match Screen
+# Match Screen  ![matches](resource:assets/images/sports_kabaddi_black_24.png)
 
 ## Menu Bar
 
-From the menu bar you can add a match and read this help.
+From the menu bar you can add a match ![add](resource:assets/images/add_black_24.png) and read this help. ![help](resource:assets/images/help_black_24.png)
 
 ## Match List
 
-The list of matches will be shown here. Each match has a tile in the list. In the 
+The list of matches will be shown here. Each match has a tile in the list.
 
 - **"Match"** column of the tile will display the game name and the players in the match.
 
@@ -18,7 +18,7 @@ It will also have the date the match was created.
 ### Match Tile
 
 - **Tap** - You can interact with the match tile by tapping on the tile, this will go to the match
-- **Long Press** - You can long press the tile to select it if the match is **not** complete. If the tile is selected the background color will change and a delete icon will appear. This will give you the option to delete the match if it is not complete.
+- **Long Press** - You can long press the tile to select it if the match is **not** complete. If the tile is selected the background color will change and a delete icon ![delete](resource:assets/images/delete_forever_black_24.png) will appear. This will give you the option to delete the match if it is not complete.
 
 ---
 
