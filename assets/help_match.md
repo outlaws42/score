@@ -18,7 +18,7 @@ It will also have the date the match was created.
 ### Match Tile
 
 - **Tap** - You can interact with the match tile by tapping on the tile, this will go to the match
-- **Long Press** - You can long press the tile to select it if the match is **not** complete. If the tile is selected the background color will change and a delete icon ![delete](resource:assets/images/delete_forever_black_24.png) will appear. This will give you the option to delete the match if it is not complete.
+- **Long Press** - You can long press the tile to select it if the match is **not** complete. If the tile is selected the background color will change and a delete icon ![delete](resource:assets/images/delete_forever_black_24.png) will appear. This will give you the option to delete the match if it is not complete. If the match is complete and you long press the tile the background will change and the rematch icon ![rematch](resource:assets/images/replay_black_24.png)  will apear.
 
 ---
 

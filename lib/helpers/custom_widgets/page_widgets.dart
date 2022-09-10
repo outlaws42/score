@@ -48,21 +48,6 @@ class PageWidgets {
     );
   }
 
-  // Widget header(
-  //     {required BuildContext context,
-  //     required String column1,
-  //     required String column2}) {
-  //   return Card(
-  //     elevation: 6,
-  //     color: Theme.of(context).appBarTheme.backgroundColor,
-  //     child: ListTile(
-  //       title: Text('$column1', style: Theme.of(context).textTheme.headline3),
-  //       trailing:
-  //           Text('$column2', style: Theme.of(context).textTheme.headline3),
-  //     ),
-  //   );
-  // }
-
   Widget header2({
     required BuildContext context,
     required String column1,
@@ -417,7 +402,7 @@ class PageWidgets {
         ),
         child: Card(
           elevation: 3,
-          color: _isSelected == false
+          color: _isSelected == false // change background color if selected
               ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
@@ -425,25 +410,11 @@ class PageWidgets {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // if selected show edit button
                 _isSelected == true
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // IconButton(
-                          //   onPressed: () {
-                          //     PopupDialogWidgets.warnDialog(
-                          //       ref,
-                          //       context,
-                          //       _game,
-                          //       _id,
-                          //       "game",
-                          //     );
-                          //   },
-                          //   icon: Icon(Icons.delete_forever),
-                          //   iconSize: 30,
-                          //   color:
-                          //       Theme.of(context).appBarTheme.foregroundColor,
-                          // ),
                           IconButton(
                             onPressed: () {
                               ref.read(gameProvider).toggleSelected(
@@ -457,7 +428,6 @@ class PageWidgets {
                                 _description,
                                 _desUrl,
                                 _lowScore,
-                                // _freePlay
                               ]);
                             },
                             icon: Icon(Icons.edit),
@@ -544,12 +514,10 @@ class PageWidgets {
         ]);
       },
       onLongPress: () {
-        if (_isComplete == false) {
-          ref.read(matchProvider).updateSelected(
-                matchId: _id,
-                isSelected: _isSelected,
-              );
-        }
+        ref.read(matchProvider).updateSelected(
+              matchId: _id,
+              isSelected: _isSelected,
+            );
       },
       child: Container(
         padding: const EdgeInsets.all(2),
@@ -558,7 +526,7 @@ class PageWidgets {
         ),
         child: Card(
           elevation: 3,
-          color: _isSelected == false
+          color: _isSelected == false // change background color if selected
               ? Theme.of(context).appBarTheme.foregroundColor
               : Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
@@ -567,31 +535,45 @@ class PageWidgets {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // if tile is selected add a button
                 _isSelected == true
                     ? Container(
                         width: 55,
                         child: Column(
                           children: [
-                            // Container(
-                            //   height: 75,
-                            //   width: 55,
-                            IconButton(
-                              // label: Text('Delete'),
-                              icon: Icon(
-                                Icons.delete_forever,
-                                color: Colors.red,
-                                size: 40,
-                              ),
-                              onPressed: () {
-                                PopupDialogWidgets.warnDialog(
-                                  ref,
-                                  context,
-                                  _gameName,
-                                  _id,
-                                  'match',
-                                );
-                              },
-                            ),
+                            // if not complete show delete button
+                            _isComplete == false
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.delete_forever,
+                                      color: Colors.red,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      PopupDialogWidgets.warnDialog(
+                                        ref,
+                                        context,
+                                        _gameName,
+                                        _id,
+                                        'match',
+                                      );
+                                    },
+                                  )
+                                // if complete show rematch button
+                                : IconButton(
+                                    icon: Icon(
+                                      Icons.replay,
+                                      color: Colors.green,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      PopupDialogWidgets.copyMatchDialog(
+                                        ref,
+                                        context,
+                                        _id,
+                                      );
+                                    },
+                                  )
                             // ),
                           ],
                         ),
@@ -600,7 +582,6 @@ class PageWidgets {
                 // 1st column (Game and players)
                 Container(
                   width: widthAdj,
-                  // decoration: BoxDecoration(border: Border.all()),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -624,14 +605,9 @@ class PageWidgets {
                     ],
                   ),
                 ),
-                // Spacer(
-                //   flex: 1,
-                // ),
                 // 2nd column (Winner and complete)
                 Container(
                   width: widthAdj,
-                  // decoration: BoxDecoration(border: Border.all()),
-                  // mainAxisAlignment: MainAxisAlignment.start,
                   child: _isComplete == true
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -642,16 +618,6 @@ class PageWidgets {
                               child: PageWidgets().squareContainer(
                                   context: context, content: '$_winner'),
                             ),
-                            // Container(
-                            //   height: 35,
-                            //   width: 80,
-                            //   child: Text(
-                            //     'Complete',
-                            //     style: _isSelected == true
-                            //         ? Theme.of(context).textTheme.subtitle2
-                            //         : Theme.of(context).textTheme.subtitle1,
-                            //   ),
-                            // )
                           ],
                         )
                       : Container(
@@ -660,13 +626,9 @@ class PageWidgets {
                         ),
                   // ],
                 ),
-                // Spacer(
-                //   flex: 1,
-                // ),
                 // 3rd Column
                 Container(
                   width: widthAdj,
-                  // decoration: BoxDecoration(border: Border.all()),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -734,43 +696,6 @@ class PageWidgets {
       endIndent: 0,
     );
   }
-
-  // static Widget settingsItemIcon({
-  //   required BuildContext context,
-  //   required String title,
-  //   required String action,
-  //   Icon icon = const Icon(Icons.file_upload),
-  //   String subtitle = "",
-  // }) {
-  //   return ListTile(
-  //     title: Text(
-  //       title,
-  //       style: Theme.of(context).textTheme.headline6,
-  //     ),
-  //     subtitle: Text(
-  //       subtitle,
-  //       style: Theme.of(context).textTheme.bodyText1,
-  //     ),
-  //     trailing: icon,
-  //     onTap: () async {
-  //       if (action == "export") {
-  //         String url = await FunctionHelper().backupDb(
-  //           context: context,
-  //         );
-  //         BottomSheetWidgets().dbBackupSheet(context: context, url: url);
-  //       } else if (action == "share") {
-  //         FunctionHelper().shareDb(
-  //           context: context,
-  //         );
-  //       } else if (action == "import") {
-  //         PopupDialogWidgets.confirmBackupDialog(
-  //           context: context,
-  //           dbFile: "Test",
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
 
   Widget selectPlayer({
     required WidgetRef ref,

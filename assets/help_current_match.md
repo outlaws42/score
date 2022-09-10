@@ -2,9 +2,9 @@
 
 ## Match Bar
 
-- **Check mark** ![checkmark](resource:assets/images/done_FILL0_wght400_GRAD0_opsz24.png) = this is how you indicate that a match is complete. This will be greyed out and can't be pressed if the match is already complete or if the winning score is a tie. There would be no clear winner so it is disabled.
+- **Check mark** ![checkmark](resource:assets/images/done_black_24.png) = this is how you indicate that a match is complete. This will be greyed out and can't be pressed if the match is already complete or if the winning score is a tie. There would be no clear winner so it is disabled.
 - **Game Name** = The name of the game you are playing.
-- **Rematch** ![rematch](resource:assets/images/replay_FILL0_wght400_GRAD0_opsz24.png) = This will create a new match with the same game and players to play again
+- **Rematch** ![rematch](resource:assets/images/replay_black_24.png) = This will create a new match with the same game and players to play again
 - **Type of Game** = This will either be "LS" (Low Score wins) or "HS" (High Score wins). This is established at game creation. Most games will be "HS" but some like Uno would be an example of a "LS" game.
 
 ## Player Tile
@@ -21,7 +21,7 @@ There is multiple ways to add or subtract from the score in the player tile.
 - Long pressing the **+** or **-** will bring up a popup window.
 You can type in an amount or tap one of the buttons with pre-defined amounts.
 
-### Change Tile Color ![palette](resource:assets/images/palette_FILL0_wght400_GRAD0_opsz24.png)
+### Change Tile Color ![palette](resource:assets/images/palette_black_24.png)
 
 The top of the player tile there is a color pallet icon.
 Tap and a popup will apear with color circles.
