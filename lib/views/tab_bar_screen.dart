@@ -47,6 +47,12 @@ class _TabBarScreenState extends State<TabBarScreen> {
             itemBuilder: (BuildContext context) => <PopupMenuItem>[
               MenuWidgets.menuItem(
                 context: context,
+                menuTitle: "Spinner Form",
+                icon: Icon(Icons.circle_rounded),
+                value: 4,
+              ),
+              MenuWidgets.menuItem(
+                context: context,
                 menuTitle: "Logout",
                 icon: Icon(Icons.logout),
                 value: 15,
@@ -127,9 +133,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         onTap: _selectPage,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.sports_kabaddi
-            ),
+            icon: Icon(Icons.sports_kabaddi),
             label: 'Matches',
             // activeIcon: Icon(Icons.abc),
           ),

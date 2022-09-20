@@ -7,7 +7,7 @@ import './controllers/providers.dart';
 import './helpers/theme_config.dart';
 import './views/settings.dart';
 import './views/player_select_screen.dart';
-import './views/team_screen.dart';
+import './views/spinner_form.dart';
 import './views/match_current_screen_list.dart';
 import './views/match_form.dart';
 import './views/game_form.dart';
@@ -22,15 +22,14 @@ void main() async {
   await initGlobalProviders();
   // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-
   // Temp for dev to overide signed certs. Remove for production
   HttpOverrides.global = new DevHttpOverrides();
 
   runApp(
     ProviderScope(
-    //   overrides: [
-    //   sharedPreferencesProvider.overrideWithValue(prefs),
-    // ],
+      //   overrides: [
+      //   sharedPreferencesProvider.overrideWithValue(prefs),
+      // ],
       child: MyApp(),
     ),
   );
@@ -48,14 +47,11 @@ class DevHttpOverrides extends HttpOverrides {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(
-    BuildContext context
-  ) {
-    
+  Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
       // ref.watch(appThemeProvider).intialize();
       final _authSwitch = ref.watch(authProvider).isAuth;
-      if(_authSwitch == true){
+      if (_authSwitch == true) {
         ref.read(playerProvider).fetchPlayer();
       }
 
@@ -83,7 +79,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/game_select', page: () => GameSelectScreen()),
           GetPage(name: '/match_current', page: () => MatchCurrentScreenList()),
           GetPage(name: '/players_select', page: () => PlayersSelectScreen()),
-          GetPage(name: '/teams', page: () => TeamScreen()),
+          GetPage(name: '/spinner_form', page: () => SpinnerForm()),
           GetPage(name: '/match_form', page: () => MatchForm()),
           GetPage(name: '/game_form', page: () => GameForm()),
           GetPage(name: '/player_form', page: () => PlayerForm()),
