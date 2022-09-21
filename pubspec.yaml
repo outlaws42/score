@@ -49,10 +49,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_riverpod: ^1.0.1
-  # For creating spinners
-  flutter_fortune_wheel: ^1.2.0
-  # For creating dynamic forms
-  snippet_coder_utils: ^1.0.12
+
 
 dev_dependencies:
   flutter_test:
