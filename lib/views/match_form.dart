@@ -25,7 +25,7 @@ class _MatchFormState extends ConsumerState<MatchForm> {
       arguments: ['form', ''],
     );
     _game = dataFromGame[0];
-     _gameid = dataFromGame[1];
+    _gameid = dataFromGame[1];
     _lowScore = dataFromGame[2];
     setState(() {});
   }
@@ -38,6 +38,7 @@ class _MatchFormState extends ConsumerState<MatchForm> {
     for (var item in dataFromPlayer) {
       _gamePlayers.add(item);
     }
+    print(_gamePlayers);
     setState(() {});
   }
 
@@ -45,25 +46,23 @@ class _MatchFormState extends ConsumerState<MatchForm> {
     required WidgetRef ref,
     required String gameName,
     required String gameId,
-    required List<dynamic> players, 
+    required List<dynamic> players,
     bool lowScore = false,
   }) async {
-    await ref
-        .read(matchProvider)
-        .addMatchHttp(
+    await ref.read(matchProvider).addMatchHttp(
           gameName: gameName,
           players: players,
         );
-            int _date = ref.read(matchProvider).match.length > 0
-                ? ref.read(matchProvider).match.last.dateTime
-                : 1;
-            var _index = ref
-                .read(matchProvider)
-                .match
-                .indexWhere((match) => match.dateTime == _date);
+    int _date = ref.read(matchProvider).match.length > 0
+        ? ref.read(matchProvider).match.last.dateTime
+        : 1;
+    var _index = ref
+        .read(matchProvider)
+        .match
+        .indexWhere((match) => match.dateTime == _date);
 
-            String _id = ref.read(matchProvider).match[_index].id;
-            Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
+    String _id = ref.read(matchProvider).match[_index].id;
+    Get.offAllNamed("/match_current", arguments: [_id, "match_form"]);
   }
 
   void _warnDialog() {
@@ -160,7 +159,8 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Card(
-                              color: Theme.of(context).appBarTheme.foregroundColor,
+                              color:
+                                  Theme.of(context).appBarTheme.foregroundColor,
                               elevation: 4,
                               child: ListTile(
                                 title: Text('Selected Players',
@@ -168,7 +168,7 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                                         Theme.of(context).textTheme.headline4),
                                 trailing: Icon(
                                   Icons.person_add,
-                                  color:Theme.of(context).colorScheme.primary,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 onTap: () {
                                   _gamePlayers = [];
@@ -185,6 +185,23 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                               itemCount: _gamePlayers.length,
                               itemBuilder: (ctx, index) {
                                 return ListTile(
+                                  leading: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 10, color: Colors.blue),
+                                      color: Colors.amber.shade200,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(Icons.circle_sharp),
+                                      iconSize: 40,
+                                      color:
+                                          Color(_gamePlayers[index]['color']),
+                                      onPressed: () {
+                                        // Respond to icon toggle
+                                      },
+                                    ),
+                                  ),
                                   title:
                                       Text(_gamePlayers[index]['player_name']),
                                 );
@@ -203,9 +220,8 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate() &&
-                              _game != "Select Game" &&
-                              _gamePlayers.length >= 2
-                          ) {
+                          _game != "Select Game" &&
+                          _gamePlayers.length >= 2) {
                         save(
                           ref: ref,
                           gameName: _game,
