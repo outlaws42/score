@@ -138,7 +138,7 @@ class FunctionHelper {
     // Create integer random color
     final _random = Random();
     final randomColor = Color.fromARGB(
-      _random.nextInt(256),
+      255,
       _random.nextInt(256),
       _random.nextInt(256),
       _random.nextInt(256),
@@ -195,7 +195,7 @@ class FunctionHelper {
     Uri _url = Uri.parse(sourcCodeUrl);
     if (!await launchUrl(
       _url,
-      mode: LaunchMode.externalApplication, 
+      mode: LaunchMode.externalApplication,
     )) throw 'Could not launch $_url';
   }
 
@@ -203,7 +203,7 @@ class FunctionHelper {
     Uri _url = Uri.parse(url);
     if (!await launchUrl(
       _url,
-      mode: LaunchMode.externalApplication, 
+      mode: LaunchMode.externalApplication,
     )) throw 'Could not launch $_url';
   }
 }

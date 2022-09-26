@@ -185,25 +185,38 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                               itemCount: _gamePlayers.length,
                               itemBuilder: (ctx, index) {
                                 return ListTile(
-                                  leading: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 10, color: Colors.blue),
-                                      color: Colors.amber.shade200,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: IconButton(
-                                      icon: Icon(Icons.circle_sharp),
-                                      iconSize: 40,
-                                      color:
-                                          Color(_gamePlayers[index]['color']),
-                                      onPressed: () {
-                                        // Respond to icon toggle
-                                      },
+                                  leading: Material(
+                                    type: MaterialType.transparency,
+                                    child: Ink(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        // set the border
+                                        border: Border.all(
+                                            width: 2, color: Colors.black),
+                                        // border radius
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        // background color
+                                        color:
+                                            Color(_gamePlayers[index]['color']),
+                                      ),
+                                      child: InkWell(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        onTap: () {
+                                          print("Hello");
+                                        },
+                                      ),
                                     ),
                                   ),
-                                  title:
-                                      Text(_gamePlayers[index]['player_name']),
+                                  title: Text(
+                                    _gamePlayers[index]['player_name'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 );
                               },
                               physics: const BouncingScrollPhysics(
