@@ -138,10 +138,10 @@ class FunctionHelper {
     // Create integer random color
     final _random = Random();
     final randomColor = Color.fromARGB(
-      255,
-      _random.nextInt(256),
-      _random.nextInt(256),
-      _random.nextInt(256),
+      255, // a
+      _random.nextInt(256), // r
+      _random.nextInt(256), // g
+      _random.nextInt(256), // b
     );
     return randomColor;
   }

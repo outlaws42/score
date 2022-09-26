@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
@@ -82,6 +83,27 @@ class _MatchFormState extends ConsumerState<MatchForm> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _colorDialog({
+    required BuildContext context,
+    players,
+    playerIndex,
+    playerColor,
+  }) {
+    Get.defaultDialog(
+      radius: 10.0,
+      title: "Select Color",
+      content: BlockPicker(
+        pickerColor: Color(playerColor).withOpacity(1),
+        onColorChanged: (color) {
+          setState(() {
+            players[playerIndex]['color'] = color.value;
+          });
+          Get.back();
+        },
       ),
     );
   }
@@ -205,7 +227,12 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                                         borderRadius:
                                             BorderRadius.circular(100.0),
                                         onTap: () {
-                                          print("Hello");
+                                          _colorDialog(
+                                              context: context,
+                                              playerColor: _gamePlayers[index]
+                                                  ['color'],
+                                              playerIndex: index,
+                                              players: _gamePlayers);
                                         },
                                       ),
                                     ),
