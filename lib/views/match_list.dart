@@ -36,11 +36,10 @@ class _MatchListState extends ConsumerState<MatchList> {
                 : Column(
                     children: [
                       PageWidgets().header2(
-                        context: context,
-                        column1: 'Match',
-                        column2: 'Mode',
-                        column3: 'Winner'
-                      ),
+                          context: context,
+                          column1: 'Match',
+                          column2: 'Mode',
+                          column3: 'Winner'),
                       Expanded(
                         child: RefreshIndicator(
                           child: ListView.builder(
@@ -48,7 +47,7 @@ class _MatchListState extends ConsumerState<MatchList> {
                             itemBuilder: (ctx, index) {
                               var _players = [];
                               for (var i in _match[index].players)
-                                _players.add(i.playerName);
+                                _players.add(i);
 
                               return PageWidgets().listItemMatch(
                                   ref: ref,

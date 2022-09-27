@@ -21,7 +21,7 @@ void main() async {
   await initGlobalProviders();
   // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  // Temp for dev to overide signed certs. Remove for production
+  // Temp for dev to override signed certs. Remove for production
   HttpOverrides.global = new DevHttpOverrides();
 
   runApp(
@@ -35,7 +35,7 @@ void main() async {
 }
 
 class DevHttpOverrides extends HttpOverrides {
-  // Temp for dev to overife signed certs. Remove fo production
+  // Temp for dev to override signed certs. Remove fo production
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
-      // ref.watch(appThemeProvider).intialize();
+      // ref.watch(appThemeProvider).initialize();
       final _authSwitch = ref.watch(authProvider).isAuth;
       if (_authSwitch == true) {
         ref.read(playerProvider).fetchPlayer();

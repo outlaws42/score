@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import '../helpers/screen.dart';
 import '../controllers/providers.dart';
 import '../helpers.dart';
 
@@ -110,6 +111,9 @@ class _MatchFormState extends ConsumerState<MatchForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(Screen.height(context));
+    double boxHeight = (Screen.height(context) / 2) - 20.0;
+    print(boxHeight);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -200,8 +204,9 @@ class _MatchFormState extends ConsumerState<MatchForm> {
                               ),
                             ),
                           ),
+                          // Selected Players and Tile Colors
                           SizedBox(
-                            height: 250,
+                            height: boxHeight,
                             child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: _gamePlayers.length,

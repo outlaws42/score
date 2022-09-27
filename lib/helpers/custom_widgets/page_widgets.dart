@@ -596,11 +596,20 @@ class PageWidgets {
                         ),
                       ),
                       for (var player in players)
-                        Text(
-                          '$player',
-                          style: _isSelected == true
-                              ? Theme.of(context).textTheme.subtitle2
-                              : Theme.of(context).textTheme.subtitle1,
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              color: Color(player.color),
+                              size: 15.0,
+                            ),
+                            Text(
+                              '${player.playerName}',
+                              style: _isSelected == true
+                                  ? Theme.of(context).textTheme.subtitle2
+                                  : Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ],
                         ),
                     ],
                   ),
